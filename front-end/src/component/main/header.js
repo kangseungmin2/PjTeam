@@ -19,10 +19,10 @@ function BasicExample() {
               <NavDropdown.Item href="/allAccount">
                 전체계좌조회
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">잔액조회</NavDropdown.Item>
+              <NavDropdown.Item href="/balanceList">잔액조회</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.3">비밀번호변경</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">계좌해지</NavDropdown.Item>
+              <NavDropdown.Item href="/passwordModify">비밀번호변경</NavDropdown.Item>
+              <NavDropdown.Item href="/deleteAccount">계좌해지</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="대출" id="basic-nav-dropdown">
               <NavDropdown.Item href="/loanList">대출상품</NavDropdown.Item>
