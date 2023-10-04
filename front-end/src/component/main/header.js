@@ -2,29 +2,29 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-
+import '../../resource/css/login.css'; 
 function BasicExample() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" style={style}>
       <Container>
-        <Navbar.Brand href="/main">우리은행</Navbar.Brand>
+        <Navbar.Brand href="/main" style={style}>우리은행</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/main">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="계좌" id="basic-nav-dropdown">
+            <Nav.Link href="/main" style={style}>Home</Nav.Link>
+            <Nav.Link href="#link" style={style}>Link</Nav.Link>
+            <NavDropdown title="계좌" id="basic-nav-dropdown" style={{color:"white"}}>
               <NavDropdown.Item href="/openAccount">계좌개설</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/allAccount">
                 전체계좌조회
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">잔액조회</NavDropdown.Item>
+              <NavDropdown.Item href="/balanceList">잔액조회</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.3">비밀번호변경</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">계좌해지</NavDropdown.Item>
+              <NavDropdown.Item href="/passwordModify">비밀번호변경</NavDropdown.Item>
+              <NavDropdown.Item href="/deleteAccount">계좌해지</NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="대출" id="basic-nav-dropdown">
+            <NavDropdown title="대출" id="basic-nav-dropdown" style={style}>
               <NavDropdown.Item href="/loanList">대출상품</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 대출신청/조회
@@ -34,7 +34,7 @@ function BasicExample() {
                 이자조회/납부
               </NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="예/적금" id="basic-nav-dropdown">
+            <NavDropdown title="예/적금" id="basic-nav-dropdown" style={style}>
               <NavDropdown.Item href="/depositList">예/적금 조회</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 예/적금 신규
@@ -46,7 +46,7 @@ function BasicExample() {
                 계좌관리
               </NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="이체" id="basic-nav-dropdown">
+            <NavDropdown title="이체" id="basic-nav-dropdown" style={style}>
               <NavDropdown.Item href="#action/3.1">1건이체</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 다건이체
@@ -62,7 +62,7 @@ function BasicExample() {
                 자동이체 해지
               </NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="펀드" id="basic-nav-dropdown">
+            <NavDropdown title="펀드" id="basic-nav-dropdown" style={style}>
               <NavDropdown.Item href="#action/3.1">펀드 계좌개설</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 펀드상품
@@ -73,9 +73,9 @@ function BasicExample() {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Nav>
-            <Nav.Link href="#deets">회원가입</Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
+          <Nav >
+            <Nav.Link href="/join" style={style}>회원가입</Nav.Link>
+            <Nav.Link eventKey={2} href="/login" style={style}>
               로그인
             </Nav.Link>
           </Nav>
@@ -84,5 +84,11 @@ function BasicExample() {
     </Navbar>
   );
 }
-
+const style={
+  backgroundColor:'#46B8FF',
+  color:'white'
+}
+const style2={
+  Color:'white'
+}
 export default BasicExample;

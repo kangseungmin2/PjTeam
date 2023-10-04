@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import imgLogo from "../../resource/accountList.png"
+import imgLogo from "../../resource/accountDelete.JPG"
 
-class allAccount extends Component{
+class deleteAccount extends Component{
     render(){
         return(
             <div>
@@ -10,4 +10,4 @@ class allAccount extends Component{
         );
     }
 }
-export default allAccount;
+export default deleteAccount;
