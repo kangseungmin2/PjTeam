@@ -5,6 +5,7 @@ class balanceList extends Component{
     render(){
         return(
             <div>
+                
                 <img src={imgLogo}></img>
             </div>
         );
