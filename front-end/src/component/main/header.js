@@ -12,8 +12,8 @@ function BasicExample() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/main" style={style}>Home</Nav.Link>
-            <Nav.Link href="#link" style={style}>Link</Nav.Link>
-            <NavDropdown title="계좌" id="basic-nav-dropdown" style={{color:"white"}}>
+            <Nav.Link href="#link" style={style}>MyPage</Nav.Link>
+            <NavDropdown title="계좌" id="basic-nav-dropdown">
               <NavDropdown.Item href="/openAccount">계좌개설</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/allAccount">
@@ -24,7 +24,7 @@ function BasicExample() {
               <NavDropdown.Item href="/passwordModify">비밀번호변경</NavDropdown.Item>
               <NavDropdown.Item href="/deleteAccount">계좌해지</NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="대출" id="basic-nav-dropdown" style={style}>
+            <NavDropdown title="대출" id="basic-nav-dropdown">
               <NavDropdown.Item href="/loanList">대출상품</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 대출신청/조회
@@ -34,7 +34,7 @@ function BasicExample() {
                 이자조회/납부
               </NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="예/적금" id="basic-nav-dropdown" style={style}>
+            <NavDropdown title="예/적금" id="basic-nav-dropdown">
               <NavDropdown.Item href="/depositList">예/적금 조회</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 예/적금 신규
@@ -46,23 +46,23 @@ function BasicExample() {
                 계좌관리
               </NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="이체" id="basic-nav-dropdown" style={style}>
-              <NavDropdown.Item href="#action/3.1">1건이체</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
+            <NavDropdown title="이체" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/oneTransfer">1건이체</NavDropdown.Item>
+              <NavDropdown.Item href="/multipleTransfer">
                 다건이체
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
+              <NavDropdown.Item href="/autoWithdrawal">
                 자동이체
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.4">
+              <NavDropdown.Item href="/changeAuto">
                 자동이체 변경
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.4">
+              <NavDropdown.Item href="/cancleAuto">
                 자동이체 해지
               </NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="펀드" id="basic-nav-dropdown" style={style}>
+            <NavDropdown title="펀드" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">펀드 계좌개설</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 펀드상품
@@ -70,6 +70,12 @@ function BasicExample() {
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">
                 보유펀드현황
+              </NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title="환율" id="basic-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">환율 정보</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                나의 환율기록
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
@@ -91,4 +97,5 @@ const style={
 const style2={
   Color:'white'
 }
+
 export default BasicExample;

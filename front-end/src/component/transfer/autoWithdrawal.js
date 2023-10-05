@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-
-import imgLogo from "../../resource/accountList.png"
-
-class allAccount extends Component{
+import imgLogo from "../../resource/autoWithdrawal.png"
+class autoWithdrawal extends Component{
     render(){
         return(
             <div>
+                <h3> 정현 자동이체 </h3>
                 <img src={imgLogo}></img>
             </div>
         );
     }
 }
-export default allAccount;
+
+export default autoWithdrawal;
