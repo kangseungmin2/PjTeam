@@ -17,7 +17,11 @@ public class CorsFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         Filter.super.init(filterConfig);
+<<<<<<< HEAD
     }
+=======
+    } 
+>>>>>>> refs/remotes/origin/Branch-JJH
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
