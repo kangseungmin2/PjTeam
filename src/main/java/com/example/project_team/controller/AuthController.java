@@ -52,9 +52,10 @@ public class AuthController {
 		System.out.println("<<<AuthController - register>>>");
 		
 		// 엔티티를 새애성할 때 새 엔티티를 찾을 수 있는 URL과 함께 201 HTTP 코드를 반환하는 것이 가장 좋음
-		User user = userService.register(signUpDTO);
+		User user = new User();
+		signUpDTO.setToken(userAuthProvider.createToken(user.getId()));
+		user =userService.register(signUpDTO); // 추가
 		
-		user.setToken(userAuthProvider.createToken(user.getId())); // 추가
 		return ResponseEntity.created(URI.create("/users/" + user.getId()))
 				.body(user); // 크롬 F12 > Network > Headers : 201 Created
 	}

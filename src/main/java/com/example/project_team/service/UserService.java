@@ -54,7 +54,7 @@ public class UserService {
 		System.out.println("hp : " + userDTO.getHp());
 		System.out.println("job : " + userDTO.getJob());
 		System.out.println("email : " + userDTO.getEmail());
-		
+		System.out.println("Token:"+userDTO.getToken());
 		
 		Optional<User> optionalUser = userRepository.findById(userDTO.getId());
 		
@@ -70,6 +70,7 @@ public class UserService {
 		user.setHp(userDTO.getHp());
 		user.setJob(userDTO.getJob());
 		user.setEmail(userDTO.getEmail());
+		user.setToken(userDTO.getToken());
 		
 		// passwordEncoder를 사용하여 암호를 일반 텍스트로 젖아하지 않고 해시한다
 		user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDTO.getPassword())));

@@ -1,8 +1,6 @@
 import { Component } from "react";
-import WelcomeContent from './WelcomeContent.js';
-import LoginForm from "./LoginForm";
-import { request, setAuthToken } from "../../heplers/axios_helper.js";
-import Buttons from "./Buttons";
+import JoinForm from "./joinForm.js";
+import { request, setAuthToken } from "../../heplers/axios_helper.js";;
 
 class AppContent extends Component {
     
@@ -35,6 +33,7 @@ class AppContent extends Component {
             .then((response) => {
                 this.setState({componentToShow: "messages"});
                 setAuthToken(response.data.token);
+                this.props.history.push('/main');
             })
             .catch((error) => {
                 this.setState({componentToShow: "welcome"});
@@ -60,6 +59,7 @@ class AppContent extends Component {
             .then((response) => {
                 this.setState({componentToShow: "messages"});
                 setAuthToken(response.data.token);
+                this.props.history.push('/login');
             })
             .catch((error) => {
                 this.setState({componentToShow: "welcome"});
@@ -70,10 +70,7 @@ class AppContent extends Component {
     render() {
         return(
             <div>
-                <Buttons login={this.login}
-                         logout={this.logout} />
-                {this.state.componentToShow === "welcome" && <WelcomeContent />}
-                {this.state.componentToShow === "login" && <LoginForm onLogin={this.onLogin} onRegister={this.onRegister} />}
+                {<JoinForm onLogin={this.onLogin} onRegister={this.onRegister} />}
             </div>
         );
     }
