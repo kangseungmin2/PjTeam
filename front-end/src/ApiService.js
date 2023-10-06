@@ -7,7 +7,7 @@ import axios from 'axios'; // npm install -f axios@1.3.5
 // - npm install -f axios@1.3.5
 
 const SAMPLE_API_BASE_URL = "http://localhost:8083/fund";
-
+const BOARD_API = "http://localhost:8081/boardList";
 class ApiService {
  
     // // list
@@ -36,6 +36,33 @@ class ApiService {
     //     console.log('deleteBoard 호출!!', BoardNum);
     //     return axios.delete(SAMPLE_API_BASE_URL + "/"+ BoardNum);
     // }
+
+    // list
+    fetchBoards(){
+        console.log('fetchBoards() 호출');
+        return axios.get(BOARD_API); // 스프링부트와 통신
+    }
+
+    // insert
+    addBoard(inputData){
+        console.log('addBoard 호출!!', inputData);
+        return axios.post(BOARD_API, inputData);
+    }
+    // 1건 select
+    fetchSamplesByNum(BoardNum){
+        console.log('fetchSamplesByID 호출!!', BoardNum);
+        return axios.get(BOARD_API + "/"+BoardNum, BoardNum);
+    }
+    // update
+    editBoard(inputData){
+        console.log('editBoard 호출!!', inputData);
+        return axios.put(BOARD_API + "/"+ inputData.BoardNum, inputData);
+    }
+    // delete
+    deleteBoard(BoardNum){
+        console.log('deleteBoard 호출!!', BoardNum);
+        return axios.delete(BOARD_API + "/"+ BoardNum);
+    }
 }
 
 export default new ApiService();

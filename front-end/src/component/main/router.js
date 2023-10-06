@@ -18,7 +18,6 @@ import depositList from "../deposit/depositList";
 import depositNew from "../deposit/depositNew";
 import depositDelete from "../deposit/depositDelete";
 import depositCheck from "../deposit/depositCheck";
-import loan from "../loan/loan_productList";
 import login from "../customer/login";
 import join from "../customer/join";
 import oneTransfer from "../transfer/oneTransfer";
@@ -32,6 +31,17 @@ import accountChk from "../fund/accountChk";
 import fundDetail from "../fund/fundDetail";
 import fundAccount from "../fund/fundAccount";
 import myFund from "../fund/myFund";
+
+import BoardList from '../admin/board/boardList';
+import BoardAdd from '../admin/board/boardAdd';
+import BoardEdit from '../admin/board/boardEdit';
+import LoanList from '../loan/loanList';
+import LoanSign from '../loan/loanSign';
+import Repayment from '../loan/repayment';
+import LoanProductAdd from '../admin/loan/loanProductAdd';
+import LoanProductEdit from '../admin/loan/loanProductEdit';
+import LoanProductList from '../admin/loan/loanProductList';
+import LoanSignConfirm from '../admin/loan/loanSignConfirm';
 
 const AppRouter = () => {
     
@@ -55,7 +65,16 @@ const AppRouter = () => {
                     <Route path="/memberInfo" component={memberInfo}/>       {/* 서윤-회원-내정보 */}
                     <Route path="/modifyMember" component={modifyMember}/>       {/* 서윤-회원-내정보수정 */}
                     <Route path="/question" component={question}/>       {/* 서윤-회원-1:1문의 */}
-                    <Route path="/loanList" component={loan}/>       {/* 상아-대출상품 */}
+                    <Route path="/boardList" component={BoardList}/>    {/* 상아-게시판목록 */}
+                    <Route path="/boardAdd" component={BoardAdd}/>       {/* 상아-게시판추가 */}
+                    <Route path="/boardEdit" component={BoardEdit}/>       {/* 상아-게시판수정 */}
+                    <Route path="/loanList" component={LoanList}/>       {/* 상아-대출상품목록(고객) */}
+                    <Route path="/loanSign" component={LoanSign}/>       {/* 상아-대출가입/조회(고객) */}
+                    <Route path="/repayment" component={Repayment}/>       {/* 상아-이자조회/납부(고객) */}
+                    <Route path="/loanProductAdd" component={LoanProductAdd}/>       {/* 상아-대출상품등록(관리자) */}
+                    <Route path="/loanProductEdit" component={LoanProductEdit}/>       {/* 상아-대출상품수정(관리자) */}
+                    <Route path="/loanProductList" component={LoanProductList}/>       {/* 상아-대출상품목록(관리자) */}
+                    <Route path="/loanSignConfirm" component={LoanSignConfirm}/>       {/* 상아-대출가입/조회(관리자) */}
                     <Route path="/depositList" component={depositList}/>        {/* 석준-예/적금 조회 */}
                     <Route path="/depositNew" component={depositNew}/>        {/* 석준-예/적금 신규가입 */}
                     <Route path="/depositDelete" component={depositDelete}/>        {/* 석준-예/적금 해지 */}
