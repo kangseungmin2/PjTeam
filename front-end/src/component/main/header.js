@@ -11,8 +11,13 @@ function BasicExample() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
+<<<<<<< HEAD
             <Nav.Link href="/main" style={style}>Home</Nav.Link>
             <Nav.Link href="#link" style={style}>MyPage</Nav.Link>
+=======
+            <Nav.Link href="/main">Home</Nav.Link>
+            
+>>>>>>> refs/remotes/origin/Branch-SY
             <NavDropdown title="계좌" id="basic-nav-dropdown">
               <NavDropdown.Item href="/openAccount">계좌개설</NavDropdown.Item>
               <NavDropdown.Divider />
@@ -72,16 +77,40 @@ function BasicExample() {
                 보유펀드현황
               </NavDropdown.Item>
             </NavDropdown>
+<<<<<<< HEAD
             <NavDropdown title="환율" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">환율 정보</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 나의 환율기록
               </NavDropdown.Item>
+=======
+
+
+            <NavDropdown title="MYPAGE" id="basic-nav-dropdown">
+              <NavDropdown.Item>--admin--</NavDropdown.Item>
+              <NavDropdown.Item href="/management">회원관리</NavDropdown.Item>
+              <NavDropdown.Item href="/adminAccount">관리자 결산</NavDropdown.Item>
+              <NavDropdown.Item href="/answer">1:1문의 답변</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item>--member--</NavDropdown.Item>
+              <NavDropdown.Item href="/memberInfo">내정보</NavDropdown.Item>
+              <NavDropdown.Item href="/modifyMember">회원수정</NavDropdown.Item>
+              <NavDropdown.Item href="/deleteMember">회원탈퇴</NavDropdown.Item>
+              <NavDropdown.Item href="/memAccount">회원 결산</NavDropdown.Item>
+              <NavDropdown.Item href="/question">1:1문의</NavDropdown.Item>
+>>>>>>> refs/remotes/origin/Branch-SY
             </NavDropdown>
           </Nav>
+<<<<<<< HEAD
           <Nav >
             <Nav.Link href="/join" style={style}>회원가입</Nav.Link>
             <Nav.Link eventKey={2} href="/login" style={style}>
+=======
+
+          <Nav>
+            <Nav.Link href="#deets">회원가입</Nav.Link>
+            <Nav.Link eventKey={2} href="#memes">
+>>>>>>> refs/remotes/origin/Branch-SY
               로그인
             </Nav.Link>
           </Nav>
