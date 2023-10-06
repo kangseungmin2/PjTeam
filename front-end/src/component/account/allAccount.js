@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import imgLogo from "../../resource/accountList.png"
 
-import imgLogo from "../../resource/accountList.png"
 
 class allAccount extends Component{
     render(){
