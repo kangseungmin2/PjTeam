@@ -28,7 +28,7 @@ public class FundController {
 	private static final Logger logger = LoggerFactory.getLogger(FundController.class);
 	
 	@Autowired
-	private FundServiceImpl service; 
+	private FundServiceImpl service;
 	
 	// List
 	@GetMapping

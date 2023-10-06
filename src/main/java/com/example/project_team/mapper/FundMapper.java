@@ -9,4 +9,4 @@ import com.example.project_team.dto.FundProductDTO;
 @Mapper
 public interface FundMapper {
 	public List<FundProductDTO> fundList();
-}
+} 

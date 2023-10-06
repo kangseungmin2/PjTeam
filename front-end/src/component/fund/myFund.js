@@ -15,7 +15,7 @@ export default class myFund extends Component {
           ['HANARO 고배당', 2],
           ['KBSTAR 200', 7]
         ];
-    
+     
         const chartOptions = {
           title: 'My Fund',
           is3D: true,

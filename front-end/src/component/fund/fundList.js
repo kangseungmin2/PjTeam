@@ -11,7 +11,7 @@ class fundList extends Component{
             fundList:[],
             message:null
         }
-    }
+    } 
 
     // // 라이프사이클 중 컴포넌트가 생성된 후 사용자에게 보여지기까지의 전체 과정을 렌더링
     // componentDidMount(){

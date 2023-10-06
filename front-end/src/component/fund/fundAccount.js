@@ -7,7 +7,7 @@ export default class fundAccount extends Component {
             <div>
                 <h3>Fund Account</h3> 
                 <img src={fAccount}/>
-            </div>
+            </div> 
         );
     }
 }

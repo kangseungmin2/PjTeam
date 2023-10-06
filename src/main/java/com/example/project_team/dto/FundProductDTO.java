@@ -1,5 +1,7 @@
 package com.example.project_team.dto;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -20,14 +22,16 @@ public class FundProductDTO {
 	private int highPrice;				// 고가
 	private int prepare;				// 대비
 	private int fluctuationRate;		// 등락율
-	private int net_assetValue;		// 순자산가치(NAV)
+	private int net_assetValue;			// 순자산가치(NAV)
 	private int tradingVolume;			// 거래량
 	private int transactionAmount;		// 거래대금
 	private Long  marketCapitalization;	// 시가총액
-	private int totalNetAssets;		// 순자산총액
+	private int totalNetAssets;			// 순자산총액
 	private int listingsNum;			// 상장좌수
-	private String bIndexName;		// 기초지수_지수명
-	private int bClosingPrice;		// 기초지수_종가
+	private String bIndexName;			// 기초지수_지수명
+	private int bClosingPrice;			// 기초지수_종가
 	private int bPrepare;				// 기초지수_대비
 	private int bFluctuationRate;		// 기초지수_등락률
+	private Date eventDate;             // 데이터 발생일  
+    private int etc;  					//은행 수수료률
 }

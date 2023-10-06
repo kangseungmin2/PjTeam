@@ -14,4 +14,4 @@ export default class accountChk extends Component {
         );
     }
 
-}
+} 

@@ -16,7 +16,7 @@ export default class fundDtail extends Component {
             tMarketPrice: "",
             tStatus: ""
         };
-    };
+    }; 
     render() {
         // const [buyQuantity, setBuyQuantity] = useState(0);
         // const [sellQuantity, setSellQuantity] = useState(0);
