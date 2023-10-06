@@ -10,11 +10,11 @@ const SAMPLE_API_BASE_URL = "http://localhost:8081/fund";
 
 class ApiService {
  
-    // // list
-    // fundList(){
-    //     console.log('fundList() 호출');
-    //     return axios.get(SAMPLE_API_BASE_URL); // 스프링부트와 통신
-    // }
+    // list
+    fundList(){
+        console.log('fundList() 호출');
+        return axios.get(SAMPLE_API_BASE_URL); // 스프링부트와 통신
+    }
 
     // // insert
     // addBoard(inputData){
