@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.example.project_team.dto.FundProductDTO;
-import com.example.project_team.mapper.FundMapper;
+import com.example.project_team.mappers.FundMapper;
 
 @Service
 public class FundServiceImpl implements FundService{
