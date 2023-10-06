@@ -1,6 +1,6 @@
 # http port number(default 8080)
 server: 
-  port: 8081 
+  port: 8083
   servlet:
     context-path: /
     encoding:
@@ -12,11 +12,11 @@ server:
 spring:
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@pjteam.cr9q4puz10f6.ap-northeast-2.rds.amazonaws.com:1521:orcl
+    url: pjteam.cr9q4puz10f6.ap-northeast-2.rds.amazonaws.com
     username: pjteam
     password: team1234
 
-# jsp - spring(servlet-context.xml)  
+# jsp - spring(servlet-context.xml) 
   mvc:
     view:
       prefix: /WEB-INF/views/
@@ -38,4 +38,5 @@ spring:
 # MyBatis - spring(dataSource-config.xml)
 mybatis:
   mapper-locations: mappers/**/*.xml
-  type-aliases-package: com.example.project_team.mapper
+  type-aliases-package: com.example.project_team.mappers
+
