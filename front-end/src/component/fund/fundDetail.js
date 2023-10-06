@@ -9,7 +9,7 @@ export default class fundDtail extends Component {
         super(props);
         this.state = {
             active: "Buy",
-            fAccount: "",    // login: "" -> id: ""
+            fAccount: "",    // login: "" -> id: "" 
             fpName: "",
             tCnt: "",
             tPrice: "",

@@ -26,6 +26,6 @@
 }
 
 .nav-buy, .nav-sell {
-    border-radius: var(--bs-nav-pills-border-radius);
+    border-radius: var(--bs-nav-pills-border-radius); 
     width: 250px;
 }

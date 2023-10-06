@@ -10,7 +10,7 @@ export default class myFund extends Component {
         const chartData = [
           ['fundName', 'fundCnt'],
           ['ACE 200', 11],
-          ['ARIRANG 200', 2],
+          ['ARIRANG 200', 2], 
           ['FOCUS KRX300', 2],
           ['HANARO 고배당', 2],
           ['KBSTAR 200', 7]

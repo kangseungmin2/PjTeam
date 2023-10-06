@@ -8,7 +8,7 @@ class fundList extends Component{
         super(props);
 
         this.state = {
-            fundList:[],
+            fundList:[], 
             message:null
         }
     } 

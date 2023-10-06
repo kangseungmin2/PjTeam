@@ -11,8 +11,8 @@ import accountChk from "../fund/accountChk";
 import fundDetail from "../fund/fundDetail";
 import fundAccount from "../fund/fundAccount";
 import myFund from "../fund/myFund";
-
-const AppRouter = () => {
+ 
+const AppRouter = () => { 
     return(
         <div>
             <BrowserRouter>

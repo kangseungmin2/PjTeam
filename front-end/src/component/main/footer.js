@@ -4,8 +4,8 @@ import {
   MDBContainer,
   MDBCol,
   MDBRow,
-} from 'mdb-react-ui-kit';
-
+} from 'mdb-react-ui-kit'; 
+ 
 export default function footer() {
   return (
     <MDBFooter style={{ backgroundColor: 'rgb(230, 229, 227)' }} className='text-white text-center text-lg-left'>
