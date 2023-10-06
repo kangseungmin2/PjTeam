@@ -2,7 +2,6 @@ import React from "react";
 import {BrowserRouter,Route} from 'react-router-dom';   //npm install react-router-dom@5    react-router-dom@5 => @6은 지원안되는 메서드가 많다.
 import openAccount from '../account/openAccount';
 import allAccount from "../account/allAccount";
-<<<<<<< HEAD
 import balanceList from "../account/balanceList";
 import passwordModify from "../account/passwordModify";
 import deleteAccount from "../account/deleteAccount";
@@ -15,6 +14,9 @@ import memberInfo from "../mypage/member/memberInfo";
 import modifyMember from "../mypage/member/modifyMember";
 import question from "../mypage/member/question";
 import depositList from "../deposit/depositList";
+import depositNew from "../deposit/depositNew";
+import depositDelete from "../deposit/depositDelete";
+import depositCheck from "../deposit/depositCheck";
 import loan from "../loan/loan_productList";
 import login from "../customer/login";
 import join from "../customer/join";
@@ -47,6 +49,9 @@ const AppRouter = () => {
                     <Route path="/question" component={question}/>       {/* 서윤-회원-1:1문의 */}
                     <Route path="/loanList" component={loan}/>       {/* 상아-대출상품 */}
                     <Route path="/depositList" component={depositList}/>        {/* 석준-예/적금 조회 */}
+                    <Route path="/depositNew" component={depositNew}/>        {/* 석준-예/적금 신규가입 */}
+                    <Route path="/depositDelete" component={depositDelete}/>        {/* 석준-예/적금 해지 */}
+                    <Route path="/depositCheck" component={depositCheck}/>        {/* 석준-예/적금 해지 */}
                     <Route path="/oneTransfer" component={oneTransfer}/>    {/* 정현-한건이체 */}
                     <Route path="/multipleTransfer" component={multipleTransfer}/>    {/* 정현-다건이체 */}
                     <Route path="/autoWithdrawal" component={autoWithdrawal}/>    {/* 정현-자동이체 */}
@@ -56,28 +61,6 @@ const AppRouter = () => {
                 </div>
             </BrowserRouter>
             
-=======
-import depositList from "../deposit/depositList";
-import loan from "../loan/loan_productList";
-import depositNew from "../deposit/depositNew";
-import depositDelete from "../deposit/depositDelete";
-import depositCheck from "../deposit/depositCheck";
-
-const AppRouter = () => {
-    return(
-        <div>
-            <BrowserRouter>
-                <div style={style}>
-                    <Route path="/openAccount" component={openAccount}/>    {/* 서윤-계좌개설 */}
-                    <Route path="/allAccount" component={allAccount}/>       {/* 서윤-전체계좌조회 */}
-                    <Route path="/loanList" component={loan}/>       {/* 상아-대출상품 */}
-                    <Route path="/depositList" component={depositList}/>        {/* 석준-예/적금 조회 */}
-                    <Route path="/depositNew" component={depositNew}/>        {/* 석준-예/적금 신규가입 */}
-                    <Route path="/depositDelete" component={depositDelete}/>        {/* 석준-예/적금 해지 */}
-                    <Route path="/depositCheck" component={depositCheck}/>        {/* 석준-예/적금 해지 */}
-                </div>
-            </BrowserRouter>
->>>>>>> refs/remotes/origin/Branch-SJ
         </div>
     )
 }
