@@ -25,24 +25,12 @@ function BasicExample() {
             </NavDropdown>
             <NavDropdown title="대출" id="basic-nav-dropdown">
               <NavDropdown.Item href="/loanList">대출상품</NavDropdown.Item>
-              <NavDropdown.Item href="/loanSign">
+              <NavDropdown.Item href="#action/3.2">
                 대출신청/조회
               </NavDropdown.Item>
-              <NavDropdown.Item href="/repayment">
-                이자조회/납부
-              </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/loanProductAdd">
-                대출상품 등록
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/loanProductEdit">
-                대출상품 수정
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/loanProductList">
-                대출상품 목록
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/loanSignConfirm">
-                대출신청 승인/반려
+              <NavDropdown.Item href="#action/3.4">
+                이자조회/납부
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="예/적금" id="basic-nav-dropdown">
@@ -102,8 +90,8 @@ function BasicExample() {
               <NavDropdown.Item href="/deleteMember">회원탈퇴</NavDropdown.Item>
               <NavDropdown.Item href="/memAccount">회원 결산</NavDropdown.Item>
               <NavDropdown.Item href="/question">1:1문의</NavDropdown.Item>
+
             </NavDropdown>
-            <Nav.Link href="/boardList" style={style}>고객센터</Nav.Link>
           </Nav>
           <Nav >
             <Nav.Link href="/join" style={style}>회원가입</Nav.Link>
