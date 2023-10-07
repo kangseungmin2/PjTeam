@@ -22,7 +22,7 @@ public class FundProductDTO {
 	private int highPrice;				// 고가
 	private int prepare;				// 대비
 	private int fluctuationRate;		// 등락율
-	private int netAssetValue;			// 순자산가치(NAV)
+	private int net_assetValue;			// 순자산가치(NAV)
 	private int tradingVolume;			// 거래량
 	private int transactionAmount;		// 거래대금
 	private Long  marketCapitalization;	// 시가총액

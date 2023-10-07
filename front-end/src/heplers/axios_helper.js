@@ -24,7 +24,7 @@ export const request = (method, url, data) => {
     console.log('method : ', method);
     console.log('url : ', url);
     console.log('data : ', data);
-    console.log('여기죠?');
+
     return axios({
         method: method,
         // headers: headers,

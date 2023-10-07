@@ -3,7 +3,6 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import '../../resource/css/login.css'; 
-import { getAuthToken } from '../../heplers/axios_helper';
 function BasicExample() {
   return (
     <Navbar expand="lg" style={style}>
@@ -106,19 +105,13 @@ function BasicExample() {
             </NavDropdown>
             <Nav.Link href="/boardList" style={style}>고객센터</Nav.Link>
           </Nav>
-          {/* if (getAuthToken() != null && getAuthToken !="null") {
-            <Nav >
-              <Nav.Link href="/join" style={style}>${getAuthToken()}</Nav.Link>
-            </Nav>
-          }
-          else{ */}
-            <Nav >
-              <Nav.Link href="/join" style={style}>회원가입</Nav.Link>
-              <Nav.Link eventKey={2} href="/login" style={style}>
-                로그인
-              </Nav.Link>
-            </Nav>
-          {/* // } */}
+          <Nav >
+            <Nav.Link href="/join" style={style}>회원가입</Nav.Link>
+            <Nav.Link eventKey={2} href="/login" style={style}>
+
+              로그인
+            </Nav.Link>
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
