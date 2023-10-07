@@ -9,7 +9,8 @@ export default class login extends React.Component {
             active: "login",
             id: "",    // login: "" -> id: ""
             password: "",
-            onLogin: props.onLogin // 사용자가 자격증명을 보낸후 상위구성요소가 로그인 양식을 숨길수 있다.
+            onLogin: props.onLogin, // 사용자가 자격증명을 보낸후 상위구성요소가 로그인 양식을 숨길수 있다.
+            onAdmin: props.onAdmin
         };
     };
 
@@ -25,21 +26,16 @@ export default class login extends React.Component {
         console.log('[onSubmitLogin]');
         this.state.onLogin(e, this.state.id, this.state.password);  // this.state.login-> this.state.id
     };
-
+    onSubmitLogin2 = (e) =>{
+      console.log('[onSubmitLogin2]');
+      this.state.onAdmin(e, this.state.id, this.state.password);  // this.state.login-> this.state.id
+    }
     // 등록 처리
 
     render() {
         return (
           <div className="row justify-content-center">
             <div className="col-4">
-            <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
-              
-              {/* Login 버튼 */}
-              <li className="nav-item" role="presentation">
-                <button className={classNames("nav-link", this.state.active === "login" ? "active" : "")}                  
-                   id="tab-login" onClick={() => this.setState({active: "login"})}>Login</button>
-              </li>
-            </ul>
             
             <div className="tab-content">
               <div className={classNames("tab-pane", "fade", this.state.active === "login" ? "show active" : "")} 
@@ -61,7 +57,42 @@ export default class login extends React.Component {
                   <button type="submit" className="btn btn-primary btn-block mb-4">Sign in</button>
                 </form>
               </div>
+
+              <div className={classNames("tab-pane", "fade", this.state.active === "admin" ? "show active" : "")} 
+                id="pills-login" >
+                
+                {/* 관리자 로그인 폼, (name="login" -> name="id"),  input type="login" -> input type="text", label : ID */}
+                <h3>관리자 로그인</h3>
+                <form onSubmit={this.onSubmitLogin2}>
+
+                  <div className="form-outline mb-4">
+                    <input type="text" id="loginName" name= "id" className="form-control" onChange={this.onChangeHandler}/>   
+                    <label className="form-label" htmlFor="loginName">ID</label>
+                  </div>
+
+                  <div className="form-outline mb-4">
+                    <input type="password" id="loginPassword" name="password" className="form-control" onChange={this.onChangeHandler}/>
+                    <label className="form-label" htmlFor="loginPassword">Password</label>
+                  </div>
+
+                  <button type="submit" className="btn btn-primary btn-block mb-4">Sign in</button>
+                </form>
+              </div>
             </div>
+            <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+              
+              {/* Login 버튼 */}
+              <li className="nav-item" role="presentation">
+                <button className={classNames("nav-link", this.state.active === "login" ? "active" : "")}                  
+                   id="tab-login" onClick={() => this.setState({active: "login"})}>로그인</button>
+              </li>
+
+              <li className="nav-item" role="presentation">
+                <button className={classNames("nav-link", this.state.active === "admin" ? "active" : "")}                  
+                   id="tab-login" onClick={() => this.setState({active: "admin"})}>관리자 로그인</button>
+              </li>
+            </ul>
+            
           </div>
         </div>
         )

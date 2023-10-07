@@ -40,10 +40,30 @@ class AppContent extends Component {
                 setAuthToken(null);
             })
     }
+    onAdmin =(e,id,password) => {
+        e.preventDefault();
+        console.log('여기탄다.');
+        request(
+            "POST",
+            "/admin",
+            {
+                id: id,
+                password: password
+            })
+            .then((response) => {
+                this.setState({componentToShow:"messages"});
+                setAuthToken(response.data.token);
+                this.props.history.push('/main');
+            })
+            .catch((error) => {
+                this.setState({componentToShow: "welcome"});
+                setAuthToken(null);
+            })
+    }
     render() {
         return(
             <div>
-                {<LoginForm onLogin={this.onLogin} onRegister={this.onRegister} />}
+                {<LoginForm onLogin={this.onLogin} onAdmin={this.onAdmin} />}
             </div>
         );
     }
