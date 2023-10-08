@@ -39,4 +39,3 @@ spring:
 mybatis:
   mapper-locations: mappers/**/*.xml
   type-aliases-package: com.example.project_team.mappers
-

@@ -1,8 +1,6 @@
 package com.example.project_team.controller;
 
 import java.io.IOException;
-
-
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -20,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.project_team.dto.FundProductDTO;
 import com.example.project_team.service.FundServiceImpl;
 
+
+
 @CrossOrigin(origins="**", maxAge=3600)
 @RestController
 @RequestMapping(value="/fund")
@@ -31,6 +31,7 @@ public class FundController {
 	private FundServiceImpl service;
 	
 	// List
+	
 	@GetMapping
 	public List<FundProductDTO> fundList(HttpServletRequest req, Model model)
 			throws ServletException, IOException {
