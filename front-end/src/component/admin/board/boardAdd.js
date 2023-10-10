@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import { TextField, Typography, Button, TableHead, TableBody } from "@mui/material";
+import { TextField, Typography, Button, Stack, Grid, Container } from "@mui/material";
+import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
 import ApiService from '../../../ApiService';
 
 
-class BoardAdd extends Component{
+class BoardAdd extends Component {
 
     constructor(props) {
         super(props);
         // staate에 초기화
-        this.state={
+        this.state = {
             title: '',
             content: '',
             message: ''
@@ -17,7 +18,7 @@ class BoardAdd extends Component{
 
     onChange = (e) => {
         this.setState({
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value
         });
     }
 
@@ -39,46 +40,59 @@ class BoardAdd extends Component{
             })
     }
 
-    render(){
-        return(
-            <div align="center"><br/><br/>
-                <Typography variant="h4" style={style}> Add Board </Typography><br/>
-               
-                    <Typography variant="h5"> Title 
+    render() {
+        return (
+            <Container component="main" maxWidth="md">
 
-                    <TextField 
-                        required
-                        id="sandard-required"
-                        variant="outlined"
-                        label="title"
-                        type="text"
-                        name="title"
-                        value={this.state.title}
-                        placeholder="input Board title"
-                        onChange={this.onChange} /></Typography><br/>
+                <ContentPasteOutlinedIcon fontSize='large' color='primary'/>
+                <Typography variant="h4" style={style} spacing={2}> Add Board </Typography><br />
 
-                    <TextField
-                        required
-                        id="sandard-required"
-                        variant="outlined"
-                        multiline
-                        rows={7}
-                        label="content"
-                        type="text"
-                        name="content"
-                        value={this.state.content}
-                        placeholder="input Board content"
-                        onChange={this.onChange} /><br/>
-                    
-                    <Button variant="contained" color="primary" onClick={this.saveBoard}>save</Button>
+                <Grid container spacing={2}>
+                    <Grid item md={12}>
+                        <TextField
+                            required
+                            id="sandard-required"
+                            variant="outlined"
+                            label="title"
+                            fullWidth
+                            // helperText="please enter title"
+                            type="text"
+                            name="title"
+                            value={this.state.title}
+                            placeholder="input Board title"
+                            onChange={this.onChange} /><br />
+                    </Grid>
+
+                    <Grid item md={12}>
+                        <TextField
+                            required
+                            id="sandard-required"
+                            variant="outlined"
+                            multiline
+                            fullWidth
+                            rows={10}
+                            label="content"
+                            // helperText="please enter content"
+                            type="text"
+                            name="content"
+                            value={this.state.content}
+                            placeholder="input Board content"
+                            onChange={this.onChange} /><br />
+                    </Grid>
+                </Grid>
+
+                <Stack spacing={1} direction="row" justifyContent="center" marginTop={1}>
+                    <Button color="primary" variant="outlined" onClick={this.saveBoard}>save</Button>
                     <Button href="/boardList" variant="contained" color="primary">back</Button>
-            </div>
+                </Stack>
+
+            </Container>
         );
     }
 }
 export default BoardAdd;
 
-const style ={
+const style = {
     display: 'flex',
     justifyContent: 'center'
 }

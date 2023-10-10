@@ -38,7 +38,3 @@ export const request = (method, url, data) => {
         data: data
     });
 }
-const style={
-    backgroundColor:'#46B8FF',
-    color:'white'
-}

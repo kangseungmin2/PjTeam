@@ -1,24 +1,10 @@
 import React, { Component } from "react";
-<<<<<<< HEAD
-import imgLogo from "../../../resource/loanProductEdit.png";
-class LoanProductEdit extends Component{
-    render(){
-        return(
-            <div>
-                <h3>아상 대출상품 등록(관리자)</h3>
-                <img src={imgLogo}></img>
-            </div>
-        );
-    }
-}
-export default LoanProductEdit;
-=======
 import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import ApiService from '../../../ApiService';
+import ApiService from '../../ApiService';
 
 
-class LoanProductEdit extends Component {
+class LoanDetail extends Component {
 
     constructor(props) {
         super(props);
@@ -38,9 +24,9 @@ class LoanProductEdit extends Component {
         }
     }
 
-    // 수정전 상세페이지 호출
+    // 상세페이지 호출
     loadLoanDetail = () =>{
-        ApiService.fetchLoanByNum(window.localStorage.getItem("loanNum"))
+        ApiService.fetchDetailByNum(window.localStorage.getItem("loanNum"))
             .then(res => {
                 let loan = res.data;
                 this.setState({
@@ -62,37 +48,10 @@ class LoanProductEdit extends Component {
             });
     }
 
-    onChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    }
-
-    editProduct = (e) => {
-        // save후 reload방지
-        e.preventDefault();
-
-        let inputData = {
-            loanProductName: this.state.loanProductName,
-            loanProductRegistrationDate: this.state.loanProductRegistrationDate,
-            interestRate: this.state.interestRate,
-            content: this.state.content,
-            minMoney: this.state.minMoney,
-            maxMoney: this.state.maxMoney,
-            minPeriod: this.state.minPeriod,
-            maxPeriod: this.state.maxPeriod,
-            repayment: this.state.repayment,
-            commission: this.state.commission
-        }
-
-        ApiService.editLoan(inputData)
-            .then(res => {
-                console.log('editLoan 성공', res.data);
-                this.props.history.push('/loanProductList');
-            })
-            .catch(err => {
-                console.log('editLoan 에러', err);
-            })
+    // sign
+    signLoan = (num) => {
+        window.localStorage.setItem("LoanNum", num);
+        this.props.history.push("/loanSign")
     }
 
     render() {
@@ -100,7 +59,7 @@ class LoanProductEdit extends Component {
             <Container component="main" maxWidth="md">
 
                 <PaidOutlinedIcon fontSize='large' color='primary' />
-                <Typography variant="h4" style={style} spacing={2}> Edit Loan Product </Typography><br />
+                <Typography variant="h4" style={style} spacing={2}> Loan Product Detail </Typography><br />
 
                 <Grid container spacing={2}>
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
@@ -112,7 +71,6 @@ class LoanProductEdit extends Component {
                                 'aria-label': 'loanProductName',
                             }}
                             value={this.state.loanProductName}
-                            onChange={this.onChange}
                         />
                         <FormHelperText >loanProductName</FormHelperText>
                     </FormControl>
@@ -126,7 +84,6 @@ class LoanProductEdit extends Component {
                                 'aria-label': 'interestRate',
                             }}
                             value={this.state.interestRate}
-                            onChange={this.onChange}
                         />
                         <FormHelperText >interestRate</FormHelperText>
                     </FormControl>
@@ -143,8 +100,7 @@ class LoanProductEdit extends Component {
                             type="text"
                             name="content"
                             value={this.state.content}
-                            placeholder="content"
-                            onChange={this.onChange} /><br />
+                            placeholder="content"/><br />
 
                 
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
@@ -156,7 +112,6 @@ class LoanProductEdit extends Component {
                                 'aria-label': 'minMoney',
                             }}
                             value={this.state.minMoney}
-                            onChange={this.onChange}
                         />
                         <FormHelperText >minMoney</FormHelperText>
                     </FormControl>
@@ -172,7 +127,6 @@ class LoanProductEdit extends Component {
                                 'aria-label': 'maxMoney',
                             }}
                             value={this.state.maxMoney}
-                            onChange={this.onChange}
                         />
                         <FormHelperText >maxMoney</FormHelperText>
                     </FormControl>
@@ -187,7 +141,6 @@ class LoanProductEdit extends Component {
                                 'aria-label': 'minPeriod',
                             }}
                             value={this.state.minPeriod}
-                            onChange={this.onChange}
                         />
                         <FormHelperText >minPeriod</FormHelperText>
                     </FormControl>
@@ -203,7 +156,6 @@ class LoanProductEdit extends Component {
                                 'aria-label': 'maxPeriod',
                             }}
                             value={this.state.maxPeriod}
-                            onChange={this.onChange}
                         />
                         <FormHelperText >maxPeriod</FormHelperText>
                     </FormControl>
@@ -217,7 +169,6 @@ class LoanProductEdit extends Component {
                                 'aria-label': 'repayment',
                             }}
                             value={this.state.repayment}
-                            onChange={this.onChange}
                         />
                         <FormHelperText >repayment</FormHelperText>
                     </FormControl>
@@ -231,25 +182,23 @@ class LoanProductEdit extends Component {
                                 'aria-label': 'commission',
                             }}
                             value={this.state.commission}
-                            onChange={this.onChange}
                         />
                         <FormHelperText >commission</FormHelperText>
                     </FormControl>
                 </Grid>
 
                 <Stack spacing={1} direction="row" justifyContent="center" marginTop={1}>
-                    <Button color="primary" variant="outlined" onClick={this.editProduct}>edit</Button>
-                    <Button href="/loanProductList" variant="contained" color="primary">back</Button>
+                    <Button color="primary" variant="outlined" onClick={this.signLoan}>sign</Button>
+                    <Button href="/loanList" variant="contained" color="primary">back</Button>
                 </Stack>
 
             </Container>
         );
     }
 }
-export default LoanProductEdit;
+export default LoanDetail;
 
 const style = {
     display: 'flex',
     justifyContent: 'center'
 }
->>>>>>> d5e39dd0b13992b96be564c2ef73399a4dcbf6f3

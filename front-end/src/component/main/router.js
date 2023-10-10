@@ -45,6 +45,8 @@ import LoanProductAdd from '../admin/loan/loanProductAdd';
 import LoanProductEdit from '../admin/loan/loanProductEdit';
 import LoanProductList from '../admin/loan/loanProductList';
 import LoanSignConfirm from '../admin/loan/loanSignConfirm';
+import LoanDetail from "../loan/loanDetail";
+import LoanSignList from "../loan/loanSignList";
 
 
 const AppRouter = () => {
@@ -76,7 +78,9 @@ const AppRouter = () => {
                     <Route path="/boardAdd" component={BoardAdd}/>       {/* 상아-게시판추가 */}
                     <Route path="/boardEdit" component={BoardEdit}/>       {/* 상아-게시판수정 */}
                     <Route path="/loanList" component={LoanList}/>       {/* 상아-대출상품목록(고객) */}
-                    <Route path="/loanSign" component={LoanSign}/>       {/* 상아-대출가입/조회(고객) */}
+                    <Route path="/loanDetail" component={LoanDetail}/>       {/* 상아-대출상세페이지(고객) */}
+                    <Route path="/loanSign" component={LoanSign}/>       {/* 상아-대출가입(고객) */}
+                    <Route path="/loanSignList" component={LoanSignList}/>       {/* 상아-대출가입리스트(고객) */}
                     <Route path="/repayment" component={Repayment}/>       {/* 상아-이자조회/납부(고객) */}
                     <Route path="/loanProductAdd" component={LoanProductAdd}/>       {/* 상아-대출상품등록(관리자) */}
                     <Route path="/loanProductEdit" component={LoanProductEdit}/>       {/* 상아-대출상품수정(관리자) */}

@@ -65,25 +65,12 @@ function BasicExample() {
 
             <NavDropdown title="대출" id="basic-nav-dropdown">
               <NavDropdown.Item href="/loanList">대출상품</NavDropdown.Item>
-              <NavDropdown.Item href="/loanSign">
-                대출신청/조회
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/repayment">
-                이자조회/납부
-              </NavDropdown.Item>
+              <NavDropdown.Item href="/loanSignList">가입상품 조회</NavDropdown.Item>
+              <NavDropdown.Item href="/repayment">이자조회/납부</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/loanProductAdd">
-                대출상품 등록
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/loanProductEdit">
-                대출상품 수정
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/loanProductList">
-                대출상품 목록
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/loanSignConfirm">
-                대출신청 승인/반려
-              </NavDropdown.Item>
+              <NavDropdown.Item href="/loanProductAdd">대출상품 등록</NavDropdown.Item>
+              <NavDropdown.Item href="/loanProductList">대출상품 목록</NavDropdown.Item>
+              <NavDropdown.Item href="/loanSignConfirm">대출신청 승인/반려</NavDropdown.Item>
             </NavDropdown>
 
 
