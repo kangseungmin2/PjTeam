@@ -59,7 +59,7 @@ class fundList extends Component{
 
                     <TableBody style={style}>
                         {this.state.fundList.map(product=>
-                        <TableRow key={product.fpName}>
+                        <TableRow key={product.fpName} onClick={this.accountChk}>
                                 <TableCell component="th" scope='product' style={style2}>{product.fpName}</TableCell>
                                 <TableCell style={style2}>{product.fpNum}</TableCell>
                                 <TableCell style={style2}>{product.marketPrice}</TableCell>

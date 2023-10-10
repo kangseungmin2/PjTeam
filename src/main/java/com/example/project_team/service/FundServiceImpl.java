@@ -26,7 +26,9 @@ public class FundServiceImpl implements FundService{
 			throws ServletException, IOException{
 		System.out.println("FundServiceImpl - fundList");
 		 
-		return mapper.fundList();
+		List<FundProductDTO> list =  mapper.fundList();
+		System.out.println("list : "+list);
+		return list;
 	}
 	
 }

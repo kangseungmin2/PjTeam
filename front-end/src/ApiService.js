@@ -16,6 +16,12 @@ class ApiService {
         return axios.get(SAMPLE_API_BASE_URL); // 스프링부트와 통신
     }
 
+    // accountList
+    accountList(id){
+        console.log('accountList() 호출',id);
+        return axios.get(SAMPLE_API_BASE_URL+"/"+id); // 스프링부트와 통신
+    }
+
     // // insert
     // addBoard(inputData){
     //     console.log('addBoard 호출!!', inputData);
