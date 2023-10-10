@@ -13,25 +13,25 @@ class fundList extends Component{
         }
     } 
 
-    // // 라이프사이클 중 컴포넌트가 생성된 후 사용자에게 보여지기까지의 전체 과정을 렌더링
-    // componentDidMount(){
-    //     this.fundListSelect();
-    //  }
+    // 라이프사이클 중 컴포넌트가 생성된 후 사용자에게 보여지기까지의 전체 과정을 렌더링
+    componentDidMount(){
+        this.fundListSelect();
+     }
 
-    //  // list 정보
-    //  fundListSelect = () =>{
+     // list 정보
+     fundListSelect = () =>{
         
-    //     ApiService.fundList()
-    //     .then(res => {
-    //         this.setState({
-    //             fundList : res.data
-    //         })
-    //         console.log('fundList-Data----', res.data); 
-    //     })
-    //     .catch(err =>{
-    //         console.log('fundListSelect() Error!!', err);   
-    //     })
-    // }
+        ApiService.fundList()
+        .then(res => {
+            this.setState({
+                fundList : res.data
+            })
+            console.log('fundList-Data----', res.data); 
+        })
+        .catch(err =>{
+            console.log('fundListSelect() Error!!', err);   
+        })
+    }
 
     accountChk = () => {
         this.props.history.push("/accountChk");
@@ -57,7 +57,7 @@ class fundList extends Component{
                         </TableRow>
                     </TableHead>
 
-                    {/* <TableBody style={style}>
+                    <TableBody style={style}>
                         {this.state.fundList.map(product=>
                         <TableRow key={product.fpName}>
                                 <TableCell component="th" scope='product' style={style2}>{product.fpName}</TableCell>
@@ -70,8 +70,8 @@ class fundList extends Component{
                           </TableRow>  
                         )}
                             
-                    </TableBody> */}
-                    <TableBody style={style}>
+                    </TableBody>
+                    {/* <TableBody style={style}>
                         <TableRow onClick={this.accountChk}>
                                 <TableCell style={style2}>ACE 200</TableCell>
                                 <TableCell style={style2}>105190</TableCell>
@@ -81,7 +81,7 @@ class fundList extends Component{
                                 <TableCell style={style2}>32900</TableCell>
                                 <TableCell style={style2}>0.11%</TableCell>
                           </TableRow>  
-                    </TableBody>
+                    </TableBody> */}
                 </Table>
                 </form>
             </div>

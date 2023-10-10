@@ -1,4 +1,4 @@
-package com.example.project_team.mapper;
+package com.example.project_team.mappers;
 
 import java.util.List;
 

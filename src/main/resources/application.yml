@@ -1,6 +1,6 @@
 # http port number(default 8080)
 server: 
-  port: 8081
+  port: 8083
   servlet:
     context-path: /
     encoding:
@@ -38,5 +38,4 @@ spring:
 # MyBatis - spring(dataSource-config.xml)
 mybatis:
   mapper-locations: mappers/**/*.xml
-  type-aliases-package: com.fullstack.jwt01.back_end.mappers
-
+  type-aliases-package: com.example.project_team.mappers
