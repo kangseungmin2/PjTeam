@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-import React, { Component } from "react";
-import imgLogo from "../../resource/loanList.png";
-class LoanList extends Component{
-    render(){
-        return(
-            <div>
-                <h3>아상 대출상품</h3>
-                <img src={imgLogo}></img>
-            </div>
-        );
-    }
-}
-=======
 import React, { Component } from 'react';
 import { Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
 import ApiService from '../../ApiService';
@@ -187,5 +173,4 @@ const style = {
 
 
 
->>>>>>> d5e39dd0b13992b96be564c2ef73399a4dcbf6f3
 export default LoanList;

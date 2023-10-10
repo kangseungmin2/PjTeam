@@ -1,18 +1,4 @@
 import React, { Component } from "react";
-<<<<<<< HEAD
-
-class BoardEdit extends Component{
-    render(){
-        return(
-            <div>
-                <h3>게시글 수정</h3>
-               
-            </div>
-        );
-    }
-}
-export default BoardEdit;
-=======
 import { TextField, Typography, Button, Stack, Grid, Container } from "@mui/material";
 import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
 import ApiService from '../../../ApiService';
@@ -128,4 +114,3 @@ const style = {
     display: 'flex',
     justifyContent: 'center'
 }
->>>>>>> d5e39dd0b13992b96be564c2ef73399a4dcbf6f3

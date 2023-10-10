@@ -1,18 +1,4 @@
 import React, { Component } from "react";
-<<<<<<< HEAD
-import imgLogo from "../../../resource/loanProductAdd.png";
-class LoanProductAdd extends Component{
-    render(){
-        return(
-            <div>
-                <h3>아상 대출상품 등록(관리자)</h3>
-                <img src={imgLogo}></img>
-            </div>
-        );
-    }
-}
-export default LoanProductAdd;
-=======
 import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import ApiService from '../../../ApiService';
@@ -212,4 +198,3 @@ const style = {
     display: 'flex',
     justifyContent: 'center'
 }
->>>>>>> d5e39dd0b13992b96be564c2ef73399a4dcbf6f3
