@@ -1,6 +1,7 @@
 import { Component } from "react";
 import LoginForm from "./loginForm.js";
-import { request, setAuthToken } from "../../heplers/axios_helper.js";;
+import { request, setAuthToken } from "../../heplers/axios_helper.js";
+import * as Fpp from '../../heplers/axios_helper.js';
 
 class AppContent extends Component {
     
@@ -32,18 +33,44 @@ class AppContent extends Component {
             })
             .then((response) => {
                 this.setState({componentToShow: "messages"});
-                setAuthToken(response.data.token);
-                this.props.history.push('/main');
+                setAuthToken(response.data.token,id);
+                console.log("여기요")
+                this.props.history.push('/main');                
+                window.location.reload();
             })
             .catch((error) => {
                 this.setState({componentToShow: "welcome"});
                 setAuthToken(null);
             })
     }
+
+    onAdmin = (e, id, password) => {
+        e.preventDefault();
+        request(
+            "POST",
+            "/admin",
+            {
+                id: id,
+                password: password
+            })
+            .then((response) => {
+                this.setState({componentToShow: "messages"});
+                setAuthToken(response.data.token,id);
+                console.log("여기요")
+                this.props.history.push('/main');
+               
+            })
+            .catch((error) => {
+                this.setState({componentToShow: "welcome"});
+                setAuthToken(null);
+            })
+
+    }
+
     render() {
         return(
             <div>
-                {<LoginForm onLogin={this.onLogin} onRegister={this.onRegister} />}
+                {<LoginForm onLogin={this.onLogin} onAdmin={this.onAdmin} />}
             </div>
         );
     }
