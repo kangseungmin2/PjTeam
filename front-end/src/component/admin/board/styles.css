@@ -1,0 +1,92 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.BoardList{
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px 0;
+    background: #edeef1;
+}
+
+.container{
+    width: 100%;
+    max-width: 480px;
+    margin: auto;
+}
+
+.accordion{
+    width: 100%;
+    max-width: 540px;
+    margin: 18px auto;
+    color: #fff;
+}
+
+.accordionHeading{
+    background: #3f475d;
+    padding: 14px 0;
+}
+.accordionHeading .container{
+    display: felx;
+    align-items: center;
+    justify-content: soace-between;
+}
+.accordionHeading p{
+    letter-spacing: 1.2px;
+    font-weight: 600;
+}
+
+.accordionHeading span{
+    cursor: pointer;
+}
+
+.accordionContent{
+    background: #383a7f;
+    height: 0;
+    opacity: 0;
+    display: flex;
+    overflow: hidden;
+    transition: all 600ms ease-in-out;
+}
+
+.accordionContent .show{
+    height: 180px;
+    opacity: 1;
+}
+.accordionContent p{
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.boardWrite{
+    width: 100%;
+    min-width: 320px;
+    padding: 0 300px;
+    box-sizing: border-box;
+    height: auto;
+    margin: auto;
+}
+
+.title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title dl{
+    vertical-align: middle;
+}
+
+.title dt{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    width: 60px;
+}
+
+.title input{
+    width: 80%;
+}

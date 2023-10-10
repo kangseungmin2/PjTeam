@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.12",
     "@mui/material": "^5.14.12",
     "@mui/styled-engine": "^5.14.12",
     "@testing-library/jest-dom": "^5.17.0",
@@ -22,6 +23,7 @@
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
     "react-scripts": "^5.0.1",
+    "react-textarea-autosize": "^8.5.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
