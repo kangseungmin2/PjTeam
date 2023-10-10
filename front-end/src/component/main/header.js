@@ -23,16 +23,19 @@ function BasicExample() {
               <NavDropdown.Item href="/passwordModify">비밀번호변경</NavDropdown.Item>
               <NavDropdown.Item href="/deleteAccount">계좌해지</NavDropdown.Item>
             </NavDropdown>
+
+
             <NavDropdown title="대출" id="basic-nav-dropdown">
               <NavDropdown.Item href="/loanList">대출상품</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                대출신청/조회
-              </NavDropdown.Item>
+              <NavDropdown.Item href="/loanSignList">가입상품 조회</NavDropdown.Item>
+              <NavDropdown.Item href="/repayment">이자조회/납부</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                이자조회/납부
-              </NavDropdown.Item>
+              <NavDropdown.Item href="/loanProductAdd">대출상품 등록</NavDropdown.Item>
+              <NavDropdown.Item href="/loanProductList">대출상품 목록</NavDropdown.Item>
+              <NavDropdown.Item href="/loanSignConfirm">대출신청 승인/반려</NavDropdown.Item>
             </NavDropdown>
+
+
             <NavDropdown title="예/적금" id="basic-nav-dropdown">
               <NavDropdown.Item href="/depositList">예/적금 조회</NavDropdown.Item>
               <NavDropdown.Item href="/depositnew">
@@ -90,8 +93,8 @@ function BasicExample() {
               <NavDropdown.Item href="/deleteMember">회원탈퇴</NavDropdown.Item>
               <NavDropdown.Item href="/memAccount">회원 결산</NavDropdown.Item>
               <NavDropdown.Item href="/question">1:1문의</NavDropdown.Item>
-
             </NavDropdown>
+              <Nav.Link href="/boardList" style={style}>고객센터</Nav.Link>
           </Nav>
           <Nav >
             <Nav.Link href="/join" style={style}>회원가입</Nav.Link>
