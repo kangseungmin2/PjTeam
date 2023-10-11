@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-import { Table, TableHead, TableBody, TableRow, TableCell, Typography } from "@mui/material";
+import { Table, TableHead, TableBody, TableRow, TableCell, Typography,TablePagination, TableFooter } from "@mui/material";
 import ApiService from "../../ApiService.js";
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
+import FindInPageRoundedIcon from '@mui/icons-material/FindInPageRounded';
+
 
 class fundList extends Component{
 
@@ -9,7 +13,9 @@ class fundList extends Component{
 
         this.state = {
             fundList:[], 
-            message:null
+            message:null,
+            page: 0,
+            rPage: 5
         }
     } 
 
@@ -32,12 +38,27 @@ class fundList extends Component{
             console.log('fundListSelect() Error!!', err);   
         })
     }
-
-    accountChk = () => {
+ 
+    accountChk(fpName){
+        window.localStorage.removeItem("fpName");
+        window.localStorage.setItem("fpName",fpName);
         this.props.history.push("/accountChk");
     }
 
+    // page
+    handleChangePage = (event,newpage) => { 
+        this.setState({ page: newpage });
+    } 
+   
+    // rowPage
+    handleChangeRowsPerPage = (event) => { 
+        this.setState({ rPage: parseInt(event.target.value, 10) });
+        this.setState({ page: 0 }); // 페이지를 첫 페이지로 리셋
+    } 
+
     render () {
+        const { page } = this.state;
+        const { rPage } = this.state;
         return (
             <div><br/><br/>
                <form> 
@@ -57,9 +78,10 @@ class fundList extends Component{
                         </TableRow>
                     </TableHead>
 
-                    <TableBody style={style}>
-                        {this.state.fundList.map(product=>
-                        <TableRow key={product.fpName} onClick={this.accountChk}>
+                    <TableBody>
+                        {this.state.fundList.slice(page * rPage, page * 
+                            rPage + rPage).map((product) => (
+                        <TableRow hover key={product.fpName} onClick={this.accountChk.bind(this,product.fpName)}>
                                 <TableCell component="th" scope='product' style={style2}>{product.fpName}</TableCell>
                                 <TableCell style={style2}>{product.fpNum}</TableCell>
                                 <TableCell style={style2}>{product.marketPrice}</TableCell>
@@ -68,20 +90,22 @@ class fundList extends Component{
                                 <TableCell style={style2}>{product.lowPrice}</TableCell>
                                 <TableCell style={style2}>{product.fluctuationRate}</TableCell>
                           </TableRow>  
-                        )}
-                            
+                        ))}
                     </TableBody>
-                    {/* <TableBody style={style}>
-                        <TableRow onClick={this.accountChk}>
-                                <TableCell style={style2}>ACE 200</TableCell>
-                                <TableCell style={style2}>105190</TableCell>
-                                <TableCell style={style2}>33300</TableCell>
-                                <TableCell style={style2}>33922</TableCell>
-                                <TableCell style={style2}>35000</TableCell>
-                                <TableCell style={style2}>32900</TableCell>
-                                <TableCell style={style2}>0.11%</TableCell>
-                          </TableRow>  
-                    </TableBody> */}
+                    <TableFooter>
+                        <TableCell colSpan={7}>
+                            <TablePagination
+                                rowsPerPageOptions={[5, 10, 25]}
+                                component="div"
+                                count={this.state.fundList.length}
+                                rowsPerPage={rPage}
+                                page={page}
+                                onPageChange={this.handleChangePage}
+                                onRowsPerPageChange={this.handleChangeRowsPerPage}
+                            /> 
+                        </TableCell>
+                    </TableFooter>
+                    
                 </Table>
                 </form>
             </div>
@@ -90,7 +114,6 @@ class fundList extends Component{
 }
 
 const style ={
-    display : 'flex',
     justifyContent : 'center',
     alignItems : 'center'
 
