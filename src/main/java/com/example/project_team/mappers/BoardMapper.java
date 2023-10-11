@@ -1,17 +1,12 @@
 package com.example.project_team.mappers;
 
-import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.project_team.dto.BoardDTO;
 
 @Mapper
-public interface BoardMapper {
+public interface BoardMapper extends JpaRepository<BoardDTO, Integer> {
 
-	public List<BoardDTO> boardList();
-	public int insertBoard(BoardDTO dto);
-	public int updateBoard(BoardDTO dto);
-	public int deleteByNum(int num);
-	public BoardDTO findByNum(int num);
 }

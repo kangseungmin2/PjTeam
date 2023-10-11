@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
 public class AccountDTO {
 	
 	@Id
-	private int accountid;
 	private long accountNum;         //계좌번호 pk
 	private String id;				//회원id
 	private int accountPW;          //계좌 비밀번호

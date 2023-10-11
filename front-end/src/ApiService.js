@@ -9,8 +9,10 @@ import axios from 'axios'; // npm install -f axios@^1.3.5
 const SAMPLE_API_BASE_URL = "http://localhost:8083/fund";
 const BOARD_API_ADMIN = "http://localhost:8083/boardList";
 const LOANPRODUCT_API_ADMIN = "http://localhost:8083/loanProductList";
-const LOANLIST_API_CUSTOMER = "http://localhost:8083/loanList";
+const LOANLIST_API_MEMBER = "http://localhost:8083/loanList";
 const ACCOUNT_API_BASE_URL = "http://localhost:8083/allAccount";
+
+
 class ApiService {
  
     // list
@@ -65,7 +67,7 @@ class ApiService {
     // delete
     deleteBoard(BoardNum){
         console.log('deleteBoard 호출!!', BoardNum);
-        return axios.delete(BOARD_API_BASE_URL + "/"+ BoardNum);
+        return axios.delete(BOARD_API_ADMIN + "/"+ BoardNum);
     }
 
 

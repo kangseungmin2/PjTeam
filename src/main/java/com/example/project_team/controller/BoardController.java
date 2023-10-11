@@ -44,7 +44,7 @@ public class BoardController {
 		throws ServletException, IOException {
 		logger.info("<<< BoardController - boardList() >>>");
 		
-		return service.listAll(req, model);
+		return service.listAll();
 	}
 	
 	// Insert
@@ -52,18 +52,14 @@ public class BoardController {
 	public Map<String, Object> boardInsert(@RequestBody BoardDTO dto)
 		throws ServletException, IOException {
 		logger.info("<<< BoardController - boardInsert() >>>");
-		
-		int insertCnt=0;
 		String resultCode="";
 		String resultMsg="";
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			insertCnt=service.insertBoard(dto);
-			if(insertCnt==1) {
-				resultCode="333";
-				resultMsg="boardInsert success♥️";
-			}
+			service.insertBoard(dto);
+			resultCode="333";
+			resultMsg="boardInsert success♥️";
 		} catch(Exception e) {
 			e.printStackTrace();
 			resultCode="444";
@@ -90,17 +86,14 @@ public class BoardController {
 			throws ServletException, IOException {
 			logger.info("<<< BoardController - boardUpdate() >>>");
 			
-			int updateCnt=0;
 			String resultCode="";
 			String resultMsg="";
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			try {
-				updateCnt=service.updateBoard(dto);
-				if(updateCnt==1) {
-					resultCode="333";
-					resultMsg="boardUpdate success♥️";
-				}
+				service.insertBoard(dto);
+				resultCode="333";
+				resultMsg="boardUpdate success♥️";
 			} catch(Exception e) {
 				e.printStackTrace();
 				resultCode="444";
@@ -119,17 +112,14 @@ public class BoardController {
 			throws ServletException, IOException {
 			logger.info("<<< BoardController - boardDelete() >>>");
 			
-			int deleteCnt=0;
 			String resultCode="";
 			String resultMsg="";
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			try {
-				deleteCnt=service.deleteBoard(num);
-				if(deleteCnt==1) {
-					resultCode="333";
-					resultMsg="boardDelete success♥️";
-				}
+				service.deleteBoard(num);
+				resultCode="333";
+				resultMsg="boardDelete success♥️";
 			} catch(Exception e) {
 				e.printStackTrace();
 				resultCode="444";

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl } from "@mui/material";
+import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl, MenuItem, Select } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import ApiService from '../../../ApiService';
 
@@ -28,7 +28,7 @@ class LoanProductEdit extends Component {
     }
 
     // 수정전 상세페이지 호출
-    loadLoanDetail = () =>{
+    loadLoanDetail = () => {
         ApiService.fetchLoanByNum(window.localStorage.getItem("LoanNum"))
             .then(res => {
                 let loan = res.data;
@@ -46,7 +46,7 @@ class LoanProductEdit extends Component {
                     commission: loan.commission,
                 })
             })
-            .catch(err =>{
+            .catch(err => {
                 console.log('loadLoanDetail() Error!!', err);
             });
     }
@@ -58,31 +58,36 @@ class LoanProductEdit extends Component {
     }
 
     editProduct = (e) => {
-        // save후 reload방지
         e.preventDefault();
-
-        let inputData = {
-            num: this.state.num,
-            loanProductName: this.state.loanProductName,
-            loanProductRegistrationDate: this.state.loanProductRegistrationDate,
-            interestRate: this.state.interestRate,
-            content: this.state.content,
-            minMoney: this.state.minMoney,
-            maxMoney: this.state.maxMoney,
-            minPeriod: this.state.minPeriod,
-            maxPeriod: this.state.maxPeriod,
-            repayment: this.state.repayment,
-            commission: this.state.commission
+    
+        const confirmEdit = window.confirm("수정하시겠습니까?"); // 수정 여부를 묻는 알림창
+    
+        if (confirmEdit) {
+            let inputData = {
+                num: this.state.num,
+                loanProductName: this.state.loanProductName,
+                loanProductRegistrationDate: this.state.loanProductRegistrationDate,
+                interestRate: this.state.interestRate,
+                content: this.state.content,
+                minMoney: this.state.minMoney,
+                maxMoney: this.state.maxMoney,
+                minPeriod: this.state.minPeriod,
+                maxPeriod: this.state.maxPeriod,
+                repayment: this.state.repayment,
+                commission: this.state.commission
+            }
+    
+            ApiService.editLoan(inputData)
+                .then(res => {
+                    console.log('editLoan 성공', res.data);
+                    this.props.history.push('/loanProductList');
+                })
+                .catch(err => {
+                    console.log('editLoan 에러', err);
+                })
+        } else {
+            // 취소를 클릭한 경우, 수정 페이지에 그대로 남기
         }
-
-        ApiService.editLoan(inputData)
-            .then(res => {
-                console.log('editLoan 성공', res.data);
-                this.props.history.push('/loanProductList');
-            })
-            .catch(err => {
-                console.log('editLoan 에러', err);
-            })
     }
 
     render() {
@@ -123,22 +128,22 @@ class LoanProductEdit extends Component {
                         <FormHelperText >interestRate</FormHelperText>
                     </FormControl>
 
-                        <TextField sx={{ m: 2, mt: 2, width: '93ch' }}
-                            required
-                            id="sandard-required"
-                            variant="standard"
-                            multiline
-                            fullWidth
-                            rows={4}
-                            label="content"
-                            // helperText="please enter content"
-                            type="text"
-                            name="content"
-                            value={this.state.content}
-                            placeholder="content"
-                            onChange={this.onChange} /><br />
+                    <TextField sx={{ m: 2, mt: 2, width: '93ch' }}
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        multiline
+                        fullWidth
+                        rows={4}
+                        label="content"
+                        // helperText="please enter content"
+                        type="text"
+                        name="content"
+                        value={this.state.content}
+                        placeholder="content"
+                        onChange={this.onChange} /><br />
 
-                
+
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
@@ -154,8 +159,8 @@ class LoanProductEdit extends Component {
                         <FormHelperText >minMoney</FormHelperText>
                     </FormControl>
 
-                    
-                    
+
+
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
@@ -170,7 +175,7 @@ class LoanProductEdit extends Component {
                         />
                         <FormHelperText >maxMoney</FormHelperText>
                     </FormControl>
-                    
+
 
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
@@ -187,8 +192,8 @@ class LoanProductEdit extends Component {
                         <FormHelperText >minPeriod</FormHelperText>
                     </FormControl>
 
-                    
-                    
+
+
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
@@ -205,6 +210,21 @@ class LoanProductEdit extends Component {
                     </FormControl>
 
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
+                        <Select
+                            labelId="repayment-label"
+                            id="repayment"
+                            name="repayment"
+                            value={this.state.repayment}
+                            onChange={this.onChange}
+                        >
+                            <MenuItem value={"만기일시상환"}>만기일시상환</MenuItem>
+                            <MenuItem value={"원리금균등상환"}>원리금균등상환</MenuItem>
+                            <MenuItem value={"원금균등상환"}>원금균등상환</MenuItem>
+                        </Select>
+                        <FormHelperText>repayment</FormHelperText>
+                    </FormControl>
+
+                    {/* <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end"></InputAdornment>}
@@ -217,7 +237,7 @@ class LoanProductEdit extends Component {
                             onChange={this.onChange}
                         />
                         <FormHelperText >repayment</FormHelperText>
-                    </FormControl>
+                    </FormControl> */}
 
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
@@ -236,8 +256,8 @@ class LoanProductEdit extends Component {
                 </Grid>
 
                 <Stack spacing={1} direction="row" justifyContent="center" marginTop={1}>
-                    <Button color="primary" variant="outlined" onClick={this.editProduct}>edit</Button>
-                    <Button href="/loanProductList" variant="contained" color="primary">back</Button>
+                    <Button color="primary" variant="contained" onClick={this.editProduct}>edit</Button>
+                    <Button href="/loanProductList" variant="outlined" color="primary">back</Button>
                 </Stack>
 
             </Container>

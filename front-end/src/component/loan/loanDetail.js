@@ -24,9 +24,13 @@ class LoanDetail extends Component {
         }
     }
 
+    componentDidMount() {
+        this.loadLoanDetail();
+    }
+
     // 상세페이지 호출
     loadLoanDetail = () =>{
-        ApiService.fetchDetailByNum(window.localStorage.getItem("loanNum"))
+        ApiService.fetchDetailByNum(window.localStorage.getItem("LoanNum"))
             .then(res => {
                 let loan = res.data;
                 this.setState({
@@ -71,6 +75,7 @@ class LoanDetail extends Component {
                                 'aria-label': 'loanProductName',
                             }}
                             value={this.state.loanProductName}
+                            disabled
                         />
                         <FormHelperText >loanProductName</FormHelperText>
                     </FormControl>
@@ -84,6 +89,7 @@ class LoanDetail extends Component {
                                 'aria-label': 'interestRate',
                             }}
                             value={this.state.interestRate}
+                            disabled
                         />
                         <FormHelperText >interestRate</FormHelperText>
                     </FormControl>
@@ -100,6 +106,7 @@ class LoanDetail extends Component {
                             type="text"
                             name="content"
                             value={this.state.content}
+                            disabled
                             placeholder="content"/><br />
 
                 
@@ -112,6 +119,7 @@ class LoanDetail extends Component {
                                 'aria-label': 'minMoney',
                             }}
                             value={this.state.minMoney}
+                            disabled
                         />
                         <FormHelperText >minMoney</FormHelperText>
                     </FormControl>
@@ -127,6 +135,7 @@ class LoanDetail extends Component {
                                 'aria-label': 'maxMoney',
                             }}
                             value={this.state.maxMoney}
+                            disabled
                         />
                         <FormHelperText >maxMoney</FormHelperText>
                     </FormControl>
@@ -141,6 +150,7 @@ class LoanDetail extends Component {
                                 'aria-label': 'minPeriod',
                             }}
                             value={this.state.minPeriod}
+                            disabled
                         />
                         <FormHelperText >minPeriod</FormHelperText>
                     </FormControl>
@@ -156,6 +166,7 @@ class LoanDetail extends Component {
                                 'aria-label': 'maxPeriod',
                             }}
                             value={this.state.maxPeriod}
+                            disabled
                         />
                         <FormHelperText >maxPeriod</FormHelperText>
                     </FormControl>
@@ -169,6 +180,7 @@ class LoanDetail extends Component {
                                 'aria-label': 'repayment',
                             }}
                             value={this.state.repayment}
+                            disabled
                         />
                         <FormHelperText >repayment</FormHelperText>
                     </FormControl>
@@ -182,6 +194,7 @@ class LoanDetail extends Component {
                                 'aria-label': 'commission',
                             }}
                             value={this.state.commission}
+                            disabled
                         />
                         <FormHelperText >commission</FormHelperText>
                     </FormControl>
