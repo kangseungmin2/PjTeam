@@ -23,10 +23,13 @@ class LoanProductEdit extends Component {
             message: ''
         }
     }
+    componentDidMount() {
+        this.loadLoanDetail();
+    }
 
     // 수정전 상세페이지 호출
     loadLoanDetail = () =>{
-        ApiService.fetchLoanByNum(window.localStorage.getItem("loanNum"))
+        ApiService.fetchLoanByNum(window.localStorage.getItem("LoanNum"))
             .then(res => {
                 let loan = res.data;
                 this.setState({
@@ -59,6 +62,7 @@ class LoanProductEdit extends Component {
         e.preventDefault();
 
         let inputData = {
+            num: this.state.num,
             loanProductName: this.state.loanProductName,
             loanProductRegistrationDate: this.state.loanProductRegistrationDate,
             interestRate: this.state.interestRate,
@@ -97,6 +101,7 @@ class LoanProductEdit extends Component {
                             inputProps={{
                                 'aria-label': 'loanProductName',
                             }}
+                            name="loanProductName"
                             value={this.state.loanProductName}
                             onChange={this.onChange}
                         />
@@ -111,6 +116,7 @@ class LoanProductEdit extends Component {
                             inputProps={{
                                 'aria-label': 'interestRate',
                             }}
+                            name="interestRate"
                             value={this.state.interestRate}
                             onChange={this.onChange}
                         />
@@ -141,6 +147,7 @@ class LoanProductEdit extends Component {
                             inputProps={{
                                 'aria-label': 'minMoney',
                             }}
+                            name="minMoney"
                             value={this.state.minMoney}
                             onChange={this.onChange}
                         />
@@ -157,6 +164,7 @@ class LoanProductEdit extends Component {
                             inputProps={{
                                 'aria-label': 'maxMoney',
                             }}
+                            name="maxMoney"
                             value={this.state.maxMoney}
                             onChange={this.onChange}
                         />
@@ -172,6 +180,7 @@ class LoanProductEdit extends Component {
                             inputProps={{
                                 'aria-label': 'minPeriod',
                             }}
+                            name="minPeriod"
                             value={this.state.minPeriod}
                             onChange={this.onChange}
                         />
@@ -188,6 +197,7 @@ class LoanProductEdit extends Component {
                             inputProps={{
                                 'aria-label': 'maxPeriod',
                             }}
+                            name="maxPeriod"
                             value={this.state.maxPeriod}
                             onChange={this.onChange}
                         />
@@ -202,6 +212,7 @@ class LoanProductEdit extends Component {
                             inputProps={{
                                 'aria-label': 'repayment',
                             }}
+                            name="repayment"
                             value={this.state.repayment}
                             onChange={this.onChange}
                         />
@@ -216,6 +227,7 @@ class LoanProductEdit extends Component {
                             inputProps={{
                                 'aria-label': 'commission',
                             }}
+                            name="commission"
                             value={this.state.commission}
                             onChange={this.onChange}
                         />

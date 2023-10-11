@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="com.example.project_team.mappers.LoanAdminMapper">
+	<!-- LoanAdminList -->
+	<select id="LoanAdminList" resultType="com.example.project_team.dto.LoanDTO">
+		SELECT * FROM team_loan_product ORDER BY num
+	</select>
+	
+	<!-- insertLoan -->
+	<insert id="insertLoan" parameterType="com.example.project_team.dto.LoanDTO">
+		INSERT INTO team_loan_product
+			VALUES((SELECT NVL(MAX(num)+1,1) FROM team_loan_product), #{loanProductName}, sysdate
+					, #{interestRate}, #{content}, #{minMoney}, #{maxMoney}, #{minPeriod}, #{maxPeriod}
+					, #{repayment}, #{commission})
+	</insert>
+	
+	<!-- findByNum / 1건 조회 -->
+	<select id="findByNum" parameterType="int" resultType="com.example.project_team.dto.LoanDTO">
+		SELECT * FROM team_loan_product WHERE num = #{num}
+	</select>
+	
+	<!-- updateLoan -->
+	<update id="updateLoan" parameterType="com.example.project_team.dto.LoanDTO">
+		UPDATE team_loan_product
+			SET loanProductName=#{loanProductName}, interestRate=#{interestRate}, content=#{content}
+				, minMoney=#{minMoney}, maxMoney =#{maxMoney}, minPeriod=#{minPeriod}, maxPeriod=#{maxPeriod}
+				, repayment=#{repayment}, commission=#{commission}
+			WHERE num=#{num}
+	</update>
+	
+	<!-- deleteByNum -->
+	<delete id="deleteByNum" parameterType="int">
+		DELETE FROM team_loan_product WHERE num=#{num}
+	</delete>
+</mapper>

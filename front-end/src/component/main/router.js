@@ -47,6 +47,7 @@ import LoanProductList from '../admin/loan/loanProductList';
 import LoanSignConfirm from '../admin/loan/loanSignConfirm';
 import LoanDetail from "../loan/loanDetail";
 import LoanSignList from "../loan/loanSignList";
+import BoardListMember from "../board/boardListMember";
 
 
 const AppRouter = () => {
@@ -77,6 +78,7 @@ const AppRouter = () => {
                     <Route path="/boardList" component={BoardList}/>    {/* 상아-게시판목록 */}
                     <Route path="/boardAdd" component={BoardAdd}/>       {/* 상아-게시판추가 */}
                     <Route path="/boardEdit" component={BoardEdit}/>       {/* 상아-게시판수정 */}
+                    <Route path="/boardListMember" component={BoardListMember}/>       {/* 상아-게시판목록(고객) */}
                     <Route path="/loanList" component={LoanList}/>       {/* 상아-대출상품목록(고객) */}
                     <Route path="/loanDetail" component={LoanDetail}/>       {/* 상아-대출상세페이지(고객) */}
                     <Route path="/loanSign" component={LoanSign}/>       {/* 상아-대출가입(고객) */}

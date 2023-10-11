@@ -132,7 +132,13 @@ function BasicExample() {
               <NavDropdown.Item href="/memAccount">회원 결산</NavDropdown.Item>
               <NavDropdown.Item href="/question">1:1문의</NavDropdown.Item>
             </NavDropdown>
-              <Nav.Link href="/boardList" style={style}>고객센터</Nav.Link>
+
+            <NavDropdown title="고객센터" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/boardList">--admin--</NavDropdown.Item>
+              <NavDropdown.Item href="/boardListMember">--member--</NavDropdown.Item>
+            </NavDropdown>
+
+              
           </Nav>
           {log()}
         </Navbar.Collapse>

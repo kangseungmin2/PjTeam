@@ -73,6 +73,8 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'loanProductName',
                             }}
+                            name="loanProductName"
+                            onChange={this.onChange} 
                         />
                         <FormHelperText >loanProductName</FormHelperText>
                     </FormControl>
@@ -85,6 +87,8 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'interestRate',
                             }}
+                            name="interestRate"
+                            onChange={this.onChange} 
                         />
                         <FormHelperText >interestRate</FormHelperText>
                     </FormControl>
@@ -113,6 +117,8 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'minMoney',
                             }}
+                            name="minMoney"
+                            onChange={this.onChange} 
                         />
                         <FormHelperText >minMoney</FormHelperText>
                     </FormControl>
@@ -127,6 +133,8 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'maxMoney',
                             }}
+                            name="maxMoney"
+                            onChange={this.onChange} 
                         />
                         <FormHelperText >maxMoney</FormHelperText>
                     </FormControl>
@@ -140,6 +148,8 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'minPeriod',
                             }}
+                            name="minPeriod"
+                            onChange={this.onChange} 
                         />
                         <FormHelperText >minPeriod</FormHelperText>
                     </FormControl>
@@ -154,6 +164,8 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'maxPeriod',
                             }}
+                            name="maxPeriod"
+                            onChange={this.onChange} 
                         />
                         <FormHelperText >maxPeriod</FormHelperText>
                     </FormControl>
@@ -166,6 +178,8 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'repayment',
                             }}
+                            name="repayment"
+                            onChange={this.onChange} 
                         />
                         <FormHelperText >repayment</FormHelperText>
                     </FormControl>
@@ -178,6 +192,8 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'commission',
                             }}
+                            name="commission"
+                            onChange={this.onChange} 
                         />
                         <FormHelperText >commission</FormHelperText>
                     </FormControl>

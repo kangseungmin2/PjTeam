@@ -15,6 +15,9 @@ class BoardEdit extends Component {
             message: ''
         }
     }
+    componentDidMount() {
+        this.loadBoardList();
+    }
 
     // 수정전 상세페이지 호출
     loadBoardList = () =>{

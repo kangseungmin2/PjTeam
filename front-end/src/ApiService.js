@@ -55,12 +55,12 @@ class ApiService {
     // 1건 select
     fetchBoardByNum(BoardNum){
         console.log('fetchSamplesByID 호출!!', BoardNum);
-        return axios.get(BOARD_API_ADMIN + "/"+BoardNum, BoardNum);
+        return axios.get(BOARD_API_ADMIN + "/"+BoardNum);
     }
     // update
     editBoard(inputData){
         console.log('editBoard 호출!!', inputData);
-        return axios.put(BOARD_API_ADMIN + "/"+ inputData.BoardNum, inputData);
+        return axios.put(BOARD_API_ADMIN + "/"+ inputData.num, inputData);
     }
     // delete
     deleteBoard(BoardNum){
@@ -96,12 +96,12 @@ class ApiService {
     // 1건 select
     fetchLoanByNum(LoanNum){
         console.log('fetchLoanByNum 호출!!', LoanNum);
-        return axios.get(LOANPRODUCT_API_ADMIN + "/"+LoanNum, LoanNum);
+        return axios.get(LOANPRODUCT_API_ADMIN + "/"+LoanNum);
     }
     // update
     editLoan(inputData){
         console.log('editLoan 호출!!', inputData);
-        return axios.put(LOANPRODUCT_API_ADMIN + "/"+ inputData.LoanNum, inputData);
+        return axios.put(LOANPRODUCT_API_ADMIN + "/"+ inputData.num, inputData);
     }
     // delete
     deleteLoan(LoanNum){
@@ -113,13 +113,13 @@ class ApiService {
     // list
     fetchLoansPL(){
         console.log('fetchLoansPL() 호출');
-        return axios.get(LOANLIST_API_CUSTOMER); // 스프링부트와 통신
+        return axios.get(LOANLIST_API_MEMBER); // 스프링부트와 통신
     }
 
     // 1건 select
     fetchDetailByNum(LoanNum){
         console.log('fetchDetailByNum 호출!!', LoanNum);
-        return axios.get(LOANLIST_API_CUSTOMER + "/"+LoanNum, LoanNum);
+        return axios.get(LOANLIST_API_MEMBER + "/"+LoanNum, LoanNum);
     }
 
 
