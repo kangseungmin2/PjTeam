@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.example.project_team.dto.QuestionDTO;
-import com.example.project_team.mappers.QuestionMapper;
+import com.example.project_team.mapper.QuestionMapper;
 
 @Service
 public class QuestionServiceImpl implements QuestionService{
