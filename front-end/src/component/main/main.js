@@ -4,6 +4,7 @@ class main extends Component{
     render(){
         return(
             <div>
+                <h3>메인화면</h3>
                 <img src={imgLogo}></img>
             </div>
         );

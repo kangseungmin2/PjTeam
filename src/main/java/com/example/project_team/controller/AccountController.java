@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+
+import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.project_team.dto.AccountDTO;
 import com.example.project_team.service.AccountService;
 
+
 @CrossOrigin(origins="**",maxAge=3600)
-@RequestMapping("/openAccount")
+@RequestMapping("/allAccount")
 @RestController
 public class AccountController {
 
@@ -55,6 +59,7 @@ public class AccountController {
 	}
 	
 	//전체 리스트
+
 	@GetMapping
 	public List<AccountDTO> accountList(HttpServletRequest req, Model model) 
 		throws ServletException, IOException{
@@ -110,6 +115,5 @@ public class AccountController {
 		System.out.println("AccountController - deleteAccount");
 		return service.deleteAccount(accountNum);
 	}
-	
 	
 }

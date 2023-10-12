@@ -7,7 +7,7 @@ class openAccount extends Component{
         super(props);
 
         this.state ={
-            // accountNum:'',
+            accountNum:'',
             id:'',
             accountPW:'',
             accountLimit:''
@@ -23,7 +23,7 @@ class openAccount extends Component{
     saveAccount = (e) => {
         e.preventDefault();
         let inputData = {
-            // accountNum: this.state.accountNum,
+            accountNum: this.state.accountNum,
             id: this.state.id,
             accountPW: this.state.accountPW,
             accountLimit: this.state.accountLimit
@@ -32,7 +32,7 @@ class openAccount extends Component{
             .then(res => {
                 console.log('성공 :' , res.data);
                 alert("계좌개설 성공~"); 
-                this.props.history.push("/allAccount");
+                this.props.history.push("/main");
             })
             .catch(err => {
                 console.log('에러!!:'+err);
@@ -42,7 +42,7 @@ class openAccount extends Component{
         return(
             <div>
                 <Typography variant="h4">계좌 개설</Typography>
-                {/* <TextField
+                <TextField
                     required
                     id="standard-required"
                     variant="standard"
@@ -52,7 +52,7 @@ class openAccount extends Component{
                     value={this.state.accountNum}
                     placeholder="Input accountNum"
                     onChange={this.onChange}
-                /><br/> */}
+                /><br/>
                 <TextField
                     required
                     id="standard-required"
@@ -69,7 +69,7 @@ class openAccount extends Component{
                     id="standard-required"
                     variant="standard"
                     label="accountPW"
-                    type="password"
+                    type="text"
                     name="accountPW"
                     value={this.state.accountPW}
                     placeholder="Input accountPW"
@@ -91,9 +91,5 @@ class openAccount extends Component{
         );
     }
    
-}
-const style ={
-    display: 'flex',
-    justifyContent: 'center'
 }
 export default openAccount;

@@ -8,11 +8,24 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
 
+import com.example.project_team.dto.FundAccountDTO;
 import com.example.project_team.dto.FundProductDTO;
 
 public interface FundService {
-	// FundList
+	// fundList
 	public List<FundProductDTO> fundList(HttpServletRequest req, Model model)
+			throws ServletException, IOException;
+	
+	// accountList
+	public List<FundAccountDTO> accountList(String id)
+			throws ServletException, IOException;
+	
+	// fundDetail 1건 조회
+	public FundProductDTO fundDetail(String fpName)
+			throws ServletException, IOException;
+	
+	// fundAccount 1건 조회
+	public FundAccountDTO fundAccount(long fAccount)
 			throws ServletException, IOException;
 }
  

@@ -2,8 +2,64 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import '../../resource/css/login.css'; 
+import '../../resource/css/login.css';
+
+function log(){
+  const id = window.localStorage.getItem("id");
+  const admin = window.localStorage.getItem("admin");
+  if(admin == null){
+    if(id == null){
+      console.log('로그인 안됨')
+      return <Nav >        
+          <Nav.Link href="/join" style={style}>회원가입</Nav.Link>
+          <Nav.Link eventKey={2} href="/login" style={style}>
+          로그인
+          </Nav.Link>
+      </Nav>
+    }
+    else if(id != null){
+      console.log('로그인 됨')
+      return <Nav>
+        <NavDropdown title={id} id="basic-nav-dropdown">
+          <NavDropdown.Item href="/memberInfo">내정보</NavDropdown.Item>
+          <NavDropdown.Item href="/modifyMember">회원수정</NavDropdown.Item>
+          <NavDropdown.Item href="/deleteMember">회원탈퇴</NavDropdown.Item>
+          <NavDropdown.Item href="/memAccount">회원 결산</NavDropdown.Item>
+          <NavDropdown.Item href="/question">1:1문의</NavDropdown.Item>
+        </NavDropdown>
+        <Nav.Link eventKey={2} href="/chat" style={style}>
+          채팅
+        </Nav.Link>
+        <Nav.Link eventKey={2} style={style} onClick={logout}>
+          로그아웃
+        </Nav.Link>
+      </Nav>
+    }
+  }
+  else if(admin != null){
+    return <Nav>
+        <NavDropdown title="관리자" id="basic-nav-dropdown">
+          <NavDropdown.Item href="/management">회원관리</NavDropdown.Item>
+          <NavDropdown.Item href="/adminAccount">관리자 결산</NavDropdown.Item>
+          <NavDropdown.Item href="/answer">1:1문의 답변</NavDropdown.Item>
+        </NavDropdown>
+        <Nav.Link eventKey={2} href="/chat" style={style}>
+          채팅
+        </Nav.Link>
+        <Nav.Link eventKey={2} style={style} onClick={logout}>
+          로그아웃
+        </Nav.Link>
+      </Nav>
+  }
+}
+function logout(){
+  window.location.reload();
+  localStorage.removeItem("id");
+  localStorage.removeItem("admin");
+}
+
 function BasicExample() {
+
   return (
     <Navbar expand="lg" style={style}>
       <Container>
@@ -27,25 +83,12 @@ function BasicExample() {
 
             <NavDropdown title="대출" id="basic-nav-dropdown">
               <NavDropdown.Item href="/loanList">대출상품</NavDropdown.Item>
-              <NavDropdown.Item href="/loanSign">
-                대출신청/조회
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/repayment">
-                이자조회/납부
-              </NavDropdown.Item>
+              <NavDropdown.Item href="/loanSignList">가입상품 조회</NavDropdown.Item>
+              <NavDropdown.Item href="/repayment">이자조회/납부</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/loanProductAdd">
-                대출상품 등록
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/loanProductEdit">
-                대출상품 수정
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/loanProductList">
-                대출상품 목록
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/loanSignConfirm">
-                대출신청 승인/반려
-              </NavDropdown.Item>
+              <NavDropdown.Item href="/loanProductAdd">대출상품 등록</NavDropdown.Item>
+              <NavDropdown.Item href="/loanProductList">대출상품 목록</NavDropdown.Item>
+              <NavDropdown.Item href="/loanSignConfirm">대출신청 승인/반려</NavDropdown.Item>
             </NavDropdown>
 
 
@@ -107,15 +150,15 @@ function BasicExample() {
               <NavDropdown.Item href="/memAccount">회원 결산</NavDropdown.Item>
               <NavDropdown.Item href="/question">1:1문의</NavDropdown.Item>
             </NavDropdown>
-              <Nav.Link href="/boardList" style={style}>고객센터</Nav.Link>
-          </Nav>
-          <Nav >
-            <Nav.Link href="/join" style={style}>회원가입</Nav.Link>
-            <Nav.Link eventKey={2} href="/login" style={style}>
 
-              로그인
-            </Nav.Link>
+            <NavDropdown title="고객센터" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/boardList">--admin--</NavDropdown.Item>
+              <NavDropdown.Item href="/boardListMember">--member--</NavDropdown.Item>
+            </NavDropdown>
+
+              
           </Nav>
+          {log()}
         </Navbar.Collapse>
       </Container>
     </Navbar>
