@@ -5,7 +5,7 @@ import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 
 
-class cancleAuto extends Component {
+class transferList extends Component {
 
     constructor(props) {
         super(props);
@@ -13,34 +13,34 @@ class cancleAuto extends Component {
         this.state = {
             trans: [
                 {
-                    num: 1, transType: "자동이체1", transAmount: 10000, transBalance: 100000, transDate: "2023-01-09", transDetail: "상세내용1"
+                    num: 1, transType: "1건이체1", transAmount: 10000, transBalance: 100000, transDate: "2023-10-09", transDetail: "상세내용1"
                 },
                 {
-                    num: 2, transType: "자동이체2", transAmount: 10000, transBalance: 90000, transDate: "2023-02-09", transDetail: "상세내용2"
+                    num: 2, transType: "1건이체2", transAmount: 10000, transBalance: 90000, transDate: "2023-10-09", transDetail: "상세내용2"
                 },
                 {
-                    num: 3, transType: "자동이체3", transAmount: 10000, transBalance: 80000, transDate: "2023-03-09", transDetail: "상세내용3"
+                    num: 3, transType: "1건이체3", transAmount: 10000, transBalance: 80000, transDate: "2023-10-09", transDetail: "상세내용3"
                 },
                 {
-                    num: 4, transType: "자동이체4", transAmount: 10000, transBalance: 70000, transDate: "2023-04-09", transDetail: "상세내용4"
+                    num: 4, transType: "1건이체4", transAmount: 10000, transBalance: 70000, transDate: "2023-10-09", transDetail: "상세내용4"
                 },
                 {
-                    num: 5, transType: "자동이체5", transAmount: 10000, transBalance: 60000, transDate: "2023-05-09", transDetail: "상세내용5"
+                    num: 5, transType: "1건이체5", transAmount: 10000, transBalance: 60000, transDate: "2023-10-09", transDetail: "상세내용5"
                 },
                 {
-                    num: 6, transType: "자동이체6", transAmount: 10000, transBalance: 50000, transDate: "2023-06-09", transDetail: "상세내용6"
+                    num: 6, transType: "1건이체6", transAmount: 10000, transBalance: 50000, transDate: "2023-10-09", transDetail: "상세내용6"
                 },
                 {
-                    num: 7, transType: "자동이체7", transAmount: 10000, transBalance: 40000, transDate: "2023-07-09", transDetail: "상세내용7"
+                    num: 7, transType: "1건이체7", transAmount: 10000, transBalance: 40000, transDate: "2023-10-09", transDetail: "상세내용7"
                 },
                 {
-                    num: 8, transType: "자동이체8", transAmount: 10000, transBalance: 30000, transDate: "2023-08-09", transDetail: "상세내용8"
+                    num: 8, transType: "1건이체8", transAmount: 10000, transBalance: 30000, transDate: "2023-10-09", transDetail: "상세내용8"
                 },
                 {
-                    num: 9, transType: "자동이체9", transAmount: 10000, transBalance: 20000, transDate: "2023-09-09", transDetail: "상세내용9"
+                    num: 9, transType: "1건이체9", transAmount: 10000, transBalance: 20000, transDate: "2023-10-09", transDetail: "상세내용9"
                 },
                 {
-                    num: 10, transType: "자동이체10", transAmount: 10000, transBalance: 10000, transDate: "2023-10-09", transDetail: "상세내용10"
+                    num: 10, transType: "1건이체10", transAmount: 10000, transBalance: 10000, transDate: "2023-10-09", transDetail: "상세내용10"
                 }
             ],
             message: null,
@@ -79,7 +79,7 @@ class cancleAuto extends Component {
     // check
     checkTran = (num) => {
         window.localStorage.setItem("TranNum", num);
-        this.props.history.push("/tranCheck")
+        this.props.history.push("/checkTran")
     }
     
 
@@ -104,7 +104,7 @@ class cancleAuto extends Component {
             <Container component="main" maxWidth="md">
 
                 <PaidOutlinedIcon fontSize='large' color='primary' />
-                <Typography variant="h4" style={style}> Transfer List </Typography>
+                <Typography variant="h4" style={style}> 이체목록 </Typography>
 
                 <TableContainer >
                     <Table md={{ minWidth: 900 }}>
@@ -160,4 +160,4 @@ const style = {
 
 
 
-export default cancleAuto;
+export default transferList;

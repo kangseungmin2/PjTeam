@@ -18,6 +18,7 @@ public class LoanDTO {
 	private String loanProductName;
 	private Date loanProductRegistrationDate;
 	private int interestRate;
+	private String contentTitle;
 	private String content;
 	private int minMoney;
 	private int maxMoney;

@@ -13,6 +13,7 @@ class LoanProductEdit extends Component {
             loanProductName: '',
             loanProductRegistrationDate: '',
             interestRate: '',
+            contentTitle: '',
             content: '',
             minMoney: '',
             maxMoney: '',
@@ -37,6 +38,7 @@ class LoanProductEdit extends Component {
                     loanProductName: loan.loanProductName,
                     loanProductRegistrationDate: loan.loanProductRegistrationDate,
                     interestRate: loan.interestRate,
+                    contentTitle: loan.contentTitle,
                     content: loan.content,
                     minMoney: loan.minMoney,
                     maxMoney: loan.maxMoney,
@@ -68,6 +70,7 @@ class LoanProductEdit extends Component {
                 loanProductName: this.state.loanProductName,
                 loanProductRegistrationDate: this.state.loanProductRegistrationDate,
                 interestRate: this.state.interestRate,
+                contentTitle: this.state.contentTitle,
                 content: this.state.content,
                 minMoney: this.state.minMoney,
                 maxMoney: this.state.maxMoney,
@@ -128,6 +131,21 @@ class LoanProductEdit extends Component {
                         <FormHelperText >interestRate</FormHelperText>
                     </FormControl>
 
+                    <TextField sx={{ m: 2, width: '93ch' }}
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        multiline
+                        fullWidth
+                        rows={4}
+                        label="contentTitle"
+                        // helperText="please enter content"
+                        type="text"
+                        name="contentTitle"
+                        value={this.state.contentTitle}
+                        placeholder="contentTitle"
+                        onChange={this.onChange} /><br />
+                        
                     <TextField sx={{ m: 2, mt: 2, width: '93ch' }}
                         required
                         id="sandard-required"
