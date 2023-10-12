@@ -21,6 +21,8 @@ import depositCheck from "../deposit/depositCheck";
 
 import login from "../customer/login";
 import join from "../customer/join";
+import chat from "../customer/chat";
+
 import oneTransfer from "../transfer/oneTransfer";
 import multipleTransfer from "../transfer/multipleTransfer";
 import autoWithdrawal from "../transfer/autoWithdrawal";
@@ -32,6 +34,7 @@ import accountChk from "../fund/accountChk";
 import fundDetail from "../fund/fundDetail";
 import fundAccount from "../fund/fundAccount";
 import myFund from "../fund/myFund";
+import lastFundAccount from "../fund/lastFundAccount"
 
 import BoardList from '../admin/board/boardList';
 import BoardAdd from '../admin/board/boardAdd';
@@ -59,8 +62,6 @@ const AppRouter = () => {
                     <Route path="/balanceList" component={balanceList}/>       {/* 서윤-잔액조회 */}
                     <Route path="/passwordModify" component={passwordModify}/>       {/* 서윤-비밀번호 변경 */}
                     <Route path="/deleteAccount" component={deleteAccount}/>       {/* 서윤-계좌해지 */}
-                    <Route path="/login" component={login}/>       {/* 승민-로그인 */}
-                    <Route path="/join" component={join}/>          {/* 회원가입-로그인 */}
                     <Route path="/adminAccount" component={adminAccount}/>       {/* 서윤-관리자-결산 */}
                     <Route path="/answer" component={answer}/>       {/* 서윤-관리자-1:1문의 */}
                     <Route path="/management" component={management}/>       {/* 서윤-관리자-회원관리 */}
@@ -70,6 +71,10 @@ const AppRouter = () => {
                     <Route path="/modifyMember" component={modifyMember}/>       {/* 서윤-회원-내정보수정 */}
                     <Route path="/question" component={question}/>       {/* 서윤-회원-1:1문의 */}
                     
+                    <Route path="/login" component={login}/>       {/* 승민-로그인 */}
+                    <Route path="/join" component={join}/>          {/* 승민 -회원가입-로그인 */}
+                    <Route path="/chat" component={chat}/>          {/* 승민 -채팅 */}
+
                     <Route path="/boardList" component={BoardList}/>    {/* 상아-게시판목록 */}
                     <Route path="/boardAdd" component={BoardAdd}/>       {/* 상아-게시판추가 */}
                     <Route path="/boardEdit" component={BoardEdit}/>       {/* 상아-게시판수정 */}
@@ -93,11 +98,13 @@ const AppRouter = () => {
                     <Route path="/changeAuto" component={changeAuto}/>    {/* 정현-자동이체변경*/}
                     <Route path="/cancleAuto" component={cancleAuto}/>    {/* 정현-자동이체해지 */}
 
-                    <Route path="/fundAccount" component={fundAccount}/>        {/* 종훈-펀드계좌 개설 */}
+                    <Route path="/fundAccount" component={fundAccount}/>        {/* 종훈-펀드계좌 개설 2-2*/}
+                    <Route path="/lastFundAccount" component={lastFundAccount}/>        {/* 종훈-펀드계좌 개설 2-3*/}
                     <Route path="/fundList" component={fundList}/>        {/* 종훈-펀드 리스트 */}
                     <Route path="/accountChk" component={accountChk}/>        {/* 종훈-펀드계좌 체크*/}
                     <Route path="/fundDetail" component={fundDetail}/>        {/* 종훈-펀드 상세페이지 */}
                     <Route path="/myFund" component={myFund}/>        {/* 종훈-펀드 보유현황 */}
+                    
                 </div>
             </BrowserRouter>
             

@@ -23,14 +23,14 @@ export default class accountChk extends Component {
 
     accountList = () => {
         const id = "iu";
-        ApiService.accountList(id)
+        ApiService.fAccountList(id)
             .then(res => {
                 this.setState({
                     accountList: res.data
                 })
             })
             .catch(err => {
-                console.log('accountList() Error!!', err);
+                console.log('fAccountList() Error!!', err);
             })
     }
 
@@ -73,8 +73,6 @@ export default class accountChk extends Component {
                 <Typography variant="h4">
                     Account Check
                 </Typography>
-                {/* <form onSubmit={passwordChk(fAccount)}> */}
-
                 <form>
                     {this.state.accountList.map(list => (
                         <Table style={box} key={list.faccount}>

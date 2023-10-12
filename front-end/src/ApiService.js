@@ -10,6 +10,7 @@ const FUND_API_BASE_URL = "http://localhost:8083/fund";
 const BOARD_API_ADMIN = "http://localhost:8083/boardList";
 const LOANPRODUCT_API_ADMIN = "http://localhost:8083/loanProductList";
 const LOANLIST_API_CUSTOMER = "http://localhost:8083/loanList";
+const ACCOUNT_API_BASE_URL = "http://localhost:8083/allAccount";
 
 class ApiService {
 
@@ -20,7 +21,7 @@ class ApiService {
     }
 
     // accountList
-    accountList(id){
+    fAccountList(id){
         console.log('accountList() 호출',id);
         return axios.get(FUND_API_BASE_URL+"/accountList/"+id); // 스프링부트와 통신
     }
@@ -37,27 +38,7 @@ class ApiService {
         return axios.get(FUND_API_BASE_URL+"/fundAccount/"+faccount);
     }
 
-    // // insert
-    // addBoard(inputData){
-    //     console.log('addBoard 호출!!', inputData);
-    //     return axios.post(SAMPLE_API_BASE_URL, inputData);
-    // }
 
-    // // 1건 select
-    // fetchSamplesByNum(BoardNum){
-    //     console.log('fetchSamplesByID 호출!!', BoardNum);
-    //     return axios.get(SAMPLE_API_BASE_URL + "/"+BoardNum, BoardNum);
-    // }
-    // // update
-    // editBoard(inputData){
-    //     console.log('editBoard 호출!!', inputData);
-    //     return axios.put(SAMPLE_API_BASE_URL + "/"+ inputData.BoardNum, inputData);
-    // }
-    // // delete
-    // deleteBoard(BoardNum){
-    //     console.log('deleteBoard 호출!!', BoardNum);
-    //     return axios.delete(SAMPLE_API_BASE_URL + "/"+ BoardNum);
-    // }
 
     // Board(관리자)
     // list
@@ -85,6 +66,19 @@ class ApiService {
     deleteBoard(BoardNum){
         console.log('deleteBoard 호출!!', BoardNum);
         return axios.delete(BOARD_API_ADMIN + "/"+ BoardNum);
+    }
+
+
+    //서윤 계좌생성
+    accountOpen(inputData){
+        console.log('accountOpen 호출!!', inputData);
+        return axios.post(ACCOUNT_API_BASE_URL, inputData);
+    }
+
+    //서윤 전체계좌조회
+    accountList(){
+        console.log('accountList 호출~');
+        return axios.get(ACCOUNT_API_BASE_URL);
     }
 
     // LoanProduct(관리자)
