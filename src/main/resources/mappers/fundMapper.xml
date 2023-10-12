@@ -4,7 +4,20 @@
      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
      
 <mapper namespace="com.example.project_team.mappers.FundMapper">
+	<!-- fundList -->
 	<select id="fundList" resultType="com.example.project_team.dto.FundProductDTO">
 		SELECT * FROM team_fund_product 
+	</select>
+	<!-- accountList -->
+	<select id="accountList" parameterType="String" resultType="com.example.project_team.dto.FundAccountDTO">
+		SELECT * FROM team_fund_account WHERE id = #{id}
+	</select>
+	<!-- fundDetail 1건 조회 -->
+	<select id="fundDetail" parameterType="String" resultType="com.example.project_team.dto.FundProductDTO">
+		SELECT * FROM team_fund_product WHERE fpName = #{fpName}
+	</select>
+	<!-- fundAccount 1건 조회 -->
+	<select id="fundAccount" parameterType="long" resultType="com.example.project_team.dto.FundAccountDTO">
+		SELECT * FROM team_fund_account WHERE fAccount = #{fAccount}
 	</select>
 </mapper>

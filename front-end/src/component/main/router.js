@@ -34,6 +34,7 @@ import accountChk from "../fund/accountChk";
 import fundDetail from "../fund/fundDetail";
 import fundAccount from "../fund/fundAccount";
 import myFund from "../fund/myFund";
+import lastFundAccount from "../fund/lastFundAccount"
 
 import BoardList from '../admin/board/boardList';
 import BoardAdd from '../admin/board/boardAdd';
@@ -99,11 +100,13 @@ const AppRouter = () => {
                     <Route path="/changeAuto" component={changeAuto}/>    {/* 정현-자동이체변경*/}
                     <Route path="/cancleAuto" component={cancleAuto}/>    {/* 정현-자동이체해지 */}
 
-                    <Route path="/fundAccount" component={fundAccount}/>        {/* 종훈-펀드계좌 개설 */}
+                    <Route path="/fundAccount" component={fundAccount}/>        {/* 종훈-펀드계좌 개설 2-2*/}
+                    <Route path="/lastFundAccount" component={lastFundAccount}/>        {/* 종훈-펀드계좌 개설 2-3*/}
                     <Route path="/fundList" component={fundList}/>        {/* 종훈-펀드 리스트 */}
                     <Route path="/accountChk" component={accountChk}/>        {/* 종훈-펀드계좌 체크*/}
                     <Route path="/fundDetail" component={fundDetail}/>        {/* 종훈-펀드 상세페이지 */}
                     <Route path="/myFund" component={myFund}/>        {/* 종훈-펀드 보유현황 */}
+                    
                 </div>
             </BrowserRouter>
             

@@ -6,7 +6,7 @@ import axios from 'axios'; // npm install -f axios@^1.3.5
 // - 리엑트에서 이를 구현하기 위해서 렉소르를 사용한다. 기존 HTML이나 JSP에서 사용한 AJAX 역할을 한다고 보면 된다.
 // - npm install -f axios@^1.3.5
 
-const SAMPLE_API_BASE_URL = "http://localhost:8083/fund";
+const FUND_API_BASE_URL = "http://localhost:8083/fund";
 const BOARD_API_ADMIN = "http://localhost:8083/boardList";
 const LOANPRODUCT_API_ADMIN = "http://localhost:8083/loanProductList";
 const LOANLIST_API_MEMBER = "http://localhost:8083/loanList";
@@ -14,33 +14,32 @@ const ACCOUNT_API_BASE_URL = "http://localhost:8083/allAccount";
 
 
 class ApiService {
- 
+
     // list
     fundList(){
         console.log('fundList() 호출');
-        return axios.get(SAMPLE_API_BASE_URL); // 스프링부트와 통신
+        return axios.get(FUND_API_BASE_URL); // 스프링부트와 통신
     }
 
-    // // insert
-    // addBoard(inputData){
-    //     console.log('addBoard 호출!!', inputData);
-    //     return axios.post(SAMPLE_API_BASE_URL, inputData);
-    // }
-    // // 1건 select
-    // fetchSamplesByNum(BoardNum){
-    //     console.log('fetchSamplesByID 호출!!', BoardNum);
-    //     return axios.get(SAMPLE_API_BASE_URL + "/"+BoardNum, BoardNum);
-    // }
-    // // update
-    // editBoard(inputData){
-    //     console.log('editBoard 호출!!', inputData);
-    //     return axios.put(SAMPLE_API_BASE_URL + "/"+ inputData.BoardNum, inputData);
-    // }
-    // // delete
-    // deleteBoard(BoardNum){
-    //     console.log('deleteBoard 호출!!', BoardNum);
-    //     return axios.delete(SAMPLE_API_BASE_URL + "/"+ BoardNum);
-    // }
+    // accountList
+    fAccountList(id){
+        console.log('accountList() 호출',id);
+        return axios.get(FUND_API_BASE_URL+"/accountList/"+id); // 스프링부트와 통신
+    }
+
+    // fProductDetail
+    fProductDetail(fpName){
+        console.log('fProductDetail() 호출',fpName);
+        return axios.get(FUND_API_BASE_URL+"/fundDetail/"+fpName); // 스프링부트와 통신
+    }
+
+    // getFaccount
+    getFaccount(faccount){
+        console.log('getFaccount() 호출',faccount);
+        return axios.get(FUND_API_BASE_URL+"/fundAccount/"+faccount);
+    }
+
+
 
     // Board(관리자)
     // list
