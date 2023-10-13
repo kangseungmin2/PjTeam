@@ -9,7 +9,7 @@ export default class accountChk extends Component {
         this.state = {
             accountList: [],
             message: null,
-            password: '',
+            passwords: {},
             date: '',
             formattedDate: '',
             fPw: ''
@@ -36,34 +36,52 @@ export default class accountChk extends Component {
 
 
     // 계좌 비밀번호 4자리 맞는지 확인 
-    handleChange = (e) => {
+    handleChange = (e, faccount) => {
         const inputValue = e.target.value;
 
         // input box에 password 4자리 숫자제한 걸기
         if (inputValue.length <= 4) {
-            this.setState({ password: inputValue });
-        }
-        else {
+            // 개별 비밀번호 상태를 업데이트
+            this.setState(prevState => ({
+                passwords: {
+                    ...prevState.passwords,
+                    [faccount]: inputValue,
+                }
+            }));
+        } else {
             alert('계좌에 비밀번호는 4자리 입니다.');
-            this.setState({ password: '' });
+            // 해당 입력 필드 초기화
+            this.setState(prevState => ({
+                passwords: {
+                    ...prevState.passwords,
+                    [faccount]: '',
+                }
+            }));
         }
     };
 
     // 입력한 비밀번호가 DB data랑 맞는지 비교후 상품 상세화면으로 전환
-    onSubmit(faccount, fPw) {
-        console.log("입력받은 : ", this.state.password);
+    clickBtn = (faccount, fPw) => {
+        const enteredPassword = this.state.passwords[faccount];
+        console.log("입력받은 : ", enteredPassword);
         console.log("저장된 : ", fPw);
-        if (this.state.password == fPw) {
+
+        if (enteredPassword == fPw) {
             window.localStorage.removeItem("faccount");
             window.localStorage.setItem('faccount', faccount);
             this.props.history.push('/fundDetail');
-        }
-        else {
+        } else {
             alert('비밀번호가 일치하지 않습니다.');
-            this.setState({ password: '' });
-        }
 
-    }
+            // 해당 입력 필드 초기화
+            this.setState(prevState => ({
+                passwords: {
+                    ...prevState.passwords,
+                    [faccount]: '',
+                }
+            }));
+        }
+    };
 
     render() {
 
@@ -119,12 +137,12 @@ export default class accountChk extends Component {
                                             type="password"
                                             id="password"
                                             name="password"
-                                            value={this.state.password}
-                                            onChange={this.handleChange}
+                                            value={this.state.passwords[list.faccount] || ''} // 개별 비밀번호 상태 사용
+                                            onChange={(e) => this.handleChange(e, list.faccount)} // 특정 faccount를 전달
                                             style={pwd}
                                             placeholder="계좌 비밀번호를 입력하세요."
                                         />
-                                        <button type="button" className="btn btn-primary btn-block md-3" style={button} onClick={this.onSubmit.bind(this, list.faccount, list.fpw)}>확인</button>
+                                        <button type="button" className="btn btn-primary btn-block md-3" style={button} onClick={() => this.clickBtn(list.faccount, list.fpw)}>확인</button>
                                     </TableCell>
                                 </TableRow>
                             </TableFooter>
