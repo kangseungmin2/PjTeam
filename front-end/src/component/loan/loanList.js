@@ -5,6 +5,7 @@ import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import FindInPageRoundedIcon from '@mui/icons-material/FindInPageRounded';
 import { MDBAccordion, MDBAccordionItem } from 'mdb-react-ui-kit';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
 
 class LoanList extends Component {
@@ -16,7 +17,8 @@ class LoanList extends Component {
             loans: [],
             message: null,
             page: 0,
-            rPage: 5
+            rPage: 5,
+            searchQuery: '', // 검색어를 저장할 상태 변수
         }
     }
 
@@ -77,6 +79,18 @@ class LoanList extends Component {
                 <Typography variant="h4" style={style}> Loan Product </Typography>
 
                 <TableContainer >
+                    {/* 검색기능 */}
+                    <div style={search}>
+                        <div style={searchIcon}>
+                            <SearchRoundedIcon fontSize='large' color='action' />
+                        </div>
+                        <input style={searchInput}
+                            type="text"
+                            placeholder="상품명 검색"
+                            value={this.state.searchQuery}
+                            onChange={(e) => this.setState({ searchQuery: e.target.value })}
+                        />
+                    </div>
                     <Table md={{ minWidth: 900 }}>
                         <TableHead>
                             <TableRow>
@@ -90,7 +104,9 @@ class LoanList extends Component {
                         </TableHead>
 
                         <TableBody>
-                            {this.state.loans.slice(page * rPage, page *
+                            {this.state.loans.filter((loan) =>
+                                loan.loanProductName.toLowerCase().includes(this.state.searchQuery.toLowerCase())
+                            ).slice(page * rPage, page *
                                 rPage + rPage).map((loan) => (
                                     <TableRow hover key={loan.num}>
                                         <TableCell align='center'>{loan.num}</TableCell>
@@ -138,6 +154,20 @@ const style = {
     justifyContent: 'center'
 }
 
+const search = {
+    display: 'flex',
+    justifyContent: 'right',
+}
+const searchIcon = {
+    display: 'flex',
+    alignItems: 'center',
+}
 
+const searchInput = {
+    width: '300px',
+    height: '30px',
+    margin: '20px 0 10px 0',
+    border: '1px solid rgba(224, 224, 224, 1)'
+}
 
 export default LoanList;

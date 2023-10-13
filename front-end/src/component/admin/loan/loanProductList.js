@@ -3,6 +3,7 @@ import { Button, Typography, Container, Table, TableContainer, TableHead, TableR
 import ApiService from '../../../ApiService';
 import { Create, Delete } from '@mui/icons-material'
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
 
 class LoanProductList extends Component {
@@ -14,7 +15,8 @@ class LoanProductList extends Component {
             loans: [],
             message: null,
             page: 0,
-            rPage: 5
+            rPage: 5,
+            searchQuery: '', // 검색어를 저장할 상태 변수
         }
     }
 
@@ -95,7 +97,21 @@ class LoanProductList extends Component {
                 <Typography variant="h4" style={style}> Loan Product </Typography>
 
                 <TableContainer >
+                    {/* 검색기능 */}
+                    <div>
                     <Button variant="contained" style={btn} color="primary" onClick={this.addLoan}> Add Product </Button>
+                    </div>
+                    <div style={search}>
+                        <div style={searchIcon}>
+                            <SearchRoundedIcon fontSize='large' color='action' />
+                        </div>
+                        <input style={searchInput}
+                            type="text"
+                            placeholder="상품명 검색"
+                            value={this.state.searchQuery}
+                            onChange={(e) => this.setState({ searchQuery: e.target.value })}
+                        />
+                    </div>
                     <Table md={{ minWidth: 900 }}>
                         <TableHead>
                             <TableRow>
@@ -109,14 +125,16 @@ class LoanProductList extends Component {
                         </TableHead>
 
                         <TableBody>
-                            {this.state.loans.slice(page * rPage, page *
+                            {this.state.loans.filter((loan) =>
+                                loan.loanProductName.toLowerCase().includes(this.state.searchQuery.toLowerCase())
+                            ).slice(page * rPage, page *
                                 rPage + rPage).map((loan) => (
                                     <TableRow hover key={loan.num}>
                                         <TableCell align='center'>{loan.num}</TableCell>
                                         <TableCell align='center'>{loan.loanProductName}</TableCell>
                                         <TableCell align='center'>{loan.interestRate}%</TableCell>
                                         <TableCell align='center'><button className="btn" onClick={() => this.editLoan(loan.num)}><Create /></button></TableCell>
-                                        <TableCell align='center'><button className="btn" onClick={() => this.deleteLoan(loan.num)}><Delete /></button></TableCell>
+                                        <TableCell align='center'><button className="btn" onClick={() => this.deleteLoan(loan.num)}><Delete color='error' /></button></TableCell>
                                         <TableCell align='center'>
                                             {new Date(loan.loanProductRegistrationDate).toLocaleDateString(
                                                 'en-US', {
@@ -155,6 +173,22 @@ const style = {
 const btn = {
     display: 'flex',
     justifyContent: 'left'
+}
+
+const search = {
+    display: 'flex',
+    justifyContent: 'right',
+}
+const searchIcon = {
+    display: 'flex',
+    alignItems: 'center',
+}
+
+const searchInput = {
+    width: '300px',
+    height: '30px',
+    margin: '20px 0 10px 0',
+    border: '1px solid rgba(224, 224, 224, 1)'
 }
 
 

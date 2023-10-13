@@ -1,10 +1,19 @@
 import * as React from 'react';
-import { Typography, Button, Container, Copyright, Box, StepLabel, Step, Stepper, Paper } from "@mui/material";
+
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import Identity from './identity';
 import Agree from './agree';
 import SignDetail from './signDetail';
 
-const steps = ['본인인증', '약관동의', '상품 가입하기'];
+
+const steps = ['본인인증', '약관동의', '가입내용'];
 
 function getStepContent(step) {
   switch (step) {
@@ -19,10 +28,8 @@ function getStepContent(step) {
   }
 }
 
-export default function LoanSign() {
-
-    const [activeStep, setActiveStep] = React.useState(0);
-    
+export default function Checkout() {
+  const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -34,6 +41,7 @@ export default function LoanSign() {
 
   return (
     <React.Fragment>
+     
       
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
@@ -50,11 +58,12 @@ export default function LoanSign() {
           {activeStep === steps.length ? (
             <React.Fragment>
               <Typography variant="h5" gutterBottom>
-                대출 신청 성공🎉
+                대출 신청 완료🎉
               </Typography>
               <Typography variant="subtitle1">
-                관리자 승인이 남았습니다.
-                승인까지 조금만 기다려 주세요!
+                <br/>
+                관리자 승인이 남았습니다. 승인까지 조금만 기다려주세요!
+                <br/>
               </Typography>
             </React.Fragment>
           ) : (
@@ -72,14 +81,14 @@ export default function LoanSign() {
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  {activeStep === steps.length - 1 ? 'Request to Join' : 'Next'}
+                  {activeStep === steps.length - 1 ? 'Request to join' : 'Next'}
                 </Button>
               </Box>
             </React.Fragment>
           )}
         </Paper>
+   
       </Container>
     </React.Fragment>
   );
-   
 }
