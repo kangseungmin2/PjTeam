@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextField, Typography, Button, Stack, Grid, Container } from "@mui/material";
 import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
-import ApiService from '../../../ApiService';
+import board from "../../../api/board";
 
 
 class BoardAdd extends Component {
@@ -30,7 +30,7 @@ class BoardAdd extends Component {
             title: this.state.title,
             content: this.state.content
         }
-        ApiService.addBoard(inputData)
+        board.addBoard(inputData)
             .then(res => {
                 console.log('BoardAdd 성공', res.data);
                 this.props.history.push('/boardList');

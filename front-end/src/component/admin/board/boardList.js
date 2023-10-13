@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Button, Typography, Grid, Container, TablePagination } from '@mui/material';
-import ApiService from '../../../ApiService';
 import { Create, Delete } from '@mui/icons-material'
 import HelpOutlinedIcon from '@mui/icons-material/HelpOutlined';
 import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
 import { MDBAccordion, MDBAccordionItem, MDBIcon } from 'mdb-react-ui-kit';
+import board from '../../../api/board';
 
 class BoardList extends Component {
 
@@ -26,7 +26,7 @@ class BoardList extends Component {
 
     // list 정보
     loadBoardList = () => {
-        ApiService.fetchBoards()
+        board.fetchBoards()
             .then(res => {
                 this.setState({
                     boards: res.data
@@ -56,7 +56,7 @@ class BoardList extends Component {
 
         // 확인이 클릭된 경우만 삭제 진행
         if (confirmDelete) {
-            ApiService.deleteBoard(num)
+            board.deleteBoard(num)
                 .then(res => {
                     this.setState({
                         boards: this.state.boards.filter(board => board.num !== num)

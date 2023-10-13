@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Typography, Grid, Container, TablePagination } from '@mui/material';
-import ApiService from '../../ApiService';
 import HelpOutlinedIcon from '@mui/icons-material/HelpOutlined';
 import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
 import { MDBAccordion, MDBAccordionItem, MDBIcon } from 'mdb-react-ui-kit';
+import board from '../../api/board';
 
 class BoardListMember extends Component {
 
@@ -25,7 +25,7 @@ class BoardListMember extends Component {
 
     // list 정보
     loadBoardList = () => {
-        ApiService.fetchBoards()
+        board.fetchBoards()
             .then(res => {
                 this.setState({
                     boards: res.data
