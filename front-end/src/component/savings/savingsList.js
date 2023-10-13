@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
-import ApiService from '../../ApiService';
+import ApiService from '../../api/savings';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import FindInPageRoundedIcon from '@mui/icons-material/FindInPageRounded';
+import { MDBAccordion, MDBAccordionItem } from 'mdb-react-ui-kit';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
 
 class savingsList extends Component {
@@ -12,51 +14,11 @@ class savingsList extends Component {
         super(props);
 
         this.state = {
-            savingss: [
-                {
-                    jNo: 1, jName: "적금상품1",jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 2, jName: "적금상품2", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 3, jName: "적금상품3", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 4, jName: "적금상품4", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 5, jName: "적금상품5", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 6, jName: "적금상품6", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 7, jName: "적금상품7", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 8, jName: "적금상품8", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 9, jName: "적금상품9", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 10, jName: "적금상품10", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-            ],
+            savingss: [],
             message: null,
             page: 0,
-            rPage: 5
+            rPage: 5,
+            searchQuery: '', // 검색어를 저장할 상태 변수
         }
     }
 
@@ -66,8 +28,7 @@ class savingsList extends Component {
     }
 
     // list 정보
-    loadsavingsProductList = () => {
-        console.log("음?", this.state)
+    loadsavingsProductList = () => {     
         ApiService.fetchsavingssPL()
             .then(res => {
                 this.setState({
@@ -82,13 +43,13 @@ class savingsList extends Component {
 
     // 1건 select
     selectsavings = (jNo) => {
-        window.localStorage.setItem("jNo", jNo);
+        window.localStorage.setItem("SavingsNo", jNo);
         this.props.history.push("/savingsDetail")
     }
 
     // sign
     signsavings = (jNo) => {
-        window.localStorage.setItem("jNo", jNo);
+        window.localStorage.setItem("SavingsNo", jNo);
         this.props.history.push("/savingsSign")
     }
     
@@ -118,6 +79,18 @@ class savingsList extends Component {
                 <Typography variant="h4" style={style}> savings Product </Typography>
 
                 <TableContainer >
+                         {/* 검색기능 */}
+                         <div style={search}>
+                        <div style={searchIcon}>
+                            <SearchRoundedIcon fontSize='large' color='action' />
+                        </div>
+                        <input style={searchInput}
+                            type="text"
+                            placeholder="상품명 검색"
+                            value={this.state.searchQuery}
+                            onChange={(e) => this.setState({ searchQuery: e.target.value })}
+                        />
+                    </div>
                     <Table md={{ minWidth: 900 }}>
                         <TableHead>
                             <TableRow>
@@ -131,8 +104,10 @@ class savingsList extends Component {
                         </TableHead>
 
                         <TableBody>
-                            {this.state.savingss.slice(page * rPage, page * 
-                            rPage + rPage).map((savings) => (
+                            {this.state.savingss.filter((loan) =>
+                                loan.loanProductName.toLowerCase().includes(this.state.searchQuery.toLowerCase())
+                            ).slice(page * rPage, page *
+                                rPage + rPage).map((savings) => (
                                 <TableRow hover key={savings.jNo}>
                                     <TableCell align='center'>{savings.jNo}</TableCell>
                                     <TableCell align='center'>{savings.jName}</TableCell>
@@ -170,7 +145,21 @@ const style = {
     display: 'flex',
     justifyContent: 'center'
 }
+const search = {
+    display: 'flex',
+    justifyContent: 'right',
+}
+const searchIcon = {
+    display: 'flex',
+    alignItems: 'center',
+}
 
+const searchInput = {
+    width: '300px',
+    height: '30px',
+    margin: '20px 0 10px 0',
+    border: '1px solid rgba(224, 224, 224, 1)'
+}
 
 
 export default savingsList;

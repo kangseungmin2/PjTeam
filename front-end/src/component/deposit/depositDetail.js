@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import ApiService from '../../ApiService';
+import ApiService from '../../api/deposit';
 
 
 class depositDetail extends Component {
@@ -50,8 +50,8 @@ class depositDetail extends Component {
     }
 
     // sign
-    signDeposit = (num) => {
-        window.localStorage.setItem("yNo", num);
+    signDeposit = (yNo) => {
+        window.localStorage.setItem("DepositNum", yNo);
         this.props.history.push("/depositSign")
     }
 
@@ -70,9 +70,9 @@ class depositDetail extends Component {
                             aria-describedby="standard-depositProductName-helper-text"
                             inputProps={{
                                 'aria-label': 'depositProductName',
-                            }}
-                            name="depositProductName"
+                            }}                           
                             value={this.state.depositProductName}
+                            disabled
                         />
                         <FormHelperText >depositProductName</FormHelperText>
                     </FormControl>
@@ -84,9 +84,9 @@ class depositDetail extends Component {
                             aria-describedby="standard-interestRate-helper-text"
                             inputProps={{
                                 'aria-label': 'interestRate',
-                            }}
-                            name="interestRate"
+                            }}                          
                             value={this.state.interestRate}
+                            disabled
                         />
                         <FormHelperText >interestRate</FormHelperText>
                     </FormControl>
@@ -103,6 +103,7 @@ class depositDetail extends Component {
                             type="text"
                             name="content"
                             value={this.state.content}
+                            disabled
                             placeholder="content"/><br />
 
                 
@@ -113,9 +114,9 @@ class depositDetail extends Component {
                             aria-describedby="standard-MinPrice-helper-text"
                             inputProps={{
                                 'aria-label': 'MinPrice',
-                            }}
-                            name="MinPrice"
+                            }}                          
                             value={this.state.MinPrice}
+                            disabled
                         />
                         <FormHelperText >MinPrice</FormHelperText>
                     </FormControl>
@@ -129,9 +130,9 @@ class depositDetail extends Component {
                             aria-describedby="standard-MaxPrice-helper-text"
                             inputProps={{
                                 'aria-label': 'MaxPrice',
-                            }}
-                            name="MaxPrice"
+                            }}                           
                             value={this.state.MaxPrice}
+                            disabled
                         />
                         <FormHelperText >MaxPrice</FormHelperText>
                     </FormControl>
@@ -144,9 +145,9 @@ class depositDetail extends Component {
                             aria-describedby="standard-MinDate-helper-text"
                             inputProps={{
                                 'aria-label': 'MinDate',
-                            }}
-                            name="MinDate"
+                            }}                        
                             value={this.state.MinDate}
+                            disabled
                         />
                         <FormHelperText >MinDate</FormHelperText>
                     </FormControl>
@@ -160,9 +161,9 @@ class depositDetail extends Component {
                             aria-describedby="standard-MaxDate-helper-text"
                             inputProps={{
                                 'aria-label': 'MaxDate',
-                            }}
-                            name="MaxDate"
+                            }}                         
                             value={this.state.MaxDate}
+                            disabled
                         />
                         <FormHelperText >MaxDate</FormHelperText>
                     </FormControl>               

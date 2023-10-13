@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import ApiService from '../../ApiService';
+import ApiService from '../../api/savings';
 
 
 class savingsDetail extends Component {
@@ -53,7 +53,7 @@ class savingsDetail extends Component {
 
     // sign
     signSavings = (num) => {
-        window.localStorage.setItem("jNo", num);
+        window.localStorage.setItem("SavingsNo", num);
         this.props.history.push("/savingsSign")
     }
 
@@ -72,9 +72,9 @@ class savingsDetail extends Component {
                             aria-describedby="standard-savingsProductName-helper-text"
                             inputProps={{
                                 'aria-label': 'savingsProductName',
-                            }}
-                            name="savingsProductName"
+                            }}                           
                             value={this.state.savingsProductName}
+                            disabled
                         />
                         <FormHelperText >savingsProductName</FormHelperText>
                     </FormControl>
@@ -86,9 +86,9 @@ class savingsDetail extends Component {
                             aria-describedby="standard-interestRate-helper-text"
                             inputProps={{
                                 'aria-label': 'interestRate',
-                            }}
-                            name="interestRate"
+                            }}                          
                             value={this.state.interestRate}
+                            disabled
                         />
                         <FormHelperText >interestRate</FormHelperText>
                     </FormControl>
@@ -105,6 +105,7 @@ class savingsDetail extends Component {
                             type="text"
                             name="content"
                             value={this.state.content}
+                            disabled
                             placeholder="content"/><br />
 
                        
@@ -117,9 +118,9 @@ class savingsDetail extends Component {
                             aria-describedby="standard-MinPrice-helper-text"
                             inputProps={{
                                 'aria-label': 'MinPrice',
-                            }}
-                            name="MinPrice"
+                           }}                         
                             value={this.state.MinPrice}
+                            disabled
                         />
                         <FormHelperText >MinPrice</FormHelperText>
                     </FormControl>
@@ -133,9 +134,9 @@ class savingsDetail extends Component {
                             aria-describedby="standard-MaxPrice-helper-text"
                             inputProps={{
                                 'aria-label': 'MaxPrice',
-                            }}
-                            name="MaxPrice"
+                            }}                           
                             value={this.state.MaxPrice}
+                            disabled
                         />
                         <FormHelperText >MaxPrice</FormHelperText>
                     </FormControl>
@@ -148,9 +149,9 @@ class savingsDetail extends Component {
                             aria-describedby="standard-MinDate-helper-text"
                             inputProps={{
                                 'aria-label': 'MinDate',
-                            }}
-                            name="MinDate"
+                            }}                          
                             value={this.state.MinDate}
+                            disabled
                         />
                         <FormHelperText >MinDate</FormHelperText>
                     </FormControl>
@@ -164,9 +165,9 @@ class savingsDetail extends Component {
                             aria-describedby="standard-MaxDate-helper-text"
                             inputProps={{
                                 'aria-label': 'MaxDate',
-                            }}
-                            name="MaxDate"
+                            }}                           
                             value={this.state.MaxDate}
+                            disabled
                         />
                         <FormHelperText >MaxDate</FormHelperText>
                     </FormControl>  
@@ -178,9 +179,9 @@ class savingsDetail extends Component {
                             aria-describedby="standard-type-helper-text"
                             inputProps={{
                                 'aria-label': 'type',
-                            }}
-                            name="type"
+                            }}                         
                             value={this.state.type}
+                            disabled
                         />
                         <FormHelperText >type</FormHelperText>
                     </FormControl>                  

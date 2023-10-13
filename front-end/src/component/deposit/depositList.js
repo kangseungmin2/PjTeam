@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
-import ApiService from '../../ApiService';
+import ApiService from '../../api/deposit';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import FindInPageRoundedIcon from '@mui/icons-material/FindInPageRounded';
-
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
 class depositList extends Component {
 
@@ -12,51 +12,12 @@ class depositList extends Component {
         super(props);
 
         this.state = {
-            deposits: [
-                {
-                    yNo: 1, yName: "예금상품1",yRegistrationDate: "2023-10-09", interestRate: 4, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 2, yName: "예금상품2", yRegistrationDate: "2023-10-09", interestRate: 4, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 3, yName: "예금상품3", yRegistrationDate: "2023-10-09", interestRate: 4, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 4, yName: "예금상품4", yRegistrationDate: "2023-10-09", interestRate: 4, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 5, yName: "예금상품5", yRegistrationDate: "2023-10-09", interestRate: 4, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 6, yName: "예금상품6", yRegistrationDate: "2023-10-09", interestRate: 4, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 7, yName: "예금상품7", yRegistrationDate: "2023-10-09", interestRate: 4, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 8, yName: "예금상품8", yRegistrationDate: "2023-10-09", interestRate: 4, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 9, yName: "예금상품9", yRegistrationDate: "2023-10-09", interestRate: 4, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 10, yName: "예금상품10", yRegistrationDate: "2023-10-09", interestRate: 4, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-            ],
+            deposits: [ ],
             message: null,
             page: 0,
-            rPage: 5
+            rPage: 5,
+            searchQuery: '', // 검색어를 저장할 상태 변수
+           
         }
     }
 
@@ -66,8 +27,7 @@ class depositList extends Component {
     }
 
     // list 정보
-    loadDepositProductList = () => {
-        console.log("음?", this.state)
+    loadDepositProductList = () => {     
         ApiService.fetchdepositsPL()
             .then(res => {
                 this.setState({
@@ -82,13 +42,13 @@ class depositList extends Component {
 
     // 1건 select
     selectDeposit = (yNo) => {
-        window.localStorage.setItem("yNo", yNo);
+        window.localStorage.setItem("DepositNum", yNo);
         this.props.history.push("/DepositDetail")
     }
 
     // sign
     signDeposit = (yNo) => {
-        window.localStorage.setItem("yNo", yNo);
+        window.localStorage.setItem("DepositNum", yNo);
         this.props.history.push("/DepositSign")
     }
     
@@ -118,6 +78,18 @@ class depositList extends Component {
                 <Typography variant="h4" style={style}> deposit Product </Typography>
 
                 <TableContainer >
+                     {/* 검색기능 */}
+                     <div style={search}>
+                        <div style={searchIcon}>
+                            <SearchRoundedIcon fontSize='large' color='action' />
+                        </div>
+                        <input style={searchInput}
+                            type="text"
+                            placeholder="상품명 검색"
+                            value={this.state.searchQuery}
+                            onChange={(e) => this.setState({ searchQuery: e.target.value })}
+                        />
+                    </div>
                     <Table md={{ minWidth: 900 }}>
                         <TableHead>
                             <TableRow>
@@ -131,8 +103,10 @@ class depositList extends Component {
                         </TableHead>
 
                         <TableBody>
-                            {this.state.deposits.slice(page * rPage, page * 
-                            rPage + rPage).map((deposit) => (
+                            {this.state.deposits.filter((loan) =>
+                                loan.loanProductName.toLowerCase().includes(this.state.searchQuery.toLowerCase())
+                            ).slice(page * rPage, page *
+                                rPage + rPage).map((deposit) => (
                                 <TableRow hover key={deposit.yNo}>
                                     <TableCell align='center'>{deposit.yNo}</TableCell>
                                     <TableCell align='center'>{deposit.yName}</TableCell>
@@ -170,7 +144,21 @@ const style = {
     display: 'flex',
     justifyContent: 'center'
 }
+const search = {
+    display: 'flex',
+    justifyContent: 'right',
+}
+const searchIcon = {
+    display: 'flex',
+    alignItems: 'center',
+}
 
+const searchInput = {
+    width: '300px',
+    height: '30px',
+    margin: '20px 0 10px 0',
+    border: '1px solid rgba(224, 224, 224, 1)'
+}
 
 
 export default depositList;

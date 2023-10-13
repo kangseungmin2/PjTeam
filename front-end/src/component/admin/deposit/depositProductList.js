@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
-import ApiService from '../../../ApiService';
+import ApiService from '../../../api/deposit';
 import { Create, Delete } from '@mui/icons-material'
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
 class depositProductList extends Component {
 
@@ -11,51 +11,11 @@ class depositProductList extends Component {
         super(props);
 
         this.state = {
-            deposits: [
-                {
-                    yNo: 1, yName: "예금상품1", yRegistrationDate: "2023-10-09", interestRate: 3, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 2, yName: "예금상품2", yRegistrationDate: "2023-10-09", interestRate: 3, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 3, yName: "예금상품3", yRegistrationDate: "2023-10-09", interestRate: 3, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 4, yName: "예금상품4", yRegistrationDate: "2023-10-09", interestRate: 3, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 5, yName: "예금상품5", yRegistrationDate: "2023-10-09", interestRate: 3, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 6, yName: "예금상품6", yRegistrationDate: "2023-10-09", interestRate: 3, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 7, yName: "예금상품8", yRegistrationDate: "2023-10-09", interestRate: 3, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 8, yName: "예금상품9", yRegistrationDate: "2023-10-09", interestRate: 3, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36
-                },
-                {
-                    yNo: 9, yName: "예금상품10", yRegistrationDate: "2023-10-09", interestRate: 3, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36 
-                },
-                {
-                    yNo: 10, yName: "대출상품3", yRegistrationDate: "2023-10-09", interestRate: 3, ySummary: "상품설명",
-                    yMinPrice: 500000, yMaxPrice: 50000000, yMinDate: 3, yMaxDate: 36 
-                },
-            ],
+            deposits: [ ],
             message: null,
             page: 0,
-            rPage: 5
+            rPage: 5,
+            searchQuery: '', // 검색어를 저장할 상태 변수
         }
     }
 
@@ -76,7 +36,7 @@ class depositProductList extends Component {
             .catch(err => {
                 console.log('loadDepositProductList() Error!!', err);
             })
-        console.log(this.state.deposits)
+        //console.log(this.state.deposits)
     }
 
     // insert
@@ -87,22 +47,28 @@ class depositProductList extends Component {
 
     // update
     editDeposit = (yNo) => {
-        window.localStorage.setItem("yNo", yNo);
+        window.localStorage.setItem("DepositNum", yNo);
         this.props.history.push("/DepositProductEdit")
     }
 
     // delete
     deleteDeposit = (yNo) => {
+         
+        const confirmDelete = window.confirm("정말로 삭제하시겠습니까?");
+        if (confirmDelete) {
         ApiService.deleteDeposit(yNo)
             .then(res => {
                 this.setState({
-                    boards: this.state.deposits.filter(deposit => deposit.yNo !== yNo)
+                    deposits: this.state.deposits.filter(deposit => deposit.yNo !== yNo)
                 });
                 console.log('delete 성공 : ', res.data);
             })
             .catch(err => {
                 console.log('deleteDeposit() Error!!', err);
             })
+        }else {
+            console.log('삭제가 취소되었습니다.');
+        }    
     }
 
     // page
@@ -113,7 +79,7 @@ class depositProductList extends Component {
     // rowPage
     handleChangeRowsPerPage = (event) => { 
         this.setState({ rPage: parseInt(event.target.value, 10) });
-        this.setState({ page: 0 }); // 페이지를 첫 페이지로 리셋
+        this.setState({ page: 0 }); 
     } 
 
 
@@ -130,7 +96,21 @@ class depositProductList extends Component {
                 <Typography variant="h4" style={style}> Deposit Product </Typography>
 
                 <TableContainer >
-                    <Button variant="contained" style={btn} color="primary" onClick={this.addDeposit}> Add Product </Button>
+                     {/* 검색기능 */}
+                     <div>
+                     <Button variant="contained" style={btn} color="primary" onClick={this.addDeposit}> Add Product </Button>
+                    </div>
+                    <div style={search}>
+                        <div style={searchIcon}>
+                            <SearchRoundedIcon fontSize='large' color='action' />
+                        </div>
+                        <input style={searchInput}
+                            type="text"
+                            placeholder="상품명 검색"
+                            value={this.state.searchQuery}
+                            onChange={(e) => this.setState({ searchQuery: e.target.value })}
+                        />
+                    </div>              
                     <Table md={{ minWidth: 900 }}>
                         <TableHead>
                             <TableRow>
@@ -144,8 +124,10 @@ class depositProductList extends Component {
                         </TableHead>
 
                         <TableBody>
-                            {this.state.deposits.slice(page * rPage, page * 
-                            rPage + rPage).map((deposit) => (
+                            {this.state.deposits.filter((loan) =>
+                                loan.loanProductName.toLowerCase().includes(this.state.searchQuery.toLowerCase())
+                            ).slice(page * rPage, page *
+                                rPage + rPage).map((deposit) => (
                                 <TableRow hover key={deposit.yNo}>
                                     <TableCell align='center'>{deposit.yNo}</TableCell>
                                     <TableCell align='center'>{deposit.yName}</TableCell>
@@ -190,6 +172,20 @@ const btn = {
     display: 'flex',
     justifyContent: 'left'
 }
+const search = {
+    display: 'flex',
+    justifyContent: 'right',
+}
+const searchIcon = {
+    display: 'flex',
+    alignItems: 'center',
+}
 
+const searchInput = {
+    width: '300px',
+    height: '30px',
+    margin: '20px 0 10px 0',
+    border: '1px solid rgba(224, 224, 224, 1)'
+}
 
 export default depositProductList;

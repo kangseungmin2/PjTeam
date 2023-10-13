@@ -1,6 +1,6 @@
 import { Component } from "react";
 import JoinForm from "./joinForm.js";
-import { request, setAuthToken } from "../../heplers/axios_helper.js";
+import { request, setAuthToken } from "../../heplers/axios_helper.js";;
 
 class AppContent extends Component {
     

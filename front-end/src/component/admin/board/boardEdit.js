@@ -15,9 +15,6 @@ class BoardEdit extends Component {
             message: ''
         }
     }
-    componentDidMount() {
-        this.loadBoardList();
-    }
 
     // 수정전 상세페이지 호출
     loadBoardList = () =>{
@@ -43,29 +40,22 @@ class BoardEdit extends Component {
     }
 
     editBoard = (e) => {
-        // save후 reload 방지
+        // save후 reload방지
         e.preventDefault();
-    
-        const confirmEdit = window.confirm("수정하시겠습니까?"); // 수정 여부를 묻는 알림창
-    
-        if (confirmEdit) {
-            let inputData = {
-                num: this.state.num,
-                title: this.state.title,
-                content: this.state.content
-            }
-    
-            ApiService.editBoard(inputData)
-                .then(res => {
-                    console.log('editBoard 성공', res.data);
-                    this.props.history.push('/boardList');
-                })
-                .catch(err => {
-                    console.log('editBoard 에러', err);
-                });
-        } else {
-            // 취소를 클릭한 경우, 수정 페이지에 그대로 남기
+
+        let inputData = {
+            num: this.state.num,
+            title: this.state.title,
+            content: this.state.content
         }
+        ApiService.editBoard(inputData)
+            .then(res => {
+                console.log('editBoard 성공', res.data);
+                this.props.history.push('/boardList');
+            })
+            .catch(err => {
+                console.log('editBoard 에러', err);
+            })
     }
 
     render() {
@@ -110,8 +100,8 @@ class BoardEdit extends Component {
                 </Grid>
 
                 <Stack spacing={1} direction="row" justifyContent="center" marginTop={1}>
-                    <Button color="primary" variant="contained" onClick={this.editBoard}>edit</Button>
-                    <Button href="/boardList" variant="outlined" color="primary">back</Button>
+                    <Button color="primary" variant="outlined" onClick={this.editBoard}>edit</Button>
+                    <Button href="/boardList" variant="contained" color="primary">back</Button>
                 </Stack>
 
             </Container>

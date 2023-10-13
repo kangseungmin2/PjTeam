@@ -28,25 +28,4 @@ public class AccountService {
 		System.out.println("서비스 - 전제조회");
 		return mapper.accountList();
 	}
-	
-	public List<AccountDTO> accountList2(HttpServletRequest req, Model model) throws ServletException, IOException {
-		System.out.println("서비스 - 전제조회");
-		return mapper.accountList2();
-	}
-	
-	
-	public int passwordModify(AccountDTO dto)throws ServletException, IOException{
-		System.out.println("서비스 - passwordModify");
-		return mapper.passwordModify(dto);
-	}
-	
-	public AccountDTO fetchAccountByNum(long accountNum) throws ServletException, IOException{
-		System.out.println("서비스 - fetchAccountByNum");
-		return mapper.fetchAccountByNum(accountNum);
-	}
-	
-	public int deleteAccount(long accountNum) throws ServletException, IOException{
-		System.out.println("서비스 - deleteAccount");
-		return mapper.deleteAccount(accountNum);
-	}
 }

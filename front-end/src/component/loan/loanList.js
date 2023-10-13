@@ -12,7 +12,48 @@ class LoanList extends Component {
         super(props);
 
         this.state = {
-            loans: [],
+            loans: [
+                {
+                    num: 1, loanProductName: "대출상품1", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
+                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "만기일시상환", commission: 0
+                },
+                {
+                    num: 2, loanProductName: "대출상품2", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
+                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원리금균등상환", commission: 0
+                },
+                {
+                    num: 3, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
+                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
+                },
+                {
+                    num: 4, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
+                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
+                },
+                {
+                    num: 5, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
+                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
+                },
+                {
+                    num: 6, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
+                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
+                },
+                {
+                    num: 7, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
+                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
+                },
+                {
+                    num: 8, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
+                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
+                },
+                {
+                    num: 9, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
+                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
+                },
+                {
+                    num: 10, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
+                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
+                },
+            ],
             message: null,
             page: 0,
             rPage: 5
@@ -26,6 +67,7 @@ class LoanList extends Component {
 
     // list 정보
     loadLoanProductList = () => {
+        console.log("음?", this.state)
         ApiService.fetchLoansPL()
             .then(res => {
                 this.setState({

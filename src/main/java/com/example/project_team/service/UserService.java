@@ -7,15 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.project_team.dto.AdminCredentialsDTO;
 import com.example.project_team.dto.CredentialsDTO;
 import com.example.project_team.dto.SignUpDTO;
 import com.example.project_team.dto.UserDTO;
-import com.example.project_team.entities.Admin;
 import com.example.project_team.entities.User;
 import com.example.project_team.exception.AppException;
 import com.example.project_team.mappers.UserMapper;
-import com.example.project_team.repository.AdminRepository;
 import com.example.project_team.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
 	private final UserRepository userRepository;
-	private final AdminRepository adminRepository;
 	private final UserMapper userMapper;
 	private final PasswordEncoder passwordEncoder;
 	
@@ -44,19 +40,6 @@ public class UserService {
 		// 비밀번호 인코더를 사용하여 비밀번호가 일반 텍스트로 저장되는 것을 방지하지만 해시된 비밀번호는 읽을 수 없다
 		if(passwordEncoder.matches(CharBuffer.wrap(credentialsDTO.getPassword()), user.getPassword())) {
 			return user;
-		}
-		throw new AppException("Invalid password", HttpStatus.BAD_REQUEST);
-	}
-	
-	public Admin admin(AdminCredentialsDTO adminCredentialsDTO) {
-		System.out.println("<<<UserService - admin>>>");
-		Admin admin = adminRepository.findById(adminCredentialsDTO.getId())
-				.orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
-		System.out.println("2:"+admin.getPassword());
-		// 경로 주의 : import java.nio.CharBuffer;
-		// 비밀번호 인코더를 사용하여 비밀번호가 일반 텍스트로 저장되는 것을 방지하지만 해시된 비밀번호는 읽을 수 없다
-		if(passwordEncoder.matches(CharBuffer.wrap(adminCredentialsDTO.getPassword()), admin.getPassword())) {
-			return admin;
 		}
 		throw new AppException("Invalid password", HttpStatus.BAD_REQUEST);
 	}

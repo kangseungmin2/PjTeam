@@ -6,21 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name="team_account")
-@Builder
 @Data
 public class AccountDTO {
 	
 	@Id
-	private long accountNum;         //계좌번호 pk
+	private int accountNum;         //계좌번호 pk
 	private String id;				//회원id
 	private int accountPW;          //계좌 비밀번호
 	private int balance;            //잔액

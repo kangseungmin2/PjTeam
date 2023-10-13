@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl, MenuItem, Select } from "@mui/material";
+import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import ApiService from '../../../ApiService';
 
@@ -73,8 +73,6 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'loanProductName',
                             }}
-                            name="loanProductName"
-                            onChange={this.onChange}
                         />
                         <FormHelperText >loanProductName</FormHelperText>
                     </FormControl>
@@ -87,28 +85,26 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'interestRate',
                             }}
-                            name="interestRate"
-                            onChange={this.onChange}
                         />
                         <FormHelperText >interestRate</FormHelperText>
                     </FormControl>
 
-                    <TextField sx={{ m: 2, mt: 2, width: '93ch' }}
-                        required
-                        id="sandard-required"
-                        variant="standard"
-                        multiline
-                        fullWidth
-                        rows={4}
-                        label="content"
-                        // helperText="please enter content"
-                        type="text"
-                        name="content"
-                        value={this.state.content}
-                        placeholder="content"
-                        onChange={this.onChange} /><br />
+                        <TextField sx={{ m: 2, mt: 2, width: '93ch' }}
+                            required
+                            id="sandard-required"
+                            variant="standard"
+                            multiline
+                            fullWidth
+                            rows={4}
+                            label="content"
+                            // helperText="please enter content"
+                            type="text"
+                            name="content"
+                            value={this.state.content}
+                            placeholder="content"
+                            onChange={this.onChange} /><br />
 
-
+                
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
@@ -117,14 +113,12 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'minMoney',
                             }}
-                            name="minMoney"
-                            onChange={this.onChange}
                         />
                         <FormHelperText >minMoney</FormHelperText>
                     </FormControl>
 
-
-
+                    
+                    
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
@@ -133,12 +127,10 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'maxMoney',
                             }}
-                            name="maxMoney"
-                            onChange={this.onChange}
                         />
                         <FormHelperText >maxMoney</FormHelperText>
                     </FormControl>
-
+                    
 
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
@@ -148,14 +140,12 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'minPeriod',
                             }}
-                            name="minPeriod"
-                            onChange={this.onChange}
                         />
                         <FormHelperText >minPeriod</FormHelperText>
                     </FormControl>
 
-
-
+                    
+                    
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
@@ -164,27 +154,11 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'maxPeriod',
                             }}
-                            name="maxPeriod"
-                            onChange={this.onChange}
                         />
                         <FormHelperText >maxPeriod</FormHelperText>
                     </FormControl>
 
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
-                        <Select
-                            labelId="repayment-label"
-                            id="repayment"
-                            name="repayment"
-                            value={this.state.repayment}
-                            onChange={this.onChange}
-                        >
-                            <MenuItem value={"만기일시상환"}>만기일시상환</MenuItem>
-                            <MenuItem value={"원리금균등상환"}>원리금균등상환</MenuItem>
-                            <MenuItem value={"원금균등상환"}>원금균등상환</MenuItem>
-                        </Select>
-                        <FormHelperText>repayment</FormHelperText>
-                    </FormControl>
-                    {/* <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end"></InputAdornment>}
@@ -192,11 +166,9 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'repayment',
                             }}
-                            name="repayment"
-                            onChange={this.onChange} 
                         />
                         <FormHelperText >repayment</FormHelperText>
-                    </FormControl> */}
+                    </FormControl>
 
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
@@ -206,16 +178,14 @@ class LoanProductAdd extends Component {
                             inputProps={{
                                 'aria-label': 'commission',
                             }}
-                            name="commission"
-                            onChange={this.onChange}
                         />
                         <FormHelperText >commission</FormHelperText>
                     </FormControl>
                 </Grid>
 
                 <Stack spacing={1} direction="row" justifyContent="center" marginTop={1}>
-                    <Button color="primary" variant="contained" onClick={this.saveProduct}>save</Button>
-                    <Button href="/loanProductList" variant="outlined" color="primary">back</Button>
+                    <Button color="primary" variant="outlined" onClick={this.saveProduct}>save</Button>
+                    <Button href="/loanProductList" variant="contained" color="primary">back</Button>
                 </Stack>
 
             </Container>

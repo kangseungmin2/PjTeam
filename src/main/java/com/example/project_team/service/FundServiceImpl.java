@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.example.project_team.dto.FundAccountDTO;
 import com.example.project_team.dto.FundProductDTO;
 import com.example.project_team.mappers.FundMapper;
 
@@ -21,40 +20,13 @@ public class FundServiceImpl implements FundService{
 	@Autowired
 	private FundMapper mapper;
 	
-	// fundList
+	// FundList
 	@Override
 	public List<FundProductDTO> fundList(HttpServletRequest req, Model model)
 			throws ServletException, IOException{
-		System.out.println("FundServiceImpl - fundList()");
-		
+		System.out.println("FundServiceImpl - fundList");
+		 
 		return mapper.fundList();
-	}
-	
-	// accountList
-	@Override
-	public List<FundAccountDTO> accountList(String id)
-			throws ServletException, IOException{
-		System.out.println("FundServiceImpl - accountList()");
-		
-		return mapper.accountList(id);
-	}
-	
-	// fundDetail 1건 조회
-	@Override
-	public FundProductDTO fundDetail(String fpName)
-			throws ServletException, IOException{
-		System.out.println("FundServiceImpl - fundDetail()");
-		
-		return mapper.fundDetail(fpName);
-	}
-	
-	// fundAccount 1건 조회
-	@Override
-	public FundAccountDTO fundAccount(long fAccount)
-			throws ServletException, IOException{
-		System.out.println("FundServiceImpl - fundAccount()");
-		
-		return mapper.fundAccount(fAccount);
 	}
 	
 }

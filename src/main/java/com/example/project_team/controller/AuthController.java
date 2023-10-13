@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project_team.config.UserAuthProvider;
-import com.example.project_team.dto.AdminCredentialsDTO;
 import com.example.project_team.dto.CredentialsDTO;
 import com.example.project_team.dto.SignUpDTO;
-import com.example.project_team.entities.Admin;
 import com.example.project_team.entities.User;
 import com.example.project_team.service.UserService;
 
@@ -49,17 +47,6 @@ public class AuthController {
 		return ResponseEntity.ok(user); // 새로운 JWT를 반환 // 크롬 F12 > Network > Headers : 200 OK
 	}
 	
-	@PostMapping("/admin")
-	public ResponseEntity<Admin> admin(@RequestBody AdminCredentialsDTO AdminCredentialsDTO){
-		System.out.println("<<<AuthController - admin>>>");
-		
-		Admin admin = userService.admin(AdminCredentialsDTO);
-		System.out.println("token : " + userAuthProvider.createToken(admin.getId()));
-		
-		admin.setToken(userAuthProvider.createToken(admin.getId()));
-		
-		return ResponseEntity.ok(admin); // 새로운 JWT를 반환 // 크롬 F12 > Network > Headers : 200 OK
-	}
 	@PostMapping("/register")
 	public ResponseEntity<User> register(@RequestBody SignUpDTO signUpDTO) {
 		System.out.println("<<<AuthController - register>>>");
@@ -72,5 +59,4 @@ public class AuthController {
 		return ResponseEntity.created(URI.create("/users/" + user.getId()))
 				.body(user); // 크롬 F12 > Network > Headers : 201 Created
 	}
-
 }

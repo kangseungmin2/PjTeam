@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import ApiService from '../../../ApiService';
+import ApiService from '../../../api/savings';
 
 
 class savingsProductEdit extends Component {
