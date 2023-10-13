@@ -71,7 +71,7 @@ function BasicExample() {
             <NavDropdown title="계좌" id="basic-nav-dropdown">
               <NavDropdown.Item href="/openAccount">계좌개설</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/allAccount">
+              <NavDropdown.Item href="/eAccount">
                 전체계좌조회
               </NavDropdown.Item>
               <NavDropdown.Item href="/balanceList">잔액조회</NavDropdown.Item>
@@ -93,16 +93,14 @@ function BasicExample() {
 
 
             <NavDropdown title="예/적금" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/depositList">예/적금 조회</NavDropdown.Item>
-              <NavDropdown.Item href="/depositnew">
-                예/적금 신규
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/depositDelete">
-                예/적금 해지
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/depositCheck">
-                계좌관리
-              </NavDropdown.Item>
+              <NavDropdown.Item href="/depositList">예금 상품</NavDropdown.Item>
+              <NavDropdown.Item href="/savingsList">적금 상품</NavDropdown.Item>
+              <NavDropdown.Item href="/depositnew">가입상품 조회</NavDropdown.Item>                           
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/depositProductAdd">예금상품 등록</NavDropdown.Item>  
+              <NavDropdown.Item href="/savingsProductAdd">적금상품 등록</NavDropdown.Item>            
+              <NavDropdown.Item href="/depositProductList">예금상품 목록</NavDropdown.Item>
+              <NavDropdown.Item href="/savingsProductList">적금상품 목록</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="이체" id="basic-nav-dropdown">
               <NavDropdown.Item href="/oneTransfer">1건이체</NavDropdown.Item>
@@ -149,14 +147,7 @@ function BasicExample() {
               <NavDropdown.Item href="/deleteMember">회원탈퇴</NavDropdown.Item>
               <NavDropdown.Item href="/memAccount">회원 결산</NavDropdown.Item>
               <NavDropdown.Item href="/question">1:1문의</NavDropdown.Item>
-            </NavDropdown>
-
-            <NavDropdown title="고객센터" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/boardList">--admin--</NavDropdown.Item>
-              <NavDropdown.Item href="/boardListMember">--member--</NavDropdown.Item>
-            </NavDropdown>
-
-              
+            </NavDropdown>            
           </Nav>
           {log()}
         </Navbar.Collapse>

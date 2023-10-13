@@ -1,6 +1,7 @@
 import React from "react";
 import {BrowserRouter,Route} from 'react-router-dom';   //npm install react-router-dom@5    react-router-dom@5 => @6은 지원안되는 메서드가 많다.
 import main from "../main/main";
+
 import openAccount from '../account/openAccount';
 import allAccount from "../account/allAccount";
 import balanceList from "../account/balanceList";
@@ -14,10 +15,8 @@ import memAccount from "../mypage/member/memAccount";
 import memberInfo from "../mypage/member/memberInfo";
 import modifyMember from "../mypage/member/modifyMember";
 import question from "../mypage/member/question";
-import depositList from "../deposit/depositList";
-import depositNew from "../deposit/depositNew";
-import depositDelete from "../deposit/depositDelete";
-import depositCheck from "../deposit/depositCheck";
+import eAccount from "../account/eAccount";
+import yAccount from "../account/yAccount";
 
 import login from "../customer/login";
 import join from "../customer/join";
@@ -51,6 +50,21 @@ import LoanSignList from "../loan/loanSignList";
 import BoardListMember from "../board/boardListMember";
 
 
+import depositProductList from '../admin/deposit/depositProductList';
+import savingsProductList from '../admin/savings/savingsProductList';
+import depositProductAdd from '../admin/deposit/depositProductAdd';
+import savingsProductAdd from '../admin/savings/savingsProductAdd';
+import depositProductEdit from '../admin/deposit/depositProductEdit';
+import savingsProductEdit from '../admin/savings/savingsProductEdit';
+import depositList from "../deposit/depositList";
+import savingsList from "../savings/savingsList";
+import depositDetail from "../deposit/depositDetail";
+import savingsDetail from "../savings/savingsDetail";
+import depositSign from "../deposit/depositSign";
+import savingsSign from "../savings/savingsSign";
+import depositDelete from "../deposit/depositDelete";
+import depositCheck from "../deposit/depositCheck";
+
 const AppRouter = () => {
     
     return(
@@ -58,7 +72,7 @@ const AppRouter = () => {
             <BrowserRouter>
                 <div style={style}>
                 <Route path="/main" component={main}></Route>
-                <Route path="/openAccount" component={openAccount}/>    {/* 서윤-계좌개설 */}
+                    <Route path="/openAccount" component={openAccount}/>    {/* 서윤-계좌개설 */}
                     <Route path="/allAccount" component={allAccount}/>       {/* 서윤-전체계좌조회 */}
                     <Route path="/balanceList" component={balanceList}/>       {/* 서윤-잔액조회 */}
                     <Route path="/passwordModify" component={passwordModify}/>       {/* 서윤-비밀번호 변경 */}
@@ -71,7 +85,9 @@ const AppRouter = () => {
                     <Route path="/memberInfo" component={memberInfo}/>       {/* 서윤-회원-내정보 */}
                     <Route path="/modifyMember" component={modifyMember}/>       {/* 서윤-회원-내정보수정 */}
                     <Route path="/question" component={question}/>       {/* 서윤-회원-1:1문의 */}
-                    
+                    <Route path="/eAccount" component={eAccount}/>
+                    <Route path="/yAccount" component={yAccount}/>
+
                     <Route path="/login" component={login}/>       {/* 승민-로그인 */}
                     <Route path="/join" component={join}/>          {/* 승민 -회원가입-로그인 */}
                     <Route path="/chat" component={chat}/>          {/* 승민 -채팅 */}
@@ -90,10 +106,21 @@ const AppRouter = () => {
                     <Route path="/loanProductList" component={LoanProductList}/>       {/* 상아-대출상품목록(관리자) */}
                     <Route path="/loanSignConfirm" component={LoanSignConfirm}/>       {/* 상아-대출가입/조회(관리자) */}
 
-                    <Route path="/depositList" component={depositList}/>        {/* 석준-예/적금 조회 */}
-                    <Route path="/depositNew" component={depositNew}/>        {/* 석준-예/적금 신규가입 */}
+                    <Route path="/depositProductList" component={depositProductList}/>        {/* 석준-(관리자)예금 조회 */}
+                    <Route path="/savingsProductList" component={savingsProductList}/>        {/* 석준-(관리자)적금 조회 */}
+                    <Route path="/depositProductAdd" component={depositProductAdd}/>        {/* 석준-(관리자)예금 등록 */}
+                    <Route path="/savingsProductAdd" component={savingsProductAdd}/>        {/* 석준-(관리자)적금 등록 */}
+                    <Route path="/depositProductEdit" component={depositProductEdit}/>       {/* 석준-(관리자)예금 수정 */}                  
+                    <Route path="/savingsProductEdit" component={savingsProductEdit}/>       {/* 석준-(관리자)적금 수정 */}
+                    <Route path="/depositList" component={depositList}/>        {/* 석준-예금 조회 */}
+                    <Route path="/savingsList" component={savingsList}/>        {/* 석준-적금 조회 */}
+                    <Route path="/depositDetail" component={depositDetail}/>        {/* 석준-예금 상세페이지조회 */}
+                    <Route path="/savingsDetail" component={savingsDetail}/>        {/* 석준-적금 상세페이지조회 */}
+                    <Route path="/depositSign" component={depositSign}/>        {/* 석준-예금 신규가입 */}
+                    <Route path="/savingsSign" component={savingsSign}/>        {/* 석준-적금 신규가입 */}
                     <Route path="/depositDelete" component={depositDelete}/>        {/* 석준-예/적금 해지 */}
                     <Route path="/depositCheck" component={depositCheck}/>        {/* 석준-예/적금 해지 */}
+                    
                     <Route path="/oneTransfer" component={oneTransfer}/>    {/* 정현-한건이체 */}
                     <Route path="/multipleTransfer" component={multipleTransfer}/>    {/* 정현-다건이체 */}
                     <Route path="/autoWithdrawal" component={autoWithdrawal}/>    {/* 정현-자동이체 */}
