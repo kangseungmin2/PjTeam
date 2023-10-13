@@ -132,12 +132,8 @@ class LoanList extends Component {
         );
     }
 }
-
 const style = {
     display: 'flex',
     justifyContent: 'center'
 }
-
-
-
 export default LoanList;

@@ -282,9 +282,8 @@ class LoanProductEdit extends Component {
         );
     }
 }
-export default LoanProductEdit;
-
 const style = {
     display: 'flex',
     justifyContent: 'center'
 }
+export default LoanProductEdit;

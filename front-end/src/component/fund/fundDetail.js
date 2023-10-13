@@ -3,47 +3,25 @@ import { Chart } from 'react-google-charts';
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography } from "@mui/material";
 import classNames from 'classnames';  // npm i classnames --save   대소문자 주의 
 import './fund.css';
-import ApiService from "../../ApiService";
 
 export default class fundDtail extends Component {
     constructor(props) {
         super(props);
         this.state = {
             active: "Buy",
-            fProduct : [],
-            fAccount : []
+            fAccount: "",    // login: "" -> id: "" 
+            fpName: "",
+            tCnt: "",
+            tPrice: "",
+            tMarketPrice: "",
+            tStatus: ""
         };
     }; 
-
-    componentDidMount(){
-        this.fundProduct();
-    };
-
-    fundProduct = () => {
-        const  faccount = window.localStorage.getItem('faccount');
-        const  fpName = window.localStorage.getItem('fpName');
-        ApiService.fProductDetail(fpName)
-        .then(res => {
-            this.setState({
-                fProduct : res.data
-            })
-            ApiService.getFaccount(faccount)
-            .then(accountRes => {
-                this.setState({
-                    fAccount : accountRes.data
-                })
-            })
-            .catch(accountErr => {
-                console.log('getFaccount() Error!!', accountErr);   
-            })
-        })
-        .catch(err => {
-            console.log('fProductDetail() Error!!', err);   
-        })
-
-    }
-
     render() {
+        // const [buyQuantity, setBuyQuantity] = useState(0);
+        // const [sellQuantity, setSellQuantity] = useState(0);
+        // const [fundPrice, setFundPrice] = useState(0);
+        // const [balance, setBalance] = useState(10000); // 초기 잔액
 
         // const handleBuy = () => {
         //     const totalPrice = buyQuantity * fundPrice;
@@ -110,97 +88,97 @@ export default class fundDtail extends Component {
                     <TableHead>
                         <TableRow>
                             <TableCell>
-                                <Typography variant="h5">{this.state.fProduct.fpName}</Typography>
-                                <Table style={tableStyle}>
-                                    <TableHead style={{ backgroundColor: 'rgb(230, 229, 227)'}}>
-                                        <TableRow>
-                                            <TableCell>
-                                                종목코드
-                                            </TableCell>
-                                            <TableCell>
-                                                대비
-                                            </TableCell>
-                                            <TableCell>
-                                                등락률
-                                            </TableCell>
-                                            <TableCell>
-                                                순자산가치(NAV)
-                                            </TableCell>
-                                            <TableCell>
-                                                거래량
-                                            </TableCell>
-                                            <TableCell>
-                                                거래대금
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        <TableRow>
-                                            <TableCell>
-                                            {this.state.fProduct.fpNum}
-                                            </TableCell>
-                                            <TableCell>
-                                            {this.state.fProduct.prepare}
-                                            </TableCell>
-                                            <TableCell>
-                                            {this.state.fProduct.fluctuationRate}
-                                            </TableCell>
-                                            <TableCell>
-                                            {this.state.fProduct.netAssetValue}
-                                            </TableCell>
-                                            <TableCell>
-                                            {this.state.fProduct.tradingVolume}
-                                            </TableCell>
-                                            <TableCell>
-                                            {this.state.fProduct.transactionAmount}
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                    <TableHead style={{ backgroundColor: 'rgb(230, 229, 227)'}}>
-                                        <TableRow>
-                                            <TableCell>
-                                                시가총액
-                                            </TableCell>
-                                            <TableCell>
-                                                상장좌수
-                                            </TableCell>
-                                            <TableCell>
-                                                기초지수_지수명
-                                            </TableCell>
-                                            <TableCell>
-                                                기초지수_종가
-                                            </TableCell>
-                                            <TableCell>
-                                                기초지수_대비
-                                            </TableCell>
-                                            <TableCell>
-                                                기초지수_등락률
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        <TableRow>
-                                            <TableCell>
-                                            {this.state.fProduct.marketCapitalization}
-                                            </TableCell>
-                                            <TableCell>
-                                            {this.state.fProduct.listingsNum}
-                                            </TableCell>
-                                            <TableCell>
-                                            {this.state.fProduct.bindexName}
-                                            </TableCell>
-                                            <TableCell>
-                                            {this.state.fProduct.bclosingPrice}
-                                            </TableCell>
-                                            <TableCell>
-                                            {this.state.fProduct.bprepare}
-                                            </TableCell>
-                                            <TableCell>
-                                            {this.state.fProduct.bfluctuationRate}
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
+                                    <Typography variant="h5">ACE 200</Typography>
+                                    <Table style={tableStyle}>
+                                        <TableHead style={{ backgroundColor: 'rgb(230, 229, 227)'}}>
+                                            <TableRow>
+                                                <TableCell>
+                                                    종목코드
+                                                </TableCell>
+                                                <TableCell>
+                                                    대비
+                                                </TableCell>
+                                                <TableCell>
+                                                    등락률
+                                                </TableCell>
+                                                <TableCell>
+                                                    순자산가치(NAV)
+                                                </TableCell>
+                                                <TableCell>
+                                                    거래량
+                                                </TableCell>
+                                                <TableCell>
+                                                    거래대금
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            <TableRow>
+                                                <TableCell>
+                                                    105190
+                                                </TableCell>
+                                                <TableCell>
+                                                    85
+                                                </TableCell>
+                                                <TableCell>
+                                                    0.26
+                                                </TableCell>
+                                                <TableCell>
+                                                    33,146.02
+                                                </TableCell>
+                                                <TableCell>
+                                                    3,151
+                                                </TableCell>
+                                                <TableCell>
+                                                    104,105,795
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableBody>
+                                        <TableHead style={{ backgroundColor: 'rgb(230, 229, 227)'}}>
+                                            <TableRow>
+                                                <TableCell>
+                                                    시가총액
+                                                </TableCell>
+                                                <TableCell>
+                                                    상장좌수
+                                                </TableCell>
+                                                <TableCell>
+                                                    기초지수_지수명
+                                                </TableCell>
+                                                <TableCell>
+                                                    기초지수_종가
+                                                </TableCell>
+                                                <TableCell>
+                                                    기초지수_대비
+                                                </TableCell>
+                                                <TableCell>
+                                                    기초지수_등락률
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            <TableRow>
+                                                <TableCell>
+                                                    442,552,500,000
+                                                </TableCell>
+                                                <TableCell>
+                                                    13,350,000
+                                                </TableCell>
+                                                <TableCell>
+                                                    코스피 200
+                                                </TableCell>
+                                                <TableCell>
+                                                    326.71
+                                                </TableCell>
+                                                <TableCell>
+                                                    -0.19
+                                                </TableCell>
+                                                <TableCell>
+                                                    -0.06
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableBody>
+                                    </Table>
                             </TableCell>
                             <TableCell>
                                 <Chart
@@ -242,11 +220,11 @@ export default class fundDtail extends Component {
                     {/* Buy 폼, (name="login" -> name="id"),  input type="login" -> input type="text", label : ID */}
                     <form onSubmit={this.onSubmitLogin}>
                         <div style={{textAlign : "end"}}>
-                            <small style={{ color : 'gray' }}>계좌잔액 : {this.state.fAccount.balance} 원</small>
+                            <small style={{ color : 'gray' }}>계좌잔액 : 10,000,000원</small>
                         </div>
                         <div className="form-outline mb-4" style={{textAlign : "end"}}>
-                            <label className="form-label" htmlFor="open">시가 </label>
-                            <input type="text" id="open" name= "openPrice" className="form-control" value={this.state.fProduct.marketPrice}/>
+                            <label className="form-label" htmlFor="open">시가</label>
+                            <input type="text" id="open" name= "openPrice" className="form-control" value={'100,000'}/>
                         </div>
 
                         <div className="form-outline mb-4" style={{textAlign : "end"}}> 
@@ -269,11 +247,11 @@ export default class fundDtail extends Component {
                     id="pills-sell" >
                     <form onSubmit={this.onSubmitLogin}>
                         <div style={{textAlign : "end"}}>
-                            <small style={{ color : 'gray' }}>계좌잔액 : {this.state.fAccount.balance} 원</small>
+                            <small style={{ color : 'gray' }}>계좌잔액 : 10,000,000원</small>
                         </div>
                         <div className="form-outline mb-4" style={{textAlign : "end"}}>
                             <label className="form-label" htmlFor="open">시가</label>
-                            <input type="text" id="open" name= "openPrice" className="form-control" value={this.state.fProduct.marketPrice}/>
+                            <input type="text" id="open" name= "openPrice" className="form-control" value={'100,000'}/>
                         </div>
 
                         <div className="form-outline mb-4" style={{textAlign : "end"}}> 

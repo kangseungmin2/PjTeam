@@ -128,7 +128,7 @@ const AppRouter = () => {
                     <Route path="/cancleAuto" component={cancleAuto}/>    {/* 정현-자동이체해지 */}
 
                     <Route path="/fundAccount" component={fundAccount}/>        {/* 종훈-펀드계좌 개설 2-2*/}
-                    <Route path="/lastFundAccount" component={lastFundAccount}/>        {/* 종훈-펀드계좌 개설 2-3*/}
+                           {/* 종훈-펀드계좌 개설 2-3*/}
                     <Route path="/fundList" component={fundList}/>        {/* 종훈-펀드 리스트 */}
                     <Route path="/accountChk" component={accountChk}/>        {/* 종훈-펀드계좌 체크*/}
                     <Route path="/fundDetail" component={fundDetail}/>        {/* 종훈-펀드 상세페이지 */}
@@ -145,4 +145,4 @@ const style ={
 
 }
 
-export default AppRouter;
+export default AppRouter;npm

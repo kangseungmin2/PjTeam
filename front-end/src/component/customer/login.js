@@ -1,7 +1,6 @@
 import { Component } from "react";
 import LoginForm from "./loginForm.js";
-import { request, setAuthToken,data } from "../../heplers/axios_helper.js";
-import * as Fpp from '../../heplers/axios_helper.js';
+import { request, setAuthToken, data } from "../../heplers/axios_helper.js";;
 
 class AppContent extends Component {
     
@@ -44,7 +43,7 @@ class AppContent extends Component {
             })
     }
 
-    onAdmin = (e, id, password) => {
+    onLogin = (e, id, password) => {
         e.preventDefault();
         request(
             "POST",
@@ -64,13 +63,12 @@ class AppContent extends Component {
                 this.setState({componentToShow: "welcome"});
                 setAuthToken(null);
             })
-
     }
 
     render() {
         return(
             <div>
-                {<LoginForm onLogin={this.onLogin} onAdmin={this.onAdmin} />}
+                {<LoginForm onLogin={this.onLogin} onRegister={this.onRegister} />}
             </div>
         );
     }
