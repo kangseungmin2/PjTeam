@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl, MenuItem, Select } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import ApiService from '../../../ApiService';
-
+import LoanApi from "../../../api/loan";
 
 class LoanProductAdd extends Component {
 
@@ -49,7 +48,7 @@ class LoanProductAdd extends Component {
             commission: this.state.commission
         }
 
-        ApiService.addLoan(inputData)
+        LoanApi.addLoan(inputData)
             .then(res => {
                 console.log('addLoan 성공', res.data);
                 this.props.history.push('/loanProductList');
@@ -201,19 +200,6 @@ class LoanProductAdd extends Component {
                         </Select>
                         <FormHelperText>repayment</FormHelperText>
                     </FormControl>
-                    {/* <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
-                        <Input
-                            id="standard-required"
-                            endAdornment={<InputAdornment position="end"></InputAdornment>}
-                            aria-describedby="standard-repayment-helper-text"
-                            inputProps={{
-                                'aria-label': 'repayment',
-                            }}
-                            name="repayment"
-                            onChange={this.onChange} 
-                        />
-                        <FormHelperText >repayment</FormHelperText>
-                    </FormControl> */}
 
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input

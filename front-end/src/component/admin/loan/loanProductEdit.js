@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl, MenuItem, Select } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import ApiService from '../../../ApiService';
+import LoanApi from "../../../api/loan";
 
 
 class LoanProductEdit extends Component {
@@ -30,7 +30,7 @@ class LoanProductEdit extends Component {
 
     // 수정전 상세페이지 호출
     loadLoanDetail = () => {
-        ApiService.fetchLoanByNum(window.localStorage.getItem("LoanNum"))
+        LoanApi.fetchLoanByNum(window.localStorage.getItem("LoanNum"))
             .then(res => {
                 let loan = res.data;
                 this.setState({
@@ -80,7 +80,7 @@ class LoanProductEdit extends Component {
                 commission: this.state.commission
             }
     
-            ApiService.editLoan(inputData)
+            LoanApi.editLoan(inputData)
                 .then(res => {
                     console.log('editLoan 성공', res.data);
                     this.props.history.push('/loanProductList');
@@ -241,21 +241,6 @@ class LoanProductEdit extends Component {
                         </Select>
                         <FormHelperText>repayment</FormHelperText>
                     </FormControl>
-
-                    {/* <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
-                        <Input
-                            id="standard-required"
-                            endAdornment={<InputAdornment position="end"></InputAdornment>}
-                            aria-describedby="standard-repayment-helper-text"
-                            inputProps={{
-                                'aria-label': 'repayment',
-                            }}
-                            name="repayment"
-                            value={this.state.repayment}
-                            onChange={this.onChange}
-                        />
-                        <FormHelperText >repayment</FormHelperText>
-                    </FormControl> */}
 
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input

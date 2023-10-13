@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
-import ApiService from '../../../ApiService';
+import LoanApi from "../../../api/loan";
 import { Create, Delete } from '@mui/icons-material'
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
@@ -27,7 +27,7 @@ class LoanProductList extends Component {
 
     // list 정보
     loadLoanProductList = () => {
-        ApiService.fetchLoans()
+        LoanApi.fetchLoans()
             .then(res => {
                 this.setState({
                     loans: res.data
@@ -56,7 +56,7 @@ class LoanProductList extends Component {
         const confirmDelete = window.confirm("정말로 삭제하시겠습니까?");
 
         if (confirmDelete) {
-            ApiService.deleteLoan(num)
+            LoanApi.deleteLoan(num)
                 .then(res => {
                     this.setState({
                         loans: this.state.loans.filter(loan => loan.num !== num)

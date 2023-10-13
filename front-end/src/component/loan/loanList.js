@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
-import ApiService from '../../ApiService';
+import LoanApi from "../../api/loan";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import FindInPageRoundedIcon from '@mui/icons-material/FindInPageRounded';
@@ -29,7 +29,7 @@ class LoanList extends Component {
 
     // list 정보
     loadLoanProductList = () => {
-        ApiService.fetchLoansPL()
+        LoanApi.fetchLoansPL()
             .then(res => {
                 this.setState({
                     loans: res.data

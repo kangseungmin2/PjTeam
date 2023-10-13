@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import ApiService from '../../ApiService';
+import LoanApi from "../../api/loan";
 
 
 class LoanDetail extends Component {
@@ -31,7 +31,7 @@ class LoanDetail extends Component {
 
     // 상세페이지 호출
     loadLoanDetail = () =>{
-        ApiService.fetchDetailByNum(window.localStorage.getItem("LoanNum"))
+        LoanApi.fetchDetailByNum(window.localStorage.getItem("LoanNum"))
             .then(res => {
                 let loan = res.data;
                 this.setState({
