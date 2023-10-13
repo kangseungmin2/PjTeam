@@ -6,6 +6,9 @@ import ApiService from "../../ApiService.js";
 import EAccount from "./eAccount.js";
 import YAccount from "./yAccount.js";
 
+
+
+
 class allAccount extends Component{
 
 constructor(props){
@@ -35,11 +38,8 @@ accountList = () => {
     });
 }
 
-//update
-passwordModify = (accountNum) =>{
-    window.localStorage.setItem("accountNum",accountNum);
-    this.props.history.push('/passwordModify');
-}
+
+
 // delete
 deleteAccount = (accountNum) =>{
     ApiService.deleteAccount(accountNum)
@@ -71,9 +71,9 @@ deleteAccount = (accountNum) =>{
             <Container maxWidth="md">
                 <PaidOutlinedIcon fontSize='large' color='primary' />
                 <Typography variant="h4" style={style}> 전체계좌조회 </Typography>
-                {<EAccount />} <br/><br/>             
-                {<YAccount />} <br/><br/>  
+                {<EAccount />} <br/><br/>              
             </Container>
+
         );
     }
     

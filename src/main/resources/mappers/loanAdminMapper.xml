@@ -14,7 +14,7 @@
 		INSERT INTO team_loan_product
 			VALUES((SELECT NVL(MAX(num)+1,1) FROM team_loan_product), #{loanProductName}, sysdate
 					, #{interestRate}, #{content}, #{minMoney}, #{maxMoney}, #{minPeriod}, #{maxPeriod}
-					, #{repayment}, #{commission})
+					, #{repayment}, #{commission}, #{contentTitle})
 	</insert>
 	
 	<!-- findByNum / 1건 조회 -->
@@ -25,7 +25,7 @@
 	<!-- updateLoan -->
 	<update id="updateLoan" parameterType="com.example.project_team.dto.LoanDTO">
 		UPDATE team_loan_product
-			SET loanProductName=#{loanProductName}, interestRate=#{interestRate}, content=#{content}
+			SET loanProductName=#{loanProductName}, interestRate=#{interestRate}, contentTitle=#{contentTitle}, content=#{content}
 				, minMoney=#{minMoney}, maxMoney =#{maxMoney}, minPeriod=#{minPeriod}, maxPeriod=#{maxPeriod}
 				, repayment=#{repayment}, commission=#{commission}
 			WHERE num=#{num}

@@ -4,60 +4,57 @@ import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import ApiService from '../../ApiService';
 
 
-class LoanDetail extends Component {
+class savingsDetail extends Component {
 
     constructor(props) {
         super(props);
         // staate에 초기화
         this.state = {
-            loanProductName: '',
-            loanProductRegistrationDate: '',
-            interestRate: '',
-            contentTitle:'',
-            content: '',
-            minMoney: '',
-            maxMoney: '',
-            minPeriod: '',
-            maxPeriod: '',
-            repayment: '',
-            commission: '',
+            savingsProductName: '',
+            savingsProductRegistrationDate: '',
+            interestRate: '',          
+            content: '', 
+            type: '',          
+            MinPrice: '',
+            MaxPrice: '', 
+            MinDate: '',         
+            MaxDate: '',       
             message: ''
         }
     }
 
+    // 라이프사이클 중 컴포넌트가 생성된 후 사용자에게 보여지기까지의 전체 과정을 렌더링
     componentDidMount() {
-        this.loadLoanDetail();
+        this.loadSavingsDetail();
     }
 
     // 상세페이지 호출
-    loadLoanDetail = () =>{
-        ApiService.fetchDetailByNum(window.localStorage.getItem("LoanNum"))
+    loadSavingsDetail = () =>{
+        ApiService.fetchsavingsDetailByNum(window.localStorage.getItem("savingsNum"))
             .then(res => {
-                let loan = res.data;
+                let savings = res.data;
                 this.setState({
-                    num: loan.num,
-                    loanProductName: loan.loanProductName,
-                    loanProductRegistrationDate: loan.loanProductRegistrationDate,
-                    interestRate: loan.interestRate,
-                    contentTitle: loan.contentTitle,
-                    content: loan.content,
-                    minMoney: loan.minMoney,
-                    maxMoney: loan.maxMoney,
-                    minPeriod: loan.minPeriod,
-                    maxPeriod: loan.maxPeriod,
-                    repayment: loan.repayment,
-                    commission: loan.commission,
+                    num: savings.jNo,
+                    savingsProductName: savings.jName,
+                    savingsProductRegistrationDate: savings.jRegistrationDate,
+                    interestRate: savings.interestRate,
+                    content: savings.jSummary,  
+                    type: savings.jType,              
+                    MinPrice: savings.jMinPrice,
+                    MaxPrice: savings.jMaxPrice,
+                    MinDate: savings.jMinDate,
+                    MaxDate: savings.jMaxDate,                   
                 })
             })
             .catch(err =>{
-                console.log('loadLoanDetail() Error!!', err);
+                console.log('fetchsavingsDetailByNum() Error!!', err);
             });
     }
 
     // sign
-    signLoan = (num) => {
-        window.localStorage.setItem("LoanNum", num);
-        this.props.history.push("/loanSign")
+    signSavings = (num) => {
+        window.localStorage.setItem("jNo", num);
+        this.props.history.push("/savingsSign")
     }
 
     render() {
@@ -65,21 +62,21 @@ class LoanDetail extends Component {
             <Container component="main" maxWidth="md">
 
                 <PaidOutlinedIcon fontSize='large' color='primary' />
-                <Typography variant="h4" style={style} spacing={2}> Loan Product Detail </Typography><br />
+                <Typography variant="h4" style={style} spacing={2}> savings Product Detail </Typography><br />
 
                 <Grid container spacing={2}>
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end"></InputAdornment>}
-                            aria-describedby="standard-loanProductName-helper-text"
+                            aria-describedby="standard-savingsProductName-helper-text"
                             inputProps={{
-                                'aria-label': 'loanProductName',
+                                'aria-label': 'savingsProductName',
                             }}
-                            value={this.state.loanProductName}
-                            disabled
+                            name="savingsProductName"
+                            value={this.state.savingsProductName}
                         />
-                        <FormHelperText >loanProductName</FormHelperText>
+                        <FormHelperText >savingsProductName</FormHelperText>
                     </FormControl>
 
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
@@ -90,27 +87,11 @@ class LoanDetail extends Component {
                             inputProps={{
                                 'aria-label': 'interestRate',
                             }}
+                            name="interestRate"
                             value={this.state.interestRate}
-                            disabled
                         />
                         <FormHelperText >interestRate</FormHelperText>
                     </FormControl>
-
-                    <TextField sx={{ m: 2, width: '93ch' }}
-                        required
-                        id="sandard-required"
-                        variant="standard"
-                        multiline
-                        fullWidth
-                        rows={4}
-                        label="contentTitle"
-                        // helperText="please enter content"
-                        type="text"
-                        name="contentTitle"
-                        value={this.state.contentTitle}
-                        disabled
-                        placeholder="contentTitle"
-                        onChange={this.onChange} /><br />
 
                         <TextField sx={{ m: 2, mt: 2, width: '93ch' }}
                             required
@@ -124,22 +105,23 @@ class LoanDetail extends Component {
                             type="text"
                             name="content"
                             value={this.state.content}
-                            disabled
                             placeholder="content"/><br />
+
+                       
 
                 
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end">원</InputAdornment>}
-                            aria-describedby="standard-minMoney-helper-text"
+                            aria-describedby="standard-MinPrice-helper-text"
                             inputProps={{
-                                'aria-label': 'minMoney',
+                                'aria-label': 'MinPrice',
                             }}
-                            value={this.state.minMoney}
-                            disabled
+                            name="MinPrice"
+                            value={this.state.MinPrice}
                         />
-                        <FormHelperText >minMoney</FormHelperText>
+                        <FormHelperText >MinPrice</FormHelperText>
                     </FormControl>
 
                     
@@ -148,14 +130,14 @@ class LoanDetail extends Component {
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end">원</InputAdornment>}
-                            aria-describedby="standard-maxMoney-helper-text"
+                            aria-describedby="standard-MaxPrice-helper-text"
                             inputProps={{
-                                'aria-label': 'maxMoney',
+                                'aria-label': 'MaxPrice',
                             }}
-                            value={this.state.maxMoney}
-                            disabled
+                            name="MaxPrice"
+                            value={this.state.MaxPrice}
                         />
-                        <FormHelperText >maxMoney</FormHelperText>
+                        <FormHelperText >MaxPrice</FormHelperText>
                     </FormControl>
                     
 
@@ -163,14 +145,14 @@ class LoanDetail extends Component {
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end">개월</InputAdornment>}
-                            aria-describedby="standard-minPeriod-helper-text"
+                            aria-describedby="standard-MinDate-helper-text"
                             inputProps={{
-                                'aria-label': 'minPeriod',
+                                'aria-label': 'MinDate',
                             }}
-                            value={this.state.minPeriod}
-                            disabled
+                            name="MinDate"
+                            value={this.state.MinDate}
                         />
-                        <FormHelperText >minPeriod</FormHelperText>
+                        <FormHelperText >MinDate</FormHelperText>
                     </FormControl>
 
                     
@@ -179,43 +161,30 @@ class LoanDetail extends Component {
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end">개월</InputAdornment>}
-                            aria-describedby="standard-maxPeriod-helper-text"
+                            aria-describedby="standard-MaxDate-helper-text"
                             inputProps={{
-                                'aria-label': 'maxPeriod',
+                                'aria-label': 'MaxDate',
                             }}
-                            value={this.state.maxPeriod}
-                            disabled
+                            name="MaxDate"
+                            value={this.state.MaxDate}
                         />
-                        <FormHelperText >maxPeriod</FormHelperText>
-                    </FormControl>
+                        <FormHelperText >MaxDate</FormHelperText>
+                    </FormControl>  
 
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end"></InputAdornment>}
-                            aria-describedby="standard-repayment-helper-text"
+                            aria-describedby="standard-type-helper-text"
                             inputProps={{
-                                'aria-label': 'repayment',
+                                'aria-label': 'type',
                             }}
-                            value={this.state.repayment}
-                            disabled
+                            name="type"
+                            value={this.state.type}
                         />
-                        <FormHelperText >repayment</FormHelperText>
-                    </FormControl>
-
-                    <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
-                        <Input
-                            id="standard-required"
-                            endAdornment={<InputAdornment position="end">%</InputAdornment>}
-                            aria-describedby="standard-commission-helper-text"
-                            inputProps={{
-                                'aria-label': 'commission',
-                            }}
-                            value={this.state.commission}
-                            disabled
-                        />
-                        <FormHelperText >commission</FormHelperText>
-                    </FormControl>
+                        <FormHelperText >type</FormHelperText>
+                    </FormControl>                  
+                   
                 </Grid>
 
                 <Stack spacing={1} direction="row" justifyContent="center" marginTop={1}>
@@ -227,7 +196,7 @@ class LoanDetail extends Component {
         );
     }
 }
-export default LoanDetail;
+export default savingsDetail;
 
 const style = {
     display: 'flex',

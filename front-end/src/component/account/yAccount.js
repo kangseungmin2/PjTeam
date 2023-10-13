@@ -5,7 +5,7 @@ import {Create,Delete} from "@mui/icons-material";
 
 function Unix_timestamp(t){
     const date = new Date(t); //date객체는 UTC로부터 지난시간을 밀리초로 나타내는 UNIX 타임스탬프를 담는다.(밀리초를 초로 변환하려면 *1000)
-  	//console.log(date) //2023-02-28T05:36:35.000Z 출력됨
+     //console.log(date) //2023-02-28T05:36:35.000Z 출력됨
    const year = date.getFullYear(); //년도 구하기
     const month = "0" + (date.getMonth()+1);
     const day = "0" + date.getDate();
@@ -80,6 +80,7 @@ class yAccount extends Component{
         window.localStorage.setItem("accountNum",accountNum);
         this.props.history.push('/passwordModify');
     }
+    
     // delete
     deleteAccount = (accountNum) =>{
         ApiService.deleteAccount(accountNum)
