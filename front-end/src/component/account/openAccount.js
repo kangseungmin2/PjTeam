@@ -7,7 +7,6 @@ class openAccount extends Component{
         super(props);
 
         this.state ={
-            accountNum:'',
             id:'',
             accountPW:'',
             accountLimit:''
@@ -23,7 +22,6 @@ class openAccount extends Component{
     saveAccount = (e) => {
         e.preventDefault();
         let inputData = {
-            accountNum: this.state.accountNum,
             id: this.state.id,
             accountPW: this.state.accountPW,
             accountLimit: this.state.accountLimit
@@ -42,17 +40,6 @@ class openAccount extends Component{
         return(
             <div>
                 <Typography variant="h4">계좌 개설</Typography>
-                <TextField
-                    required
-                    id="standard-required"
-                    variant="standard"
-                    label="accountNum"
-                    type="text"
-                    name="accountNum"
-                    value={this.state.accountNum}
-                    placeholder="Input accountNum"
-                    onChange={this.onChange}
-                /><br/>
                 <TextField
                     required
                     id="standard-required"
