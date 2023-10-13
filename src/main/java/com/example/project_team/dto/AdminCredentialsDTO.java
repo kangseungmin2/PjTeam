@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class AdminCredentialsDTO {
 
 	private String id;
-	private String password;
+	private char[] password;
 }

@@ -22,7 +22,6 @@ import com.example.project_team.dto.FundTransactionDTO;
 import com.example.project_team.service.FundServiceImpl;
 
 
-
 @CrossOrigin(origins="**", maxAge=3600)
 @RestController
 @RequestMapping(value="/fund")
@@ -87,3 +86,5 @@ public class FundController {
 		return service.transactionList(fAccount);
 	}
 }
+
+

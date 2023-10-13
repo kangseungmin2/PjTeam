@@ -37,4 +37,3 @@ public interface FundService {
 	public List<FundTransactionDTO> transactionList(long fAccount)
 			throws ServletException, IOException;
 }
- 

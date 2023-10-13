@@ -92,5 +92,4 @@ class openAccount extends Component{
     }
    
 }
-
 export default openAccount;

@@ -4,6 +4,7 @@ import ApiService from '../../ApiService';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import FindInPageRoundedIcon from '@mui/icons-material/FindInPageRounded';
+import { MDBAccordion, MDBAccordionItem } from 'mdb-react-ui-kit';
 
 
 class LoanList extends Component {
@@ -12,48 +13,7 @@ class LoanList extends Component {
         super(props);
 
         this.state = {
-            loans: [
-                {
-                    num: 1, loanProductName: "대출상품1", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "만기일시상환", commission: 0
-                },
-                {
-                    num: 2, loanProductName: "대출상품2", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원리금균등상환", commission: 0
-                },
-                {
-                    num: 3, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-                {
-                    num: 4, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-                {
-                    num: 5, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-                {
-                    num: 6, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-                {
-                    num: 7, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-                {
-                    num: 8, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-                {
-                    num: 9, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-                {
-                    num: 10, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-            ],
+            loans: [],
             message: null,
             page: 0,
             rPage: 5
@@ -67,7 +27,6 @@ class LoanList extends Component {
 
     // list 정보
     loadLoanProductList = () => {
-        console.log("음?", this.state)
         ApiService.fetchLoansPL()
             .then(res => {
                 this.setState({
@@ -91,24 +50,24 @@ class LoanList extends Component {
         window.localStorage.setItem("LoanNum", num);
         this.props.history.push("/loanSign")
     }
-    
+
 
     // page
-    handleChangePage = (event,newpage) => { 
+    handleChangePage = (event, newpage) => {
         this.setState({ page: newpage });
-    } 
-   
+    }
+
     // rowPage
-    handleChangeRowsPerPage = (event) => { 
+    handleChangeRowsPerPage = (event) => {
         this.setState({ rPage: parseInt(event.target.value, 10) });
         this.setState({ page: 0 }); // 페이지를 첫 페이지로 리셋
-    } 
+    }
 
 
     render() {
         const { page } = this.state;
         const { rPage } = this.state;
-        
+
 
         return (
 
@@ -131,34 +90,42 @@ class LoanList extends Component {
                         </TableHead>
 
                         <TableBody>
-                            {this.state.loans.slice(page * rPage, page * 
-                            rPage + rPage).map((loan) => (
-                                <TableRow hover key={loan.num}>
-                                    <TableCell align='center'>{loan.num}</TableCell>
-                                    <TableCell align='center'>{loan.loanProductName}</TableCell>
-                                    <TableCell align='center'>{loan.content}</TableCell>
-                                    <TableCell align='center'>{loan.interestRate}%</TableCell>
-                                    <TableCell align='center'>
-                                        <FindInPageRoundedIcon fontSize='large' color='primary' onClick={() => this.selectLoan(loan.num)}/>
-                                    </TableCell>
-                                    <TableCell align='center'>
-                                        <EditNoteOutlinedIcon fontSize='large' onClick={() => this.signLoan(loan.num)}/>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                            {this.state.loans.slice(page * rPage, page *
+                                rPage + rPage).map((loan) => (
+                                    <TableRow hover key={loan.num}>
+                                        <TableCell align='center'>{loan.num}</TableCell>
+                                        <TableCell align='center'>{loan.loanProductName}</TableCell>
+                                        <TableCell align='center'>
+                                            <MDBAccordion>
+
+                                                <MDBAccordionItem collapseId={loan.num} headerTitle={<>{loan.contentTitle}</>}>
+                                                    {loan.content}<br />
+                                                </MDBAccordionItem>
+
+                                            </MDBAccordion>
+                                        </TableCell>
+                                        <TableCell align='center'>{loan.interestRate}%</TableCell>
+                                        <TableCell align='center'>
+                                            <FindInPageRoundedIcon fontSize='large' color='primary' onClick={() => this.selectLoan(loan.num)} />
+                                        </TableCell>
+                                        <TableCell align='center'>
+                                            <EditNoteOutlinedIcon fontSize='large' onClick={() => this.signLoan(loan.num)} />
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
                         </TableBody>
                     </Table>
-                    </TableContainer>
+                </TableContainer>
 
-                <TablePagination 
-                rowsPerPageOptions={[5, 10, 25]} 
-                component="div"
-                count={this.state.loans.length} 
-                rowsPerPage={rPage} 
-                page={page} 
-                onPageChange={this.handleChangePage} 
-                onRowsPerPageChange={this.handleChangeRowsPerPage} 
-                /> 
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={this.state.loans.length}
+                    rowsPerPage={rPage}
+                    page={page}
+                    onPageChange={this.handleChangePage}
+                    onRowsPerPageChange={this.handleChangeRowsPerPage}
+                />
 
             </Container>
 
