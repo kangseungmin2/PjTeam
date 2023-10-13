@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project_team.dto.FundAccountDTO;
 import com.example.project_team.dto.FundProductDTO;
+import com.example.project_team.dto.FundTransactionDTO;
 import com.example.project_team.service.FundServiceImpl;
 
 
@@ -66,5 +67,23 @@ public class FundController {
 		logger.info("<<< fundController - fundAccount() >>>");
 		
 		return service.fundAccount(fAccount);
+	}
+	
+	// fundAccountSelect 계좌 다건 조회
+	@GetMapping("/fundAccountSelect/{id}")
+	public List<FundAccountDTO> fundAccountSelect(@PathVariable String id)
+			throws ServletException, IOException {
+		logger.info("<<< fundController - fundAccountSelect() >>>");
+		
+		return service.fundAccountSelect(id);
+	}
+	
+	// transactionList 계좌 거래내역 조회
+	@GetMapping("/transactionList/{fAccount}")
+	public List<FundTransactionDTO> transactionList(@PathVariable long fAccount)
+			throws ServletException, IOException {
+		logger.info("<<< fundController - transactionList() >>>");
+		
+		return service.transactionList(fAccount);
 	}
 }

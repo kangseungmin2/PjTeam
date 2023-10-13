@@ -1,7 +1,6 @@
 package com.example.project_team.service;
 
 import java.io.IOException;
-
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,6 +12,7 @@ import org.springframework.ui.Model;
 
 import com.example.project_team.dto.FundAccountDTO;
 import com.example.project_team.dto.FundProductDTO;
+import com.example.project_team.dto.FundTransactionDTO;
 import com.example.project_team.mappers.FundMapper;
 
 @Service
@@ -55,6 +55,24 @@ public class FundServiceImpl implements FundService{
 		System.out.println("FundServiceImpl - fundAccount()");
 		
 		return mapper.fundAccount(fAccount);
+	}
+	
+	// fundAccountSelect 계좌 다건 조회
+	@Override
+	public List<FundAccountDTO> fundAccountSelect(String id)
+			throws ServletException, IOException{
+		System.out.println("FundServiceImpl - fundAccountSelect()");
+		
+		return mapper.fundAccountSelect(id);
+	}
+	
+	// transactionList 계좌 거래내역 조회
+	@Override
+	public List<FundTransactionDTO> transactionList(long fAccount)
+			throws ServletException, IOException{
+		System.out.println("FundServiceImpl - transactionList()");
+		
+		return mapper.transactionList(fAccount);
 	}
 	
 }

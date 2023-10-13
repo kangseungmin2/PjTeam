@@ -38,6 +38,17 @@ class ApiService {
         return axios.get(FUND_API_BASE_URL+"/fundAccount/"+faccount);
     }
 
+    // fundAccountSelect
+    fundAccountSelect(id){
+        console.log('fundAccountSelect() 호출',id);
+        return axios.get(FUND_API_BASE_URL+"/fundAccountSelect/"+id);
+    }
+
+    // transactionList
+    transactionList(fAccount){
+        console.log('transactionList() 호출',fAccount);
+        return axios.get(FUND_API_BASE_URL+"/transactionList/"+fAccount);
+    }
 
 
     // Board(관리자)

@@ -1,16 +1,32 @@
 import React, { Component } from "react";
 import { Table, MenuItem, TableBody, TableRow, TableCell, Typography, TableFooter, Select } from "@mui/material";
-
-
-
+import ApiService from "../../ApiService";
 
 export default class lastFundAccount extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            selectOption : []
+            accountNum : []
         }
+    }
+
+    componentDidMount(){
+        this.fundAccountSelect();
+    };
+
+    fundAccountSelect = () => {
+        // const id = window.localStorage.getItem('id')
+        const id = 'iu'
+        ApiService.fundAccountSelect(id)
+        .then(res => {
+            this.setState({
+                accountNum: res.data
+            })
+        })
+        .catch(err => {
+            console.log('fundAccountSelect() Error!!', err);
+        })
     }
 
     onChange = (e) => {
@@ -18,7 +34,7 @@ export default class lastFundAccount extends Component {
             [e.target.name]: e.target.value
         });
     }
-
+    
     render() {
         return (
             <div align='center'>
@@ -89,9 +105,9 @@ export default class lastFundAccount extends Component {
                                     onChange={this.onChange}
                                     style={{width : '500px', height : '30px'}}
                                 >
-                                    <MenuItem value={"만기일시상환"}>만기일시상환</MenuItem>
-                                    <MenuItem value={"원리금균등상환"}>원리금균등상환</MenuItem>
-                                    <MenuItem value={"원금균등상환"}>원금균등상환</MenuItem>
+                                 {this.state.accountNum.map(num => (        
+                                    <MenuItem value={num.accountNum}>{num.accountNum}</MenuItem>
+                                 ))}
                                 </Select>
 
                             </TableCell>

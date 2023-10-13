@@ -22,6 +22,6 @@ public class FundAccountDTO {
     private Date madeDate;					// 개설일
     private Date deleteDate;				// 해지일
     private Date sleepDate;					// 휴먼일
-    private String show;						// 계좌상태
+    private String show;					// 계좌상태
     private String agree;					// 약관동의 여부
 }

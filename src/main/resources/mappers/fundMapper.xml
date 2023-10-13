@@ -20,4 +20,12 @@
 	<select id="fundAccount" parameterType="long" resultType="com.example.project_team.dto.FundAccountDTO">
 		SELECT * FROM team_fund_account WHERE fAccount = #{fAccount}
 	</select>
+	<!-- fundAccountSelect 계좌 다건 조회 -->
+	<select id="fundAccountSelect" parameterType="String" resultType="com.example.project_team.dto.FundAccountDTO">
+		SELECT accountNum FROM team_account WHERE id = #{id}
+	</select>
+	<!-- transactionList 계좌 거래내역 조회 -->
+	<select id="transactionList" parameterType="long" resultType="com.example.project_team.dto.FundTransactionDTO">
+		SELECT * FROM team_fund_transaction WHERE fAccount = #{fAccount}
+	</select>
 </mapper>
