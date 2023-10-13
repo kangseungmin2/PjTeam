@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project_team.config.UserAuthProvider;
-import com.example.project_team.dto.AdminCredentialsDTO;
 import com.example.project_team.dto.CredentialsDTO;
 import com.example.project_team.dto.SignUpDTO;
 import com.example.project_team.entities.Admin;
@@ -50,10 +49,10 @@ public class AuthController {
 	}
 	
 	@PostMapping("/admin")
-	public ResponseEntity<Admin> admin(@RequestBody AdminCredentialsDTO AdminCredentialsDTO){
+	public ResponseEntity<Admin> admin(@RequestBody CredentialsDTO credentialsDTO){
 		System.out.println("<<<AuthController - admin>>>");
 		
-		Admin admin = userService.admin(AdminCredentialsDTO);
+		Admin admin = userService.admin(credentialsDTO);
 		System.out.println("token : " + userAuthProvider.createToken(admin.getId()));
 		
 		admin.setToken(userAuthProvider.createToken(admin.getId()));

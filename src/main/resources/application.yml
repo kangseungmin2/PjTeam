@@ -41,4 +41,3 @@ mybatis:
   type-aliases-package: com.example.project_team.mappers
  
 spring.main.allow-bean-definition-overriding: true 
-

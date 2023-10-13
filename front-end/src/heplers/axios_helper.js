@@ -1,6 +1,5 @@
 import axios from 'axios'; // npm install axios 부터
 
-
 axios.defaults.baseURL = 'http://localhost:8083';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
@@ -10,12 +9,8 @@ export const getAuthToken = () => {
     return window.localStorage.getItem("auth_token");
 }
 // setAuthToken
-export const setAuthToken = (token ,id) => {
+export const setAuthToken = (token) => {
     window.localStorage.setItem("auth_token", token);
-    window.localStorage.setItem("id", id);
-}
-export const data = (id) =>{
-    window.localStorage.setItem("admin",id);
 }
 
 export const request = (method, url, data) => {

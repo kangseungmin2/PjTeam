@@ -12,11 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.project_team.dto.FundAccountDTO;
 import com.example.project_team.dto.FundProductDTO;
 import com.example.project_team.service.FundServiceImpl;
 
@@ -32,39 +30,13 @@ public class FundController {
 	@Autowired
 	private FundServiceImpl service;
 	
-	// fundList
+	// List
+	
 	@GetMapping
 	public List<FundProductDTO> fundList(HttpServletRequest req, Model model)
 			throws ServletException, IOException {
 		logger.info("<<< fundController - fundList() >>>");
 		
 		return service.fundList(req, model);
-	}
-	
-	// accountList
-	@GetMapping("/accountList/{id}")
-	public List<FundAccountDTO> accountList(@PathVariable String id)
-			throws ServletException, IOException {
-		logger.info("<<< fundController - fundList() >>>");
-		
-		return service.accountList(id);
-	}
-	
-	// fundDetail 1건 조회
-	@GetMapping("/fundDetail/{fpName}")
-	public FundProductDTO fundDetail(@PathVariable String fpName)
-			throws ServletException, IOException {
-		logger.info("<<< fundController - fundDetail() >>>");
-		
-		return service.fundDetail(fpName);
-	}
-	
-	// fundAccount 1건 조회
-	@GetMapping("/fundAccount/{fAccount}")
-	public FundAccountDTO fundAccount(@PathVariable long fAccount)
-			throws ServletException, IOException {
-		logger.info("<<< fundController - fundAccount() >>>");
-		
-		return service.fundAccount(fAccount);
 	}
 }

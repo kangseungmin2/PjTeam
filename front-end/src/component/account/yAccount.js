@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {Table,TableHead,TableBody,TableRow,TableCell, Typography, Container} from '@mui/material';
 import ApiService from "../../ApiService.js";
 import {Create,Delete} from "@mui/icons-material";
+
 function Unix_timestamp(t){
     const date = new Date(t); //date객체는 UTC로부터 지난시간을 밀리초로 나타내는 UNIX 타임스탬프를 담는다.(밀리초를 초로 변환하려면 *1000)
   	//console.log(date) //2023-02-28T05:36:35.000Z 출력됨
@@ -99,31 +100,31 @@ class yAccount extends Component{
     render(){
         return(
             <Container maxWidth="md">
-                <Typography variant="h5" style={style}> 예금 </Typography>
+                <Typography variant="h5" style={style}> <b>예금</b> </Typography>
                 <Table md={{minWidth: 900}}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>예금명</TableCell>
-                            <TableCell>계좌번호</TableCell>
-                            <TableCell>계좌생성일</TableCell>
-                            <TableCell>잔액</TableCell>
-                            <TableCell>계좌상태</TableCell>
-                            <TableCell>계좌수정</TableCell>
-                            <TableCell>계좌해지</TableCell>
+                            <TableCell align='center' style={{color:'navy'}}><b>예금명</b></TableCell>
+                            <TableCell align='center' style={{color:'navy'}}><b>계좌번호</b></TableCell>
+                            <TableCell align='center' style={{color:'navy'}}><b>계좌생성일</b></TableCell>
+                            <TableCell align='center' style={{color:'navy'}}><b>잔액</b></TableCell>
+                            <TableCell align='center' style={{color:'navy'}}><b>계좌상태</b></TableCell>
+                            <TableCell align='center' style={{color:'navy'}}><b>비밀번호변경</b></TableCell>
+                            <TableCell align='center' style={{color:'navy'}}><b>계좌해지</b></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                             {this.state.accounts.map(account =>
                             <TableRow key={account.accountNum}>
                                 <TableCell component="th" scope="account">{name(account.accountType)}</TableCell>
-                                <TableCell>{account.accountNum}</TableCell>
-                                <TableCell>{Unix_timestamp(account.madeDate)}</TableCell>
-                                <TableCell>{account.balance}</TableCell>
-                                <TableCell>{state(account.accountState)}</TableCell>
-                                <TableCell onClick={()=>this.passwordModify(account.accountNum)}>
+                                <TableCell align='center'>{account.accountNum}</TableCell>
+                                <TableCell align='center'>{Unix_timestamp(account.madeDate)}</TableCell>
+                                <TableCell align='center'>{account.balance}</TableCell>
+                                <TableCell align='center'>{state(account.accountState)}</TableCell>
+                                <TableCell align='center' onClick={()=>this.passwordModify(account.accountNum)}>
                                     <Create />
                                 </TableCell>
-                                <TableCell onClick={()=>this.deleteAccount(account.accountNum)}>
+                                <TableCell align='center' onClick={()=>this.deleteAccount(account.accountNum)}>
                                     <Delete />
                                 </TableCell>
                             </TableRow>

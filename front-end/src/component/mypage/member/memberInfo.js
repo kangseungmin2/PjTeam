@@ -1,13 +1,21 @@
 import React, { Component } from "react";
-import imgLogo from "../../../resource/memberInfo.png"
+import {Typography, Container} from '@mui/material';
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 
 class memberInfo extends Component{
     render(){
         return(
-            <div>
-                <img src={imgLogo}></img>
-            </div>
+            <Container maxWidth="md">
+                <PaidOutlinedIcon fontSize='large' color='primary' />
+                <Typography variant="h4" style={style}> 내정보 </Typography>
+                
+            </Container>
         );
     }
+    
+}
+const style ={
+    display: 'flex',
+    justifyContent: 'center'
 }
 export default memberInfo;
