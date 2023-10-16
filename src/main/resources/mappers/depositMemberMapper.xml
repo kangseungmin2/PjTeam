@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="com.example.project_team.mappers.depositMemberMapper">
+	<!-- DepositMemberList -->
+	<select id="DepositMemberList" resultType="com.example.project_team.dto.DepositDTO">
+		SELECT * FROM TEAM_DEPOSIT_PRODUCT ORDER BY yNo
+	</select>
+	
+	<!-- findByNum / 1건 조회 -->
+	<select id="findByNum" parameterType="int" resultType="com.example.project_team.dto.DepositDTO">
+		SELECT * FROM TEAM_DEPOSIT_PRODUCT WHERE yNo = #{yNo}
+	</select>
+	
+</mapper>

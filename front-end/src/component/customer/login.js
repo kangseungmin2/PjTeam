@@ -21,7 +21,7 @@ class AppContent extends Component {
         this.setState({componentToShow: "welcome"})
     }
 
-    onLogin = (e, id, password) => {
+    onLogin = (e, id, password) => {       
         e.preventDefault();
         request(
             "POST",
@@ -32,8 +32,32 @@ class AppContent extends Component {
             })
             .then((response) => {
                 this.setState({componentToShow: "messages"});
+                setAuthToken(response.data.token,id);               
+                this.props.history.push('/main');                
+                window.location.reload();
+                console.log('props',this.props);
+            })
+            .catch((error) => {
+                this.setState({componentToShow: "welcome"});
+                setAuthToken(null);
+            })
+    }
+
+    onAdmin = (e, id, password) => {
+        e.preventDefault();
+        request(
+            "POST",
+            "/admin",
+            {
+                id: id,
+                password: password
+            })
+            .then((response) => {
+                this.setState({componentToShow: "messages"});
                 setAuthToken(response.data.token);
-                this.props.history.push('/main');
+                data(id);
+                this.props.history.push('/main'); 
+                window.location.reload();
             })
             .catch((error) => {
                 this.setState({componentToShow: "welcome"});

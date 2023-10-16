@@ -15,7 +15,7 @@ function BasicExample() {
             <NavDropdown title="계좌" id="basic-nav-dropdown">
               <NavDropdown.Item href="/openAccount">계좌개설</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/allAccount">
+              <NavDropdown.Item href="/eAccount">
                 전체계좌조회
               </NavDropdown.Item>
               <NavDropdown.Item href="/balanceList">잔액조회</NavDropdown.Item>

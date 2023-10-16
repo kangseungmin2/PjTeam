@@ -12,4 +12,18 @@
 <select id="accountList" resultType="com.example.project_team.dto.AccountDTO">
 	SELECT * FROM team_account order by accountid
 </select>
+
+<select id="accountList2" resultType="com.example.project_team.dto.AccountDTO">
+	SELECT * FROM team_account where show = 'y' and accountType='y' order by accountnum
+</select>
+
+<select id="fetchAccountByNum" parameterType="long" resultType="com.example.project_team.dto.AccountDTO">
+	SELECT * FROM team_account WHERE accountnum=#{accountnum} 
+</select>
+<update id="passwordModify" parameterType="com.example.project_team.dto.AccountDTO">
+	UPDATE team_account SET accountPW = #{accountPW} WHERE id=#{id}
+</update>
+<update id="deleteAccount" parameterType="long">
+	UPDATE team_account SET show = 'n' WHERE accountnum=#{accountnum}
+</update>
 </mapper>

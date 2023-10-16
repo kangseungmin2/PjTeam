@@ -13,6 +13,7 @@ class LoanProductEdit extends Component {
             loanProductName: '',
             loanProductRegistrationDate: '',
             interestRate: '',
+            contentTitle: '',
             content: '',
             minMoney: '',
             maxMoney: '',
@@ -34,6 +35,7 @@ class LoanProductEdit extends Component {
                     loanProductName: loan.loanProductName,
                     loanProductRegistrationDate: loan.loanProductRegistrationDate,
                     interestRate: loan.interestRate,
+                    contentTitle: loan.contentTitle,
                     content: loan.content,
                     minMoney: loan.minMoney,
                     maxMoney: loan.maxMoney,
@@ -57,18 +59,35 @@ class LoanProductEdit extends Component {
     editProduct = (e) => {
         // save후 reload방지
         e.preventDefault();
-
-        let inputData = {
-            loanProductName: this.state.loanProductName,
-            loanProductRegistrationDate: this.state.loanProductRegistrationDate,
-            interestRate: this.state.interestRate,
-            content: this.state.content,
-            minMoney: this.state.minMoney,
-            maxMoney: this.state.maxMoney,
-            minPeriod: this.state.minPeriod,
-            maxPeriod: this.state.maxPeriod,
-            repayment: this.state.repayment,
-            commission: this.state.commission
+    
+        const confirmEdit = window.confirm("수정하시겠습니까?"); // 수정 여부를 묻는 알림창
+    
+        if (confirmEdit) {
+            let inputData = {
+                num: this.state.num,
+                loanProductName: this.state.loanProductName,
+                loanProductRegistrationDate: this.state.loanProductRegistrationDate,
+                interestRate: this.state.interestRate,
+                contentTitle: this.state.contentTitle,
+                content: this.state.content,
+                minMoney: this.state.minMoney,
+                maxMoney: this.state.maxMoney,
+                minPeriod: this.state.minPeriod,
+                maxPeriod: this.state.maxPeriod,
+                repayment: this.state.repayment,
+                commission: this.state.commission
+            }
+    
+            ApiService.editLoan(inputData)
+                .then(res => {
+                    console.log('editLoan 성공', res.data);
+                    this.props.history.push('/loanProductList');
+                })
+                .catch(err => {
+                    console.log('editLoan 에러', err);
+                })
+        } else {
+            // 취소를 클릭한 경우, 수정 페이지에 그대로 남기
         }
 
         ApiService.editLoan(inputData)
@@ -117,20 +136,36 @@ class LoanProductEdit extends Component {
                         <FormHelperText >interestRate</FormHelperText>
                     </FormControl>
 
-                        <TextField sx={{ m: 2, mt: 2, width: '93ch' }}
-                            required
-                            id="sandard-required"
-                            variant="standard"
-                            multiline
-                            fullWidth
-                            rows={4}
-                            label="content"
-                            // helperText="please enter content"
-                            type="text"
-                            name="content"
-                            value={this.state.content}
-                            placeholder="content"
-                            onChange={this.onChange} /><br />
+                    <TextField sx={{ m: 2, width: '93ch' }}
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        multiline
+                        fullWidth
+                        rows={4}
+                        label="contentTitle"
+                        // helperText="please enter content"
+                        type="text"
+                        name="contentTitle"
+                        value={this.state.contentTitle}
+                        placeholder="contentTitle"
+                        onChange={this.onChange} /><br />
+                        
+                    <TextField sx={{ m: 2, mt: 2, width: '93ch' }}
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        multiline
+                        fullWidth
+                        rows={4}
+                        label="content"
+                        // helperText="please enter content"
+                        type="text"
+                        name="content"
+                        value={this.state.content}
+                        placeholder="content"
+                        onChange={this.onChange} /><br />
+
 
                 
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
