@@ -47,6 +47,9 @@ import fundDetail from "../fund/fundDetail";
 import fundAccount from "../fund/fundAccount";
 import myFund from "../fund/myFund";
 import lastFundAccount from "../fund/lastFundAccount"
+import fundTransaction from "../fund/fundTransaction"
+import transactionList from "../fund/transactionList"
+
 
 import BoardList from '../admin/board/boardList';
 import BoardAdd from '../admin/board/boardAdd';
@@ -157,6 +160,8 @@ const AppRouter = () => {
 
                     <Route path="/fundAccount" component={fundAccount}/>        {/* 종훈-펀드계좌 개설 2-2*/}
                     <Route path="/lastFundAccount" component={lastFundAccount}/>        {/* 종훈-펀드계좌 개설 2-3*/}
+                    <Route path="/fundTransaction" component={fundTransaction}/>        {/* 종훈-펀드계좌 거래내역 2-1*/}
+                    <Route path="/transactionList" component={transactionList}/>        {/* 종훈-펀드계좌 거래내역 2-2*/}
                     <Route path="/fundList" component={fundList}/>        {/* 종훈-펀드 리스트 */}
                     <Route path="/accountChk" component={accountChk}/>        {/* 종훈-펀드계좌 체크*/}
                     <Route path="/fundDetail" component={fundDetail}/>        {/* 종훈-펀드 상세페이지 */}

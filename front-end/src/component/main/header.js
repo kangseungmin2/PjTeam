@@ -132,7 +132,12 @@ function BasicExample() {
             </NavDropdown>
 
             <NavDropdown title="펀드" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/fundAccount">펀드 계좌개설</NavDropdown.Item>
+              <NavDropdown.Item href="/fundAccount">
+                펀드계좌 개설
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/fundTransaction">
+                펀드계좌 거래내역
+              </NavDropdown.Item>
               <NavDropdown.Item href="/fundList">
                 펀드상품
               </NavDropdown.Item>

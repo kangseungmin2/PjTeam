@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { Table, TableHead, TableBody, TableRow, TableCell, Typography,TablePagination, TableFooter } from "@mui/material";
+import { Table, TableHead, TableBody, TableRow, TableCell, Typography,TablePagination, TableFooter, TableContainer, Paper } from "@mui/material";
 import ApiService from "../../ApiService.js";
-import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
-import FindInPageRoundedIcon from '@mui/icons-material/FindInPageRounded';
 
 
 class fundList extends Component{
@@ -15,7 +12,7 @@ class fundList extends Component{
             fundList:[], 
             message:null,
             page: 0,
-            rPage: 5
+            rPage: 10
         }
     } 
 
@@ -60,21 +57,21 @@ class fundList extends Component{
         const { page } = this.state;
         const { rPage } = this.state;
         return (
-            <div><br/><br/>
-               <form> 
-                <Typography variant="h4">
-                     Fund List
+            <div align='center' >
+            <TableContainer component={Paper} sx={{ minWidth: 700, maxWidth: 1200}}>
+                <Typography variant="h4" style={typography}>
+                    Fund List
                 </Typography>
                 <Table>
-                    <TableHead style={style}>
+                    <TableHead style={styledTableHead}>
                         <TableRow>
-                            <TableCell style={style2}>종목명</TableCell>
-                            <TableCell style={style2}>종목코드</TableCell>
-                            <TableCell style={style2}>시가</TableCell>
-                            <TableCell style={style2}>종가</TableCell>
-                            <TableCell style={style2}>고가</TableCell>
-                            <TableCell style={style2}>저가</TableCell>
-                            <TableCell style={style2}>등락율</TableCell>
+                            <TableCell style={styledTableCell}>종목명</TableCell>
+                            <TableCell style={styledTableCell}>종목코드</TableCell>
+                            <TableCell style={styledTableCell}>시가</TableCell>
+                            <TableCell style={styledTableCell}>종가</TableCell>
+                            <TableCell style={styledTableCell}>고가</TableCell>
+                            <TableCell style={styledTableCell}>저가</TableCell>
+                            <TableCell style={styledTableCell}>등락율</TableCell>
                         </TableRow>
                     </TableHead>
 
@@ -82,20 +79,20 @@ class fundList extends Component{
                         {this.state.fundList.slice(page * rPage, page * 
                             rPage + rPage).map((product) => (
                         <TableRow hover key={product.fpName} onClick={this.accountChk.bind(this,product.fpName)}>
-                                <TableCell component="th" scope='product' style={style2}>{product.fpName}</TableCell>
-                                <TableCell style={style2}>{product.fpNum}</TableCell>
-                                <TableCell style={style2}>{product.marketPrice}</TableCell>
-                                <TableCell style={style2}>{product.closingPrice}</TableCell>
-                                <TableCell style={style2}>{product.highPrice}</TableCell>
-                                <TableCell style={style2}>{product.lowPrice}</TableCell>
-                                <TableCell style={style2}>{product.fluctuationRate}</TableCell>
+                                <TableCell component="th" scope='product' style={styledTableCell}>{product.fpName}</TableCell>
+                                <TableCell style={styledTableCell}>{product.fpNum}</TableCell>
+                                <TableCell style={styledTableCell}>{product.marketPrice}</TableCell>
+                                <TableCell style={styledTableCell}>{product.closingPrice}</TableCell>
+                                <TableCell style={styledTableCell}>{product.highPrice}</TableCell>
+                                <TableCell style={styledTableCell}>{product.lowPrice}</TableCell>
+                                <TableCell style={styledTableCell}>{product.fluctuationRate}</TableCell>
                           </TableRow>  
                         ))}
                     </TableBody>
                     <TableFooter>
                         <TableCell colSpan={7}>
                             <TablePagination
-                                rowsPerPageOptions={[5, 10, 25]}
+                                rowsPerPageOptions={[10, 20, 30]}
                                 component="div"
                                 count={this.state.fundList.length}
                                 rowsPerPage={rPage}
@@ -107,21 +104,26 @@ class fundList extends Component{
                     </TableFooter>
                     
                 </Table>
-                </form>
+                </TableContainer>
             </div>
         );
     }
 }
 
-const style ={
-    justifyContent : 'center',
-    alignItems : 'center'
-
-
+const typography = {
+    textAlign : 'center',
+    fontSize : '30px',
+    margin : '20px',
+    borderBottom: '2px solid',
+    borderImage: 'linear-gradient(135deg, #0074D9, #00A8E8, #0074D9) 1'
+}
+const styledTableCell = {
+    color: 'black',
+    fontSize: '15px',
+    textAlign :'center'
 }
 
-const style2 ={
-    width : 200,
-    height : 'auto'
+const styledTableHead = {
+    backgroundColor: 'rgba(135, 206, 235, 0.2)'
 }
 export default fundList;

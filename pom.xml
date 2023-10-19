@@ -36,6 +36,12 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+      <!-- jwt추가 -->
+      <dependency>
+         <groupId>com.auth0</groupId>
+         <artifactId>java-jwt</artifactId>
+         <version>3.10.3</version>
+      </dependency>
 		<!-- web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -70,7 +76,6 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-
 		<!-- 직접추가함 : 타임리프 대신 JSP사용, 2개 dependency 누락시 작동안됨 -->
 		<!-- Servlet -->
 		<dependency>
@@ -84,7 +89,6 @@
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
-
 		<!-- jwt추가 -->
 		<dependency>
 			<groupId>com.auth0</groupId>
@@ -128,13 +132,7 @@
          <artifactId>ojdbc8</artifactId>
          <scope>runtime</scope>
       </dependency>
-      
-      <!-- lombok -->
-      <dependency>
-         <groupId>org.projectlombok</groupId>
-         <artifactId>lombok</artifactId>
-         <optional>true</optional>
-      </dependency>
+
       
       <!-- 직접추가함 : 타임리프 대신 JSP사용, 2개  dependency 누락시 작동안됨 -->
       <!-- Servlet -->
@@ -144,18 +142,9 @@
          <version>1.2</version>
       </dependency>
       
-      <!-- 톰캣 -->
-      <dependency>
-          <groupId>org.apache.tomcat.embed</groupId>
-          <artifactId>tomcat-embed-jasper</artifactId>
-      </dependency> 
+
       
-      <!-- jwt추가 -->
-      <dependency>
-         <groupId>com.auth0</groupId>
-         <artifactId>java-jwt</artifactId>
-         <version>3.10.3</version>
-      </dependency>
+
       
       <dependency>
          <groupId>org.springframework.boot</groupId>

@@ -1,5 +1,6 @@
 package com.example.project_team.dto;
 
+
 import java.sql.Date;
 
 import javax.persistence.Entity;
@@ -25,3 +26,4 @@ public class FundAccountDTO {
     private String show;						// 계좌상태
     private String agree;					// 약관동의 여부
 }
+

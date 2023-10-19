@@ -2,16 +2,14 @@ import React, { Component } from "react";
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography, TableFooter } from "@mui/material";
 import ApiService from "../../ApiService";
 
-export default class accountChk extends Component {
+export default class fundTransaction extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             accountList: [],
             message: null,
             passwords: {},
             date: '',
-            formattedDate: '',
             fPw: ''
         }
     }
@@ -30,13 +28,12 @@ export default class accountChk extends Component {
                 })
             })
             .catch(err => {
-                console.log('fundAccountSelect() Error!!', err);
+                console.log('fAccountList() Error!!', err);
             })
     }
 
-
     // 계좌 비밀번호 4자리 맞는지 확인 
-    handleChange = (e, fdAccount) => {
+    handleChange = (e, faccount) => {
         const inputValue = e.target.value;
 
         // input box에 password 4자리 숫자제한 걸기
@@ -45,7 +42,7 @@ export default class accountChk extends Component {
             this.setState(prevState => ({
                 passwords: {
                     ...prevState.passwords,
-                    [fdAccount]: inputValue,
+                    [faccount]: inputValue,
                 }
             }));
         } else {
@@ -54,7 +51,7 @@ export default class accountChk extends Component {
             this.setState(prevState => ({
                 passwords: {
                     ...prevState.passwords,
-                    [fdAccount]: '',
+                    [faccount]: '',
                 }
             }));
         }
@@ -69,7 +66,7 @@ export default class accountChk extends Component {
         if (enteredPassword == fdPw) {
             window.localStorage.removeItem("faccount");
             window.localStorage.setItem('faccount', fdAccount);
-            this.props.history.push('/fundDetail');
+            this.props.history.push('/transactionList');
         } else {
             alert('비밀번호가 일치하지 않습니다.');
 
