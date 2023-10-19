@@ -17,13 +17,14 @@ function Unix_timestamp(t){
     return year + "-" + month.substr(-2) + "-" + day.substr(-2);
 }
 
-class transferList extends Component {
+class autoList extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            trans: [
+            autos: [
+                
             ],
             message: null,
             page: 0,
@@ -33,35 +34,35 @@ class transferList extends Component {
 
     // 라이프사이클 중 컴포넌트가 생성된 후 사용자에게 보여지기까지의 전체 과정을 렌더링
     componentDidMount() {
-        this.loadtransList(); // 바로 실행 도와주는 componentDidMount 메서드
+        this.loadautosList();
     }
 
     // list 정보
-    loadtransList = () => {
+    loadautosList = () => {
         console.log("T.T", this.state)
-        API.transferList()
+        API.autoList()
             .then(res => {
                 this.setState({
-                    trans: res.data
+                    autos: res.data
                 })
             })
             .catch(err => {
 
-                console.log('loadtransList() Error!!', err);
+                console.log('loadautoList() Error!!', err);
             })
-        console.log(this.state.trans)
+        console.log(this.state.autos)
     }
 
     // 1건 selects
-    selectTransfer = (transferNum) => {
-        window.localStorage.setItem("TranNum", transferNum);
-        this.props.history.push("/transferDetail")
+    selectAutosfer = (autoNum) => {
+        window.localStorage.setItem("AutoNum", autoNum);
+        this.props.history.push("/autoDetail")
     }
 
     // detail
-    transDetail = (transferNum) => {
-        window.localStorage.setItem("TranNum", transferNum);
-        this.props.history.push("/transDetail")
+    autoDetail = (autoNum) => {
+        window.localStorage.setItem("AutoNum", autoNum);
+        this.props.history.push("/autoDetail")
     }
     
 
@@ -86,14 +87,14 @@ class transferList extends Component {
             <Container component="main" maxWidth="md">
 
                 <CurrencyExchangeIcon fontSize='large' color='primary' />
-                <Typography variant="h4" style={style}> 이체목록 </Typography>
+                <Typography variant="h4" style={style}> 자동이체 목록 </Typography>
 
                 <TableContainer >
                     <Table md={{ minWidth: 900 }}>
                         <TableHead>
                             <TableRow>
                                 <TableCell align="center" width="50">No.</TableCell>
-                                <TableCell align="center" width="200">수취인</TableCell>
+                                <TableCell align="center" width="200">이체명</TableCell>
                                 <TableCell align="center" width="150">금액</TableCell>
                                 <TableCell align="center" width="100">이체일자</TableCell>
                                 <TableCell align="center" width="50">상세</TableCell>
@@ -101,26 +102,26 @@ class transferList extends Component {
                         </TableHead>
 
                         <TableBody>
-                            {this.state.trans.slice(page * rPage, page * 
-                            rPage + rPage).map((tran) => (
-                                <TableRow hover key={tran.transferNum}>
-                                    <TableCell align='center'>{tran.transferNum}</TableCell> 
-                                    <TableCell align='center'>{tran.trName}</TableCell>
-                                    <TableCell align='center'>{tran.trAmount}원</TableCell>
-                                    <TableCell align='center'>{Unix_timestamp(tran.trDate)}</TableCell>
+                            {this.state.autos.slice(page * rPage, page * 
+                            rPage + rPage).map((auto) => (
+                                <TableRow hover key={auto.autoNum}>
+                                    <TableCell align='center'>{auto.autoNum}</TableCell> 
+                                    <TableCell align='center'>{auto.autoTitle}</TableCell>
+                                    <TableCell align='center'>{auto.autoAmount}원</TableCell>
+                                    <TableCell align='center'>{Unix_timestamp(auto.autoDate)}</TableCell>
                                     <TableCell align='center'>
-                                        <EditNoteOutlinedIcon fontSize='large' onClick={() => this.transDetail(tran.transferNum)}/>
+                                        <EditNoteOutlinedIcon fontSize='large' onClick={() => this.autoDetail(auto.autoNum)}/>
                                     </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
-                    </TableContainer>
+                    </TableContainer>s
 
                 <TablePagination 
                 rowsPerPageOptions={[5, 10, 25]} 
                 component="div"
-                count={this.state.trans.length} 
+                count={this.state.autos.length} 
                 rowsPerPage={rPage} 
                 page={page} 
                 onPageChange={this.handleChangePage} 
@@ -140,4 +141,4 @@ const style = {
 
 
 
-export default transferList;
+export default autoList;

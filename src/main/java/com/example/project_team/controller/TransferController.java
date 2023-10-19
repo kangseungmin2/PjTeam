@@ -78,24 +78,15 @@ public class TransferController {
         }
    }
 	
-	// TransDetail => 한건이체 상세
-//	@GetMapping("/{transferNum}")
-//	public TransferDTO transferDetail(@PathVariable("transferNum") int transferNum) 
+	// lmAccountList => 한도변경요청 전에 이체 계좌 선택 => 위에 이체 전 계좌선택과 동일
+//	@GetMapping("/trAccountList/{id}")
+//	public List<AccountDTO> lmAccountList(@PathVariable String id) 
 //			throws ServletException, IOException {
-//		logger.info("<<<TransferController - transDetail>>>");
+//		logger.info("<<<TransferController - lmAccountList>>>");
 //		
-//		return service.transferDetail(transferNum); 
+//		return service.lmAccountList(id);
+//		
 //	}
-		
-	// lmAccountList => 한도변경요청 전에 이체 계좌 선택
-	@GetMapping("/lmAccountList/{id}")
-	public List<AccountDTO> lmAccountList(@PathVariable String id) 
-			throws ServletException, IOException {
-		logger.info("<<<TransferController - lmAccountList>>>");
-		
-		return service.lmAccountList(id);
-		
-	}
 		
 	//changeLimit => 한도변경(하향, 상향)
 	@PostMapping("/changeLimit")
