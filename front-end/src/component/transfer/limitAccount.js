@@ -2,32 +2,33 @@ import React, { Component } from "react";
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography, TableFooter } from "@mui/material";
 import API from '../../api/transferAuto';
 
-export default class transAccount extends Component {
+export default class limitAccount extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            transAccount: [],
+            limitAccount: [],
             passwords : {}
         }
     }
 
     // 라이프사이클 중 컴포넌트가 생성된 후 사용자에게 보여지기까지의 전체 과정을 렌더링
     componentDidMount() {
-        this.transAccount();
+        this.limitAccount();
     }
 
-    transAccount = () => {
-        const id = window.localStorage.getItem("id")
+    limitAccount = () => {
+        // const id = window.localStorage.getItem("id")
+        const id = 'iu';
         API.transAccount(id)
             .then(res => {
                 console.log("여기이이잉!!",res.data)
                 this.setState({
-                    transAccount: res.data // 이걸루 list에 값을 담을 수 있음!
+                    limitAccount: res.data // 이걸루 list에 값을 담을 수 있음!
                 })
             })
             .catch(err => {
-                console.log('transAccount() Error!!', err);
+                console.log('limitAccount() Error!!', err);
             })
     }
 
@@ -70,7 +71,7 @@ export default class transAccount extends Component {
             window.localStorage.setItem('id', id);
             window.localStorage.setItem('accountPW', accountPW);
             window.localStorage.setItem('balance', balance);
-            this.props.history.push('/oneTransfer');
+            this.props.history.push('/changeLimit');
         } else {
             alert('비밀번호가 일치하지 않습니다.');
 
@@ -90,10 +91,10 @@ export default class transAccount extends Component {
 
             <div align='center'>
                 <Typography variant="h4">
-                    이체 계좌 선택
+                    한도변경 계좌 선택
                 </Typography>
                 <form>
-                    {this.state.transAccount.map(list => (
+                    {this.state.limitAccount.map(list => (
                         <Table style={box} key={list.accountNum}>
                             <TableHead style={style}  >
                                 <TableRow>
@@ -122,7 +123,7 @@ export default class transAccount extends Component {
                                 <TableRow style={style}>
                                     <span style={boxText}>
                                         <TableCell style={style3}>계좌잔액 : </TableCell>
-                                        <TableCell style={style4}>{parseInt(list.balance).toLocaleString()}원</TableCell> 
+                                        <TableCell style={style4}>{parseInt(list.balance).toLocaleString()}원</TableCell>
                                     </span>
                                     <span style={boxText}>
                                         <TableCell style={style3}>이체한도 :  </TableCell>

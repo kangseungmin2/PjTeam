@@ -27,14 +27,15 @@ class autoDetail extends Component {
         const { page, rPage } = this.state;
 
         return (
+            <div align='center'>
             <Container component="main" maxWidth="md">
                 <CurrencyExchangeIcon fontSize='large' color='primary' />
 
                 <Typography variant="h4" style={style}> 이체상세 페이지 </Typography>
                 <br/><br/>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} >
                     {this.state.autos.slice(page * rPage, page * rPage + rPage).map((auto) => (
-                        <Grid item xs={4} key={auto.autoNum}>
+                        <Grid item xs={4} key={auto.autoNum} >
                             <Paper elevation={3}>
                                 <Typography variant="h6">{auto.autoNum}</Typography>
                                 <Typography variant="body1">{auto.autoCompany}</Typography>
@@ -60,6 +61,7 @@ class autoDetail extends Component {
                     onRowsPerPageChange={this.handleChangeRowsPerPage}
                 />
             </Container>
+            </div>
         );
     }
 }
