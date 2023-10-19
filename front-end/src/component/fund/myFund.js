@@ -1,20 +1,45 @@
 import React,{Component} from "react";
 import { Chart } from 'react-google-charts';
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography } from "@mui/material";
+import ApiService from "../../ApiService";
 
 
 export default class myFund extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            myFund : [],
+            chartData : [['fpName', 'cnt']],
+            loading: true // 데이터 로딩 상태 추가
+        }
+    }
+
+    componentDidMount(){
+        this.myFundData();
+    }
+
+    myFundData = () => {
+        const fdAccount = window.localStorage.getItem('faccount')
+        ApiService.myFundData(fdAccount)
+        .then(res => {
+            console.log('myFundData() res!!', res);
+           // 데이터를 Google Charts 형식으로 변환
+           const chartData = res.data.map(item => [item.fpName, item.trCnt]);
+
+           this.setState({
+                myFund : res.data,
+                chartData: [['fpName', 'cnt'], ...chartData],
+                loading: false // 로딩 상태 해제
+           })
+        })   
+        .catch(err => {
+            console.log('myFundData() Error!!', err);
+        })
+    }
+  
     render() {
-
-
-        const chartData = [
-          ['fundName', 'fundCnt'],
-          ['ACE 200', 11],
-          ['ARIRANG 200', 2], 
-          ['FOCUS KRX300', 2],
-          ['HANARO 고배당', 2],
-          ['KBSTAR 200', 7]
-        ];
+        
      
         const chartOptions = {
           title: 'My Fund',
@@ -39,47 +64,54 @@ export default class myFund extends Component {
                                             종목명
                                         </TableCell>
                                         <TableCell>
-                                            종목코드
-                                        </TableCell>
-                                        <TableCell>
                                             거래금액
                                         </TableCell>
                                         <TableCell>
                                             거래량
                                         </TableCell>
                                         <TableCell>
+                                            거래일시
+                                        </TableCell>
+                                        <TableCell>
                                             수익률
                                         </TableCell>
                                     </TableRow>
                                 </TableHead>
-                                <TableBody>
+                                {this.state.myFund.map(list => (
+                                <TableBody key={list.fdAccount}>
                                     <TableRow>
                                         <TableCell>
-                                            200054
+                                            {list.trNum}
                                         </TableCell>
                                         <TableCell>
-                                            ACE 200
+                                            {list.fpName}
                                         </TableCell>
                                         <TableCell>
-                                            105190
+                                            {list.trPrice}
                                         </TableCell>
                                         <TableCell>
-                                            500,000원
+                                            {list.trCnt}
                                         </TableCell>
                                         <TableCell>
-                                            5
+                                            {new Date(list.trDate).toLocaleDateString(
+                                                'en-US', {
+                                                year: 'numeric',
+                                                month: '2-digit',
+                                                day: '2-digit'
+                                            })}
                                         </TableCell>
                                         <TableCell>
-                                            0.8%
+                                            {list.trNum}
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
+                                ))}
                             </Table>
                     </TableCell>
                     <TableCell style={{ width: '600px', height: '500px' }}>
                     <Chart
                         chartType="PieChart"
-                        data={chartData}
+                        data={this.state.chartData}
                         options={chartOptions}
                         graph_id="PieChart"
                         width={'100%'}

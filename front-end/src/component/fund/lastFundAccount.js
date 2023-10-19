@@ -7,25 +7,28 @@ export default class lastFundAccount extends Component {
         super(props);
 
         this.state = {
-            accountNum : []
+            accountList : [],
+            selectNum: 0,
+            password: 0,
+            rePassword: 0
         }
     }
 
     componentDidMount(){
-        this.fundAccountSelect();
+        this.fAccountList();
     };
 
-    fundAccountSelect = () => {
-        // const id = window.localStorage.getItem('id')
-        const id = 'iu'
-        ApiService.fundAccountSelect(id)
+    fAccountList = () => {
+        const id = window.localStorage.getItem('id')
+        ApiService.fAccountList(id)
         .then(res => {
+            console.log('fAccountList() res!!', res);
             this.setState({
-                accountNum: res.data
+                accountList: res.data
             })
         })
         .catch(err => {
-            console.log('fundAccountSelect() Error!!', err);
+            console.log('fAccountList() Error!!', err);
         })
     }
 
@@ -34,7 +37,48 @@ export default class lastFundAccount extends Component {
             [e.target.name]: e.target.value
         });
     }
+
+    // 비밀번호 숫자 초과시
+    pwOnChange = (e) => {
+        const name = e.target.name
+        if (e.target.value.length > 4) {
+            alert('계좌에 비밀번호는 4자리 입니다.');
+            this.setState(prevState => ({
+                ...prevState.name,
+                [e.target.name]: ''
+            }));
+        }
+        else {
+            this.setState({
+                [e.target.name] : e.target.value
+            });
+        }
+    } 
     
+    // insert시 비밀번호 체크
+    insertAccount = () => {
+        const data = {
+            id : window.localStorage.getItem("id"),
+            fdPw : this.state.password,
+            accountNum : this.state.selectNum
+        }
+
+        if (this.state.password == this.state.rePassword) {
+            ApiService.insertAccount(data)
+            .then(res => {
+                console.log('insertAccount() res!', res);
+                alert("개좌개설이 완료되었습니다.")
+                this.props.history.push("/main")
+            })
+            .catch(err => {
+                console.log('insertAccount() Error!', err);
+            })
+        }
+        else {
+            alert("비밀번호가 일치하지 않습니다.")
+        }
+    }
+
     render() {
         return (
             <div align='center'>
@@ -81,14 +125,24 @@ export default class lastFundAccount extends Component {
                                 신규계좌 비밀번호
                             </TableCell>
                             <TableCell style={tableRow}>
-                                <input type="password" />
+                                <input 
+                                    type="password"
+                                    name="password"
+                                    value={this.state.password || ''}
+                                    onChange={(e) => this.pwOnChange(e)}
+                                />
                             </TableCell>
 
                             <TableCell style={tableHead}>
                                 비밀번호 확인
                             </TableCell>
                             <TableCell style={tableRow}>
-                                <input type="password" />
+                                <input 
+                                    type="password"
+                                    name="rePassword"
+                                    value={this.state.rePassword || ''}
+                                    onChange={(e) => this.pwOnChange(e)}
+                                />
                             </TableCell>
                         </TableRow>
 
@@ -98,14 +152,12 @@ export default class lastFundAccount extends Component {
                             </TableCell>
                             <TableCell style={tableRow} colSpan={4}>
                                 <Select
-                                    // value={selectedOption}
-                                    // onChange={handleChange}
-                                    name="selectedOption"
-                                    value={this.state.selectedOption}
+                                    name="selectNum"
+                                    value={this.state.selectNum}
                                     onChange={this.onChange}
                                     style={{width : '500px', height : '30px'}}
                                 >
-                                 {this.state.accountNum.map(num => (        
+                                 {this.state.accountList.map(num => (        
                                     <MenuItem value={num.accountNum}>{num.accountNum}</MenuItem>
                                  ))}
                                 </Select>
@@ -117,7 +169,7 @@ export default class lastFundAccount extends Component {
                 <TableFooter>
                     <TableRow style={style}>
                         <TableCell style={{ border: 'none' }}>
-                            <button type="button" className="btn btn-primary btn-block md-3" style={button} onClick={this.nextButton}>계좌개설</button>
+                            <button type="button" className="btn btn-primary btn-block md-3" style={button} onClick={() => this.insertAccount()}>계좌개설</button>
                         </TableCell>
                     </TableRow>
                 </TableFooter>

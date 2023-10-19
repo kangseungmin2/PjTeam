@@ -4,14 +4,24 @@ import { Table, TableHead, TableBody, TableRow, TableCell, Typography } from "@m
 import classNames from 'classnames';  // npm i classnames --save   대소문자 주의 
 import './fund.css';
 import ApiService from "../../ApiService";
+import SelectTransactionList from "./selectTransactionList";
 
 export default class fundDtail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            active: "Buy",
+            active: "b",
             fProduct : [],
-            fAccount : []
+            fAccount : [],
+            fdTransactionDTO : {
+                fdAccount : 0,              // 펀드 계좌번호 fk
+                fpName : '',			    // 종목명 fk
+                trCnt : 0,			        // 거래량
+                trPrice : 0,			    // 거래금액
+                trMarketPrice : '',	        // 거래시가
+                trStatus : '',               // 거래상태 (매수 : b, 매도 : s)
+            },
+            errorMessage : ''
         };
     }; 
 
@@ -38,55 +48,60 @@ export default class fundDtail extends Component {
             })
         })
         .catch(err => {
-            console.log('fProductDetail() Error!!', err);   
+            console.log('fProductDetail() Error!!', err);
+            
         })
 
     }
 
+    
+    // 필드의 업데이트된 값을 state에 저장
+    onChangeHandler = (event) => {
+        console.log(parseInt(event.target.value))
+        const tCnt = parseInt(event.target.value);
+        const tPrice = tCnt * parseInt(this.state.fProduct.marketPrice.replace(",",""));
+        console.log("tcne11",tCnt)
+        console.log("tprice11",tPrice)
+        this.setState({
+          fdTransactionDTO: {
+                fdAccount : parseInt(this.state.fAccount.fdAccount),            // 펀드 계좌번호 fk
+                fpName : this.state.fProduct.fpName,			               // 종목명 fk
+                trCnt : tCnt,			                                       // 거래량
+                trPrice : tPrice,	                                           // 거래금액
+                trMarketPrice : this.state.fProduct.marketPrice,	           // 거래시가
+                trStatus : this.state.active,                                  // 거래상태
+          }
+        });
+      };
+        
+
+    // 펀드 매수, 매도 메서드
+    buyOrSell = () => {
+        
+        // 매수, 매도 메서드 진행
+        ApiService.buyOrSell(this.state.fdTransactionDTO)
+            .then(response => {
+                console.log(response);
+                if (response.data.success) {
+                    // 성공적인 응답 처리
+                    console.log(response);
+                    alert(response.data.message);
+                    window.location.reload();
+                  } else {
+                    // 오류 메시지 처리
+                    alert(response.data.message);
+                    window.location.reload();
+                  }
+            });
+            // .catch(response => {
+            //     console.log('API Error:', response);
+            //     alert(response.data.message);
+            //     window.location.reload();
+            // });
+    };
+    
+    
     render() {
-
-        // const handleBuy = () => {
-        //     const totalPrice = buyQuantity * fundPrice;
-        //     if (totalPrice <= balance) {
-        //     setBalance(balance - totalPrice);
-        //     // 펀드 주식을 매수하는 로직 추가
-        //     } else {
-        //     alert('잔액 부족');
-        //     }
-        // };
-
-        // const handleSell = () => {
-        //     const totalValue = sellQuantity * fundPrice;
-        //     setBalance(balance + totalValue);
-        //     // 펀드 주식을 매도하는 로직 추가
-        // };
-
-       
-    
-        // // 필드의 업데이트된 값을 state에 저장
-        // onChangeHandler = (event) => {
-        //     let name = event.target.name;
-        //     let value = event.target.value;
-        //     this.setState({[name]: value});
-        // };
-    
-        // // 로그인 처리
-        // onSubmitLogin = (e) => {
-        //     console.log('[onSubmitLogin]');
-        //     this.state.onLogin(e, this.state.id, this.state.password);  // this.state.login-> this.state.id
-        // };
-    
-        // // 등록 처리
-        // onSubmitRegister = (e) => {
-        //     console.log('[onSubmitRegister]');
-        //     this.state.onRegister(
-        //         e,            
-        //         this.state.id,    // this.state.login-> this.state.id 
-        //         this.state.password,
-        //         this.state.firstName,
-        //         this.state.lastName
-        //     );
-        // };
 
         const data = [
             ['Day', 'Data', 'Open', 'Close', 'High', { role: 'style' }],
@@ -103,7 +118,12 @@ export default class fundDtail extends Component {
         vAxis: { title: 'Price' },
         title: 'Data : 저가-고가, 시가-종가' // 작은 타이틀 추가
         };
+
+      
+
+
         return (
+            
             <div>
                 <Typography variant="h4">Fund Detail</Typography>
                 <Table style={mainTable}>
@@ -217,83 +237,86 @@ export default class fundDtail extends Component {
                 </Table>
               
             <br/><br/>
-            <div className="row justify-content-center">
+            
+            <div style={divStyle}>
                 <div className="col-4">
                 <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
                 
                 {/* Buy 버튼 */}
                 <li className="nav-item" role="presentation">
-                    <button className={classNames("nav-buy", this.state.active === "Buy" ? "active" : "")}                  
-                    id="tab-buy" onClick={() => this.setState({active: "Buy"})}>Buy</button>
+                    <button className={classNames("nav-buy", this.state.active === "b" ? "active" : "")}                  
+                    id="tab-buy" onClick={() => this.setState({active: "b"})}>Buy</button>
                 </li>
 
                 {/* Sell 버튼 */}
                 <li className="nav-item" role="presentation">
-                    <button className={classNames("nav-sell", this.state.active === "Sell" ? "active" : "")}
-                    id="tab-sell" onClick={() => this.setState({active: "Sell"})} >
+                    <button className={classNames("nav-sell", this.state.active === "s" ? "active" : "")}
+                    id="tab-sell" onClick={() => this.setState({active: "s"})} >
                     Sell</button>
                 </li>
                 </ul>
 
                 <div className="tab-content">
-                <div className={classNames("tab-pane", "fade", this.state.active === "Buy" ? "show active" : "")} 
+                <div className={classNames("tab-pane", "fade", this.state.active === "b" ? "show active" : "")} 
                     id="pills-buy" >
                     
                     {/* Buy 폼, (name="login" -> name="id"),  input type="login" -> input type="text", label : ID */}
-                    <form onSubmit={this.onSubmitLogin}>
+                    <form >
                         <div style={{textAlign : "end"}}>
-                            <small style={{ color : 'gray' }}>계좌잔액 : {this.state.fAccount.balance} 원</small>
+                            <small style={{ color : 'gray' }}>계좌잔액 : {parseInt(this.state.fAccount.balance).toLocaleString()} 원</small>
                         </div>
                         <div className="form-outline mb-4" style={{textAlign : "end"}}>
                             <label className="form-label" htmlFor="open">시가 </label>
-                            <input type="text" id="open" name= "openPrice" className="form-control" value={this.state.fProduct.marketPrice}/>
+                            <input type="text" id="open" name= "tMarketPrice" className="form-control" value={ this.state.fProduct.marketPrice }/>
                         </div>
 
                         <div className="form-outline mb-4" style={{textAlign : "end"}}> 
                             <label className="form-label" htmlFor="cnt">수량</label>
-                            <input type="number" id="cnt" name="buyCnt" className="form-control" onChange={this.onChangeHandler}/>
+                            <input type="number" id="cnt" name="tCnt" className="form-control" value={this.state.fdTransactionDTO.trCnt} onChange={this.onChangeHandler}/>
                         </div>
 
                         <div className="form-outline mb-4" style={{textAlign : "end"}}> 
                             <label className="form-label" htmlFor="price">매수금액</label>
-                            <input type="number" id="price" name="buyPrice" className="form-control" onChange={this.onChangeHandler}/>
+                            <input type="text" id="price" name="tPrice" className="form-control" value={this.state.fdTransactionDTO.trPrice.toLocaleString()} />
                         </div>
 
-                        <button type="submit" className="btn btn-primary btn-block mb-4" style={{backgroundColor : "green", border : 'none', width : '20vw'}}>
+                        <button onClick={this.buyOrSell} type="button" className="btn btn-primary btn-block mb-4" style={{backgroundColor : "green", border : 'none', width : '20vw'}}>
                         Buy</button>
                     </form>
                 </div>
                 
                 {/* Slee 폼, (name="login" -> name="id")  , label : ID*/}
-                <div className={classNames("tab-pane", "fade", this.state.active === "Sell" ? "show active" : "")} 
+                <div className={classNames("tab-pane", "fade", this.state.active === "s" ? "show active" : "")} 
                     id="pills-sell" >
-                    <form onSubmit={this.onSubmitLogin}>
+                    <form>
                         <div style={{textAlign : "end"}}>
-                            <small style={{ color : 'gray' }}>계좌잔액 : {this.state.fAccount.balance} 원</small>
+                            <small style={{ color : 'gray' }}>계좌잔액 : {parseInt(this.state.fAccount.balance).toLocaleString()} 원</small>
                         </div>
                         <div className="form-outline mb-4" style={{textAlign : "end"}}>
                             <label className="form-label" htmlFor="open">시가</label>
-                            <input type="text" id="open" name= "openPrice" className="form-control" value={this.state.fProduct.marketPrice}/>
+                            <input type="text" id="open" name= "tMarketPrice" className="form-control" value={this.state.fProduct.marketPrice}/>
                         </div>
 
                         <div className="form-outline mb-4" style={{textAlign : "end"}}> 
                             <label className="form-label" htmlFor="cnt">수량</label>
-                            <input type="number" id="cnt" name="buyCnt" className="form-control" onChange={this.onChangeHandler}/>
+                            <input type="number" id="cnt" name="tCnt" className="form-control"  value={this.state.fdTransactionDTO.trCnt} onChange={this.onChangeHandler}/>
                         </div>
 
                         <div className="form-outline mb-4" style={{textAlign : "end"}}> 
                             <label className="form-label" htmlFor="price">매도금액</label>
-                            <input type="number" id="price" name="buyPrice" className="form-control" onChange={this.onChangeHandler}/>
+                            <input type="text" id="price" name="tPrice" className="form-control" value={this.state.fdTransactionDTO.trPrice.toLocaleString()} />
                         </div>
 
-                        <button type="submit" className="btn btn-primary btn-block mb-4" style={{backgroundColor : "#800000", border : 'none', width : '20vw'}}>
+                        <button onClick={this.buyOrSell}  type="button" className="btn btn-primary btn-block mb-4" style={{backgroundColor : "#800000", border : 'none', width : '20vw'}}>
                         Sell</button>
                     </form>
                 </div>
                 </div>
                 </div>
+                <div>
+                <SelectTransactionList/>
+                </div>
             </div>
-                
             </div>
         );
       }
@@ -308,30 +331,9 @@ const tableStyle = {
     width: '100%',
     textAlign: 'center', // 테이블 안의 콘텐츠를 가운데 정렬
 };
-{/* <div>
-<h2>주식 거래</h2>
-<p>현재 잔액: 원</p>
-<div>
-    <h3>매수</h3>
-    <input
-    type="number"
-    placeholder="수량"
-    value=""
-    // onChange={(e) => setBuyQuantity(Number(e.target.value))}
-    />
-    <button onClick={handleBuy}>매수</button>
-    <button>매수</button>
-</div>
-<div>
-    <h3>매도</h3>
-    <input
-    type="number"
-    placeholder="수량"
-    value=""
-    // onChange={(e) => setSellQuantity(Number(e.target.value))}
-    />
-    <button onClick={handleSell}>매도</button>
-    <button>매도</button>
-</div>
-</div> */}
 
+const divStyle = {
+    display : 'flex',
+    justifyContent : 'space-around'
+
+}

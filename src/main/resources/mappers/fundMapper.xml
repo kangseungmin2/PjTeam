@@ -18,14 +18,42 @@
 	</select>
 	<!-- fundAccount 1건 조회 -->
 	<select id="fundAccount" parameterType="long" resultType="com.example.project_team.dto.FundAccountDTO">
-		SELECT * FROM team_fund_account WHERE fAccount = #{fAccount}
+		SELECT * FROM team_fund_account WHERE fdAccount = #{fdAccount}
 	</select>
 	<!-- fundAccountSelect 계좌 다건 조회 -->
 	<select id="fundAccountSelect" parameterType="String" resultType="com.example.project_team.dto.FundAccountDTO">
-		SELECT accountNum FROM team_account WHERE id = #{id}
+		SELECT * FROM team_account WHERE id = #{id}
 	</select>
 	<!-- transactionList 계좌 거래내역 조회 -->
 	<select id="transactionList" parameterType="long" resultType="com.example.project_team.dto.FundTransactionDTO">
-		SELECT * FROM team_fund_transaction WHERE fAccount = #{fAccount}
+		SELECT * FROM team_fund_transaction WHERE fdAccount = #{fdAccount}
+	</select>
+	<!-- buyOrSell 매수 매도 -->
+	<insert id="buyOrSell" parameterType="com.example.project_team.dto.FundTransactionDTO">
+		INSERT INTO team_fund_transaction(trNum,fdAccount,fpName,trCnt,trPrice,trMarketPrice,trStatus,trDate)
+   			 VALUES (TO_CHAR(FLOOR(DBMS_RANDOM.VALUE(1000000000000, 9999999999999)), '9999999999999'),#{fdAccount},#{fpName},#{trCnt},#{trPrice},#{trMarketPrice},#{trStatus},SYSDATE)
+	</insert>
+	<!-- 매수시 계좌 업데이트  -->
+	<update id="accountUpdate" parameterType="Map">
+		UPDATE team_fund_account
+		   SET balance = #{balance}
+		 WHERE fdAccount = #{fdAccount}
+	</update>
+	<!-- 매도 수량 구하기  -->
+	<select id="buyCnt" parameterType="Map" resultType="int">
+		SELECT sum(trCnt) FROM team_fund_transaction WHERE fdAccount = #{fdAccount} AND fpName = #{fpName} AND trStatus = 'b'
+	</select>
+	<!-- selectTransactionList 종목명 + 계좌번호가 일치하는 거래내역 조회-->
+	<select id="selectTransactionList" parameterType="Map" resultType="com.example.project_team.dto.FundTransactionDTO">
+		SELECT * FROM team_fund_transaction WHERE fdAccount = #{fdAccount} AND fpName = #{fpName}
+	</select>
+	<!-- insertAccount 개좌개설 -->
+	<insert id="insertAccount" parameterType="com.example.project_team.dto.FundAccountDTO">
+		INSERT INTO team_fund_account (fdAccount,id,fdPw,accountNum,madeDate)
+    		VALUES (TO_CHAR(1002452||TRUNC(DBMS_RANDOM.VALUE(1, 999999), 0)),#{id},#{fdPw},#{accountNum},SYSDATE)
+	</insert>
+	<!-- myFundData 내 펀드조회 -->
+	<select id="myFundData" parameterType="long" resultType="com.example.project_team.dto.FundTransactionDTO">
+		SELECT * FROM team_fund_transaction WHERE fdAccount = #{fdAccount} AND trStatus = 'b'
 	</select>
 </mapper>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography,TablePagination, TableFooter, TableContainer, Paper } from "@mui/material";
 import ApiService from "../../ApiService";
 
-export default class transactionList extends Component{
+export default class selectTransactionList extends Component{
     constructor(props) {
         super(props);
 
@@ -18,15 +18,16 @@ export default class transactionList extends Component{
     }
 
     fundTransaction = () => {
-        const faccount = window.localStorage.getItem('faccount')
-        ApiService.transactionList(faccount)
+        const fdAccount = window.localStorage.getItem('faccount')
+        const fpName = window.localStorage.getItem('fpName')
+        ApiService.selectTransactionList(fdAccount, fpName)
             .then(res => {
                 this.setState({
                     fundTransaction: res.data
                 })
             })
             .catch(err => {
-                console.log('fAccountList() Error!!', err);
+                console.log('selectTransactionList() Error!!', err);
             })
     }
 

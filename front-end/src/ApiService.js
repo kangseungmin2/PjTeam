@@ -54,6 +54,31 @@ class ApiService {
         console.log('transactionList() 호출',fAccount);
         return axios.get(FUND_API_BASE_URL+"/transactionList/"+fAccount);
     }
+
+    // buyOrSell
+    buyOrSell(fdTransactionDTO) {
+        console.log('buyOrSell() 호출',fdTransactionDTO);
+        return axios.post(FUND_API_BASE_URL+"/buyOrSell",fdTransactionDTO);
+    }
+
+    // selectTransactionList
+    selectTransactionList(fdAccount, fpName) {
+        console.log('selectTransactionList() 호출',fdAccount, fpName);
+        return axios.get(FUND_API_BASE_URL+"/selectTransactionList/"+fdAccount+"/"+fpName);
+    }
+
+    // insertAccount
+    insertAccount(data) {
+        console.log('insertAccount() 호출',data);
+        return axios.post(FUND_API_BASE_URL+"/insertAccount",data);
+    }
+
+    // myFundData
+    myFundData(fdAccount) {
+        console.log('myFundData() 호출',fdAccount);
+        return axios.get(FUND_API_BASE_URL+"/myFundData/"+fdAccount);
+    }
+   
     // <<< 펀드끝 >>>
 
     // Board(관리자)
