@@ -17,19 +17,19 @@ class deposit {
         return axios.post(DEPOSITPRODUCT_API_ADMIN, inputData);
     }
     // 1건 select
-    fetchDepositByNum(yNo){
-        console.log('fetchLoanByNum 호출!!', yNo);
-        return axios.get(DEPOSITPRODUCT_API_ADMIN + "/"+yNo, yNo);
+    fetchDepositByNum(yeNo){
+        console.log('fetchDepositByNum 호출!!', yeNo);
+        return axios.get(DEPOSITPRODUCT_API_ADMIN + "/"+yeNo, yeNo);
     }
     // update
     editDeposit(inputData){
-        console.log('editDeposit 호출!!', inputData);
-        return axios.put(DEPOSITPRODUCT_API_ADMIN + "/"+ inputData.yNo, inputData);
+        console.log('editDeposit 호출!!  이거 타라', inputData);
+        return axios.put(DEPOSITPRODUCT_API_ADMIN + "/"+ inputData.yeNo, inputData);
     }
     // delete
-    deleteDeposit(yNo){
-        console.log('deleteDeposit 호출!!', yNo);
-        return axios.delete(DEPOSITPRODUCT_API_ADMIN + "/"+ yNo);
+    deleteDeposit(yeNo){
+        console.log('deleteDeposit 호출!!', yeNo);
+        return axios.delete(DEPOSITPRODUCT_API_ADMIN + "/"+ yeNo);
     }
 
     // ====================deposit(고객)=====================
@@ -40,9 +40,9 @@ class deposit {
     }
 
     // 1건 select
-    fetchdepositDetailByNum(yNo){
-        console.log('fetchfetchdepositsPLDetailByNum 호출!!', yNo);
-        return axios.get(DEPOSITLIST_API_CUSTOMER + "/"+yNo, yNo);
+    fetchdepositDetailByNum(yeNo){
+        console.log('fetchfetchdepositsPLDetailByNum 호출!!', yeNo);
+        return axios.get(DEPOSITLIST_API_CUSTOMER + "/"+yeNo, yeNo);
     }
 }
 

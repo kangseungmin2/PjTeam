@@ -16,19 +16,19 @@ class savings {
         return axios.post(SAVINGSPRODUCT_API_ADMIN, inputData);
     }
     // 1건 select
-    fetchSavingsByNum(jNo){
-        console.log('fetchSavingsByNum 호출!!', jNo);
-        return axios.get(SAVINGSPRODUCT_API_ADMIN + "/"+jNo, jNo);
+    fetchSavingsByNum(juckNo){
+        console.log('fetchSavingsByNum 호출!!', juckNo);
+        return axios.get(SAVINGSPRODUCT_API_ADMIN + "/"+juckNo, juckNo);
     }
     // update
     editSavings(inputData){
         console.log('editSavings 호출!!', inputData);
-        return axios.put(SAVINGSPRODUCT_API_ADMIN + "/"+ inputData.jNo, inputData);
+        return axios.put(SAVINGSPRODUCT_API_ADMIN + "/"+ inputData.juckNo, inputData);
     }
     // delete
-    deleteSavings(jNo){
-        console.log('deleteSavings 호출!!', jNo);
-        return axios.delete(SAVINGSPRODUCT_API_ADMIN + "/"+ jNo);
+    deleteSavings(juckNo){
+        console.log('deleteSavings 호출!!', juckNo);
+        return axios.delete(SAVINGSPRODUCT_API_ADMIN + "/"+ juckNo);
     }
 
      // ====================savings(고객)==========================
@@ -39,9 +39,9 @@ class savings {
     }
 
     // 1건 select
-    fetchsavingsDetailByNum(jNo){
-        console.log('fetchsavingsDetailByNum 호출!!', jNo);
-        return axios.get(SAVINGSLIST_API_CUSTOMER + "/"+jNo, jNo);
+    fetchsavingsDetailByNum(juckNo){
+        console.log('fetchsavingsDetailByNum 호출!!', juckNo);
+        return axios.get(SAVINGSLIST_API_CUSTOMER + "/"+juckNo, juckNo);
     }
 }
 

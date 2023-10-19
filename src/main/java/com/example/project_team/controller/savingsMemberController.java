@@ -41,9 +41,9 @@ public class savingsMemberController {
 	
 	//1건 select
 	@GetMapping("/{jNo}")
-	public SavingsDTO fetchSavingsByNum(@PathVariable int num)
+	public SavingsDTO fetchSavingsByNum(@PathVariable int jNo)
 		throws ServletException, IOException {
 		logger.info("<<< savingsMemberServiceImpl - fetchSavingsByNum() >>>");
-		return service.selectSavings(num);
+		return service.selectSavings(jNo);
 	}
 }

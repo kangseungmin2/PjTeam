@@ -24,10 +24,12 @@ import depositProductEdit from '../admin/deposit/depositProductEdit';
 import savingsProductEdit from '../admin/savings/savingsProductEdit';
 import depositList from "../deposit/depositList";
 import savingsList from "../savings/savingsList";
+import depositSign from '../deposit/depositSign';
+import savingsSign from '../savings/savingsSign';
 import depositDetail from "../deposit/depositDetail";
 import savingsDetail from "../savings/savingsDetail";
-import depositSign from "../deposit/depositSign";
-import savingsSign from "../savings/savingsSign";
+
+import MapComponent from "../map/MapComponent";
 
 
 import login from "../customer/login";
@@ -107,11 +109,12 @@ const AppRouter = () => {
                     <Route path="/depositProductEdit" component={depositProductEdit}/>       {/* 석준-(관리자)예금 수정 */}                  
                     <Route path="/savingsProductEdit" component={savingsProductEdit}/>       {/* 석준-(관리자)적금 수정 */}
                     <Route path="/depositList" component={depositList}/>        {/* 석준-예금 조회 */}
-                    <Route path="/savingsList" component={savingsList}/>        {/* 석준-적금 조회 */}
+                    <Route path="/savingsList" component={savingsList}/>        {/* 석준-적금 조회 */}                                 
                     <Route path="/depositDetail" component={depositDetail}/>        {/* 석준-예금 상세페이지조회 */}
                     <Route path="/savingsDetail" component={savingsDetail}/>        {/* 석준-적금 상세페이지조회 */}
                     <Route path="/depositSign" component={depositSign}/>        {/* 석준-예금 신규가입 */}
                     <Route path="/savingsSign" component={savingsSign}/>        {/* 석준-적금 신규가입 */}   
+                    <Route path="/MapComponent" component={MapComponent}/>        {/* 석준- */}   
                     <Route path="/oneTransfer" component={oneTransfer}/>    {/* 정현-한건이체 */}
                     <Route path="/multipleTransfer" component={multipleTransfer}/>    {/* 정현-다건이체 */}
                     <Route path="/autoWithdrawal" component={autoWithdrawal}/>    {/* 정현-자동이체 */}

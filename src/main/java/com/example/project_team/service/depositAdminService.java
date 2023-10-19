@@ -22,9 +22,9 @@ public interface depositAdminService {
 		public int updateDeposit(DepositDTO dto)
 				throws ServletException, IOException;
 		
-		public int deleteDeposit(int num)
+		public int deleteDeposit(int yeNo)
 				throws ServletException, IOException;
 		
-		public DepositDTO selectDeposit(int num)
+		public DepositDTO selectDeposit(int yeNo)
 				throws ServletException, IOException;
 }

@@ -6,12 +6,12 @@
 <mapper namespace="com.example.project_team.mappers.savingsMemberMapper">
 	<!-- SavingsMemberList -->
 	<select id="SavingsMemberList" resultType="com.example.project_team.dto.SavingsDTO">
-		SELECT * FROM TEAM_SAVINGS_PRODUCT ORDER BY jNo
+		SELECT * FROM TEAM_SAVINGS_PRODUCT ORDER BY juckNo
 	</select>
 	
 	<!-- findByNum / 1건 조회 -->
 	<select id="findByNum" parameterType="int" resultType="com.example.project_team.dto.SavingsDTO">
-		SELECT * FROM TEAM_SAVINGS_PRODUCT WHERE jNo = #{jNo}
+		SELECT * FROM TEAM_SAVINGS_PRODUCT WHERE juckNo = #{juckNo}
 	</select>
 	
 </mapper>

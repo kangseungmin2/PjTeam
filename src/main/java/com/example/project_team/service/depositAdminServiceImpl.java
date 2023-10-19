@@ -36,15 +36,15 @@ public class depositAdminServiceImpl implements depositAdminService{
 	}
 
 	@Override
-	public int deleteDeposit(int num) throws ServletException, IOException {
+	public int deleteDeposit(int yeNo) throws ServletException, IOException {
 		System.out.println("depositAdminServiceImpl - deleteDeposit");
-		return dao.deleteByNum(num);
+		return dao.deleteByNum(yeNo);
 	}
 
 	@Override
-	public DepositDTO selectDeposit(int num) throws ServletException, IOException {
+	public DepositDTO selectDeposit(int yeNo) throws ServletException, IOException {
 		System.out.println("depositAdminServiceImpl - selectDeposit");
-		return dao.findByNum(num);
+		return dao.findByNum(yeNo);
 	}
 
 }

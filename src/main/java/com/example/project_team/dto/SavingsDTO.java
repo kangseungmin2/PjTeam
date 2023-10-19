@@ -12,15 +12,15 @@ import lombok.Data;
 @Data
 public class SavingsDTO {
 	@Id
-	private int jNo;                   
-	private String jName;                   
-	private Date jRegistrationDate;           
+	private int juckNo;                   
+	private String juckName;                   
+	private Date juckRegistrationDate;           
 	private int interestRate;               
-	private String jSummary;             
-	private String jType;                    
-	private int jMinPrice;             
-	private int jMaxPrice;                      
-	private int jMinDate;                         
-	private int jMaxDate;                            
+	private String juckSummary;             
+	private String juckType;                    
+	private int juckMinPrice;             
+	private int juckMaxPrice;                      
+	private int juckMinDate;                         
+	private int juckMaxDate;                            
 
 }

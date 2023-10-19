@@ -16,6 +16,6 @@ public interface savingsMemberService {
 		public List<SavingsDTO> listAll(HttpServletRequest req, Model model)
 				throws ServletException, IOException;
 		
-		public SavingsDTO selectSavings(int num)
+		public SavingsDTO selectSavings(int juckNo)
 				throws ServletException, IOException;
 }

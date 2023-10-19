@@ -13,14 +13,14 @@ import lombok.Data;
 public class DepositDTO {
 	
 	@Id
-	private int yNo;                       
-    private String pryName;                 
-    private Date yRegistrationDate;           
+	private int yeNo;                       
+    private String yeName;                 
+    private Date yeRegistrationDate;           
     private int interestRate;             
-    private String ySummary;            
-    private int yMinPrice;                 
-    private int yMaxPrice;            
-    private int yMinDate;            
-    private int yMaxDate;             
+    private String yeSummary;            
+    private int yeMinPrice;                 
+    private int yeMaxPrice;            
+    private int yeMinDate;            
+    private int yeMaxDate;             
 
 }

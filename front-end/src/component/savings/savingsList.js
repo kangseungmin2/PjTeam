@@ -42,14 +42,14 @@ class savingsList extends Component {
     }
 
     // 1건 select
-    selectsavings = (jNo) => {
-        window.localStorage.setItem("SavingsNo", jNo);
+    selectsavings = (juckNo) => {
+        window.localStorage.setItem("SavingsNum", juckNo);
         this.props.history.push("/savingsDetail")
     }
 
     // sign
-    signsavings = (jNo) => {
-        window.localStorage.setItem("SavingsNo", jNo);
+    signsavings = (juckNo) => {
+        window.localStorage.setItem("SavingsNum", juckNo);
         this.props.history.push("/savingsSign")
     }
     
@@ -104,20 +104,20 @@ class savingsList extends Component {
                         </TableHead>
 
                         <TableBody>
-                            {this.state.savingss.filter((loan) =>
-                                loan.loanProductName.toLowerCase().includes(this.state.searchQuery.toLowerCase())
+                            {this.state.savingss.filter((savings) =>
+                                savings.juckName.toLowerCase().includes(this.state.searchQuery.toLowerCase())
                             ).slice(page * rPage, page *
                                 rPage + rPage).map((savings) => (
-                                <TableRow hover key={savings.jNo}>
-                                    <TableCell align='center'>{savings.jNo}</TableCell>
-                                    <TableCell align='center'>{savings.jName}</TableCell>
-                                    <TableCell align='center'>{savings.jSummary}</TableCell>
+                                <TableRow hover key={savings.juckNo}>
+                                    <TableCell align='center'>{savings.juckNo}</TableCell>
+                                    <TableCell align='center'>{savings.juckName}</TableCell>
+                                    <TableCell align='center'>{savings.juckSummary}</TableCell>
                                     <TableCell align='center'>{savings.interestRate}%</TableCell>
                                     <TableCell align='center'>
-                                        <FindInPageRoundedIcon fontSize='large' color='primary' onClick={() => this.selectsavings(savings.jNo)}/>
+                                        <FindInPageRoundedIcon fontSize='large' color='primary' onClick={() => this.selectsavings(savings.juckNo)}/>
                                     </TableCell>
                                     <TableCell align='center'>
-                                        <EditNoteOutlinedIcon fontSize='large' onClick={() => this.signsavings(savings.jNo)}/>
+                                        <EditNoteOutlinedIcon fontSize='large' onClick={() => this.signsavings(savings.juckNo)}/>
                                     </TableCell>
                                 </TableRow>
                             ))}

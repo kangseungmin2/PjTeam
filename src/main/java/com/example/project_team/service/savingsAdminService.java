@@ -21,9 +21,9 @@ public interface savingsAdminService {
 		public int updateSavings(SavingsDTO dto)
 				throws ServletException, IOException;
 		
-		public int deleteSavings(int num)
+		public int deleteSavings(int juckNo)
 				throws ServletException, IOException;
 		
-		public SavingsDTO selectSavings(int num)
+		public SavingsDTO selectSavings(int juckNo)
 				throws ServletException, IOException;
 }

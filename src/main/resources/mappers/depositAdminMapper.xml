@@ -6,31 +6,31 @@
 <mapper namespace="com.example.project_team.mappers.depositAdminMapper">
 	<!-- DepositAdminList -->
 	<select id="DepositAdminList" resultType="com.example.project_team.dto.DepositDTO">
-		SELECT * FROM TEAM_DEPOSIT_PRODUCT ORDER BY yNo
+		SELECT * FROM TEAM_DEPOSIT_PRODUCT ORDER BY yeNo
 	</select>
 	
 	<!-- insertDeposit -->
 	<insert id="insertDeposit" parameterType="com.example.project_team.dto.DepositDTO">
 		INSERT INTO TEAM_DEPOSIT_PRODUCT
-			VALUES((SELECT NVL(MAX(yNo)+1,1) FROM TEAM_DEPOSIT_PRODUCT), #{yName}, sysdate
-					, #{interestRate}, #{ySummary}, #{yMinPrice}, #{yMaxPrice}, #{yMinDate}, #{yMaxDate}					)
+			VALUES((SELECT NVL(MAX(yeNo)+1,1) FROM TEAM_DEPOSIT_PRODUCT), #{yeName}, sysdate
+					, #{interestRate}, #{yeSummary}, #{yeMinPrice}, #{yeMaxPrice}, #{yeMinDate}, #{yeMaxDate}					)
 	</insert>
 	
 	<!-- findByNum / 1건 조회 -->
 	<select id="findByNum" parameterType="int" resultType="com.example.project_team.dto.DepositDTO">
-		SELECT * FROM TEAM_DEPOSIT_PRODUCT WHERE yNo = #{yNo}
+		SELECT * FROM TEAM_DEPOSIT_PRODUCT WHERE yeNo = #{yeNo}
 	</select>
 	
 	<!-- updateDeposit -->
 	<update id="updateDeposit" parameterType="com.example.project_team.dto.DepositDTO">
 		UPDATE TEAM_DEPOSIT_PRODUCT
-			SET yName=#{yName}, interestRate=#{interestRate}, ySummary=#{ySummary}
-				, yMinPrice=#{yMinPrice}, yMaxPrice =#{yMaxPrice}, yMinDate=#{yMinDate}, yMaxDate=#{yMaxDate}
-			WHERE yNo=#{yNo}
+			SET yeName=#{yeName}, interestRate=#{interestRate}, yeSummary=#{yeSummary}
+				, yeMinPrice=#{yeMinPrice}, yeMaxPrice =#{yeMaxPrice}, yeMinDate=#{yeMinDate}, yeMaxDate=#{yeMaxDate}
+			WHERE yeNo=#{yeNo}
 	</update>
 	
 	<!-- deleteDeposit -->
-	<delete id="deleteDeposit" parameterType="int">
-		DELETE FROM TEAM_DEPOSIT_PRODUCT WHERE yNo=#{yNo}
+	<delete id="deleteByNum" parameterType="int">
+		DELETE FROM TEAM_DEPOSIT_PRODUCT WHERE yeNo=#{yeNo}
 	</delete>
 </mapper>

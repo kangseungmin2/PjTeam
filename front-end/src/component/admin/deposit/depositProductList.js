@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
-import ApiService from '../../../api/deposit';
+import deposit from '../../../api/deposit';
 import { Create, Delete } from '@mui/icons-material'
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
@@ -25,9 +25,8 @@ class depositProductList extends Component {
     }
 
     // list 정보
-    loadDepositProductList = () => {
-        console.log("음?", this.state)
-        ApiService.fetchdeposits()
+    loadDepositProductList = () => {      
+        deposit.fetchdeposits()
             .then(res => {
                 this.setState({
                     deposits: res.data
@@ -46,20 +45,20 @@ class depositProductList extends Component {
     }
 
     // update
-    editDeposit = (yNo) => {
-        window.localStorage.setItem("DepositNum", yNo);
+    editDeposit = (yeNo) => {
+        window.localStorage.setItem("DepositNum", yeNo);
         this.props.history.push("/DepositProductEdit")
     }
 
     // delete
-    deleteDeposit = (yNo) => {
+    deleteDeposit = (yeNo) => {
          
         const confirmDelete = window.confirm("정말로 삭제하시겠습니까?");
         if (confirmDelete) {
-        ApiService.deleteDeposit(yNo)
+            deposit.deleteDeposit(yeNo)
             .then(res => {
                 this.setState({
-                    deposits: this.state.deposits.filter(deposit => deposit.yNo !== yNo)
+                    deposits: this.state.deposits.filter(deposit => deposit.yeNo !== yeNo)
                 });
                 console.log('delete 성공 : ', res.data);
             })
@@ -124,17 +123,17 @@ class depositProductList extends Component {
                         </TableHead>
 
                         <TableBody>
-                            {this.state.deposits.filter((loan) =>
-                                loan.loanProductName.toLowerCase().includes(this.state.searchQuery.toLowerCase())
+                            {this.state.deposits.filter((deposit) =>
+                                deposit.yeName.toLowerCase().includes(this.state.searchQuery.toLowerCase())
                             ).slice(page * rPage, page *
                                 rPage + rPage).map((deposit) => (
-                                <TableRow hover key={deposit.yNo}>
-                                    <TableCell align='center'>{deposit.yNo}</TableCell>
-                                    <TableCell align='center'>{deposit.yName}</TableCell>
+                                <TableRow hover key={deposit.yeNo}>
+                                    <TableCell align='center'>{deposit.yeNo}</TableCell>
+                                    <TableCell align='center'>{deposit.yeName}</TableCell>
                                     <TableCell align='center'>{deposit.interestRate}%</TableCell>
-                                    <TableCell align='center'><button className="btn" onClick={() => this.editDeposit(deposit.yNo)}><Create /></button></TableCell>
-                                    <TableCell align='center'><button className="btn" onClick={() => this.deleteDeposit(deposit.yNo)}><Delete /></button></TableCell>
-                                    <TableCell align='center'> {new Date(deposit.yRegistrationDate).toLocaleDateString(
+                                    <TableCell align='center'><button className="btn" onClick={() => this.editDeposit(deposit.yeNo)}><Create /></button></TableCell>
+                                    <TableCell align='center'><button className="btn" onClick={() => this.deleteDeposit(deposit.yeNo)}><Delete /></button></TableCell>
+                                    <TableCell align='center'> {new Date(deposit.yeRegistrationDate).toLocaleDateString(
                                                 'en-US', {
                                                 year: 'numeric',
                                                 month: '2-digit',

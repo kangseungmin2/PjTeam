@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import ApiService from '../../../api/deposit';
+import deposit from '../../../api/deposit';
 
 
 class depositProductAdd extends Component {
@@ -10,14 +10,14 @@ class depositProductAdd extends Component {
         super(props);
         // staate에 초기화
         this.state = {
-            depositProductName: '',
-            depositProductRegistrationDate: '',
+            yeName: '',
+            yeRegistrationDate: '',
             interestRate: '',
-            content: '',
-            MinPrice: '',
-            MaxPrice: '',
-            MinDate: '',
-            MaxDate: '',
+            yeSummary: '',
+            yeMinPrice: '',
+            yeMaxPrice: '',
+            yeMinDate: '',
+            yeMaxDate: '',
             message: ''
         }
     }
@@ -33,17 +33,17 @@ class depositProductAdd extends Component {
         e.preventDefault();
 
         let inputData = {
-            yName: this.state.depositProductName,
-            yRegistrationDate: this.state.depositProductRegistrationDate,
+            yeName: this.state.yeName,
+            yeRegistrationDate: this.state.yeRegistrationDate,
             interestRate: this.state.interestRate,
-            ySummary: this.state.content,
-            yMinPrice: this.state.MinPrice,
-            yMaxPrice: this.state.MaxPrice,
-            yMinDate: this.state.MinDate,
-            yMaxDate: this.state.MaxDate         
+            yeSummary: this.state.yeSummary,
+            yeMinPrice: this.state.yeMinPrice,
+            yeMaxPrice: this.state.yeMaxPrice,
+            yeMinDate: this.state.yeMinDate,
+            yeMaxDate: this.state.yeMaxDate         
         }
 
-        ApiService.addDeposit(inputData)
+        deposit.addDeposit(inputData)
             .then(res => {
                 console.log('addDeposit 성공', res.data);
                 this.props.history.push('/DepositProductList');
@@ -65,11 +65,11 @@ class depositProductAdd extends Component {
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end"></InputAdornment>}
-                            aria-describedby="standard-depositProductName-helper-text"
+                            aria-describedby="standard-yeName-helper-text"
                             inputProps={{
-                                'aria-label': 'depositProductName',
+                                'aria-label': 'yeName',
                             }}
-                            name="depositProductName"
+                            name="yeName"
                             onChange={this.onChange}
                         />
                         <FormHelperText >depositProductName</FormHelperText>
@@ -96,11 +96,11 @@ class depositProductAdd extends Component {
                             multiline
                             fullWidth
                             rows={4}
-                            label="content"
-                            // helperText="please enter content"
+                            label="yeSummary"
+                            // helperText="please enter yeSummary"
                             type="text"
-                            name="content"
-                            value={this.state.content}
+                            name="yeSummary"
+                            value={this.state.yeSummary}
                             placeholder="content"
                             onChange={this.onChange} /><br />
 
@@ -109,11 +109,11 @@ class depositProductAdd extends Component {
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end">원</InputAdornment>}
-                            aria-describedby="standard-MinPrice-helper-text"
+                            aria-describedby="standard-yeMinPrice-helper-text"
                             inputProps={{
-                                'aria-label': 'MinPrice',
+                                'aria-label': 'yeMinPrice',
                             }}
-                            name="MinPrice"
+                            name="yeMinPrice"
                             onChange={this.onChange}
                         />
                         <FormHelperText >MinPrice</FormHelperText>
@@ -125,11 +125,11 @@ class depositProductAdd extends Component {
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end">원</InputAdornment>}
-                            aria-describedby="standard-MaxPrice-helper-text"
+                            aria-describedby="standard-yeMaxPrice-helper-text"
                             inputProps={{
-                                'aria-label': 'MaxPrice',
+                                'aria-label': 'yeMaxPrice',
                             }}
-                            name="MaxPrice"
+                            name="yeMaxPrice"
                             onChange={this.onChange}
                         />
                         <FormHelperText >MaxPrice</FormHelperText>
@@ -140,11 +140,11 @@ class depositProductAdd extends Component {
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end">개월</InputAdornment>}
-                            aria-describedby="standard-MinDate-helper-text"
+                            aria-describedby="standard-yeMinDate-helper-text"
                             inputProps={{
-                                'aria-label': 'MinDate',
+                                'aria-label': 'yeMinDate',
                             }}
-                            name="MinDate"
+                            name="yeMinDate"
                             onChange={this.onChange}
                         />
                         <FormHelperText >MinDate</FormHelperText>
@@ -156,11 +156,11 @@ class depositProductAdd extends Component {
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end">개월</InputAdornment>}
-                            aria-describedby="standard-MaxDate-helper-text"
+                            aria-describedby="standard-yeMaxDate-helper-text"
                             inputProps={{
-                                'aria-label': 'MaxDate',
+                                'aria-label': 'yeMaxDate',
                             }}
-                            name="MaxDate"
+                            name="yeMaxDate"
                             onChange={this.onChange}
                         />
                         <FormHelperText >MaxDate</FormHelperText>

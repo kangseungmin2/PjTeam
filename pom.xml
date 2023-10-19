@@ -41,6 +41,31 @@
          <artifactId>spring-boot-starter-web</artifactId>
       </dependency>
       
+      <!-- Spring Boot Starter -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+    
+    <!-- Spring Boot Starter for Test -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+    
+      <!-- Spring Boot Starter for RESTful services -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-rest</artifactId>
+    </dependency>
+
+    <!-- Spring Boot Starter for Apache HTTP Client -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-rest</artifactId>
+    </dependency>
+      
       <!-- mybatis 버전 바꾸시오 -->
       <dependency>
          <groupId>org.mybatis.spring.boot</groupId>

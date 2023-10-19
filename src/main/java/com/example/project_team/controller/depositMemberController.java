@@ -39,11 +39,11 @@ public class depositMemberController {
 	}
 	
 	//1건 select
-	@GetMapping("/{yNo}")
-	public DepositDTO fetchDepositByNum(@PathVariable int num)
+	@GetMapping("/{yeNo}")
+	public DepositDTO fetchDepositByNum(@PathVariable int yeNo)
 		throws ServletException, IOException {
 		logger.info("<<< depositMemberController - fetchDepositByNum() >>>");
-		return service.selectDeposit(num);
+		return service.selectDeposit(yeNo);
 	}
 
 }

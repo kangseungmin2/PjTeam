@@ -20,13 +20,16 @@ public class depositMemberServiceImpl implements depositMemberService{
 	@Override
 	public List<DepositDTO> listAll(HttpServletRequest req, Model model) throws ServletException, IOException {
 		System.out.println("depositMemberServiceImpl - listAll");
-		return dao.DepositMemberList();
+		List<DepositDTO> dto = dao.DepositMemberList();
+		System.out.println("dto"+dto);
+		return dto;
+		
 	}
 
 	@Override
-	public DepositDTO selectDeposit(int num) throws ServletException, IOException {
+	public DepositDTO selectDeposit(int yeNo) throws ServletException, IOException {
 		System.out.println("depositMemberServiceImpl - selectLoan");
-		return dao.findByNum(num);
+		return dao.findByNum(yeNo);
 	}
 
 }

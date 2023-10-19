@@ -70,24 +70,25 @@ public class depositAdminController {
 		map.put("resultCode", resultCode);
 		map.put("resultMsg", resultMsg);
 		
-		System.out.println("[loanInsert 성공!]");
+		System.out.println("[depositInsert 성공!]");
 		return map;
 	}
 	
 	//1건 select
-	@GetMapping("/{yNo}")
-	public DepositDTO fetchDepositByNum(@PathVariable int num)
+	@GetMapping("/{yeNo}")
+	public DepositDTO fetchDepositByNum(@PathVariable int yeNo)
 			throws ServletException, IOException {
 		logger.info("<<<depositAdminController-fetchDepositByNum()>>>");
-		return service.selectDeposit(num);
+		return service.selectDeposit(yeNo);
 	}
 	
 	//update
-	@PutMapping("/{yNo}")
-	public Map<String, Object> depositUpdate(@PathVariable int num, @RequestBody DepositDTO dto)
+	@PutMapping("/{yeNo}")
+	public Map<String, Object> depositUpdate(@PathVariable int yeNo,@RequestBody DepositDTO dto)
 		throws ServletException, IOException {
 		logger.info("<<<depositAdminController-depositUpdate()>>>");
-		
+		System.out.println("타냐고 야~");
+		System.out.println("DTO"+ dto);
 		int updateCnt=0;
 		String resultCode="";
 		String resultMsg="";
@@ -112,8 +113,8 @@ public class depositAdminController {
 	}
 	
 	//delete
-	@DeleteMapping("/{yNo}")
-	public Map<String, Object> depositDelete(@PathVariable int num)
+	@DeleteMapping("/{yeNo}")
+	public Map<String, Object> depositDelete(@PathVariable int yeNo)
 			throws ServletException, IOException {
 			logger.info("<<<depositAdminController-depositDelete()>>>");
 			
@@ -123,7 +124,7 @@ public class depositAdminController {
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			try {
-				deleteCnt=service.deleteDeposit(num);
+				deleteCnt=service.deleteDeposit(yeNo);
 				if(deleteCnt==1) {
 					resultCode="0";
 					resultMsg="Delete success";

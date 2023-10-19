@@ -6,12 +6,12 @@
 <mapper namespace="com.example.project_team.mappers.depositMemberMapper">
 	<!-- DepositMemberList -->
 	<select id="DepositMemberList" resultType="com.example.project_team.dto.DepositDTO">
-		SELECT * FROM TEAM_DEPOSIT_PRODUCT ORDER BY yNo
+		SELECT * FROM TEAM_DEPOSIT_PRODUCT ORDER BY yeNo
 	</select>
 	
 	<!-- findByNum / 1건 조회 -->
 	<select id="findByNum" parameterType="int" resultType="com.example.project_team.dto.DepositDTO">
-		SELECT * FROM TEAM_DEPOSIT_PRODUCT WHERE yNo = #{yNo}
+		SELECT * FROM TEAM_DEPOSIT_PRODUCT WHERE yeNo = #{yeNo}
 	</select>
 	
 </mapper>

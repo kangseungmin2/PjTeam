@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
-import ApiService from '../../api/deposit';
+import deposit from "../../api/deposit"
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import FindInPageRoundedIcon from '@mui/icons-material/FindInPageRounded';
@@ -28,11 +28,12 @@ class depositList extends Component {
 
     // list 정보
     loadDepositProductList = () => {     
-        ApiService.fetchdepositsPL()
+        deposit.fetchdepositsPL()
             .then(res => {
                 this.setState({
                     deposits: res.data
                 })
+                console.log("data",res.data)
             })
             .catch(err => {
                 console.log('loadDepositProductList() Error!!', err);
@@ -41,14 +42,14 @@ class depositList extends Component {
     }
 
     // 1건 select
-    selectDeposit = (yNo) => {
-        window.localStorage.setItem("DepositNum", yNo);
+    selectDeposit = (yeNo) => {
+        window.localStorage.setItem("DepositNum", yeNo);
         this.props.history.push("/DepositDetail")
     }
 
     // sign
-    signDeposit = (yNo) => {
-        window.localStorage.setItem("DepositNum", yNo);
+    signDeposit = (yeNo) => {
+        window.localStorage.setItem("DepositNum", yeNo);
         this.props.history.push("/DepositSign")
     }
     
@@ -103,20 +104,19 @@ class depositList extends Component {
                         </TableHead>
 
                         <TableBody>
-                            {this.state.deposits.filter((loan) =>
-                                loan.loanProductName.toLowerCase().includes(this.state.searchQuery.toLowerCase())
-                            ).slice(page * rPage, page *
-                                rPage + rPage).map((deposit) => (
-                                <TableRow hover key={deposit.yNo}>
-                                    <TableCell align='center'>{deposit.yNo}</TableCell>
-                                    <TableCell align='center'>{deposit.yName}</TableCell>
-                                    <TableCell align='center'>{deposit.ySummary}</TableCell>
+                        {this.state.deposits.filter((deposit) =>
+                                 deposit.yeName.toLowerCase().includes(this.state.searchQuery.toLowerCase())
+                                 ).slice(page * rPage, page * rPage + rPage).map((deposit) => (
+                                <TableRow hover key={deposit.yeNo}>
+                                    <TableCell align='center'>{deposit.yeNo}</TableCell>
+                                    <TableCell align='center'>{deposit.yeName}</TableCell>
+                                    <TableCell align='center'>{deposit.yeSummary}</TableCell>
                                     <TableCell align='center'>{deposit.interestRate}%</TableCell>
                                     <TableCell align='center'>
-                                        <FindInPageRoundedIcon fontSize='large' color='primary' onClick={() => this.selectDeposit(deposit.yNo)}/>
+                                        <FindInPageRoundedIcon fontSize='large' color='primary' onClick={() => this.selectDeposit(deposit.yeNo)}/>
                                     </TableCell>
                                     <TableCell align='center'>
-                                        <EditNoteOutlinedIcon fontSize='large' onClick={() => this.signDeposit(deposit.yNo)}/>
+                                        <EditNoteOutlinedIcon fontSize='large' onClick={() => this.signDeposit(deposit.yeNo)}/>
                                     </TableCell>
                                 </TableRow>
                             ))}

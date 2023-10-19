@@ -37,15 +37,15 @@ public class savingsAdminServiceImpl implements savingsAdminService{
 	}
 
 	@Override
-	public int deleteSavings(int num) throws ServletException, IOException {
+	public int deleteSavings(int juckNo) throws ServletException, IOException {
 		System.out.println("savingsAdminServiceImpl - deleteSavings");
-		return dao.deleteByNum(num);
+		return dao.deleteByNum(juckNo);
 	}
 
 	@Override
-	public SavingsDTO selectSavings(int num) throws ServletException, IOException {
+	public SavingsDTO selectSavings(int juckNo) throws ServletException, IOException {
 		System.out.println("savingsAdminServiceImpl - selectSavings");
-		return dao.findByNum(num);
+		return dao.findByNum(juckNo);
 	}
 
 }

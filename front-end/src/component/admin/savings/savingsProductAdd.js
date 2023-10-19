@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import ApiService from '../../../api/savings';
+import savings from '../../../api/savings';
 
 
 class savingsProductAdd extends Component {
@@ -10,15 +10,15 @@ class savingsProductAdd extends Component {
         super(props);
         // staate에 초기화
         this.state = {
-            savingsProductName: '',
-            savingsProductRegistrationDate: '',
+            juckName: '',
+            juckRegistrationDate: '',
             interestRate: '',
-            content: '',
-            type: '', 
-            MinPrice: '',
-            MaxPrice: '',
-            MinDate: '',
-            MaxDate: '',
+            juckSummary: '',
+            juckType: '', 
+            juckMinPrice: '',
+            juckMaxPrice: '',
+            juckMinDate: '',
+            juckMaxDate: '',
             message: ''
         }
     }
@@ -34,18 +34,18 @@ class savingsProductAdd extends Component {
         e.preventDefault();
 
         let inputData = {
-            jName: this.state.savingsProductName,
-            jRegistrationDate: this.state.savingsProductRegistrationDate,
+            juckName: this.state.juckName,
+            juckRegistrationDate: this.state.juckRegistrationDate,
             interestRate: this.state.interestRate,
-            jSummary: this.state.content,
-            jType: this.state.type,
-            jMinPrice: this.state.MinPrice,
-            jMaxPrice: this.state.MaxPrice,
-            jMinDate: this.state.MinDate,
-            jMaxDate: this.state.MaxDate         
+            juckSummary: this.state.juckSummary,
+            juckType: this.state.juckType,
+            juckMinPrice: this.state.juckMinPrice,
+            juckMaxPrice: this.state.juckMaxPrice,
+            juckMinDate: this.state.juckMinDate,
+            juckMaxDate: this.state.juckMaxDate         
         }
 
-        ApiService.addSavings(inputData)
+        savings.addSavings(inputData)
             .then(res => {
                 console.log('addSavings 성공', res.data);
                 this.props.history.push('/SavingsProductList');
@@ -67,11 +67,11 @@ class savingsProductAdd extends Component {
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end"></InputAdornment>}
-                            aria-describedby="standard-savingsProductName-helper-text"
+                            aria-describedby="standard-juckName-helper-text"
                             inputProps={{
-                                'aria-label': 'savingsProductName',
+                                'aria-label': 'juckName',
                             }}
-                            name="savingsProductName"
+                            name="juckName"
                             onChange={this.onChange}
                         />
                         <FormHelperText >savingsProductName</FormHelperText>
@@ -98,11 +98,11 @@ class savingsProductAdd extends Component {
                             multiline
                             fullWidth
                             rows={4}
-                            label="content"
-                            // helperText="please enter content"
+                            label="juckSummary"
+                            // helperText="please enter juckSummary"
                             type="text"
-                            name="content"
-                            value={this.state.content}
+                            name="juckSummary"
+                            value={this.state.juckSummary}
                             placeholder="content"
                             onChange={this.onChange} /><br />
 
@@ -111,11 +111,11 @@ class savingsProductAdd extends Component {
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end">원</InputAdornment>}
-                            aria-describedby="standard-MinPrice-helper-text"
+                            aria-describedby="standard-juckMinPrice-helper-text"
                             inputProps={{
-                                'aria-label': 'MinPrice',
+                                'aria-label': 'juckMinPrice',
                             }}
-                            name="MinPrice"
+                            name="juckMinPrice"
                             onChange={this.onChange}
                         />
                         <FormHelperText >MinPrice</FormHelperText>
@@ -127,12 +127,12 @@ class savingsProductAdd extends Component {
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end">원</InputAdornment>}
-                            aria-describedby="standard-MaxPrice-helper-text"
+                            aria-describedby="standard-juckMaxPrice-helper-text"
                             inputProps={{
-                                'aria-label': 'MaxPrice',
+                                'aria-label': 'juckMaxPrice',
                             }}
-                            name="MaxPrice"
-                            onChange={this.MaxPrice}
+                            name="juckMaxPrice"
+                            onChange={this.onChange}
                         />
                         <FormHelperText >MaxPrice</FormHelperText>
                     </FormControl>
@@ -142,12 +142,12 @@ class savingsProductAdd extends Component {
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end">개월</InputAdornment>}
-                            aria-describedby="standard-MinDate-helper-text"
+                            aria-describedby="standard-juckMinDate-helper-text"
                             inputProps={{
-                                'aria-label': 'MinDate',
+                                'aria-label': 'juckMinDate',
                             }}
-                            name="MinDate"
-                            onChange={this.MinDate}
+                            name="juckMinDate"
+                            onChange={this.onChange}
                         />
                         <FormHelperText >MinDate</FormHelperText>
                     </FormControl>
@@ -158,12 +158,12 @@ class savingsProductAdd extends Component {
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end">개월</InputAdornment>}
-                            aria-describedby="standard-MaxDate-helper-text"
+                            aria-describedby="standard-juckMaxDate-helper-text"
                             inputProps={{
-                                'aria-label': 'MaxDate',
+                                'aria-label': 'MaxjuckMaxDateDate',
                             }}
-                            name="MaxDate"
-                            onChange={this.MaxDate}
+                            name="juckMaxDate"
+                            onChange={this.onChange}
                         />
                         <FormHelperText >MaxDate</FormHelperText>
                     </FormControl> 
@@ -172,12 +172,12 @@ class savingsProductAdd extends Component {
                         <Input
                             id="standard-required"
                             endAdornment={<InputAdornment position="end"></InputAdornment>}
-                            aria-describedby="standard-type-helper-text"
+                            aria-describedby="standard-juckType-helper-text"
                             inputProps={{
-                                'aria-label': 'type',
+                                'aria-label': 'juckType',
                             }}
-                            name="type"
-                            value={this.state.type}
+                            name="juckType"
+                            onChange={this.onChange}
                         />
                         <FormHelperText >type</FormHelperText>
                     </FormControl>     
@@ -186,7 +186,7 @@ class savingsProductAdd extends Component {
 
                 <Stack spacing={1} direction="row" justifyContent="center" marginTop={1}>
                     <Button color="primary" variant="outlined" onClick={this.saveProduct}>save</Button>
-                    <Button href="/savingsProductAdd" variant="contained" color="primary">back</Button>
+                    <Button href="/savingsProductList" variant="contained" color="primary">back</Button>
                 </Stack>
 
             </Container>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
-import ApiService from '../../../api/savings';
+import savings from '../../../api/savings';
 import { Create, Delete } from '@mui/icons-material'
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
@@ -26,7 +26,7 @@ class savingsProductList extends Component {
 
     // list 정보
     loadsavingsProductList = () => {       
-        ApiService.fetchsavingss()
+        savings.fetchsavingss()
             .then(res => {
                 this.setState({
                     savingss: res.data
@@ -44,22 +44,22 @@ class savingsProductList extends Component {
     }
 
     // update
-    editSavings = (jNo) => {
-        window.localStorage.setItem("SavingsNum", jNo);
+    editSavings = (juckNo) => {
+        window.localStorage.setItem("SavingsNum", juckNo);
         this.props.history.push("/SavingsProductEdit")
     }
 
     // delete
-    deleteSavings = (jNo) => {
+    deleteSavings = (juckNo) => {
 
          // 사용자에게 삭제 확인을 물어보고 확인을 선택한 경우에만 삭제를 실행
          const confirmDelete = window.confirm("정말로 삭제하시겠습니까?");
 
          if (confirmDelete) {
-        ApiService.deleteSavings(jNo)
+            savings.deleteSavings(juckNo)
             .then(res => {
                 this.setState({
-                    boards: this.state.savingss.filter(savings => savings.jNo !== jNo)
+                    savingss: this.state.savingss.filter(savings => savings.juckNo !== juckNo)
                 });
                 console.log('delete 성공 : ', res.data);
             })
@@ -99,7 +99,7 @@ class savingsProductList extends Component {
                 <TableContainer >
                      {/* 검색기능 */}
                      <div>
-                     <Button variant="contained" style={btn} color="primary" onClick={this.addLoan}> Add Product </Button>
+                     <Button variant="contained" style={btn} color="primary" onClick={this.addSavings}> Add Product </Button>
                     </div>
                     <div style={search}>
                         <div style={searchIcon}>
@@ -126,17 +126,17 @@ class savingsProductList extends Component {
                         </TableHead>
 
                         <TableBody>
-                            {this.state.savingss.filter((loan) =>
-                                loan.loanProductName.toLowerCase().includes(this.state.searchQuery.toLowerCase())
+                            {this.state.savingss.filter((savings) =>
+                                savings.juckName.toLowerCase().includes(this.state.searchQuery.toLowerCase())
                             ).slice(page * rPage, page *
                                 rPage + rPage).map((savings) => (
-                                <TableRow hover key={savings.yNo}>
-                                    <TableCell align='center'>{savings.jNo}</TableCell>
-                                    <TableCell align='center'>{savings.jName}</TableCell>
+                                <TableRow hover key={savings.juckNo}>
+                                    <TableCell align='center'>{savings.juckNo}</TableCell>
+                                    <TableCell align='center'>{savings.juckName}</TableCell>
                                     <TableCell align='center'>{savings.interestRate}%</TableCell>
-                                    <TableCell align='center'><button className="btn" onClick={() => this.editSavings(savings.jNo)}><Create /></button></TableCell>
-                                    <TableCell align='center'><button className="btn" onClick={() => this.deleteSavings(savings.jNo)}><Delete /></button></TableCell>
-                                    <TableCell align='center'>{new Date(savings.jRegistrationDate).toLocaleDateString(
+                                    <TableCell align='center'><button className="btn" onClick={() => this.editSavings(savings.juckNo)}><Create /></button></TableCell>
+                                    <TableCell align='center'><button className="btn" onClick={() => this.deleteSavings(savings.juckNo)}><Delete /></button></TableCell>
+                                    <TableCell align='center'>{new Date(savings.juckRegistrationDate).toLocaleDateString(
                                                 'en-US', {
                                                 year: 'numeric',
                                                 month: '2-digit',

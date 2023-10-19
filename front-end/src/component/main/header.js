@@ -45,6 +45,7 @@ function BasicExample() {
               <NavDropdown.Item href="/savingsProductAdd">적금상품 등록</NavDropdown.Item>            
               <NavDropdown.Item href="/depositProductList">예금상품 목록</NavDropdown.Item>
               <NavDropdown.Item href="/savingsProductList">적금상품 목록</NavDropdown.Item>
+              <NavDropdown.Item href="/MapComponent">맵연습</NavDropdown.Item>
             </NavDropdown>
 
 

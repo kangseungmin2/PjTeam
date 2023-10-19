@@ -13,6 +13,6 @@ public interface savingsAdminMapper {
 	public List<SavingsDTO> SavingsAdminList();
 	public int insertSavings(SavingsDTO dto);
 	public int updateSavings(SavingsDTO dto);
-	public int deleteByNum(int num);
-	public SavingsDTO findByNum(int num);
+	public int deleteByNum(int juckNo);
+	public SavingsDTO findByNum(int juckNo);
 }

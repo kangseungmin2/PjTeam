@@ -25,9 +25,9 @@ public class savingsMemberServiceImpl implements savingsMemberService{
 	}
 
 	@Override
-	public SavingsDTO selectSavings(int num) throws ServletException, IOException {
+	public SavingsDTO selectSavings(int juckNo) throws ServletException, IOException {
 		System.out.println("savingsMemberServiceImpl - selectSavings");
-		return dao.findByNum(num);
+		return dao.findByNum(juckNo);
 	}
 
 }

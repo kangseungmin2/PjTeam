@@ -11,5 +11,5 @@ import com.example.project_team.dto.SavingsDTO;
 public interface savingsMemberMapper {
  
 	public List<SavingsDTO> SavingsMemberList();
-	public SavingsDTO findByNum(int num);
+	public SavingsDTO findByNum(int juckNo);
 }

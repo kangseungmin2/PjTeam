@@ -70,21 +70,21 @@ public class savingsAdminController {
 		map.put("resultCode", resultCode);
 		map.put("resultMsg", resultMsg);
 		
-		System.out.println("[loanInsert 성공!]");
+		System.out.println("[Insert 성공!]");
 		return map;
 	}
 	
 	//1건 select
-	@GetMapping("/{jNo}")
-	public SavingsDTO fetchSavingsByNum(@PathVariable int num)
+	@GetMapping("/{juckNo}")
+	public SavingsDTO fetchSavingsByNum(@PathVariable int juckNo)
 			throws ServletException, IOException {
 		logger.info("<<<savingsAdminServiceImpl-fetchSavingsByNum()>>>");
-		return service.selectSavings(num);
+		return service.selectSavings(juckNo);
 	}
 	
 	//update
-	@PutMapping("/{jNo}")
-	public Map<String, Object> savingsUpdate(@PathVariable int num, @RequestBody SavingsDTO dto)
+	@PutMapping("/{juckNo}")
+	public Map<String, Object> savingsUpdate(@PathVariable int juckNo, @RequestBody SavingsDTO dto)
 		throws ServletException, IOException {
 		logger.info("<<<savingsAdminServiceImpl-savingsUpdate()>>>");
 		
@@ -112,8 +112,8 @@ public class savingsAdminController {
 	}
 	
 	//delete
-	@DeleteMapping("/{jNo}")
-	public Map<String, Object> savingsDelete(@PathVariable int num)
+	@DeleteMapping("/{juckNo}")
+	public Map<String, Object> savingsDelete(@PathVariable int juckNo)
 		throws ServletException, IOException {
 		logger.info("<<<savingsAdminServiceImpl-savingsDelete()>>>");
 		
@@ -123,7 +123,7 @@ public class savingsAdminController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			deleteCnt=service.deleteSavings(num);
+			deleteCnt=service.deleteSavings(juckNo);
 			if(deleteCnt==1) {
 				resultCode="0";
 				resultMsg="Delete success";

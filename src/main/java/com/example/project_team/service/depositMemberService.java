@@ -17,6 +17,6 @@ public interface depositMemberService {
 	public List<DepositDTO> listAll(HttpServletRequest req, Model model)
 			throws ServletException, IOException;
 		
-		public DepositDTO selectDeposit(int num)
+		public DepositDTO selectDeposit(int yeNo)
 				throws ServletException, IOException;
 }
