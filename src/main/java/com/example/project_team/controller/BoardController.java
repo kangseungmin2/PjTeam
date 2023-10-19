@@ -1,4 +1,3 @@
-
 package com.example.project_team.controller;
 
 import java.io.IOException;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project_team.dto.BoardDTO;
 import com.example.project_team.service.BoardService;
-
 
 
 @CrossOrigin(origins="**", maxAge=3600)
@@ -83,52 +81,52 @@ public class BoardController {
 	// Update
 	@PutMapping("/{num}")
 	public Map<String, Object> boardUpdate(@PathVariable int num, @RequestBody BoardDTO dto)
-			throws ServletException, IOException {
-			logger.info("<<< BoardController - boardUpdate() >>>");
-			
-			String resultCode="";
-			String resultMsg="";
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			try {
-				service.insertBoard(dto);
-				resultCode="333";
-				resultMsg="boardUpdate success♥️";
-			} catch(Exception e) {
-				e.printStackTrace();
-				resultCode="444";
-				resultMsg=e.getMessage();
-			}
-			map.put("resultCode", resultCode);
-			map.put("resultMsg", resultMsg);
-			
-			System.out.println("[boardUpdate 성공!]");
-			return map;
+		throws ServletException, IOException {
+		logger.info("<<< BoardController - boardUpdate() >>>");
+		
+		String resultCode="";
+		String resultMsg="";
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			service.insertBoard(dto);
+			resultCode="333";
+			resultMsg="boardUpdate success♥️";
+		} catch(Exception e) {
+			e.printStackTrace();
+			resultCode="444";
+			resultMsg=e.getMessage();
 		}
+		map.put("resultCode", resultCode);
+		map.put("resultMsg", resultMsg);
+		
+		System.out.println("[boardUpdate 성공!]");
+		return map;
+	}
 	
 	// Delete
 	@DeleteMapping("/{num}")
 	public Map<String, Object> boardDelete(@PathVariable int num)
-			throws ServletException, IOException {
-			logger.info("<<< BoardController - boardDelete() >>>");
-			
-			String resultCode="";
-			String resultMsg="";
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			try {
-				service.deleteBoard(num);
-				resultCode="333";
-				resultMsg="boardDelete success♥️";
-			} catch(Exception e) {
-				e.printStackTrace();
-				resultCode="444";
-				resultMsg=e.getMessage();
-			}
-			map.put("resultCode", resultCode);
-			map.put("resultMsg", resultMsg);
-			
-			System.out.println("[boardDelete 성공!]");
-			return map;
+		throws ServletException, IOException {
+		logger.info("<<< BoardController - boardDelete() >>>");
+		
+		String resultCode="";
+		String resultMsg="";
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			service.deleteBoard(num);
+			resultCode="333";
+			resultMsg="boardDelete success♥️";
+		} catch(Exception e) {
+			e.printStackTrace();
+			resultCode="444";
+			resultMsg=e.getMessage();
 		}
+		map.put("resultCode", resultCode);
+		map.put("resultMsg", resultMsg);
+		
+		System.out.println("[boardDelete 성공!]");
+		return map;
+	}
 }

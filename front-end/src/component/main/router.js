@@ -46,7 +46,7 @@ import BoardList from '../admin/board/boardList';
 import BoardAdd from '../admin/board/boardAdd';
 import BoardEdit from '../admin/board/boardEdit';
 import LoanList from '../loan/loanList';
-import LoanSign from '../loan/loanSign';
+// import LoanSign from '../loan/loanSign';
 import Repayment from '../loan/repayment';
 import LoanProductAdd from '../admin/loan/loanProductAdd';
 import LoanProductEdit from '../admin/loan/loanProductEdit';
@@ -55,6 +55,7 @@ import LoanSignConfirm from '../admin/loan/loanSignConfirm';
 import LoanDetail from "../loan/loanDetail";
 import LoanSignList from "../loan/loanSignList";
 import BoardListMember from "../board/boardListMember";
+import Checkout from "../loan/loanSign";
 
 
 import depositProductList from '../admin/deposit/depositProductList';
@@ -71,6 +72,7 @@ import depositSign from "../deposit/depositSign";
 import savingsSign from "../savings/savingsSign";
 import depositDelete from "../deposit/depositDelete";
 import depositCheck from "../deposit/depositCheck";
+
 
 const AppRouter = () => {
     
@@ -105,7 +107,7 @@ const AppRouter = () => {
                     <Route path="/boardListMember" component={BoardListMember}/>       {/* 상아-게시판목록(고객) */}
                     <Route path="/loanList" component={LoanList}/>       {/* 상아-대출상품목록(고객) */}
                     <Route path="/loanDetail" component={LoanDetail}/>       {/* 상아-대출상세페이지(고객) */}
-                    <Route path="/loanSign" component={LoanSign}/>       {/* 상아-대출가입(고객) */}
+                    <Route path="/loanSign" component={Checkout}/>       {/* 상아-대출가입(고객) */}
                     <Route path="/loanSignList" component={LoanSignList}/>       {/* 상아-대출가입리스트(고객) */}
                     <Route path="/repayment" component={Repayment}/>       {/* 상아-이자조회/납부(고객) */}
                     <Route path="/loanProductAdd" component={LoanProductAdd}/>       {/* 상아-대출상품등록(관리자) */}

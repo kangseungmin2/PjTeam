@@ -10,6 +10,7 @@ class LoanDetail extends Component {
         super(props);
         // staate에 초기화
         this.state = {
+            num:'',
             loanProductName: '',
             loanProductRegistrationDate: '',
             interestRate: '',
@@ -219,8 +220,8 @@ class LoanDetail extends Component {
                 </Grid>
 
                 <Stack spacing={1} direction="row" justifyContent="center" marginTop={1}>
-                    <Button color="primary" variant="outlined" onClick={this.signLoan}>sign</Button>
-                    <Button href="/loanList" variant="contained" color="primary">back</Button>
+                    <Button color="primary" variant="contained" onClick={() => this.signLoan(this.state.num)}>sign</Button>
+                    <Button href="/loanList" variant="outlined" color="primary">back</Button>
                 </Stack>
 
             </Container>

@@ -22,7 +22,6 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void insertBoard(BoardDTO dto) {
-		System.out.println("ㅅ서비스 오류");
 		dao.save(dto);
 	}
 
