@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	  
+<mapper namespace="com.example.project_team.mappers.TransferMapper">
+
+<!-- 한건이체 목록 조회 -->
+<select id="transferList" resultType="com.example.project_team.dto.TransferDTO">
+	SELECT * FROM team_transfer order by transferNum
+</select>
+
+<!-- 한건이체 상세목록  -->
+<select id="transferDetail" resultType="com.example.project_team.dto.TransferDTO">
+	SELECT * FROM team_transfer WHERE transferNum=#{transferNum} order by transferNum 
+</select>
+
+<!-- 한건이체 전 입출금 계좌조회  -->
+<select id="trAccountList" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
+	SELECT * FROM team_account WHERE id = #{id} AND accountType = 'e' 
+</select>
+
+<!-- 펀드 1건 출금 -->
+<insert id="oneTransfer" parameterType="com.example.project_team.dto.TransferDTO">
+	INSERT into team_transfer(accountNum, trbank, trName ,trAccountNum, accountPW)
+	values((SELECT NVL(MAX(accountNum)+1) FROM team_transfer),#{trbank},#{trName},#{trAccountNum},#{accountPW})
+</insert>
+
+<!-- 한도변경요청 전 입출금 계좌조회  -->
+<select id="lmAccountList" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
+	SELECT * FROM team_account WHERE id = #{id} AND accountType = 'e' 
+</select>
+
+<!-- 일일이체 한도 상향 -> 관리자 승인시 변경됨 -->
+<insert id="changeLimit" parameterType="int">
+	INSERT into team_account(accountNum, accountType, accountLimit ,accountPW)
+	values(#{accountNum},#{accountType},#{accountLimit},#{accountPW})
+</insert>
+
+
+
+</mapper>
