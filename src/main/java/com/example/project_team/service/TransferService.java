@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 
 import com.example.project_team.dto.AccountDTO;
 import com.example.project_team.dto.TransferDTO;
-import com.example.project_team.exceptionHandler.FundErrorResponse;
+import com.example.project_team.exceptionHandler.ErrorResponse;
 
 
 public interface TransferService {
@@ -24,16 +24,16 @@ public interface TransferService {
 	public TransferDTO transferDetail(int transferNum)
 			throws ServletException, IOException;
 	
-	// trAccountList
-	public List<AccountDTO> trAccountList(String id)
+	// transAccount
+	public List<AccountDTO> transAccount(String id)
 			throws ServletException, IOException;
 		
 	// oneTransfer
 	public void oneTransfer(TransferDTO dto)
 			throws ServletException, IOException;
 	
-	// lmAccountList
-	public List<AccountDTO> lmAccountList(String id)
+	// limitAccount
+	public List<AccountDTO> limitAccount(String id)
 			throws ServletException, IOException;
 		
 	// changeLimit

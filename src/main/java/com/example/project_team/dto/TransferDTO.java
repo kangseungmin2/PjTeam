@@ -25,7 +25,7 @@ public class TransferDTO {
 	private int accountPW; 		// 계좌비밀번호
 	private String trName; 		// 수취인명
 	private String trbank; 		// 입금은행
-	private int trAccountNum; 	// 입금계좌번호
+	private long trAccountNum; 	// 입금계좌번호
 	private int trAmount; 		// 이체금액
 	private Date trDate; 		// 이체일
 	

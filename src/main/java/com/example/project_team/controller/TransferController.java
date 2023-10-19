@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project_team.dto.AccountDTO;
 import com.example.project_team.dto.TransferDTO;
-import com.example.project_team.exceptionHandler.FundCustomException;
-import com.example.project_team.exceptionHandler.FundErrorResponse;
+import com.example.project_team.exceptionHandler.CustomException;
+import com.example.project_team.exceptionHandler.ErrorResponse;
 import com.example.project_team.service.TransferServiceImpl;
 
 @CrossOrigin(origins="**",maxAge=3600)
@@ -54,39 +54,40 @@ public class TransferController {
 	}
 	
 	// trAccountList => 한건이체전에 이체 계좌 선택
-	@GetMapping("/trAccountList/{id}")
-	public List<AccountDTO> trAccountList(@PathVariable String id) 
+	@GetMapping("/transAccount/{id}")
+	public List<AccountDTO> transAccount(@PathVariable String id) 
 			throws ServletException, IOException {
-		logger.info("<<<TransferController - trAccountList>>>");
+		logger.info("<<<TransferController - transAccount>>>");
 		
-		return service.trAccountList(id);
+		return service.transAccount(id);
 		
 	}
 	
 	// OneTransfer => 한건이체
 	@PostMapping("/oneTransfer")
-   public ResponseEntity<FundErrorResponse> oneTransfer(@RequestBody TransferDTO dto)
+   public ResponseEntity<ErrorResponse> oneTransfer(@RequestBody TransferDTO dto)
          throws ServletException, IOException {
 	   logger.info("<<<TransferController - oneTransfer>>>");
      try {
            service.oneTransfer(dto);// Service 클래스 호출
-            return ResponseEntity.ok(new FundErrorResponse(true, "거래가 성공적으로 완료되었습니다."));
-        } catch (FundCustomException ex) {
+            return ResponseEntity.ok(new ErrorResponse(true, "거래가 성공적으로 완료되었습니다."));
+        } catch (CustomException ex) {
             // Service에서 발생한 예외 처리
-            return ResponseEntity.ok(new FundErrorResponse(false, ex.getMessage()));
+            return ResponseEntity.ok(new ErrorResponse(false, ex.getMessage()));
             //return new ResponseEntity<FundErrorResponse>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+     
    }
 	
-	// lmAccountList => 한도변경요청 전에 이체 계좌 선택 => 위에 이체 전 계좌선택과 동일
-//	@GetMapping("/trAccountList/{id}")
-//	public List<AccountDTO> lmAccountList(@PathVariable String id) 
-//			throws ServletException, IOException {
-//		logger.info("<<<TransferController - lmAccountList>>>");
-//		
-//		return service.lmAccountList(id);
-//		
-//	}
+	// limitAccount => 한도변경요청 전에 이체 계좌 선택 => 위에 이체 전 계좌선택과 동일
+	@GetMapping("/limitAccount/{id}")
+	public List<AccountDTO> limitAccount(@PathVariable String id) 
+			throws ServletException, IOException {
+		logger.info("<<<TransferController - limitAccount>>>");
+		
+		return service.limitAccount(id);
+		
+	}
 		
 	//changeLimit => 한도변경(하향, 상향)
 	@PostMapping("/changeLimit")

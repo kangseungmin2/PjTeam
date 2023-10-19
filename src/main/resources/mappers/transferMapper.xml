@@ -12,22 +12,41 @@
 
 <!-- 한건이체 상세목록  -->
 <select id="transferDetail" resultType="com.example.project_team.dto.TransferDTO">
-	SELECT * FROM team_transfer WHERE transferNum=#{transferNum} order by transferNum 
+	SELECT * FROM team_transfer WHERE transferNum=#{transferNum} 
 </select>
 
 <!-- 한건이체 전 입출금 계좌조회  -->
-<select id="trAccountList" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
-	SELECT * FROM team_account WHERE id = #{id} AND accountType = 'e' 
+<select id="transAccount" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
+	SELECT * FROM team_account WHERE id = #{id} AND accountType = 'e' AND show = 'y'
 </select>
 
-<!-- 펀드 1건 출금 -->
-<insert id="oneTransfer" parameterType="com.example.project_team.dto.TransferDTO">
-	INSERT into team_transfer(accountNum, trbank, trName ,trAccountNum, accountPW)
-	values((SELECT NVL(MAX(accountNum)+1) FROM team_transfer),#{trbank},#{trName},#{trAccountNum},#{accountPW})
+<!-- 1건 출금 -->
+<update id="outTransfer" parameterType="Map">
+	UPDATE team_account
+	SET balance = #{out}
+	WHERE accountNum = #{accountNum}
+</update>
+	
+<!-- balanceChk 해당 계좌 기존 잔액 가져오기  -->
+<select id="balanceChk" parameterType="Map" resultType="int">
+	SELECT balance FROM team_account WHERE accountNum = #{trAccountNum} 
+</select>
+
+<!-- 1건 입금 -->
+<update id="insertTransfer" parameterType="Map">
+	UPDATE team_account
+	SET balance = #{in}
+	WHERE accountNum = #{trAccountNum}
+</update>
+
+<!-- 한건이체 거래목록에 추가 -->
+<insert id="addTransList" parameterType="int">
+	INSERT into team_transfer(accountNum, accountType, accountLimit ,accountPW)
+	values(#{accountNum},#{accountType},#{accountLimit},#{accountPW}) WHERE accountNum = #{accountNum}
 </insert>
 
-<!-- 한도변경요청 전 입출금 계좌조회  -->
-<select id="lmAccountList" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
+<!-- 한도변경요청 전 계좌조회  -->
+<select id="limitAccount" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
 	SELECT * FROM team_account WHERE id = #{id} AND accountType = 'e' 
 </select>
 
@@ -36,7 +55,5 @@
 	INSERT into team_account(accountNum, accountType, accountLimit ,accountPW)
 	values(#{accountNum},#{accountType},#{accountLimit},#{accountPW})
 </insert>
-
-
 
 </mapper>

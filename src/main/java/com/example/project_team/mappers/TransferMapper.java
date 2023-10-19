@@ -8,21 +8,35 @@ import org.springframework.http.ResponseEntity;
 
 import com.example.project_team.dto.AccountDTO;
 import com.example.project_team.dto.TransferDTO;
-import com.example.project_team.exceptionHandler.FundErrorResponse;
+import com.example.project_team.exceptionHandler.ErrorResponse;
 
 @Mapper
 public interface TransferMapper {
+	
+	// list
 	public List<TransferDTO> transferList();
-	
+
+	// transferDetail
 	public TransferDTO transferDetail();
+
+	// oneTransfer 1건이체 보낼시
+	public void outTransfer(Map<String, Object> map);
+
+	// balanceChk 해당 계좌 기존 잔액 가져오기
+	public int balanceChk(Map<String, Object> map);
 	
-	public void outTransfer(int out);
-	
+	// insertTransfer 
 	public void insertTransfer(Map<String, Object> map);
+
+	// transAccount
+	public List<AccountDTO> transAccount(String id);
 	
-	public List<AccountDTO> trAccountList(String id);
+	// addTransList
+	public List<AccountDTO> addTransList(Map<String, Object> map);
 	
-	public List<AccountDTO> lmAccountList(String id);
+	// limitAccount
+	public List<AccountDTO> limitAccount(String id);
 	
+	// changeLimit
 	public AccountDTO changeLimit(int accountNum);
 }
