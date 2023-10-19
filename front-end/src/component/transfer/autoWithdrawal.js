@@ -1,6 +1,7 @@
 import { TextField, Typography, Button } from "@mui/material";
 import ApiService from '../../ApiService';
 import React, { Component } from "react";
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 
 class oneTransfer extends Component {
 
@@ -12,6 +13,7 @@ class oneTransfer extends Component {
             autoTitle: '',
             autoCompany: '', 
             autoAmount: '',
+            autoDate: '',
             accountPW: ''
         }
     }
@@ -30,8 +32,8 @@ class oneTransfer extends Component {
           autoTitle: this.state.autoTitle,
           autoCompany: this.state.autoCompany,
           autoAmount: this.state.autoAmount,
+          autoDate: this.state.autoDate,
           accountPW: this.state.accountPW
-
         }
         ApiService.autowithdrawal(inputData)
             .then(res => {
@@ -46,6 +48,7 @@ class oneTransfer extends Component {
     render(){
         return(
             <div align="center"><br/><br/>
+             <CurrencyExchangeIcon fontSize='large' color='primary' />
                 <Typography variant="h4"> 자동이체 </Typography>
                   <TextField
                         required
@@ -89,6 +92,17 @@ class oneTransfer extends Component {
                         name="autoAmount"
                         value={this.state.autoAmount}
                         placeholder="input sample autoAmount"
+                        onChange={this.onChange} /><br/>
+
+                    <TextField
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        label="결제일"
+                        type="text"
+                        name="autoDate"
+                        value={this.state.autoDate}
+                        placeholder="input sample autoDate"
                         onChange={this.onChange} /><br/>
 
                       <TextField

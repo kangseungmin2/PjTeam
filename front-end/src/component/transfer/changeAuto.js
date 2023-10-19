@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
 import { Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
-import ApiService from '../../ApiService';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
-import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
+import API from '../../api/transferAuto';
 
+function Unix_timestamp(t){
+    const date = new Date(t); //date객체는 UTC로부터 지난시간을 밀리초로 나타내는 UNIX 타임스탬프를 담는다.(밀리초를 초로 변환하려면 *1000)
+  	//console.log(date) //2023-02-28T05:36:35.000Z 출력됨
+   const year = date.getFullYear(); //년도 구하기
+    const month = "0" + (date.getMonth()+1);
+    const day = "0" + date.getDate();
+    const hour = "0" + date.getHours();
+    const minute = "0" + date.getMinutes();
+    const second = "0" + date.getSeconds();
+    return year + "-" + month.substr(-2) + "-" + day.substr(-2);
+}
 
 class changeAuto extends Component {
 
@@ -13,37 +25,8 @@ class changeAuto extends Component {
         super(props);
 
         this.state = {
-            trans: [
-                {
-                    num: 1, transType: "자동이체1", transAmount: 10000, transBalance: 100000, transDate: "2023-01-09", transDetail: "상세내용1"
-                },
-                {
-                    num: 2, transType: "자동이체2", transAmount: 10000, transBalance: 90000, transDate: "2023-02-09", transDetail: "상세내용2"
-                },
-                {
-                    num: 3, transType: "자동이체3", transAmount: 10000, transBalance: 80000, transDate: "2023-03-09", transDetail: "상세내용3"
-                },
-                {
-                    num: 4, transType: "자동이체4", transAmount: 10000, transBalance: 70000, transDate: "2023-04-09", transDetail: "상세내용4"
-                },
-                {
-                    num: 5, transType: "자동이체5", transAmount: 10000, transBalance: 60000, transDate: "2023-05-09", transDetail: "상세내용5"
-                },
-                {
-                    num: 6, transType: "자동이체6", transAmount: 10000, transBalance: 50000, transDate: "2023-06-09", transDetail: "상세내용6"
-                },
-                {
-                    num: 7, transType: "자동이체7", transAmount: 10000, transBalance: 40000, transDate: "2023-07-09", transDetail: "상세내용7"
-                },
-                {
-                    num: 8, transType: "자동이체8", transAmount: 10000, transBalance: 30000, transDate: "2023-08-09", transDetail: "상세내용8"
-                },
-                {
-                    num: 9, transType: "자동이체9", transAmount: 10000, transBalance: 20000, transDate: "2023-09-09", transDetail: "상세내용9"
-                },
-                {
-                    num: 10, transType: "자동이체10", transAmount: 10000, transBalance: 10000, transDate: "2023-10-09", transDetail: "상세내용10"
-                }
+            autos: [
+              
             ],
             message: null,
             page: 0,
@@ -53,38 +36,43 @@ class changeAuto extends Component {
 
     // 라이프사이클 중 컴포넌트가 생성된 후 사용자에게 보여지기까지의 전체 과정을 렌더링
     componentDidMount() {
-        this.loadtransList();
+        this.loadautosList();
     }
 
     // list 정보
-    loadtransList = () => {
+    loadautosList = () => {
         console.log("T.T", this.state)
-        ApiService.fetchTransPL()
+        API.changeAuto()
             .then(res => {
                 this.setState({
-                    trans: res.data
+                    autos: res.data
                 })
             })
             .catch(err => {
 
-                console.log('loadtransList() Error!!', err);
+                console.log('loadautoList() Error!!', err);
             })
-        console.log(this.state.trans)
+        console.log(this.state.autos)
     }
 
     // 1건 selects
-    selectTransfer = (num) => {
-        window.localStorage.setItem("TranNum", num);
-        this.props.history.push("/transferDetail")
+    selectAutosfer = (autoNum) => {
+        window.localStorage.setItem("AutoNum", autoNum);
+        this.props.history.push("/autoDetail")
     }
 
-    // check
-    checkTran = (num) => {
-        window.localStorage.setItem("TranNum", num);
-        this.props.history.push("/tranCheck")
+    // alter
+    alterAuto = (autoNum) => {
+        window.localStorage.setItem("AutoNum", autoNum);
+        this.props.history.push("/alterAuto")
+    }
+
+    // cancle
+    cancleAuto = (autoNum) => {
+        window.localStorage.setItem("AutoNum", autoNum);
+        this.props.history.push("/cancleAuto")
     }
     
-
     // page
     handleChangePage = (event,newpage) => { 
         this.setState({ page: newpage });
@@ -105,41 +93,35 @@ class changeAuto extends Component {
         return (
             <Container component="main" maxWidth="md">
 
-                <PaidOutlinedIcon fontSize='large' color='primary' />
-                <Typography variant="h4" style={style}> Transfer List </Typography>
+                <CurrencyExchangeIcon fontSize='large' color='primary' />
+                <Typography variant="h4" style={style}> 자동이체 변경/해지 </Typography>
 
                 <TableContainer >
                     <Table md={{ minWidth: 900 }}>
                         <TableHead>
                             <TableRow>
                                 <TableCell align="center" width="50">No.</TableCell>
-                                <TableCell align="center" width="130">이체명</TableCell>
-                                <TableCell align="center" width="110">금액</TableCell>
-                                <TableCell align="center" width="110">잔액</TableCell>
-                                <TableCell align="center" width="100">이체일자</TableCell>
-                                <TableCell align="center" width="50">상세</TableCell>
+                                <TableCell align="center" width="200">이체명</TableCell>
+                                <TableCell align="center" width="150">금액</TableCell>
+                                <TableCell align="center" width="120">이체일자</TableCell>
                                 <TableCell align="center" width="50">변경</TableCell>
                                 <TableCell align="center" width="50">해지</TableCell>
                             </TableRow>
                         </TableHead>
 
                         <TableBody>
-                            {this.state.trans.slice(page * rPage, page * 
-                            rPage + rPage).map((tran) => (
-                                <TableRow hover key={tran.num}>
-                                    <TableCell align='center'>{tran.num}</TableCell> 
-                                    <TableCell align='center'>{tran.transType}</TableCell>
-                                    <TableCell align='center'>{tran.transAmount}원</TableCell>
-                                    <TableCell align='center'>{tran.transBalance}원</TableCell>
-                                    <TableCell align='center'>{tran.transDate}</TableCell>
+                            {this.state.autos.slice(page * rPage, page * 
+                            rPage + rPage).map((auto) => (
+                                <TableRow hover key={auto.autoNum}>
+                                    <TableCell align='center'>{auto.autoNum}</TableCell> 
+                                    <TableCell align='center'>{auto.autoTitle}</TableCell>
+                                    <TableCell align='center'>{auto.autoAmount}원</TableCell>
+                                    <TableCell align='center'>{Unix_timestamp(auto.autoDate)}</TableCell>
                                     <TableCell align='center'>
-                                        <EditNoteOutlinedIcon fontSize='large' onClick={() => this.checkTran(tran.num)}/>
+                                        <ChangeCircleIcon fontSize='large' onClick={() => this.alterAuto(auto.autoNum)}/>
                                     </TableCell>
                                     <TableCell align='center'>
-                                        <ChangeCircleIcon fontSize='large' onClick={() => this.checkTran(tran.num)}/>
-                                    </TableCell>
-                                    <TableCell align='center'>
-                                        <RemoveCircleIcon fontSize='large' onClick={() => this.checkTran(tran.num)}/>
+                                        <RemoveCircleIcon fontSize='large' onClick={() => this.cancleAuto(auto.autoNum)}/>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -150,7 +132,7 @@ class changeAuto extends Component {
                 <TablePagination 
                 rowsPerPageOptions={[5, 10, 25]} 
                 component="div"
-                count={this.state.trans.length} 
+                count={this.state.autos.length} 
                 rowsPerPage={rPage} 
                 page={page} 
                 onPageChange={this.handleChangePage} 

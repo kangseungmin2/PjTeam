@@ -17,7 +17,8 @@ function Unix_timestamp(t){
     return year + "-" + month.substr(-2) + "-" + day.substr(-2);
 }
 
-class transferList extends Component {
+// 관리자 한도변경 승인 화면
+class transferLimit extends Component {
 
     constructor(props) {
         super(props);
@@ -140,4 +141,4 @@ const style = {
 
 
 
-export default transferList;
+export default transferLimit;

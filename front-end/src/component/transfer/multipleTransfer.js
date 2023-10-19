@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ApiService from "../../ApiService";
 import "../../resource/css/multipleTransfer.css";
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 
 class MultipleTransfer extends Component {
   constructor(props) {
@@ -67,71 +68,72 @@ class MultipleTransfer extends Component {
   render() {
     return (
         <div>
-        <h4>다건이체</h4>
-        {this.state.transactions.map((transaction, index) => (
-          <div key={index} className="transaction-form">
-            <label>거래 {index + 1}</label>
-            <input
-              type="text"
-              name="accountNum"
-              value={transaction.accountNum}
-              placeholder="출금 계좌번호"
-              onChange={(e) => this.onChange(e, index)}
-            />
+        <CurrencyExchangeIcon fontSize='large' color='primary' />
+          <h4>다건이체</h4>
+          {this.state.transactions.map((transaction, index) => (
+            <div key={index} className="transaction-form">
+              <label>거래 {index + 1}</label>
+              <input
+                type="text"
+                name="accountNum"
+                value={transaction.accountNum}
+                placeholder="출금 계좌번호"
+                onChange={(e) => this.onChange(e, index)}
+              />
 
-            <input
-              type="text"
-              name="trbank"
-              value={transaction.trbank}
-              placeholder="입금은행"
-              onChange={(e) => this.onChange(e, index)}
-            />
-            <input
-              type="text"
-              name="trName"
-              value={transaction.trName}
-              placeholder="수취인명"
-              onChange={(e) => this.onChange(e, index)}
-            />
-            <input
-              type="text"
-              name="trAmount"
-              value={transaction.trAmount}
-              placeholder="입금하실 금액을 입력하세요"
-              onChange={(e) => this.onChange(e, index)}
-            />
-            <input
-              type="text"
-              name="trAccountNum"
-              value={transaction.trAccountNum}
-              placeholder="입금계좌번호를 입력하세요"
-              onChange={(e) => this.onChange(e, index)}
-            />
-            <input
-              type="password"
-              name="accountPW"
-              value={transaction.accountPW}
-              placeholder="비밀번호를 입력하세요"
-              onChange={(e) => this.onChange(e, index)}
-            />
-            {index > 0 && (
-              <button
-                onClick={() => this.removeTransaction(index)}
-                className="remove-transaction"
-              >
-                삭제
-              </button>
-            )}
-          </div>
-        ))}
+              <input
+                type="text"
+                name="trbank"
+                value={transaction.trbank}
+                placeholder="입금은행"
+                onChange={(e) => this.onChange(e, index)}
+              />
+              <input
+                type="text"
+                name="trName"
+                value={transaction.trName}
+                placeholder="수취인명"
+                onChange={(e) => this.onChange(e, index)}
+              />
+              <input
+                type="text"
+                name="trAmount"
+                value={transaction.trAmount}
+                placeholder="입금하실 금액을 입력하세요"
+                onChange={(e) => this.onChange(e, index)}
+              />
+              <input
+                type="text"
+                name="trAccountNum"
+                value={transaction.trAccountNum}
+                placeholder="입금계좌번호를 입력하세요"
+                onChange={(e) => this.onChange(e, index)}
+              />
+              <input
+                type="password"
+                name="accountPW"
+                value={transaction.accountPW}
+                placeholder="비밀번호를 입력하세요"
+                onChange={(e) => this.onChange(e, index)}
+              />
+              {index > 0 && (
+                <button
+                  onClick={() => this.removeTransaction(index)}
+                  className="remove-transaction"
+                >
+                  삭제
+                </button>
+              )}
+            </div>
+          ))}
 
-        <button onClick={this.addTransaction} className="add-transaction" >
-          거래 추가
-        </button>
+          <button onClick={this.addTransaction} className="add-transaction" >
+            거래 추가
+          </button>
 
-        <button onClick={this.saveMultipleTransfers} className="save-transfers">
-          이체
-        </button>
+          <button onClick={this.saveMultipleTransfers} className="save-transfers">
+            이체
+          </button>
       </div>
     );
     }
