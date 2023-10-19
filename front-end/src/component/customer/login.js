@@ -1,6 +1,6 @@
 import { Component } from "react";
 import LoginForm from "./loginForm.js";
-import { request, setAuthToken } from "../../heplers/axios_helper.js";
+import { request, setAuthToken,data } from "../../heplers/axios_helper.js";
 import * as Fpp from '../../heplers/axios_helper.js';
 
 class AppContent extends Component {
@@ -22,7 +22,7 @@ class AppContent extends Component {
         this.setState({componentToShow: "welcome"})
     }
 
-    onLogin = (e, id, password) => {
+    onLogin = (e, id, password) => {       
         e.preventDefault();
         request(
             "POST",
@@ -33,10 +33,10 @@ class AppContent extends Component {
             })
             .then((response) => {
                 this.setState({componentToShow: "messages"});
-                setAuthToken(response.data.token,id);
-                console.log("여기요")
+                setAuthToken(response.data.token,id);               
                 this.props.history.push('/main');                
                 window.location.reload();
+                console.log('props',this.props);
             })
             .catch((error) => {
                 this.setState({componentToShow: "welcome"});
@@ -55,10 +55,10 @@ class AppContent extends Component {
             })
             .then((response) => {
                 this.setState({componentToShow: "messages"});
-                setAuthToken(response.data.token,id);
-                console.log("여기요")
-                this.props.history.push('/main');
-               
+                setAuthToken(response.data.token);
+                data(id);
+                this.props.history.push('/main'); 
+                window.location.reload();
             })
             .catch((error) => {
                 this.setState({componentToShow: "welcome"});

@@ -11,48 +11,7 @@ class LoanProductList extends Component {
         super(props);
 
         this.state = {
-            loans: [
-                {
-                    num: 1, loanProductName: "대출상품1", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "만기일시상환", commission: 0
-                },
-                {
-                    num: 2, loanProductName: "대출상품2", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원리금균등상환", commission: 0
-                },
-                {
-                    num: 3, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-                {
-                    num: 4, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-                {
-                    num: 5, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-                {
-                    num: 6, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-                {
-                    num: 7, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-                {
-                    num: 8, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-                {
-                    num: 9, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-                {
-                    num: 10, loanProductName: "대출상품3", loanProductRegistrationDate: "2023-10-09", interestRate: 3, content: "상품설명",
-                    minMoney: 500000, maxMoney: 50000000, minPeriod: 3, maxPeriod: 36, repayment: "원금균등상환", commission: 0
-                },
-            ],
+            loans: [],
             message: null,
             page: 0,
             rPage: 5
@@ -66,7 +25,6 @@ class LoanProductList extends Component {
 
     // list 정보
     loadLoanProductList = () => {
-        console.log("음?", this.state)
         ApiService.fetchLoans()
             .then(res => {
                 this.setState({
@@ -76,7 +34,6 @@ class LoanProductList extends Component {
             .catch(err => {
                 console.log('loadLoanProductList() Error!!', err);
             })
-        console.log(this.state.loans)
     }
 
     // insert
@@ -93,34 +50,42 @@ class LoanProductList extends Component {
 
     // delete
     deleteLoan = (num) => {
-        ApiService.deleteLoan(num)
-            .then(res => {
-                this.setState({
-                    boards: this.state.loans.filter(loan => loan.num !== num)
-                });
-                console.log('delete 성공 : ', res.data);
-            })
-            .catch(err => {
-                console.log('deleteLoan() Error!!', err);
-            })
+        // 사용자에게 삭제 확인을 물어보고 확인을 선택한 경우에만 삭제를 실행
+        const confirmDelete = window.confirm("정말로 삭제하시겠습니까?");
+
+        if (confirmDelete) {
+            ApiService.deleteLoan(num)
+                .then(res => {
+                    this.setState({
+                        loans: this.state.loans.filter(loan => loan.num !== num)
+                    });
+                    console.log('delete 성공 : ', res.data);
+                })
+                .catch(err => {
+                    console.log('deleteLoan() Error!!', err);
+                })
+        } else {
+            // 사용자가 확인 대화 상자에서 "취소"를 선택한 경우 아무 작업도 수행하지 않음
+            console.log('삭제가 취소되었습니다.');
+        }
     }
 
     // page
-    handleChangePage = (event,newpage) => { 
+    handleChangePage = (event, newpage) => {
         this.setState({ page: newpage });
-    } 
-   
+    }
+
     // rowPage
-    handleChangeRowsPerPage = (event) => { 
+    handleChangeRowsPerPage = (event) => {
         this.setState({ rPage: parseInt(event.target.value, 10) });
         this.setState({ page: 0 }); // 페이지를 첫 페이지로 리셋
-    } 
+    }
 
 
     render() {
         const { page } = this.state;
         const { rPage } = this.state;
-        
+
 
         return (
 
@@ -144,30 +109,37 @@ class LoanProductList extends Component {
                         </TableHead>
 
                         <TableBody>
-                            {this.state.loans.slice(page * rPage, page * 
-                            rPage + rPage).map((loan) => (
-                                <TableRow hover key={loan.num}>
-                                    <TableCell align='center'>{loan.num}</TableCell>
-                                    <TableCell align='center'>{loan.loanProductName}</TableCell>
-                                    <TableCell align='center'>{loan.interestRate}%</TableCell>
-                                    <TableCell align='center'><button className="btn" onClick={() => this.editLoan(loan.num)}><Create /></button></TableCell>
-                                    <TableCell align='center'><button className="btn" onClick={() => this.deleteLoan(loan.num)}><Delete /></button></TableCell>
-                                    <TableCell align='center'>{loan.loanProductRegistrationDate}</TableCell>
-                                </TableRow>
-                            ))}
+                            {this.state.loans.slice(page * rPage, page *
+                                rPage + rPage).map((loan) => (
+                                    <TableRow hover key={loan.num}>
+                                        <TableCell align='center'>{loan.num}</TableCell>
+                                        <TableCell align='center'>{loan.loanProductName}</TableCell>
+                                        <TableCell align='center'>{loan.interestRate}%</TableCell>
+                                        <TableCell align='center'><button className="btn" onClick={() => this.editLoan(loan.num)}><Create /></button></TableCell>
+                                        <TableCell align='center'><button className="btn" onClick={() => this.deleteLoan(loan.num)}><Delete /></button></TableCell>
+                                        <TableCell align='center'>
+                                            {new Date(loan.loanProductRegistrationDate).toLocaleDateString(
+                                                'en-US', {
+                                                year: 'numeric',
+                                                month: '2-digit',
+                                                day: '2-digit'
+                                            })}
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
                         </TableBody>
                     </Table>
-                    </TableContainer>
+                </TableContainer>
 
-                <TablePagination 
-                rowsPerPageOptions={[5, 10, 25]} 
-                component="div"
-                count={this.state.loans.length} 
-                rowsPerPage={rPage} 
-                page={page} 
-                onPageChange={this.handleChangePage} 
-                onRowsPerPageChange={this.handleChangeRowsPerPage} 
-                /> 
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={this.state.loans.length}
+                    rowsPerPage={rPage}
+                    page={page}
+                    onPageChange={this.handleChangePage}
+                    onRowsPerPageChange={this.handleChangeRowsPerPage}
+                />
 
             </Container>
 

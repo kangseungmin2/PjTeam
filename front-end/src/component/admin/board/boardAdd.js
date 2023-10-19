@@ -82,8 +82,8 @@ class BoardAdd extends Component {
                 </Grid>
 
                 <Stack spacing={1} direction="row" justifyContent="center" marginTop={1}>
-                    <Button color="primary" variant="outlined" onClick={this.saveBoard}>save</Button>
-                    <Button href="/boardList" variant="contained" color="primary">back</Button>
+                    <Button color="primary" variant="contained" onClick={this.saveBoard}>save</Button>
+                    <Button href="/boardList" variant="outlined" color="primary">back</Button>
                 </Stack>
 
             </Container>

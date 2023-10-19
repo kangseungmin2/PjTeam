@@ -11,10 +11,12 @@ import lombok.Data;
 @Table(name="team_question")
 @Data
 public class QuestionDTO {
+	
 	@Id
 	private int num;			//문의번호
 	private String title;       //문의제목
 	private String content;     //문의내용
 	private String id;          //회원id fk
 	private Date regDate;
+	private String answerChk;
 }

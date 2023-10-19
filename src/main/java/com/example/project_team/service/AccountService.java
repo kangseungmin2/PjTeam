@@ -24,8 +24,34 @@ public class AccountService {
 		return mapper.insertAccount(dto);
 	}
 	
-	public List<AccountDTO> accountList(HttpServletRequest req, Model model) throws ServletException, IOException {
+	public List<AccountDTO> accountList(String id) throws ServletException, IOException {
 		System.out.println("서비스 - 전제조회");
-		return mapper.accountList();
+		return mapper.accountList(id);
+	}
+	
+	public List<AccountDTO> accountListE(String id) throws ServletException, IOException {
+		System.out.println("서비스 - 전제조회");
+		return mapper.accountListE(id);
+	}
+	
+	public List<AccountDTO> accountListY(String id) throws ServletException, IOException {
+		System.out.println("서비스 - 전제조회");
+		return mapper.accountListY(id);
+	}
+	
+	
+	public int passwordModify(AccountDTO dto)throws ServletException, IOException{
+		System.out.println("서비스 - passwordModify");
+		return mapper.passwordModify(dto);
+	}
+	
+	public AccountDTO fetchAccountByNum(long accountNum) throws ServletException, IOException{
+		System.out.println("서비스 - fetchAccountByNum");
+		return mapper.fetchAccountByNum(accountNum);
+	}
+	
+	public int deleteAccount(long accountNum) throws ServletException, IOException{
+		System.out.println("서비스 - deleteAccount");
+		return mapper.deleteAccount(accountNum);
 	}
 }
