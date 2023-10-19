@@ -16,6 +16,7 @@ function log(){
           로그인
           </Nav.Link>
       </Nav>
+      
     }
     else if(id != null){
       console.log('로그인 됨')
@@ -104,20 +105,14 @@ function BasicExample() {
               <NavDropdown.Item href="/savingsProductList">적금상품 목록</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="이체" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/oneTransfer">1건이체</NavDropdown.Item>
-              <NavDropdown.Item href="/multipleTransfer">
-                다건이체
-              </NavDropdown.Item>
+              <NavDropdown.Item href="/transAccount">1건이체</NavDropdown.Item>
+              <NavDropdown.Item href="/multipleTransfer">다건이체</NavDropdown.Item>
+              <NavDropdown.Item href="/transAccount">이체한도변경</NavDropdown.Item>
+              <NavDropdown.Item href="/transferList">이체목록</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/autoWithdrawal">
-                자동이체
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/changeAuto">
-                자동이체 변경
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/cancleAuto">
-                자동이체 해지
-              </NavDropdown.Item>
+              <NavDropdown.Item href="/autoWithdrawal">자동이체</NavDropdown.Item>
+              <NavDropdown.Item href="/changeAuto">자동이체 변경/해지</NavDropdown.Item>
+              <NavDropdown.Item href="/autoList">자동이체 목록</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="펀드" id="basic-nav-dropdown">
               <NavDropdown.Item href="/fundAccount">펀드 계좌개설</NavDropdown.Item>

@@ -32,8 +32,9 @@ class AppContent extends Component {
             })
             .then((response) => {
                 this.setState({componentToShow: "messages"});
-                setAuthToken(response.data.token);
+                setAuthToken(response.data.token,id);
                 this.props.history.push('/main');
+                window.location.reload();
             })
             .catch((error) => {
                 this.setState({componentToShow: "welcome"});
@@ -63,6 +64,7 @@ class AppContent extends Component {
             })
             .catch((error) => {
                 this.setState({componentToShow: "welcome"});
+                console.log("회원가입 실패");
                 setAuthToken(null);
             })
     }

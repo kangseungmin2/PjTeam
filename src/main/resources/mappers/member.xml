@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	  
+<mapper namespace="com.example.project_team.mappers.MemberMapper">
+
+<select id="memberInfo" parameterType="String" resultType="com.example.project_team.entities.User">
+select * from team_join where id= #{id}
+</select>
+
+<update id="memberEdit" parameterType="com.example.project_team.entities.User">
+	update team_join 
+	set name= #{name}, residentRegistrationNumber=#{residentRegistrationNumber} 
+	,address=#{address},hp=#{hp}, job=#{job},email=#{email} where id=#{id}
+	
+</update>
+</mapper>

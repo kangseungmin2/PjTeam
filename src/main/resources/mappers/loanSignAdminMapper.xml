@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="com.example.project_team.mappers.LoanSignAdminMapper">
+	
+	<!-- signList -->
+	<select id="signList" resultType="com.example.project_team.dto.LoanSignDTO">
+		SELECT * FROM team_loan_sign ORDER BY loanNum
+	</select>
+	
+	<!-- findByNum / 1건 조회 -->
+	<select id="findByNum" parameterType="int" resultType="com.example.project_team.dto.LoanSignDTO">
+		SELECT * FROM team_loan_sign WHERE loanNum = #{loanNum}
+	</select>
+	
+	<update id="signSuccess" parameterType="com.example.project_team.dto.LoanSignDTO">
+		UPDATE team_loan_sign
+			SET loanState='정상', loanAccountNum = TO_CHAR(1002455 || TRUNC(DBMS_RANDOM.VALUE(1, 999999), 0)),
+			loanBalance=#{loanAmount}
+		WHERE loanNum = #{loanNum}
+	</update>
+	
+	<update id="signFail" parameterType="com.example.project_team.dto.LoanSignDTO">
+		UPDATE team_loan_sign
+			SET loanState='반려'
+		WHERE loanNum = #{loanNum}
+	</update>
+</mapper>

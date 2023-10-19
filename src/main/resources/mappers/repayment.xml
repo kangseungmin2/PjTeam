@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="com.example.project_team.mappers.CalRepaymentMapper">
+	
+	<!-- insertRepayment -->
+	<insert id="insertRepayment" parameterType="com.example.project_team.dto.CalRepaymentDTO">
+		INSERT INTO team_loan_repayment(repaymentNum, id, num, repayment, loanAmount, interest, loanPeriod, totalInterest, totalRepayment)
+			VALUES((SELECT NVL(MAX(repaymentNum)+1,1) FROM team_loan_repayment), #{id}, #{num}
+					, #{repayment}, #{loanAmount}, #{interest}, #{loanPeriod}, #{totalInterest}, #{totalRepayment})
+	</insert>
+	
+	<!-- selectRepayment / 1건 조회 -->
+	<select id="selectRepayment" parameterType="int" resultType="com.example.project_team.dto.CalRepaymentDTO">
+		SELECT * FROM team_loan_repayment WHERE repaymentNum = #{repaymentNum}
+	</select>
+	
+	
+	
+
+	
+</mapper>

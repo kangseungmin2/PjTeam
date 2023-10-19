@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 import { Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
-import ApiService from '../../ApiService';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import API from '../../api/transferAuto';
 
+function Unix_timestamp(t){
+    const date = new Date(t); //date객체는 UTC로부터 지난시간을 밀리초로 나타내는 UNIX 타임스탬프를 담는다.(밀리초를 초로 변환하려면 *1000)
+  	//console.log(date) //2023-02-28T05:36:35.000Z 출력됨
+   const year = date.getFullYear(); //년도 구하기
+    const month = "0" + (date.getMonth()+1);
+    const day = "0" + date.getDate();
+    const hour = "0" + date.getHours();
+    const minute = "0" + date.getMinutes();
+    const second = "0" + date.getSeconds();
+    return year + "-" + month.substr(-2) + "-" + day.substr(-2);
+}
 
 class transferList extends Component {
 
@@ -12,36 +24,6 @@ class transferList extends Component {
 
         this.state = {
             trans: [
-                {
-                    num: 1, transType: "1건이체1", transAmount: 10000, transBalance: 100000, transDate: "2023-10-09", transDetail: "상세내용1"
-                },
-                {
-                    num: 2, transType: "1건이체2", transAmount: 10000, transBalance: 90000, transDate: "2023-10-09", transDetail: "상세내용2"
-                },
-                {
-                    num: 3, transType: "1건이체3", transAmount: 10000, transBalance: 80000, transDate: "2023-10-09", transDetail: "상세내용3"
-                },
-                {
-                    num: 4, transType: "1건이체4", transAmount: 10000, transBalance: 70000, transDate: "2023-10-09", transDetail: "상세내용4"
-                },
-                {
-                    num: 5, transType: "1건이체5", transAmount: 10000, transBalance: 60000, transDate: "2023-10-09", transDetail: "상세내용5"
-                },
-                {
-                    num: 6, transType: "1건이체6", transAmount: 10000, transBalance: 50000, transDate: "2023-10-09", transDetail: "상세내용6"
-                },
-                {
-                    num: 7, transType: "1건이체7", transAmount: 10000, transBalance: 40000, transDate: "2023-10-09", transDetail: "상세내용7"
-                },
-                {
-                    num: 8, transType: "1건이체8", transAmount: 10000, transBalance: 30000, transDate: "2023-10-09", transDetail: "상세내용8"
-                },
-                {
-                    num: 9, transType: "1건이체9", transAmount: 10000, transBalance: 20000, transDate: "2023-10-09", transDetail: "상세내용9"
-                },
-                {
-                    num: 10, transType: "1건이체10", transAmount: 10000, transBalance: 10000, transDate: "2023-10-09", transDetail: "상세내용10"
-                }
             ],
             message: null,
             page: 0,
@@ -51,13 +33,13 @@ class transferList extends Component {
 
     // 라이프사이클 중 컴포넌트가 생성된 후 사용자에게 보여지기까지의 전체 과정을 렌더링
     componentDidMount() {
-        this.loadtransList();
+        this.loadtransList(); // 바로 실행 도와주는 componentDidMount 메서드
     }
 
     // list 정보
     loadtransList = () => {
         console.log("T.T", this.state)
-        ApiService.fetchTransPL()
+        API.transferList()
             .then(res => {
                 this.setState({
                     trans: res.data
@@ -71,15 +53,15 @@ class transferList extends Component {
     }
 
     // 1건 selects
-    selectTransfer = (num) => {
-        window.localStorage.setItem("TranNum", num);
+    selectTransfer = (transferNum) => {
+        window.localStorage.setItem("TranNum", transferNum);
         this.props.history.push("/transferDetail")
     }
 
-    // check
-    checkTran = (num) => {
-        window.localStorage.setItem("TranNum", num);
-        this.props.history.push("/checkTran")
+    // detail
+    transDetail = (transferNum) => {
+        window.localStorage.setItem("TranNum", transferNum);
+        this.props.history.push("/transDetail")
     }
     
 
@@ -103,7 +85,7 @@ class transferList extends Component {
         return (
             <Container component="main" maxWidth="md">
 
-                <PaidOutlinedIcon fontSize='large' color='primary' />
+                <CurrencyExchangeIcon fontSize='large' color='primary' />
                 <Typography variant="h4" style={style}> 이체목록 </Typography>
 
                 <TableContainer >
@@ -111,9 +93,8 @@ class transferList extends Component {
                         <TableHead>
                             <TableRow>
                                 <TableCell align="center" width="50">No.</TableCell>
-                                <TableCell align="center" width="200">이체명</TableCell>
+                                <TableCell align="center" width="200">수취인</TableCell>
                                 <TableCell align="center" width="150">금액</TableCell>
-                                <TableCell align="center" width="150">잔액</TableCell>
                                 <TableCell align="center" width="100">이체일자</TableCell>
                                 <TableCell align="center" width="50">상세</TableCell>
                             </TableRow>
@@ -122,14 +103,13 @@ class transferList extends Component {
                         <TableBody>
                             {this.state.trans.slice(page * rPage, page * 
                             rPage + rPage).map((tran) => (
-                                <TableRow hover key={tran.num}>
-                                    <TableCell align='center'>{tran.num}</TableCell> 
-                                    <TableCell align='center'>{tran.transType}</TableCell>
-                                    <TableCell align='center'>{tran.transAmount}원</TableCell>
-                                    <TableCell align='center'>{tran.transBalance}원</TableCell>
-                                    <TableCell align='center'>{tran.transDate}</TableCell>
+                                <TableRow hover key={tran.transferNum}>
+                                    <TableCell align='center'>{tran.transferNum}</TableCell> 
+                                    <TableCell align='center'>{tran.trName}</TableCell>
+                                    <TableCell align='center'>{tran.trAmount}원</TableCell>
+                                    <TableCell align='center'>{Unix_timestamp(tran.trDate)}</TableCell>
                                     <TableCell align='center'>
-                                        <EditNoteOutlinedIcon fontSize='large' onClick={() => this.checkTran(tran.num)}/>
+                                        <EditNoteOutlinedIcon fontSize='large' onClick={() => this.transDetail(tran.transferNum)}/>
                                     </TableCell>
                                 </TableRow>
                             ))}

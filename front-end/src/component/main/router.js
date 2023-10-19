@@ -22,11 +22,18 @@ import login from "../customer/login";
 import join from "../customer/join";
 import chat from "../customer/chat";
 
+import transAccount from "../transfer/transAccount";
 import oneTransfer from "../transfer/oneTransfer";
+import transferList from "../transfer/transferList";
+import transDetail from "../transfer/transDetail";
 import multipleTransfer from "../transfer/multipleTransfer";
+import changeLimit from "../transfer/changeLimit";
 import autoWithdrawal from "../transfer/autoWithdrawal";
 import changeAuto from "../transfer/changeAuto";
 import cancleAuto from "../transfer/cancleAuto";
+import alterAuto from "../transfer/alterAuto";
+import autoList from "../transfer/autoList";
+import autoDetail from "../transfer/autoDetail";
 
 import fundList from "../fund/fundList";
 import accountChk from "../fund/accountChk";
@@ -121,11 +128,18 @@ const AppRouter = () => {
                     <Route path="/depositDelete" component={depositDelete}/>        {/* 석준-예/적금 해지 */}
                     <Route path="/depositCheck" component={depositCheck}/>        {/* 석준-예/적금 해지 */}
                     
+                    <Route path="/transAccount" component={transAccount}/>    {/* 정현-한건이체시 계좌선택 */}
                     <Route path="/oneTransfer" component={oneTransfer}/>    {/* 정현-한건이체 */}
                     <Route path="/multipleTransfer" component={multipleTransfer}/>    {/* 정현-다건이체 */}
+                    <Route path="/transferList" component={transferList}/>    {/* 정현-이체목록 */}
+                    <Route path="/transDetail" component={transDetail}/>    {/* 정현-이체상세확인 */}
+                    <Route path="/changeLimit" component={changeLimit}/>    {/* 정현-이체한도변경 */}
                     <Route path="/autoWithdrawal" component={autoWithdrawal}/>    {/* 정현-자동이체 */}
-                    <Route path="/changeAuto" component={changeAuto}/>    {/* 정현-자동이체변경*/}
+                    <Route path="/changeAuto" component={changeAuto}/>    {/* 정현-자동이체변경/해지*/}
+                    <Route path="/alterAuto" component={alterAuto}/>    {/* 정현-자동이체변경*/}
                     <Route path="/cancleAuto" component={cancleAuto}/>    {/* 정현-자동이체해지 */}
+                    <Route path="/autoList" component={autoList}/>    {/* 정현-자동이체목록 */}
+                    <Route path="/autoDetail" component={autoDetail}/>    {/* 정현-자동이체상세 */}
 
                     <Route path="/fundAccount" component={fundAccount}/>        {/* 종훈-펀드계좌 개설 2-2*/}
                     <Route path="/lastFundAccount" component={lastFundAccount}/>        {/* 종훈-펀드계좌 개설 2-3*/}

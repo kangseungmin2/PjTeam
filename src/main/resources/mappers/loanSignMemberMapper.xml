@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="com.example.project_team.mappers.LoanSignMemberMapper">
+	
+	<!-- findByNum / 1건 조회 -->
+	<select id="findByNum" parameterType="int" resultType="com.example.project_team.dto.LoanDTO">
+		SELECT * FROM team_loan_product WHERE num = #{num}
+	</select>
+	
+	<!-- accountList -->
+	<select id="accountList" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
+		SELECT * FROM team_account WHERE show = 'y' AND id=#{id} AND accountType = 'e' ORDER BY accountNum
+	</select>
+	
+	<!-- pwCheck -->
+	<select id="pwCheck" parameterType="com.example.project_team.dto.AccountDTO" resultType="int">
+		SELECT accountPW FROM team_account WHERE accountNum = #{accountNum} AND id=#{id}
+	</select>
+	
+	<!-- insertSign -->
+	<insert id="insertSign" parameterType="com.example.project_team.dto.LoanSignDTO">
+		INSERT INTO team_loan_sign(loanNum, id, num, accountType, accountNum, accountPW
+									, loanState, loanAmount, paymentDay, loanExecution
+									, repayment, interestRate, loanPeriod, loanProductName, loanExpiration)
+			VALUES ((SELECT NVL(MAX(loanNum)+1,1) FROM team_loan_sign), #{id}, #{num}, #{accountType}
+					, #{accountNum}, #{accountPW}, #{loanState}, #{loanAmount}, #{paymentDay}
+					, #{loanExecution}, #{repayment}, #{interestRate}, #{loanPeriod} ,#{loanProductName}
+					, #{loanExpiration})
+	</insert>
+	
+	
+	
+</mapper>
