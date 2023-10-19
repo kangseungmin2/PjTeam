@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="com.example.project_team.mappers.savingsMemberMapper">
+	<!-- SavingsMemberList -->
+	<select id="SavingsMemberList" resultType="com.example.project_team.dto.SavingsDTO">
+		SELECT * FROM TEAM_SAVINGS_PRODUCT ORDER BY juckNo
+	</select>
+	
+	<!-- findByNum / 1건 조회 -->
+	<select id="findByNum" parameterType="int" resultType="com.example.project_team.dto.SavingsDTO">
+		SELECT * FROM TEAM_SAVINGS_PRODUCT WHERE juckNo = #{juckNo}
+	</select>
+	
+</mapper>

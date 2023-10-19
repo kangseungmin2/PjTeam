@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="com.example.project_team.mappers.savingsAdminMapper">
+	<!-- SavingsAdminList -->
+	<select id="SavingsAdminList" resultType="com.example.project_team.dto.SavingsDTO">
+		SELECT * FROM TEAM_SAVINGS_PRODUCT ORDER BY juckNo
+	</select>
+	
+	<!-- insertSavings -->
+	<insert id="insertSavings" parameterType="com.example.project_team.dto.SavingsDTO">
+		INSERT INTO TEAM_SAVINGS_PRODUCT
+			VALUES((SELECT NVL(MAX(juckNo)+1,1) FROM TEAM_SAVINGS_PRODUCT), #{juckName}, sysdate
+					, #{interestRate}, #{juckSummary}, #{juckType}, #{juckMinPrice}, #{juckMaxPrice}, #{juckMinDate}, #{juckMaxDate})
+	</insert>
+	
+	<!-- findByNum / 1건 조회 -->
+	<select id="findByNum" parameterType="int" resultType="com.example.project_team.dto.SavingsDTO">
+		SELECT * FROM TEAM_SAVINGS_PRODUCT WHERE juckNo = #{juckNo}
+	</select>
+	
+	<!-- updateSavings -->
+	<update id="updateSavings" parameterType="com.example.project_team.dto.SavingsDTO">
+		UPDATE TEAM_SAVINGS_PRODUCT
+			SET juckName=#{juckName}, interestRate=#{interestRate}, juckSummary=#{juckSummary}
+				,juckType=#{juckType}, juckMinPrice=#{juckMinPrice}, juckMaxPrice =#{juckMaxPrice}, juckMinDate=#{juckMinDate}, juckMaxDate=#{juckMaxDate}
+			WHERE juckNo=#{juckNo}
+	</update>
+	
+	<!-- deleteSavings -->
+	<delete id="deleteByNum" parameterType="int">
+		DELETE FROM TEAM_SAVINGS_PRODUCT WHERE juckNo=#{juckNo}
+	</delete>
+</mapper>

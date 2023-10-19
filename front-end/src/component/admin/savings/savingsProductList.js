@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
-import ApiService from '../../../ApiService';
+import savings from '../../../api/savings';
 import { Create, Delete } from '@mui/icons-material'
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
 class savingsProductList extends Component {
 
@@ -11,51 +11,11 @@ class savingsProductList extends Component {
         super(props);
 
         this.state = {
-            savingss: [
-                {
-                    jNo: 1, jName: "적금상품1", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 2, jName: "적금상품2", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 3, jName: "적금상품3", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 4, jName: "적금상품4", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 5, jName: "적금상품5", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 6, jName: "적금상품6", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 7, jName: "적금상품8", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 8, jName: "적금상품9", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36
-                },
-                {
-                    jNo: 9, jName: "적금상품10", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36 
-                },
-                {
-                    jNo: 10, jName: "적출상품3", jRegistrationDate: "2023-10-09", interestRate: 3, jSummary: "상품설명",
-                    jType: "자동납부", jMinPrice: 500000, jMaxPrice: 50000000, jMinDate: 3, jMaxDate: 36 
-                },
-            ],
+            savingss: [ ],
             message: null,
             page: 0,
-            rPage: 5
+            rPage: 5,
+            searchQuery: '', // 검색어를 저장할 상태 변수
         }
     }
 
@@ -65,9 +25,8 @@ class savingsProductList extends Component {
     }
 
     // list 정보
-    loadsavingsProductList = () => {
-        console.log("음?", this.state)
-        ApiService.fetchsavingss()
+    loadsavingsProductList = () => {       
+        savings.fetchsavingss()
             .then(res => {
                 this.setState({
                     savingss: res.data
@@ -75,8 +34,7 @@ class savingsProductList extends Component {
             })
             .catch(err => {
                 console.log('loadsavingsProductList() Error!!', err);
-            })
-        console.log(this.state.savingss)
+            })      
     }
 
     // insert
@@ -86,23 +44,32 @@ class savingsProductList extends Component {
     }
 
     // update
-    editSavings = (jNo) => {
-        window.localStorage.setItem("jNo", jNo);
+    editSavings = (juckNo) => {
+        window.localStorage.setItem("SavingsNum", juckNo);
         this.props.history.push("/SavingsProductEdit")
     }
 
     // delete
-    deleteSavings = (jNo) => {
-        ApiService.deleteSavings(jNo)
+    deleteSavings = (juckNo) => {
+
+         // 사용자에게 삭제 확인을 물어보고 확인을 선택한 경우에만 삭제를 실행
+         const confirmDelete = window.confirm("정말로 삭제하시겠습니까?");
+
+         if (confirmDelete) {
+            savings.deleteSavings(juckNo)
             .then(res => {
                 this.setState({
-                    boards: this.state.savingss.filter(savings => savings.jNo !== jNo)
+                    savingss: this.state.savingss.filter(savings => savings.juckNo !== juckNo)
                 });
                 console.log('delete 성공 : ', res.data);
             })
             .catch(err => {
                 console.log('deleteSavings() Error!!', err);
             })
+        } else {
+            // 사용자가 확인 대화 상자에서 "취소"를 선택한 경우 아무 작업도 수행하지 않음
+            console.log('삭제가 취소되었습니다.');
+        }  
     }
 
     // page
@@ -130,7 +97,22 @@ class savingsProductList extends Component {
                 <Typography variant="h4" style={style}> Savings Product </Typography>
 
                 <TableContainer >
-                    <Button variant="contained" style={btn} color="primary" onClick={this.addLoan}> Add Product </Button>
+                     {/* 검색기능 */}
+                     <div>
+                     <Button variant="contained" style={btn} color="primary" onClick={this.addSavings}> Add Product </Button>
+                    </div>
+                    <div style={search}>
+                        <div style={searchIcon}>
+                            <SearchRoundedIcon fontSize='large' color='action' />
+                        </div>
+                        <input style={searchInput}
+                            type="text"
+                            placeholder="상품명 검색"
+                            value={this.state.searchQuery}
+                            onChange={(e) => this.setState({ searchQuery: e.target.value })}
+                        />
+                    </div>
+                   
                     <Table md={{ minWidth: 900 }}>
                         <TableHead>
                             <TableRow>
@@ -144,15 +126,17 @@ class savingsProductList extends Component {
                         </TableHead>
 
                         <TableBody>
-                            {this.state.savingss.slice(page * rPage, page * 
-                            rPage + rPage).map((savings) => (
-                                <TableRow hover key={savings.yNo}>
-                                    <TableCell align='center'>{savings.jNo}</TableCell>
-                                    <TableCell align='center'>{savings.jName}</TableCell>
+                            {this.state.savingss.filter((savings) =>
+                                savings.juckName.toLowerCase().includes(this.state.searchQuery.toLowerCase())
+                            ).slice(page * rPage, page *
+                                rPage + rPage).map((savings) => (
+                                <TableRow hover key={savings.juckNo}>
+                                    <TableCell align='center'>{savings.juckNo}</TableCell>
+                                    <TableCell align='center'>{savings.juckName}</TableCell>
                                     <TableCell align='center'>{savings.interestRate}%</TableCell>
-                                    <TableCell align='center'><button className="btn" onClick={() => this.editSavings(savings.jNo)}><Create /></button></TableCell>
-                                    <TableCell align='center'><button className="btn" onClick={() => this.deleteSavings(savings.jNo)}><Delete /></button></TableCell>
-                                    <TableCell align='center'>{new Date(savings.jRegistrationDate).toLocaleDateString(
+                                    <TableCell align='center'><button className="btn" onClick={() => this.editSavings(savings.juckNo)}><Create /></button></TableCell>
+                                    <TableCell align='center'><button className="btn" onClick={() => this.deleteSavings(savings.juckNo)}><Delete /></button></TableCell>
+                                    <TableCell align='center'>{new Date(savings.juckRegistrationDate).toLocaleDateString(
                                                 'en-US', {
                                                 year: 'numeric',
                                                 month: '2-digit',
@@ -190,6 +174,20 @@ const btn = {
     display: 'flex',
     justifyContent: 'left'
 }
+const search = {
+    display: 'flex',
+    justifyContent: 'right',
+}
+const searchIcon = {
+    display: 'flex',
+    alignItems: 'center',
+}
 
+const searchInput = {
+    width: '300px',
+    height: '30px',
+    margin: '20px 0 10px 0',
+    border: '1px solid rgba(224, 224, 224, 1)'
+}
 
 export default savingsProductList;
