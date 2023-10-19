@@ -10,12 +10,16 @@
 	values((SELECT NVL(MAX(accountNum)+1,1002000000000) FROM team_account),#{id},#{accountPW},#{accountLimit})
 </insert>
 
-<select id="accountList" resultType="com.example.project_team.dto.AccountDTO">
-	SELECT * FROM team_account where show = 'y' and accountType='e' order by accountnum
+<select id="accountList" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
+	SELECT * FROM team_account where show = 'y' and id=#{id} order by accountType,accountnum
 </select>
 
-<select id="accountList2" resultType="com.example.project_team.dto.AccountDTO">
-	SELECT * FROM team_account where show = 'y' and accountType='y' order by accountnum
+<select id="accountListE" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
+	SELECT * FROM team_account where show = 'y' and id=#{id} and accountType='e' order by accountnum
+</select>
+
+<select id="accountListY" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
+	SELECT * FROM team_account where show = 'y' and id=#{id} and accountType='y' order by accountnum
 </select>
 
 <select id="fetchAccountByNum" parameterType="long" resultType="com.example.project_team.dto.AccountDTO">

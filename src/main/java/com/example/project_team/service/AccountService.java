@@ -24,14 +24,19 @@ public class AccountService {
 		return mapper.insertAccount(dto);
 	}
 	
-	public List<AccountDTO> accountList(HttpServletRequest req, Model model) throws ServletException, IOException {
+	public List<AccountDTO> accountList(String id) throws ServletException, IOException {
 		System.out.println("서비스 - 전제조회");
-		return mapper.accountList();
+		return mapper.accountList(id);
 	}
 	
-	public List<AccountDTO> accountList2(HttpServletRequest req, Model model) throws ServletException, IOException {
+	public List<AccountDTO> accountListE(String id) throws ServletException, IOException {
 		System.out.println("서비스 - 전제조회");
-		return mapper.accountList2();
+		return mapper.accountListE(id);
+	}
+	
+	public List<AccountDTO> accountListY(String id) throws ServletException, IOException {
+		System.out.println("서비스 - 전제조회");
+		return mapper.accountListY(id);
 	}
 	
 	

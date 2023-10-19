@@ -26,7 +26,7 @@ function log(){
           <NavDropdown.Item href="/modifyMember">회원수정</NavDropdown.Item>
           <NavDropdown.Item href="/deleteMember">회원탈퇴</NavDropdown.Item>
           <NavDropdown.Item href="/memAccount">회원 결산</NavDropdown.Item>
-          <NavDropdown.Item href="/question">1:1문의</NavDropdown.Item>
+          <NavDropdown.Item href="/questionList">1:1문의</NavDropdown.Item>
         </NavDropdown>
         <Nav.Link eventKey={2} href="/chat" style={style}>
           채팅
@@ -43,7 +43,7 @@ function log(){
           <NavDropdown.Item href="/management">회원관리</NavDropdown.Item>
           <NavDropdown.Item href="/adminAccount">관리자 결산</NavDropdown.Item>
           <NavDropdown.Item href="/boardList">고객센터</NavDropdown.Item>
-          <NavDropdown.Item href="/answer">1:1문의 답변</NavDropdown.Item>
+          <NavDropdown.Item href="/answerList">1:1문의 답변</NavDropdown.Item>
         </NavDropdown>
         <Nav.Link eventKey={2} href="/chat" style={style}>
           채팅
@@ -73,7 +73,7 @@ function BasicExample() {
             <NavDropdown title="계좌" id="basic-nav-dropdown">
               <NavDropdown.Item href="/openAccount">계좌개설</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/eAccount">
+              <NavDropdown.Item href="/allAccount">
                 전체계좌조회
               </NavDropdown.Item>
               <NavDropdown.Item href="/balanceList">잔액조회</NavDropdown.Item>
@@ -82,17 +82,33 @@ function BasicExample() {
               <NavDropdown.Item href="/deleteAccount">계좌해지</NavDropdown.Item>
             </NavDropdown>
 
-
-            <NavDropdown title="대출" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/loanList">대출상품</NavDropdown.Item>
-              <NavDropdown.Item href="/loanSignList">가입상품 조회</NavDropdown.Item>
-              <NavDropdown.Item href="/repayment">이자조회/납부</NavDropdown.Item>
+            <NavDropdown title="이체" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/transAccount">1건이체</NavDropdown.Item>
+              <NavDropdown.Item href="/multipleTransfer">다건이체</NavDropdown.Item>
+              <NavDropdown.Item href="/transAccount">이체한도변경</NavDropdown.Item>
+              <NavDropdown.Item href="/transferList">이체목록</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/loanProductAdd">대출상품 등록</NavDropdown.Item>
-              <NavDropdown.Item href="/loanProductList">대출상품 목록</NavDropdown.Item>
-              <NavDropdown.Item href="/loanSignConfirm">대출신청 승인/반려</NavDropdown.Item>
+              <NavDropdown.Item href="/autoWithdrawal">자동이체</NavDropdown.Item>
+              <NavDropdown.Item href="/changeAuto">자동이체 변경/해지</NavDropdown.Item>
+              <NavDropdown.Item href="/autoList">자동이체 목록</NavDropdown.Item>
             </NavDropdown>
 
+            <NavDropdown title="공과금" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/utilityList">납부내역조회</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/giroPay">
+                지로/생활요금/기타
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/localtaxPay">
+                지방세/등록금
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/dutyPay">
+                국고/관세
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/pensionPay">
+                연금/보험료
+              </NavDropdown.Item>
+            </NavDropdown>
 
             <NavDropdown title="예/적금" id="basic-nav-dropdown">
               <NavDropdown.Item href="/depositList">예금 상품</NavDropdown.Item>
@@ -104,16 +120,17 @@ function BasicExample() {
               <NavDropdown.Item href="/depositProductList">예금상품 목록</NavDropdown.Item>
               <NavDropdown.Item href="/savingsProductList">적금상품 목록</NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="이체" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/transAccount">1건이체</NavDropdown.Item>
-              <NavDropdown.Item href="/multipleTransfer">다건이체</NavDropdown.Item>
-              <NavDropdown.Item href="/transAccount">이체한도변경</NavDropdown.Item>
-              <NavDropdown.Item href="/transferList">이체목록</NavDropdown.Item>
+
+            <NavDropdown title="대출" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/loanList">대출상품</NavDropdown.Item>
+              <NavDropdown.Item href="/loanSignList">가입상품 조회</NavDropdown.Item>
+              <NavDropdown.Item href="/repayment">이자조회/납부</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/autoWithdrawal">자동이체</NavDropdown.Item>
-              <NavDropdown.Item href="/changeAuto">자동이체 변경/해지</NavDropdown.Item>
-              <NavDropdown.Item href="/autoList">자동이체 목록</NavDropdown.Item>
+              <NavDropdown.Item href="/loanProductAdd">대출상품 등록</NavDropdown.Item>
+              <NavDropdown.Item href="/loanProductList">대출상품 목록</NavDropdown.Item>
+              <NavDropdown.Item href="/loanSignConfirm">대출신청 승인/반려</NavDropdown.Item>
             </NavDropdown>
+
             <NavDropdown title="펀드" id="basic-nav-dropdown">
               <NavDropdown.Item href="/fundAccount">펀드 계좌개설</NavDropdown.Item>
               <NavDropdown.Item href="/fundList">

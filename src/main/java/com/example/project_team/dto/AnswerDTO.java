@@ -14,10 +14,8 @@ import lombok.Data;
 public class AnswerDTO {
 	@Id
     private int commentNum;     //댓글 일련번호
-
     private int questionNum;    //게시글 번호
-
     private String id;          //작성자(관리자)
-    private String content;     //글내용
+    private String answer;    //글내용
     private Timestamp regDate;
 }
