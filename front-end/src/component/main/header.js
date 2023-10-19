@@ -134,20 +134,7 @@ function BasicExample() {
                 나의 환율기록
               </NavDropdown.Item>
             </NavDropdown>
-
-            <NavDropdown title="MYPAGE" id="basic-nav-dropdown">
-              <NavDropdown.Item>--admin--</NavDropdown.Item>
-              <NavDropdown.Item href="/management">회원관리</NavDropdown.Item>
-              <NavDropdown.Item href="/adminAccount">관리자 결산</NavDropdown.Item>
-              <NavDropdown.Item href="/answer">1:1문의 답변</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item>--member--</NavDropdown.Item>
-              <NavDropdown.Item href="/memberInfo">내정보</NavDropdown.Item>
-              <NavDropdown.Item href="/modifyMember">회원수정</NavDropdown.Item>
-              <NavDropdown.Item href="/deleteMember">회원탈퇴</NavDropdown.Item>
-              <NavDropdown.Item href="/memAccount">회원 결산</NavDropdown.Item>
-              <NavDropdown.Item href="/question">1:1문의</NavDropdown.Item>
-            </NavDropdown>            
+       
           </Nav>
           {log()}
         </Navbar.Collapse>

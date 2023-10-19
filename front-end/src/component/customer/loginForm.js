@@ -24,6 +24,7 @@ export default class login extends React.Component {
       active: "login",
       id: "",    // login: "" -> id: ""
       password: "",
+      error:"",
       onLogin: props.onLogin, // 사용자가 자격증명을 보낸후 상위구성요소가 로그인 양식을 숨길수 있다.
       onAdmin: props.onAdmin
     };
@@ -40,6 +41,7 @@ export default class login extends React.Component {
   onSubmitLogin = (e) => {
     console.log('[onSubmitLogin]');
     this.state.onLogin(e, this.state.id, this.state.password);  // this.state.login-> this.state.id
+    this.setState({ error: "로그인에 실패했습니다. 다시 시도해 주세요." });
   };
 
   // 로그인 처리
@@ -89,7 +91,7 @@ export default class login extends React.Component {
                       required
                       fullWidth
                       name="password"
-                      label="Password"
+                      label="password"
                       type="password"
                       id="password"
                       autoComplete="current-password"
@@ -97,27 +99,55 @@ export default class login extends React.Component {
                     />
                   </Box>
                 </Container>
-
+                {this.state.error && <div className="error-message">{this.state.error}</div>}
                 <button type="submit" className="btn btn-primary btn-block mb-4">로그인</button>
               </form>
             </div>
 
             <div className={classNames("tab-pane", "fade", this.state.active === "admin" ? "show active" : "")}
               id="pills-login" >
-              <h3>관리자 로그인</h3>
               {/* 관리자 로그인 폼, (name="login" -> name="id"),  input type="login" -> input type="text", label : ID */}
               <form onSubmit={this.onSubmitAdmin}>
 
-                <div className="form-outline mb-4">
-                  <input type="text" id="adminName" name="id" className="form-control" onChange={this.onChangeHandler} />
-                  <label className="form-label" htmlFor="adminName">ID</label>
-                </div>
-
-                <div className="form-outline mb-4">
-                  <input type="password" id="adminPassword" name="password" className="form-control" onChange={this.onChangeHandler} />
-                  <label className="form-label" htmlFor="adminPassword">Password</label>
-                </div>
-
+              <Container component="main" maxWidth="xs">
+                  <CssBaseline />
+                  <Box
+                    sx={{
+                      marginTop: 8,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                      <LockOutlinedIcon /> 
+                    </Avatar>
+                    관리자 로그인
+                    <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="admin-id"
+                      label="id"
+                      name="id"
+                      autoComplete="email"
+                      autoFocus
+                      onChange={this.onChangeHandler}
+                    />
+                    <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="password"
+                      label="password"
+                      type="password"
+                      id="admin-password"
+                      autoComplete="current-password"
+                      onChange={this.onChangeHandler}
+                    />
+                  </Box>
+                </Container>
+                {this.state.error && <div className="error-message">{this.state.error}</div>}
                 <button type="submit" className="btn btn-primary btn-block mb-4">로그인</button>
               </form>
             </div>

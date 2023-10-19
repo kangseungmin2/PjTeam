@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Chat from "./chatForm";
+import ChatRoom from "./chatForm";
 
 class chat extends Component{
  render(){
     return(
         <div>
-            <Chat />
+            <ChatRoom />
         </div>
     );
  }
