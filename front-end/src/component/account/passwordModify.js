@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, TextField , Typography, Container} from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import ApiService from "../../ApiService.js"
+import Account from "../../api/account";
 
 class passwordModify extends Component{
     constructor(props){
@@ -19,7 +19,7 @@ class passwordModify extends Component{
         this.loadAccount();
     }
     loadAccount = () => {
-        ApiService.fetchAccountByNum(window.localStorage.getItem("accountNum"))
+        Account.fetchAccountByNum(window.localStorage.getItem("accountNum"))
             .then(res => {
                 let account = res.data;
                 this.setState({
@@ -48,7 +48,7 @@ class passwordModify extends Component{
             accountPW: this.state.accountPW,
             accountLimit: this.state.accountLimit
         }
-        ApiService.passwordModify(inputData)
+        Account.passwordModify(inputData)
             .then(res => {
                 this.setState({
                 })

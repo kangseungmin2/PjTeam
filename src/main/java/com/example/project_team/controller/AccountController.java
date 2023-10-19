@@ -57,22 +57,28 @@ public class AccountController {
 		map.put("resultMsg", resultMsg);
 		return map;
 	}
-	
 	//전체 리스트
-
-	@GetMapping
-	public List<AccountDTO> accountList(HttpServletRequest req, Model model) 
+	@GetMapping("/{id}")
+	public List<AccountDTO> accountList(@PathVariable("id") String id) 
 		throws ServletException, IOException{
 		System.out.println("AccountController - accountList");
-		return service.accountList(req, model);
+		return service.accountList(id);
 	}
 	
-	//전체 리스트
-	@GetMapping("/y")
-	public List<AccountDTO> accountList2(HttpServletRequest req, Model model) 
+	//전체 리스트- 입출금
+	@GetMapping("/e/{id}")
+	public List<AccountDTO> accountListE(@PathVariable("id") String id) 
 		throws ServletException, IOException{
 		System.out.println("AccountController - accountList");
-		return service.accountList2(req, model);
+		return service.accountListE(id);
+	}
+	
+	//전체 리스트- 예금
+	@GetMapping("/y/{id}")
+	public List<AccountDTO> accountListY(@PathVariable("id") String id) 
+		throws ServletException, IOException{
+		System.out.println("AccountController - accountList");
+		return service.accountListY(id);
 	}
 	
 	//비밀번호 변경

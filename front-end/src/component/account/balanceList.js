@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextField, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import ApiService from '../../ApiService';
+import Account from "../../api/account.js";
 
 
 class balanceList extends Component {
@@ -26,7 +26,7 @@ class balanceList extends Component {
 
     // 상세페이지 호출
     loadLoanDetail = () =>{
-        ApiService.fetchDetailByNum(window.localStorage.getItem("loanNum"))
+        Account.fetchDetailByNum(window.localStorage.getItem("loanNum"))
             .then(res => {
                 let loan = res.data;
                 this.setState({

@@ -1,16 +1,23 @@
 import React, { Component } from "react";
-import { Button, TextField , Typography} from "@mui/material";
+import { Button, TextField , Typography, label} from "@mui/material";
 import ApiService from "../../ApiService.js"
+import Checkbox from '@mui/material/Checkbox';
 
 class openAccount extends Component{
     constructor(props){
         super(props);
 
         this.state ={
+            accountNum:'',
             id:'',
             accountPW:'',
             accountLimit:''
         }
+    }
+    componentDidMount() {
+        this.setState({
+            id : window.localStorage.getItem("id")
+        });
     }
 
     onChange = (e) => {
@@ -22,6 +29,7 @@ class openAccount extends Component{
     saveAccount = (e) => {
         e.preventDefault();
         let inputData = {
+            accountNum: this.state.accountNum,
             id: this.state.id,
             accountPW: this.state.accountPW,
             accountLimit: this.state.accountLimit
@@ -37,6 +45,7 @@ class openAccount extends Component{
             })
     }
     render(){
+        const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
         return(
             <div>
                 <Typography variant="h4">계좌 개설</Typography>
@@ -47,6 +56,7 @@ class openAccount extends Component{
                     label="id"
                     type="text"
                     name="id"
+                    disabled
                     value={this.state.id}
                     placeholder="Input id"
                     onChange={this.onChange}
@@ -73,10 +83,16 @@ class openAccount extends Component{
                     placeholder="Input accountLimit"
                     onChange={this.onChange}
                 /><br/>
-                <Button variant="contained" color="primary" onClick={this.saveAccount}>계좌 개설</Button>
+                <div>
+                    <Button variant="contained" color="primary" onClick={this.saveAccount}>계좌 개설</Button>
+                </div>
+                <br/>
+
             </div>
+            
         );
     }
    
 }
+
 export default openAccount;

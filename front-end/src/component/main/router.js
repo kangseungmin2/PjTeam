@@ -8,15 +8,21 @@ import balanceList from "../account/balanceList";
 import passwordModify from "../account/passwordModify";
 import deleteAccount from "../account/deleteAccount";
 import adminAccount from "../mypage/admin/adminAccount";
-import answer from "../mypage/admin/answer";
+import answerList from "../mypage/admin/answerList";
 import management from "../mypage/admin/management";
 import deleteMember from "../mypage/member/deleteMember";
 import memAccount from "../mypage/member/memAccount";
 import memberInfo from "../mypage/member/memberInfo";
 import modifyMember from "../mypage/member/modifyMember";
+import questionList from "../mypage/member/questionList";
+import questionAdd from "../mypage/member/questionAdd";
+import answer from "../mypage/admin/answer";
 import question from "../mypage/member/question";
-import eAccount from "../account/eAccount";
-import yAccount from "../account/yAccount";
+import utilityList from "../utility/utilityList";
+import giroPay from "../utility/giroPay";
+import localtaxPay from "../utility/localtaxPay";
+import dutyPay from "../utility/dutyPay";
+import pensionPay from "../utility/pensionPay";
 
 import login from "../customer/login";
 import join from "../customer/join";
@@ -78,16 +84,22 @@ const AppRouter = () => {
                     <Route path="/passwordModify" component={passwordModify}/>       {/* 서윤-비밀번호 변경 */}
                     <Route path="/deleteAccount" component={deleteAccount}/>       {/* 서윤-계좌해지 */}
                     <Route path="/adminAccount" component={adminAccount}/>       {/* 서윤-관리자-결산 */}
-                    <Route path="/answer" component={answer}/>       {/* 서윤-관리자-1:1문의 */}
+                    <Route path="/answerList" component={answerList}/>       {/* 서윤-관리자-1:1문의 */}
                     <Route path="/management" component={management}/>       {/* 서윤-관리자-회원관리 */}
                     <Route path="/deleteMember" component={deleteMember}/>       {/* 서윤-회원-회원탈퇴 */}
                     <Route path="/memAccount" component={memAccount}/>       {/* 서윤-회원-결산 */}
                     <Route path="/memberInfo" component={memberInfo}/>       {/* 서윤-회원-내정보 */}
                     <Route path="/modifyMember" component={modifyMember}/>       {/* 서윤-회원-내정보수정 */}
-                    <Route path="/question" component={question}/>       {/* 서윤-회원-1:1문의 */}
-                    <Route path="/eAccount" component={eAccount}/>
-                    <Route path="/yAccount" component={yAccount}/>
-
+                    <Route path="/questionList" component={questionList}/>       {/* 서윤-회원-1:1문의 */}
+                    <Route path="/questionAdd" component={questionAdd}/>       {/* 서윤-회원-1:1문의 작성 */}
+                    <Route path="/answer" component={answer}/>       {/* 서윤-관리자-1:1문의 작성 */}
+                    <Route path="/question" component={question}/>       {/* 서윤-회원-1:1문의 작성 */}
+                    <Route path="/utilityList" component={utilityList}/>       {/* 서윤-공과금-납부내역조회 */}
+                    <Route path="/giroPay" component={giroPay}/>       {/* 서윤-공과금-지로,생활요금 납부 */}
+                    <Route path="/localtaxPay" component={localtaxPay}/>       {/* 서윤-공과금-지방세,등록금 납부 */}
+                    <Route path="/dutyPay" component={dutyPay}/>       {/* 서윤-공과금-국고,관세 납부 */}
+                    <Route path="/pensionPay" component={pensionPay}/>       {/* 서윤-공과금-연금,보험료 납부 */}
+                    
                     <Route path="/login" component={login}/>       {/* 승민-로그인 */}
                     <Route path="/join" component={join}/>          {/* 승민 -회원가입-로그인 */}
                     <Route path="/chat" component={chat}/>          {/* 승민 -채팅 */}

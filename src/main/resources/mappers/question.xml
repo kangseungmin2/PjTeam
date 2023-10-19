@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	  
+<mapper namespace="com.example.project_team.mappers.QuestionMapper">
+
+<select id="questionList" parameterType="String" resultType="com.example.project_team.dto.QuestionDTO">
+	select * from team_question q where q.id=#{id}
+</select>
+
+<insert id="questionAdd" parameterType="com.example.project_team.dto.QuestionDTO">
+	Insert into team_question(num,title,content,id) VALUES((SELECT NVL(MAX(num)+1,1) FROM team_question), #{title} , #{content} ,#{id})	
+</insert>
+
+<select id="allList" resultType="com.example.project_team.dto.QuestionDTO">
+	select * from team_question
+</select>
+
+<select id="fetchAnswer" parameterType="int" resultType="com.example.project_team.dto.QuestionDTO">
+	select * from team_question where num=#{num}
+</select>
+
+<insert id="answerAdd" parameterType="com.example.project_team.dto.AnswerDTO">
+	INSERT INTO team_comment(commentNum,questionNum,id,answer,regDate)
+	VALUES((SELECT NVL(MAX(commentNum)+1,1) FROM team_comment),#{questionNum},#{id},#{answer},sysdate)
+</insert>
+
+<select id="commentConfirm" parameterType="int" resultType="com.example.project_team.dto.AnswerDTO">
+	Select * from team_comment where questionNum=#{questionNum}
+</select>
+<update id="answerChk" parameterType="int">
+	update team_question set answerChk = '답변완료' where num=#{num}
+</update>
+</mapper>
