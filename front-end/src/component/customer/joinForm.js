@@ -15,16 +15,18 @@ import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-
+import Sms from './sms'
+import Button from '@mui/material/Button';
 
 const defaultTheme = createTheme();
 
+const steps = ['본인인증'];
 export default class LoginForm extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      active: "login",
+      active: "register",
       id: "",    // login: "" -> id: ""
       password: "",
       passwordconfirm: "",
@@ -37,7 +39,9 @@ export default class LoginForm extends React.Component {
       error: "",
       onLogin: props.onLogin, // 사용자가 자격증명을 보낸후 상위구성요소가 로그인 양식을 숨길수 있다.
       onRegister: props.onRegister,
-      modalIsOpen: false
+      modalIsOpen: false,
+      activeStep:0,
+      isButtonDisabled:true
     };
 
   };
@@ -91,75 +95,41 @@ export default class LoginForm extends React.Component {
       })
     }
   }
+
+  handleNext = () => {
+    this.setState({ activeStep: this.state.activeStep + 1 });
+  };
+
+  handle = (data) =>{
+    this.setState({
+      isButtonDisabled : data.isButtonDisabled,
+      hp :data.phoneNumber
+    })
+    console.log(data)
+  }
   render() {
+    const getStepContent = (step) => {
+      switch (step){
+        case 0:
+          return <Sms onDataHandle = {this.handle}/>
+      }
+    }
     return (
       <div className="row justify-content-center">
         <div className="col-4">
           <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
 
-            {/* Login 버튼 */}
-            <li className="nav-item" role="presentation">
-              <button className={classNames("nav-link", this.state.active === "login" ? "active" : "")}
-                id="tab-login" onClick={() => this.setState({ active: "login" })}>Login</button>
-            </li>
-
             {/* Register 버튼 */}
             <li className="nav-item" role="presentation">
               <button className={classNames("nav-link", this.state.active === "register" ? "active" : "")}
-                id="tab-register" onClick={() => this.setState({ active: "register" })}>Register</button>
+                id="tab-register" onClick={() => this.setState({ active: "register" })}>회원가입</button>
             </li>
           </ul>
 
           <div className="tab-content">
-            <div className={classNames("tab-pane", "fade", this.state.active === "login" ? "show active" : "")}
-              id="pills-login" >
-
-              {/* 로그인 폼, (name="login" -> name="id"),  input type="login" -> input type="text", label : ID */}
-              <form onSubmit={this.onSubmitLogin}>
-
-                <Container component="main" maxWidth="xs">
-                  <CssBaseline />
-                  <Box
-                    sx={{
-                      marginTop: 8,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                      <LockOutlinedIcon />
-                    </Avatar>
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="id"
-                      label="id"
-                      name="id"
-                      autoComplete="email"
-                      autoFocus
-                      onChange={this.onChangeHandler}
-                    />
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="password"
-                      label="password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                      onChange={this.onChangeHandler}
-                    />
-                  </Box>
-                </Container>
-                {this.state.error && <div className="error-message">{this.state.error}</div>}
-                <button type="submit" className="btn btn-primary btn-block mb-4">Sign in</button>
-              </form>
-            </div>
 
             {/* 등록 폼, (name="login" -> name="id")  , label : ID*/}
+            {this.state.activeStep === steps.length ? (
             <div className={classNames("tab-pane", "fade", this.state.active === "register" ? "show active" : "")} id="pills-register" >
               <form>
                 <ThemeProvider theme={defaultTheme}>
@@ -269,7 +239,8 @@ export default class LoginForm extends React.Component {
                               label="hp"
                               id="hp"
                               autoComplete="hp"
-                              onChange={this.onChangeHandler}
+                              disabled
+                              value={this.state.hp}
                             />
                           </Grid>
                           <Grid item xs={12}>
@@ -292,6 +263,27 @@ export default class LoginForm extends React.Component {
                 <button type="button" className="btn btn-primary btn-block mb-3" onClick={(e) => this.onSubmitRegister(e)} >회원 가입</button>
               </form>
             </div>
+            ) : (
+              <React.Fragment>
+                {getStepContent(this.state.activeStep)}
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  {this.state.activeStep !== 0 && (
+                    <Button onClick={this.handleBack} sx={{ mt: 3, ml: 1 }}>
+                      Back
+                    </Button>
+                  )}
+
+                  <Button
+                    variant="contained"
+                    onClick={this.handleNext}
+                    sx={{ mt: 3, ml: 1 }}
+                    // 약관동의 스텝에서만 체크되었을 때만 버튼 활성화
+                    disabled={this.state.activeStep === 0 && this.state.isButtonDisabled} >
+                    {this.state.activeStep === steps.length - 1 ? 'Request to join' : 'Next'}
+                  </Button>
+                </Box>
+              </React.Fragment>
+            )}
           </div>
         </div>
       </div>

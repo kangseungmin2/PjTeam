@@ -27,6 +27,10 @@ import pensionPay from "../utility/pensionPay";
 import login from "../customer/login";
 import join from "../customer/join";
 import chat from "../customer/chat";
+import exchangeList from "../exchange/exchangeList";
+import myExchange from "../exchange/myExchange"
+import exchangeConfirm from "../admin/exchange/exchangeConfirm"
+import phoneVerification from "../customer/sms"
 
 import transAccount from "../transfer/transAccount";
 import oneTransfer from "../transfer/oneTransfer";
@@ -55,7 +59,6 @@ import BoardList from '../admin/board/boardList';
 import BoardAdd from '../admin/board/boardAdd';
 import BoardEdit from '../admin/board/boardEdit';
 import LoanList from '../loan/loanList';
-// import LoanSign from '../loan/loanSign';
 import Repayment from '../loan/repayment';
 import LoanProductAdd from '../admin/loan/loanProductAdd';
 import LoanProductEdit from '../admin/loan/loanProductEdit';
@@ -115,7 +118,11 @@ const AppRouter = () => {
                     <Route path="/login" component={login}/>       {/* 승민-로그인 */}
                     <Route path="/join" component={join}/>          {/* 승민 -회원가입-로그인 */}
                     <Route path="/chat" component={chat}/>          {/* 승민 -채팅 */}
-
+                    <Route path="/exchangeList" component={exchangeList}/>          {/* 승민 -환율정보 */}
+                    <Route path="/myExchange" component={myExchange}/>          {/* 승민 - 나의 환율신청 */}
+                    <Route path="/exchangeConfirm" component={exchangeConfirm}/>          {/* 승민 - 환율신청 승인 */}
+                    <Route path="/phoneVerification" component={phoneVerification}/>          {/* 승민 - 본인인증 */}
+                    
                     <Route path="/boardList" component={BoardList}/>    {/* 상아-게시판목록 */}
                     <Route path="/boardAdd" component={BoardAdd}/>       {/* 상아-게시판추가 */}
                     <Route path="/boardEdit" component={BoardEdit}/>       {/* 상아-게시판수정 */}

@@ -3,6 +3,7 @@ import {over} from 'stompjs';
 import SockJS from 'sockjs-client';
 import "./chat.css"
 
+
 var stompClient =null;
 const ChatRoom = () => {
     const [privateChats, setPrivateChats] = useState(new Map());     

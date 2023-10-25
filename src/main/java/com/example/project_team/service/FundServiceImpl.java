@@ -102,7 +102,7 @@ public class FundServiceImpl implements FundService{
 	public void buyOrSell(FundTransactionDTO dto) throws CustomException {
 		System.out.println("FundServiceImpl - buyOrSell()");
 		
-		
+		// 매수매도 거래내역저장
 		ftRepository.saveFundTransaction(dto);
 		
 		// 통장잔액
@@ -118,8 +118,6 @@ public class FundServiceImpl implements FundService{
 		buy.put("fdAccount", fdAccount);
 		// 매수 수량 구하기
 		int buyCnt = ftRepository.findFundTransactionsbuyCnt(buy);
-		System.out.println("buyCnt여기이!!" +buyCnt);
-		System.out.println("dto.getTrCnt()여기이!!" +dto.getTrCnt());
 		
 		int result = 0;
 		if (dto.getTrStatus().equals("b")) {

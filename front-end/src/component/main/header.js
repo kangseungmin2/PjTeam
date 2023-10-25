@@ -28,6 +28,9 @@ function log(){
           <NavDropdown.Item href="/memAccount">회원 결산</NavDropdown.Item>
           <NavDropdown.Item href="/questionList">1:1문의</NavDropdown.Item>
         </NavDropdown>
+        <Nav.Link eventKey={2} href="/phoneVerification" style={style}>
+          본인인증
+        </Nav.Link>
         <Nav.Link eventKey={2} href="/chat" style={style}>
           채팅
         </Nav.Link>
@@ -56,8 +59,8 @@ function log(){
 }
 function logout(){
   window.location.reload();
-  localStorage.removeItem("id");
-  localStorage.removeItem("admin");
+  localStorage.clear();
+
 }
 
 function BasicExample() {
@@ -147,9 +150,15 @@ function BasicExample() {
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="환율" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">환율 정보</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
+              <NavDropdown.Item href="/exchangeList">
+                환율 정보
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/myExchange">
                 나의 환율기록
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/exchangeConfirm">
+                환율 승인 목록
               </NavDropdown.Item>
             </NavDropdown>
             <Nav.Link href="/boardListMember" style={style}>고객센터</Nav.Link>

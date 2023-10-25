@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	  
+<mapper namespace="com.example.project_team.mappers.ExchangeMapper">
+
+
+<select id="exchangeList" resultType="com.example.project_team.dto.ExchangeDTO">
+	select * from team_exchange
+</select>
+
+<insert id="exchangeInsert" parameterType="com.example.project_team.dto.ExchangeListDTO">
+	insert into team_exchange_list(changeNum,nation,tprice,rprice,id,accountnum)
+	values((SELECT NVL(MAX(changeNum)+1,1) from team_exchange_list),#{nation},#{tprice},#{rprice},#{id},#{accountNum})
+</insert>
+
+<select id="myList" parameterType="String" resultType="com.example.project_team.dto.ExchangeListDTO">
+	select * from team_exchange_list where id =#{id}
+</select>
+
+<select id="detailNum" parameterType="int" resultType="com.example.project_team.dto.ExchangeListDTO">
+	select * from team_exchange_list where changeNum =#{changeNum}
+</select>
+
+<update id="changeSuccess" parameterType="int">
+	update team_exchange_list
+	  set nonState = '승인'
+	  where changeNum = #{changeNum}
+</update>
+
+<update id="changeFail" parameterType="int">
+	update team_exchange_list
+	  set nonState = '반려'
+	  where changeNum = #{changeNum}
+</update>
+
+<update id="saveAccount" parameterType="Map">
+	update team_account
+	  set balance =#{balance}
+	 where accountNum =#{accountNum}
+</update>
+</mapper>

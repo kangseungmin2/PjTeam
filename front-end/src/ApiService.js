@@ -16,6 +16,21 @@ const SAVINGSLIST_API_CUSTOMER = "http://localhost:8083/savingsList";
 const DEPOSITPRODUCT_API_ADMIN = "http://localhost:8083/depositProductList";
 const SAVINGSPRODUCT_API_ADMIN = "http://localhost:8083/savingsProductList";
 
+const apiUrl = 'http://localhost:8083';
+
+const config = {
+  headers: {
+    'Access-Control-Allow-Origin': 'http://192.168.0.86:3000', // 원하는 클라이언트 주소
+  },
+};
+
+axios.get(apiUrl, config)
+  .then(response => {
+    // 데이터를 처리
+  })
+  .catch(error => {
+    // 오류 처리
+  });
 class ApiService {
 
    // <<< 펀드시작 >>> 
