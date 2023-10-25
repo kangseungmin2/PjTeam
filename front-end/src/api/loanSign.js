@@ -8,17 +8,8 @@ import axios from 'axios'; // npm install -f axios@^1.3.5
 
 
 const LOANSIGN_API_MEMBER = "http://localhost:8083/loanSign";
-const LOANSIGN_API_REPAYMENT = "http://localhost:8083/calRepayment";
-
 
 class LoanSignApi {
-
-    // LoanSign(고객)
-    // // list
-    // fetchLoans(){
-    //     console.log('fetchLoans() 호출');
-    //     return axios.get(LOANPRODUCT_API_ADMIN); // 스프링부트와 통신
-    // }
 
     // Sign테이블에 insert
     addLoanSign(inputData){
@@ -28,7 +19,7 @@ class LoanSignApi {
 
     // 대출상품 상세페이지 select
     fetchDetailByNum(LoanNum){
-        console.log('fetchLoanByNum 호출!!', LoanNum);
+        console.log('fetchDetailByNum 호출!!', LoanNum);
         return axios.get(LOANSIGN_API_MEMBER + "/"+LoanNum);
     }
 
@@ -44,39 +35,41 @@ class LoanSignApi {
         return axios.get(LOANSIGN_API_MEMBER+"/f/"+inputData.accountNum+"/"+inputData.id)
     }
 
-    // // update
-    // editLoan(inputData){
-    //     console.log('editLoan 호출!!', inputData);
-    //     return axios.put(LOANPRODUCT_API_ADMIN + "/"+ inputData.num, inputData);
-    // }
-    // // delete
-    // deleteLoan(LoanNum){
-    //     console.log('deleteLoan 호출!!', LoanNum);
-    //     return axios.delete(LOANPRODUCT_API_ADMIN + "/"+ LoanNum);
-    // }
+    // 대출 승인 리스트
+    // list
+    fetchSignConfirms(id){
+        console.log('fetchSignConfirms() 호출',id);
+        return axios.get(LOANSIGN_API_MEMBER+"/loanSignList/"+id,id);
+    }
 
-    // // Loan(고객)
-    // // list
-    // fetchLoansPL(){
-    //     console.log('fetchLoansPL() 호출');
-    //     return axios.get(LOANLIST_API_MEMBER); // 스프링부트와 통신
-    // }
+    // 대출계산 리스트
+    calRepaymentList(loanNum){
+        console.log('calRepaymentList() 호출',loanNum);
+        return axios.get(LOANSIGN_API_MEMBER+"/loanCal/"+loanNum,loanNum);
+    }
 
-    // // 1건 select
-    // fetchDetailByNum(LoanNum){
-    //     console.log('fetchDetailByNum 호출!!', LoanNum);
-    //     return axios.get(LOANLIST_API_MEMBER + "/"+LoanNum, LoanNum);
-    // }
+    // 이자조회 리스트
+    // list(LoanSignDTO)
+    fetchSigns(id){
+        console.log('fetchSigns() 호출');
+        return axios.get(LOANSIGN_API_MEMBER+"/loanList/"+id,id);
+    }
+    // CalRepaymentDTO
+    fetchRepayments(id){
+        console.log('fetchRepayments() 호출',id);
+        return axios.get(LOANSIGN_API_MEMBER+"/repayment/"+id,id);
+    }
 
-    // 대출상품 isert
-
-    // 대출상품 상세페이지 select
-    // fetchDetailRepaymentByNum(LoanNum){
-    //     console.log('fetchLoanByNum 호출!!', LoanNum);
-    //     return axios.get(LOANSIGN_API_MEMBER + "/"+LoanNum);
-    // }
-
-
+    // 납입하기-signList
+    fetchSignList(input){
+        console.log('fetchSignList() 호출',input);
+        return axios.get(LOANSIGN_API_MEMBER+"/paySignList/"+input.id+"/"+input.loanNum,input);
+    }
+    // 납입하기-repaymentList
+    fetchRepaymentList(input){
+        console.log('fetchRepaymentList() 호출',input);
+        return axios.get(LOANSIGN_API_MEMBER+"/payRepaymentList/"+input.id+"/"+input.loanNum,input);
+    }
 }
 
 export default new LoanSignApi();

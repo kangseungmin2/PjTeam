@@ -9,12 +9,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Identity from './identity';
 import Agree from './agree';
-import SignDetail, { send } from './signDetail';
+import SignDetail from './signDetail';
 import LoanSignApi from "../../api/loanSign";
 
 const steps = ['본인인증', '약관동의', '가입내용'];
-
-
 
 class Checkout extends Component {
   constructor(props) {
@@ -50,13 +48,22 @@ class Checkout extends Component {
     this.setState({ activeStep: this.state.activeStep + 1 });
     if (this.state.activeStep === 2){
       const data = this.state.data;
-      LoanSignApi.addLoanSign(data)
-      .then(res => {
-        console.log('addSign 성공', res.data);
+      const inputD = {
+        id: data.id,
+        num: data.num,
+        repayment: data.repayment,
+        loanAmount: data.loanAmount,
+        interestRate:data.interestRate,
+        loanPeriod: parseInt(data.loanPeriod) 
+      }
+      // sign테이블 insert
+    LoanSignApi.addLoanSign(data)
+    .then((res) => {
+      console.log('addSign 성공', res.data);
     })
     .catch(err => {
-        console.log('addSign 에러', err);
-    })
+      console.log('addSign 에러', err);
+    });
     }
   };
 

@@ -31,31 +31,23 @@ class LoanSignConfrimApi {
         return axios.put(LOANSIGN_API_ADMIN+"/s/"+inputData.loanNum,inputData);
     }
 
+    // 대출계산(회차전체)
+    calRepayment(num){
+        console.log('calRepayment() 호출',num);
+        return axios.get(LOANSIGN_API_ADMIN+"/c/"+num, num);
+    }
+
+    // 대출계산(이자조회)
+    addLoanRepayment(inputData){
+        console.log('addLoanRepayment 호출!!', inputData);
+        return axios.post(LOANSIGN_API_ADMIN+ "/r",inputData);
+    }
+
     // fail 일떄
     editSignFail(inputData) {
         console.log('editSignFail() 호출',inputData);
         return axios.put(LOANSIGN_API_ADMIN+"/f/"+inputData.loanNum,inputData);
     }
-
-    // // delete
-    // deleteLoan(LoanNum){
-    //     console.log('deleteLoan 호출!!', LoanNum);
-    //     return axios.delete(LOANPRODUCT_API_ADMIN + "/"+ LoanNum);
-    // }
-
-    // // Loan(고객)
-    // // list
-    // fetchLoansPL(){
-    //     console.log('fetchLoansPL() 호출');
-    //     return axios.get(LOANLIST_API_MEMBER); // 스프링부트와 통신
-    // }
-
-    // // 1건 select
-    // fetchDetailByNum(LoanNum){
-    //     console.log('fetchDetailByNum 호출!!', LoanNum);
-    //     return axios.get(LOANLIST_API_MEMBER + "/"+LoanNum, LoanNum);
-    // }
-
 
 }
 

@@ -137,7 +137,7 @@ class LoanProductList extends Component {
                                         <TableCell align='center'><button className="btn" onClick={() => this.deleteLoan(loan.num)}><Delete color='error' /></button></TableCell>
                                         <TableCell align='center'>
                                             {new Date(loan.loanProductRegistrationDate).toLocaleDateString(
-                                                'en-US', {
+                                                'ko-KR', {
                                                 year: 'numeric',
                                                 month: '2-digit',
                                                 day: '2-digit'

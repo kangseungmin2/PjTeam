@@ -33,4 +33,6 @@ public class LoanSignDTO {
     private int loanBalance;		// 대출잔액(원)
     private int interestBalance;	// 이자잔액(원)
     private int loanRepayment;		// 상환액(원)
+    private Date loanTermination;	// 대출해지일
+    private int earlyRepayment;		// 중도상환수수료금액
 }

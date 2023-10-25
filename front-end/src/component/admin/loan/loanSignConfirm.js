@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
+import { Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
 import LoanSignConfrimApi from "../../../api/loanSignConfirm";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import { MDBAccordion, MDBAccordionItem } from 'mdb-react-ui-kit';
@@ -25,7 +25,7 @@ class LoanSignConfirm extends Component {
         this.loadLoanSignConfirmList();
     }
 
-    // // list 정보
+    // list 정보
     loadLoanSignConfirmList = () => {
         LoanSignConfrimApi.fetchSignConfirms()
             .then((res) => {
@@ -60,26 +60,38 @@ class LoanSignConfirm extends Component {
                 this.setState({
                     loanNum: res.data.loanNum,
                     loanPeriod: res.data.loanPeriod,
-                    loanAmount: res.data.loanAmount
+                    loanAmount: res.data.loanAmount,
+                    num: res.data.num
                 })
                 let inputData = {
+                    id: window.localStorage.getItem("id"),
+                    num: res.data.num,
                     loanNum: res.data.loanNum,
                     loanPeriod: res.data.loanPeriod,
-                    loanAmount: res.data.loanAmount
+                    loanAmount: parseInt(res.data.loanAmount),
+                    interestRate: res.data.interestRate,
+                    repayment: res.data.repayment
                 }
 
                 if (window.confirm(confirmMessage)) {
                     // 승인 작업 처리
                     LoanSignConfrimApi.editSignSuccess(inputData)
-                        .then((response) => {
-                            if (response.status === 200) {
+                    // 대출(이자납입부분 계산) insert
+                    LoanSignConfrimApi.addLoanRepayment(inputData)
+                        .then((res) => {
+                            console.log('addRepayment 성공', res.data);
+                            if (res.status === 200) {
                                 console.log(`대출번호 ${num} 승인됨`);
                                 this.loadLoanSignConfirmList();
                             }
                         })
-                        .catch((error) => {
-                            console.error(`대출번호 ${num} 승인 중 오류 발생:`, error);
+                        .catch(err => {
+                            console.log('addRepayment 에러', err);
+                            console.error(`대출번호 ${num} 승인 중 오류 발생:`, err);
                         });
+                    // 대출계산 insert
+                    // LoanSignConfrimApi.calRepayment(num)
+                        
                 } else {
                     // 승인이 아니라면 반려로 처리
                     LoanSignConfrimApi.editSignFail(inputData)
@@ -93,7 +105,6 @@ class LoanSignConfirm extends Component {
                             console.error(`대출번호 ${num} 반려 중 오류 발생:`, error);
                         });
                 }
-                console.log('야야야ㅑ야야', res.data.loanNum, res.data.loanPeriod);
             })
             .catch(err => {
                 console.log('fetchDetailByNum() Error!!', err);
@@ -120,10 +131,10 @@ class LoanSignConfirm extends Component {
                             <TableRow>
                                 <TableCell align="center" width="50">No.</TableCell>
                                 <TableCell align="center" width="80">회원</TableCell>
-                                <TableCell align="center" width="350">상품명</TableCell>
+                                <TableCell align="center" width="300">상품명</TableCell>
                                 <TableCell align="center" width="200">대출원금</TableCell>
-                                <TableCell align="center" width="140">실행일</TableCell>
-                                <TableCell align="center" width="140">만기일</TableCell>
+                                <TableCell align="center" width="160">실행일</TableCell>
+                                <TableCell align="center" width="160">만기일</TableCell>
                                 <TableCell align="center" width="80">승인</TableCell>
                             </TableRow>
                         </TableHead>
@@ -145,7 +156,7 @@ class LoanSignConfirm extends Component {
                                         <TableCell align='center'>{sign.loanAmount}원</TableCell>
                                         <TableCell align='center'>
                                             {new Date(sign.loanExecution).toLocaleDateString(
-                                                'en-US', {
+                                                'ko-KR', {
                                                 year: 'numeric',
                                                 month: '2-digit',
                                                 day: '2-digit'
@@ -153,19 +164,23 @@ class LoanSignConfirm extends Component {
                                         </TableCell>
                                         <TableCell align='center'>
                                             {sign.loanExpiration ?
-                                                new Date(sign.loanExpiration).toLocaleDateString('en-US', {
+                                                new Date(sign.loanExpiration).toLocaleDateString('ko-KR', {
                                                     year: 'numeric',
                                                     month: '2-digit',
                                                     day: '2-digit'
                                                 }) : ''}
                                         </TableCell>
                                         <TableCell align='center'>
-                                            {sign.loanState !== '신청' ? (
-                                                <span>{sign.loanState}</span>
-                                            ) : (
+                                            {sign.loanState === '신청' ? (
                                                 <button className="btn" onClick={() => this.editSign(sign.loanNum)}>
                                                     <CheckOutlinedIcon color='error' />
                                                 </button>
+                                            ) : sign.loanState === '해지' ? (
+                                                <span style={{ color: 'red' }}>{sign.loanState}</span>
+                                            ) : sign.loanState === '반려' ? (
+                                                <span style={{ color: 'blue' }}>{sign.loanState}</span>
+                                            ) : (
+                                                <span>{sign.loanState}</span>
                                             )}
                                         </TableCell>
 
@@ -195,12 +210,4 @@ const style = {
     display: 'flex',
     justifyContent: 'center'
 }
-
-const btn = {
-    display: 'flex',
-    justifyContent: 'left'
-}
-
-
-
 export default LoanSignConfirm;

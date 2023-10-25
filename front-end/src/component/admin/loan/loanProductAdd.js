@@ -159,7 +159,7 @@ class LoanProductAdd extends Component {
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
-                            endAdornment={<InputAdornment position="end">개월</InputAdornment>}
+                            endAdornment={<InputAdornment position="end">년</InputAdornment>}
                             aria-describedby="standard-minPeriod-helper-text"
                             inputProps={{
                                 'aria-label': 'minPeriod',
@@ -175,7 +175,7 @@ class LoanProductAdd extends Component {
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
-                            endAdornment={<InputAdornment position="end">개월</InputAdornment>}
+                            endAdornment={<InputAdornment position="end">년</InputAdornment>}
                             aria-describedby="standard-maxPeriod-helper-text"
                             inputProps={{
                                 'aria-label': 'maxPeriod',

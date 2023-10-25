@@ -25,5 +25,5 @@ public class LoanDTO {
 	private int minPeriod;
 	private int maxPeriod;
 	private String repayment;
-	private int commission;
+	private double commission;
 }

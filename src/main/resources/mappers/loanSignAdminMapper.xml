@@ -15,6 +15,7 @@
 		SELECT * FROM team_loan_sign WHERE loanNum = #{loanNum}
 	</select>
 	
+	<!-- 대출 승인 -->
 	<update id="signSuccess" parameterType="com.example.project_team.dto.LoanSignDTO">
 		UPDATE team_loan_sign
 			SET loanState='정상', loanAccountNum = TO_CHAR(1002455 || TRUNC(DBMS_RANDOM.VALUE(1, 999999), 0)),
@@ -22,6 +23,28 @@
 		WHERE loanNum = #{loanNum}
 	</update>
 	
+	<!-- 대출 계산 -->
+	<!-- <insert id="repayment" parameterType="com.example.project_team.dto.CalculatorDTO">
+		INSERT INTO team_loan_calculator(loanNum, loanAmount,repayment, interestRate, loanPeriod)
+			VALUES (#{loanNum}, #{loanAmount}, #{repayment}, #{interestRate}, #{loanPeriod})
+	</insert>
+	 -->
+	<!-- insertRepayment -->
+	<insert id="insertRepayment"
+		parameterType="com.example.project_team.dto.CalRepaymentDTO">
+		INSERT INTO team_loan_repayment(repaymentNum, id, num,
+		repayment, paymentRound, loanAmount
+		, interestRate, interest, repaymentAmount, loanPeriod, repaymentMonth,
+		amountBalance, loanNum)
+		VALUES ((SELECT NVL(MAX(repaymentNum)+1,1) FROM team_loan_repayment), #{id},
+		#{num}
+		, #{repayment}, #{paymentRound}, #{loanAmount}, #{interestRate},
+		#{interest}
+		, #{repaymentAmount}, #{loanPeriod}, #{repaymentMonth},
+		#{amountBalance}, #{loanNum})
+	</insert>
+	
+	<!-- 대출 반려 -->
 	<update id="signFail" parameterType="com.example.project_team.dto.LoanSignDTO">
 		UPDATE team_loan_sign
 			SET loanState='반려'

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { IconButton, Typography, Button, Stack, Grid, Container, InputAdornment, Input, FormHelperText, FormControl, MenuItem, Select } from "@mui/material";
+import { IconButton, Typography, Button, Grid, Container, InputAdornment, Input, FormHelperText, FormControl, MenuItem, Select } from "@mui/material";
 import LoanSignApi from "../../api/loanSign";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -18,15 +18,19 @@ class SignDetail extends Component {
             loanAccountNum: '',     // 대출계좌번호
             accountType: 'd',       // 계좌타입(d)
             accountNum: '',         // 계좌번호
-            accountPW: '',          // 계좌비밀번호
+            accountPW: '0000',          // 계좌비밀번호
             loanState: '신청',      // 계좌상태(신청/반려/정상/해지)
             loanAmount: '',         // 대출원금
-            paymentDay: '선택없음',  // 대출납입일(자동이체 할 날)
+            paymentDay: '0',  // 대출납입일(자동이체 할 날)
             loanExecution: '',      // 대출실행일
             loanExpiration: '',
             repayment: '',          // 상환방법
             interestRate: '',       // 금리
             loanPeriod: '',         // 대출기간
+            minPeriod: '',
+            maxPeriod: '',
+            minMoney: '',
+            maxMoney: '',
             message: '',
             accountNumList: [],     // 계좌 리스트 받는 배열
             accountPWD: '',         // 계좌 비번
@@ -40,10 +44,35 @@ class SignDetail extends Component {
     }
 
     onChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
+        const { name, value } = e.target;
+        this.setState({ [name]: value }, () => {
+            this.validateInput(name);
         });
     }
+    // 입력값을 검증하고 알림 메시지를 업데이트하는 함수
+    validateInput(name) {
+        const { loanAmount, minMoney, maxMoney, loanPeriod, minPeriod, maxPeriod } = this.state;
+
+        if (name === "loanAmount") {    // 대출금액 확인
+            if (loanAmount < minMoney) {
+                this.setState({ messageAmount: `최소금액: ${minMoney}` });
+            } else if (loanAmount > maxMoney) {
+                this.setState({ messageAmount: `최대금액: ${maxMoney}` });
+            } else {
+                this.setState({ messageAmount: '' });
+            }
+        } else if (name === "loanPeriod") { // 대출기간 확인
+            const loanPeriodValue = parseInt(loanPeriod);
+            if (loanPeriodValue < minPeriod) {
+                this.setState({ messagePeriod: `최소기간: ${minPeriod}년` });
+            } else if (loanPeriodValue > maxPeriod) {
+                this.setState({ messagePeriod: `최대기간: ${maxPeriod}년` });
+            } else {
+                this.setState({ messagePeriod: '' });
+            }
+        }
+    }
+
     // 비밀번호
     handleClickShowPassword = () => {
         this.setState((prevState) => ({
@@ -72,6 +101,10 @@ class SignDetail extends Component {
                     interestRate: loan.interestRate,
                     contentTitle: loan.contentTitle,
                     repayment: loan.repayment,
+                    minPeriod: loan.minPeriod,
+                    maxPeriod: loan.maxPeriod,
+                    minMoney: loan.minMoney,
+                    maxMoney: loan.maxMoney
                 })
             })
             .catch(err => {
@@ -126,12 +159,23 @@ class SignDetail extends Component {
     calRepayment = (e) => {
         e.preventDefault();
 
+        // 입력 값 유효성 검사
+        if (
+            !this.state.paymentDay ||
+            !this.state.loanExecution ||
+            !this.state.loanAmount ||
+            !this.state.loanPeriod
+        ) {
+            alert('내용을 입력하세요.');
+            return;
+        }
+
         // 대출금액, 기간
         const loanAmount = parseFloat(this.state.loanAmount);
         const loanPeriod = parseInt(this.state.loanPeriod);
         const interestRate = parseFloat(this.state.interestRate) / 100; // 금리(년)를 백분율로 변환
 
-        const {loanExecution} = this.state;
+        const { loanExecution } = this.state;
         if (loanExecution && loanPeriod) {
             // Date형식으로 변경
             const loanExecutionDate = new Date(loanExecution);
@@ -161,7 +205,7 @@ class SignDetail extends Component {
 
             this.sendDataToParent()
         } else if (this.state.repayment === "원리금균등상환") {
-            // 이자율(년)/12
+            // 월 이자율 : 이자율(년)/12
             const monthlyInterestRate = interestRate / 12;
             // 총납입회차 = 기간(년)*12
             const totalPaymentRound = loanPeriod * 12;
@@ -182,6 +226,8 @@ class SignDetail extends Component {
             let totalRepayment = 0;
             let totalInterest = 0;
             for (let i = 1; i <= totalPaymentRound; i++) {
+                // 월 이자
+                // loanAmount - (i - 1) * repaymentMonth => 이전월의 잔액
                 const interestPayment = Math.round((loanAmount - (i - 1) * repaymentMonth) * interestRate / 12);
                 totalInterest += interestPayment;
                 totalRepayment += repaymentMonth + interestPayment;
@@ -324,7 +370,7 @@ class SignDetail extends Component {
                                 },
                             }}
                         >
-                            <MenuItem value={"선택없음"}>선택하세요</MenuItem>
+                            <MenuItem value={"0"}>선택하세요</MenuItem>
                             <MenuItem value={"1"}>1일</MenuItem>
                             <MenuItem value={"2"}>2일</MenuItem>
                             <MenuItem value={"3"}>3일</MenuItem>
@@ -368,17 +414,6 @@ class SignDetail extends Component {
                         <FormHelperText>대출실행일</FormHelperText>
                     </FormControl>
 
-                    {/* 만기일 구해서 테이블에 insert만 함 */}
-                    {/* <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '23ch' }}>
-                        <Input
-                            id="loanExecutionInput"
-                            type="date"
-                            name="loanExecution"
-                            value={this.state.loanExpiration}
-                        />
-                        <FormHelperText>대출만기일</FormHelperText>
-                    </FormControl> */}
-
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '23ch' }}>
                         <Input
                             id="loanAmountInput"
@@ -391,6 +426,9 @@ class SignDetail extends Component {
                             onChange={this.onChange}
                         />
                         <FormHelperText >대출금액</FormHelperText>
+                        {this.state.messageAmount && (
+                            <div style={{ color: 'red' }}>{this.state.messageAmount}</div>
+                        )}
                     </FormControl>
 
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '23ch' }}>
@@ -405,13 +443,16 @@ class SignDetail extends Component {
                             onChange={this.onChange}
                         />
                         <FormHelperText >대출기간</FormHelperText>
+                        {this.state.messagePeriod && (
+                            <div style={{ color: 'red' }}>{this.state.messagePeriod}</div>
+                        )}
                     </FormControl>
                     <Button
                         style={{ margin: '0 auto' }}
                         color="primary"
                         variant="outlined"
                         onClick={this.calRepayment}
-                        disabled={this.state.isButtonDisabled} >
+                        disabled={this.state.isButtonDisabled || this.state.messageAmount || this.state.messagePeriod} >
                         대출 상환금 계산하기
                     </Button>
                 </Grid>

@@ -40,8 +40,7 @@ export default function Agree({ checked, onCheckboxChange }) {
         </MDBAccordionItem>
       </MDBAccordion>
       <br />
-      <span style={{ color: "red", fontSize: '13px' }}>※ 필수</span>
-      <span style={{ color: "red", fontSize: '13px' }}>모든 이용약관을 확인 하였으며, 이의 동의합니다.</span>
+      <span style={{ color: "red", fontSize: '13px' }}>※ 모든 이용약관을 확인 하였으며, 이의 동의합니다. ※</span>
       <Checkbox
         inputProps={{ 'aria-label': 'Checkbox demo' }}
         sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}

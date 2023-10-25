@@ -65,6 +65,9 @@ import LoanDetail from "../loan/loanDetail";
 import LoanSignList from "../loan/loanSignList";
 import BoardListMember from "../board/boardListMember";
 import Checkout from "../loan/loanSign";
+import LoanPay from "../loan/loanPay";
+import LoanDetailModal from "../loan/loanDetailModal";
+import EndDetail from "../loan/endDetail";
 
 
 import depositProductList from '../admin/deposit/depositProductList';
@@ -81,6 +84,9 @@ import depositSign from "../deposit/depositSign";
 import savingsSign from "../savings/savingsSign";
 import depositDelete from "../deposit/depositDelete";
 import depositCheck from "../deposit/depositCheck";
+
+
+
 
 
 const AppRouter = () => {
@@ -108,9 +114,9 @@ const AppRouter = () => {
                     <Route path="/question" component={question}/>       {/* 서윤-회원-1:1문의 작성 */}
                     <Route path="/utilityList" component={utilityList}/>       {/* 서윤-공과금-납부내역조회 */}
                     <Route path="/giroPay" component={giroPay}/>       {/* 서윤-공과금-지로,생활요금 납부 */}
-                    <Route path="/localtaxPay" component={localtaxPay}/>       {/* 서윤-공과금-지방세,등록금 납부 */}
-                    <Route path="/dutyPay" component={dutyPay}/>       {/* 서윤-공과금-국고,관세 납부 */}
-                    <Route path="/pensionPay" component={pensionPay}/>       {/* 서윤-공과금-연금,보험료 납부 */}
+                    {/* <Route path="/localtaxPay" component={localtaxPay}/>       서윤-공과금-지방세,등록금 납부 */}
+                    {/* <Route path="/dutyPay" component={dutyPay}/>       서윤-공과금-국고,관세 납부 */}
+                    {/* <Route path="/pensionPay" component={pensionPay}/>       서윤-공과금-연금,보험료 납부 */}
                     
                     <Route path="/login" component={login}/>       {/* 승민-로그인 */}
                     <Route path="/join" component={join}/>          {/* 승민 -회원가입-로그인 */}
@@ -124,7 +130,10 @@ const AppRouter = () => {
                     <Route path="/loanDetail" component={LoanDetail}/>       {/* 상아-대출상세페이지(고객) */}
                     <Route path="/loanSign" component={Checkout}/>       {/* 상아-대출가입(고객) */}
                     <Route path="/loanSignList" component={LoanSignList}/>       {/* 상아-대출가입리스트(고객) */}
+                    <Route path="/loanDetailModal" component={LoanDetailModal}/> {/* 상아-대출가입리스트(상환리스트) */}
                     <Route path="/repayment" component={Repayment}/>       {/* 상아-이자조회/납부(고객) */}
+                    <Route path="/loanPay" component={LoanPay}/>       {/* 상아-이자납부(고객) */}
+                    <Route path="/endDetail" component={EndDetail}/>    {/* 상아-해지(고객) */}
                     <Route path="/loanProductAdd" component={LoanProductAdd}/>       {/* 상아-대출상품등록(관리자) */}
                     <Route path="/loanProductEdit" component={LoanProductEdit}/>       {/* 상아-대출상품수정(관리자) */}
                     <Route path="/loanProductList" component={LoanProductList}/>       {/* 상아-대출상품목록(관리자) */}
