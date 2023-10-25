@@ -116,7 +116,7 @@ public class FundController {
 		return service.selectTransactionList(fdAccount,fpName);
 	}
 	
-	// insertAccount 개좌개설
+	// insertAccount 계좌개설
 	@PostMapping("/insertAccount")
 	public void insertAccount(@RequestBody FundAccountDTO dto) 
 			throws ServletException, IOException{

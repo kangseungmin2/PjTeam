@@ -7,13 +7,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource; // cors 주의 - reactive이면 안됨
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
+@CrossOrigin(origins = "http://localhost:8083")
 public class WebConfig {
 
 	@Bean
@@ -29,6 +33,8 @@ public class WebConfig {
 		System.out.println("<<<WebConfig-1>>>");
 		config.setAllowCredentials(true);
 		config.addAllowedOrigin("http://localhost:3000");
+		config.addAllowedOrigin("http://creambank.kro.kr:3000");
+		config.addAllowedOrigin("http://192.168.0.86:3000");
 		config.setAllowedHeaders(Arrays.asList(
 				HttpHeaders.AUTHORIZATION,
 				HttpHeaders.CONTENT_TYPE,

@@ -1,0 +1,12 @@
+.sticky-element {
+    display: inline-flex;
+    position: relative; /* 스티키 요소의 부모 요소에 상대적으로 배치 */
+    /* 다른 스타일링 속성 */
+  }
+  
+  .sticky {
+    position: fixed;
+    top: 0; /* 스티키 상태에서 상단에 고정할 위치 */
+    z-index: 100; /* 스티키 상태에서 다른 요소 위에 표시 */
+    /* 다른 스타일링 속성 */
+  }
