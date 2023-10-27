@@ -23,12 +23,20 @@ public interface FundService {
 	public List<AccountDTO> accountList(String id)
 			throws ServletException, IOException;
 	
+	// fundChart
+	public List<FundProductDTO> fundChart(String fpName)
+			throws ServletException, IOException;
+	
 	// fundDetail 1건 조회
 	public FundProductDTO fundDetail(String fpName)
 			throws ServletException, IOException;
 	
 	// fundAccount 1건 조회
 	public FundAccountDTO fundAccount(long fAccount)
+			throws ServletException, IOException;
+	
+	// transactionList 매도 매수 수량계산
+	public int oneTransactionList(long fdAccount, String fpName)
 			throws ServletException, IOException;
 	
 	// fundAccountSelect 계좌 다건 조회

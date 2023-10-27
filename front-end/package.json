@@ -25,6 +25,7 @@
     "mdb-ui-kit": "^6.4.2",
     "net": "^1.0.2",
     "react": "^18.2.0",
+    "react-big-calendar": "^1.8.4",
     "react-bootstrap": "^2.9.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",

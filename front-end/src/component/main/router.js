@@ -52,14 +52,16 @@ import autoList from "../transfer/autoList";
 import autoDetail from "../transfer/autoDetail";
 import transferLimit from "../admin/transfer/transferLimit";
 
-import fundList from "../fund/fundList";
-import accountChk from "../fund/accountChk";
-import fundDetail from "../fund/fundDetail";
-import fundAccount from "../fund/fundAccount";
-import myFund from "../fund/myFund";
-import lastFundAccount from "../fund/lastFundAccount"
-import fundTransaction from "../fund/fundTransaction"
-import transactionList from "../fund/transactionList"
+import FundList from "../fund/fundList";
+import AccountChk from "../fund/accountChk";
+import FundDetail from "../fund/fundDetail";
+import FundAccount from "../fund/fundAccount";
+import MyFund from "../fund/myFund";
+import LastFundAccount from "../fund/lastFundAccount"
+import FundTransaction from "../fund/fundTransaction"
+import TransactionList from "../fund/transactionList"
+import MyFundChk from "../fund/myFundChk"
+import FundSettlement from "../admin/fund/fundSettlement"
 
 
 import BoardList from '../admin/board/boardList';
@@ -188,14 +190,16 @@ const AppRouter = () => {
                     <Route path="/autoDetail" component={autoDetail}/>    {/* 정현-자동이체상세 */}
                     <Route path="/transferLimit" component={transferLimit}/>    {/* 정현-(관리자)이체한도 리스트*/}
 
-                    <Route path="/fundAccount" component={fundAccount}/>        {/* 종훈-펀드계좌 개설 2-2*/}
-                    <Route path="/lastFundAccount" component={lastFundAccount}/>        {/* 종훈-펀드계좌 개설 2-3*/}
-                    <Route path="/fundTransaction" component={fundTransaction}/>        {/* 종훈-펀드계좌 거래내역 2-1*/}
-                    <Route path="/transactionList" component={transactionList}/>        {/* 종훈-펀드계좌 거래내역 2-2*/}
-                    <Route path="/fundList" component={fundList}/>        {/* 종훈-펀드 리스트 */}
-                    <Route path="/accountChk" component={accountChk}/>        {/* 종훈-펀드계좌 체크*/}
-                    <Route path="/fundDetail" component={fundDetail}/>        {/* 종훈-펀드 상세페이지 */}
-                    <Route path="/myFund" component={myFund}/>        {/* 종훈-펀드 보유현황 */}
+                    <Route path="/fundAccount" component={FundAccount}/>        {/* 종훈-펀드계좌 개설 2-2*/}
+                    <Route path="/lastFundAccount" component={LastFundAccount}/>        {/* 종훈-펀드계좌 개설 2-3*/}
+                    <Route path="/fundTransaction" component={FundTransaction}/>        {/* 종훈-펀드계좌 거래내역 2-1*/}
+                    <Route path="/transactionList" component={TransactionList}/>        {/* 종훈-펀드계좌 거래내역 2-2*/}
+                    <Route path="/fundList" component={FundList}/>        {/* 종훈-펀드 리스트 */}
+                    <Route path="/accountChk" component={AccountChk}/>        {/* 종훈-펀드계좌 체크*/}
+                    <Route path="/fundDetail" component={FundDetail}/>        {/* 종훈-펀드 상세페이지 */}
+                    <Route path="/myFundChk" component={MyFundChk}/>        {/* 종훈-펀드 보유현황 전 계좌체크 */}
+                    <Route path="/myFund" component={MyFund}/>        {/* 종훈-펀드 보유현황 */}
+                    <Route path="/fundSettlement" component={FundSettlement}/>        {/* 종훈-펀드 관리자 결산 */}
                     
                 </div>
             </BrowserRouter>

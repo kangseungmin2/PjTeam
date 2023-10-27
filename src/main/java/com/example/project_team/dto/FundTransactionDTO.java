@@ -20,6 +20,6 @@ public class FundTransactionDTO {
     private int trCnt;				// 거래량
     private int trPrice;			// 거래금액
     private String trMarketPrice;	// 거래시가
-    private String trStatus;			// 거래상태 (매수 : b, 매도 : s)
-    private Date trDate;				// 거래날짜
+    private String trStatus;		// 거래상태 (매수 : b, 매도 : s)
+    private Date trDate;			// 거래날짜
 }

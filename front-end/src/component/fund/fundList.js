@@ -72,6 +72,7 @@ class fundList extends Component{
                             <TableCell style={styledTableCell}>고가</TableCell>
                             <TableCell style={styledTableCell}>저가</TableCell>
                             <TableCell style={styledTableCell}>등락율</TableCell>
+                            <TableCell style={styledTableCell}>날짜</TableCell>
                         </TableRow>
                     </TableHead>
 
@@ -85,12 +86,18 @@ class fundList extends Component{
                                 <TableCell style={styledTableCell}>{product.closingPrice}</TableCell>
                                 <TableCell style={styledTableCell}>{product.highPrice}</TableCell>
                                 <TableCell style={styledTableCell}>{product.lowPrice}</TableCell>
-                                <TableCell style={styledTableCell}>{product.fluctuationRate}</TableCell>
+                                <TableCell style={product.fluctuationRate < 0 ? blueColor : redColor}>{product.fluctuationRate}</TableCell>
+                                <TableCell style={styledTableCell}>{new Date(product.eventDate).toLocaleDateString(
+                                                                    'ko-KR', {
+                                                                    year: 'numeric',
+                                                                    month: '2-digit',
+                                                                    day: '2-digit'
+                                })}</TableCell>
                           </TableRow>  
                         ))}
                     </TableBody>
                     <TableFooter>
-                        <TableCell colSpan={7}>
+                        <TableCell colSpan={8}>
                             <TablePagination
                                 rowsPerPageOptions={[10, 20, 30]}
                                 component="div"
@@ -119,6 +126,18 @@ const typography = {
 }
 const styledTableCell = {
     color: 'black',
+    fontSize: '15px',
+    textAlign :'center'
+}
+
+const redColor = {
+    color: 'red',
+    fontSize: '15px',
+    textAlign :'center'
+}
+
+const blueColor = {
+    color: 'blue',
     fontSize: '15px',
     textAlign :'center'
 }

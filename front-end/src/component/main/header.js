@@ -61,7 +61,6 @@ function log(){
 function logout(){
   window.location.reload();
   localStorage.clear();
-
 }
 
 function BasicExample() {
@@ -135,7 +134,7 @@ function BasicExample() {
                 펀드상품
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/myFund">
+              <NavDropdown.Item href="/myFundChk">
                 보유펀드현황
               </NavDropdown.Item>
             </NavDropdown>

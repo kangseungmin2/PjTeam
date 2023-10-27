@@ -1,7 +1,9 @@
 package com.example.project_team.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +58,16 @@ public class FundController {
 		return service.accountList(id);
 	}
 	
+	// fundChart
+	@GetMapping("/fundChart/{fpName}")
+	public List<FundProductDTO> fundChart(@PathVariable String fpName)
+			throws ServletException, IOException {
+		logger.info("<<< fundController - fundChart() >>>");
+		
+		return service.fundChart(fpName);
+	}
+	
+	
 	// fundDetail 1건 조회
 	@GetMapping("/fundDetail/{fpName}")
 	public FundProductDTO fundDetail(@PathVariable String fpName)
@@ -73,6 +85,19 @@ public class FundController {
 		
 		return service.fundAccount(fAccount);
 	}
+	
+	// oneTransactionList 수량체크
+	@GetMapping("/oneTransactionList/{fdAccount}/{fpName}")
+	public Map<String, Object> transactionList(@PathVariable long fdAccount, @PathVariable String fpName)
+			throws ServletException, IOException {
+		logger.info("<<< fundController - transactionList() >>>");
+		System.out.println("ddddd"+fdAccount);
+		System.out.println("ddddd"+fpName);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("trCnt", service.oneTransactionList(fdAccount, fpName));
+		return map;
+	}
+	
 	
 	// fundAccountSelect 계좌 다건 조회
 	@GetMapping("/fundAccountSelect/{id}")

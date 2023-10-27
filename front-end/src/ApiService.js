@@ -93,7 +93,18 @@ class ApiService {
         console.log('myFundData() 호출',fdAccount);
         return axios.get(FUND_API_BASE_URL+"/myFundData/"+fdAccount);
     }
-   
+    //////////////
+    // fundChart
+    fundChart(fpName) {
+        console.log('fundChart() 호출',fpName);
+        return axios.get(FUND_API_BASE_URL+"/fundChart/"+fpName);
+    }
+
+    // transactionList
+    oneTransactionList(fdaccount, fpName)  {
+        console.log('oneTransactionList() 호출',fdaccount, fpName);
+        return axios.get(FUND_API_BASE_URL+"/oneTransactionList/"+fdaccount+"/"+fpName);
+    }
     // <<< 펀드끝 >>>
 
     // Board(관리자)

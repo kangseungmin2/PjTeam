@@ -28,7 +28,7 @@ public interface FundAccountRepository extends JpaRepository<FundAccountDTO, Lon
 	int saveFundAccountUpdate(@Param("map") Map<String, Object> map);
 	
 	// insertAccount 개좌개설
-	
+	@Modifying
 	@Query(value ="INSERT INTO team_fund_account (fdAccount,id,fdPw,accountNum)"
 			+ "    VALUES (TO_CHAR(1002452||TRUNC(DBMS_RANDOM.VALUE(1, 999999), 0)),"
 			+ "			:#{#dto.id}, :#{#dto.fdPw}, :#{#dto.accountNum})", nativeQuery = true)

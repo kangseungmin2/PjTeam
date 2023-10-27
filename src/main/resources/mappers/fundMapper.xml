@@ -52,8 +52,12 @@
 		INSERT INTO team_fund_account (fdAccount,id,fdPw,accountNum,madeDate)
     		VALUES (TO_CHAR(1002452||TRUNC(DBMS_RANDOM.VALUE(1, 999999), 0)),#{id},#{fdPw},#{accountNum},SYSDATE)
 	</insert>
-	<!-- myFundData 내 펀드조회 -->
-	<select id="myFundData" parameterType="long" resultType="com.example.project_team.dto.FundTransactionDTO">
-		SELECT * FROM team_fund_transaction WHERE fdAccount = #{fdAccount} AND trStatus = 'b'
+	<!-- buyFundData 내 펀드조회 -->
+	<select id="buyFundData" parameterType="long" resultType="com.example.project_team.dto.FundTransactionDTO">
+		SELECT fr.fpName, SUM(fr.trCnt) AS trCnt, AVG(fr.trMarketPrice) AS trMarketPrice, SUM(fr.trPrice) AS trPrice, MAX(fr.trDate) AS trDate FROM team_fund_transaction fr WHERE fr.fdAccount = #{fdAccount} AND fr.trStatus = 'b' GROUP BY fr.fpName
+	</select>
+	<!-- sellFundData 내 펀드조회 -->
+	<select id="sellFundData" parameterType="long" resultType="com.example.project_team.dto.FundTransactionDTO">
+		SELECT fr.fpName, SUM(fr.trCnt) AS trCnt, SUM(fr.trPrice) AS trPrice, MAX(fr.trDate) AS trDate FROM team_fund_transaction fr WHERE fr.fdAccount = #{fdAccount} AND fr.trStatus = 's' GROUP BY fr.fpName
 	</select>
 </mapper>
