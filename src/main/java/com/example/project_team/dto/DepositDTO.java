@@ -21,6 +21,7 @@ public class DepositDTO {
     private int yeMinPrice;                 
     private int yeMaxPrice;            
     private int yeMinDate;            
-    private int yeMaxDate;             
+    private int yeMaxDate; 
+    
 
 }
