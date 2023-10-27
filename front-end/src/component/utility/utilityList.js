@@ -40,7 +40,6 @@ class utilityList extends Component {
     }
 
     utilityList = () => {
-        console.log("여기요12")
         let id = window.localStorage.getItem("id");
         utility.utilityList(id)
             .then(res => {
@@ -57,35 +56,8 @@ class utilityList extends Component {
 
 
     }
-    // chkChange = (e) => {
-    //     this.setState({ checked: e.target.checked })
-    // }
-
-    // passwordModify(accountnum) {
-    //     window.localStorage.setItem("accountNum", accountnum);
-    //     this.props.history.push("/passwordModify")
-    // }
-
-    // delete
-    // deleteAccount = (accountNum) => {
-
-    //     Account.deleteAccount(accountNum)
-    //         .then(res => {
-    //             this.setState({
-    //                 accounts: this.state.accounts.filter(account => account.accountNum !== accountNum)
-    //             });
-    //             window.location.reload();
-    //             console.log('delete 성공 : ', res.data);
-    //             alert("delete 성공~");
-    //         })
-    //         .catch(err => {
-    //             console.log('deleteAccount() Error! :', err);
-    //         })
-    // }
-
 
     render() {
-        // const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
         return (
             <div align='center'>
                 <form>
@@ -123,7 +95,7 @@ class utilityList extends Component {
                                 <TableCell align='center' style={{ color: 'navy', border: '1px solid rgb(230, 229, 227)'}}><b>구분</b></TableCell>
                                 <TableCell align='center' style={{ color: 'navy', border: '1px solid rgb(230, 229, 227)'}}><b>계좌번호</b></TableCell>
                                 <TableCell align='center' style={{ color: 'navy', border: '1px solid rgb(230, 229, 227)'}}><b>전자납부번호</b></TableCell>
-                                <TableCell align='center' style={{ color: 'navy', border: '1px solid rgb(230, 229, 227)'}}><b>고지년월</b></TableCell>
+                                {/* <TableCell align='center' style={{ color: 'navy', border: '1px solid rgb(230, 229, 227)'}}><b>고지년월</b></TableCell> */}
                                 <TableCell align='center' style={{ color: 'navy', border: '1px solid rgb(230, 229, 227)'}}><b>납부기한</b></TableCell>
                                 <TableCell align='center' style={{ color: 'navy', border: '1px solid rgb(230, 229, 227)'}}><b>납부금액</b></TableCell>
                             </TableRow>
@@ -134,9 +106,9 @@ class utilityList extends Component {
                                     <TableCell component="th" scope="utility">{name(utility.utilityType)}</TableCell>
                                     <TableCell style={{ textAlign: 'left', border: '1px solid rgb(230, 229, 227)' }}>{utility.accountNum}</TableCell>
                                     <TableCell style={{ textAlign: 'left', border: '1px solid rgb(230, 229, 227)' }}>{utility.utilityId}</TableCell>
-                                    <TableCell style={{ textAlign: 'left', border: '1px solid rgb(230, 229, 227)' }}>{Unix_timestamp(utility.notificationDate)}</TableCell>
-                                    <TableCell style={{ textAlign: 'left', border: '1px solid rgb(230, 229, 227)' }}>{Unix_timestamp(utility.transactionDate)}</TableCell>
-                                    <TableCell style={{ textAlign: 'left', border: '1px solid rgb(230, 229, 227)' }}>{utility.amount}</TableCell>
+                                    {/* <TableCell style={{ textAlign: 'left', border: '1px solid rgb(230, 229, 227)' }}>{Unix_timestamp(utility.notificationDate)}</TableCell> */}
+                                    <TableCell style={{ textAlign: 'left', border: '1px solid rgb(230, 229, 227)' }}>{Unix_timestamp(utility.utDate)}</TableCell>
+                                    <TableCell style={{ textAlign: 'left', border: '1px solid rgb(230, 229, 227)' }}>{utility.utAmount}</TableCell>
                                 </TableRow>
                             )}
                         </TableBody>
@@ -169,86 +141,9 @@ class utilityList extends Component {
                             </TableRow>
                         </TableBody>
                     </Table>
-                    {/* <div>
-                    <br/>
-                        <span style={{ color: "red", fontSize: '14px' }}>※ 필수</span> <span style={{ color: "black", fontSize: '13px' }}>모든 이용약관을 확인 하였으며, 이의 동의합니다.</span>
-                        <Checkbox
-                            {...label}
-                            sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
-                            checked={this.state.checked}
-                            onChange={this.chkChange}
-                        />
-                    </div> */}
                     <br/>
                 </form>
             </div>
-
-            // <Container maxWidth="md">
-            //      <Typography variant="h5" style={style}> <b>조회</b> </Typography>
-            //      <Table md={{ minWidth: 900 }}>
-            //          <TableHead>
-            //              <TableRow>
-            //                  <TableCell align='center' style={{ color: 'navy' }}><b>예금명</b></TableCell>
-            //                  <TableCell align='center' style={{ color: 'navy' }}><b>계좌번호</b></TableCell>
-            //                  <TableCell align='center' style={{ color: 'navy' }}><b>계좌생성일</b></TableCell>
-            //                  <TableCell align='center' style={{ color: 'navy' }}><b>잔액</b></TableCell>
-            //                  {/* <TableCell align='center' style={{ color: 'navy' }}><b>계좌상태</b></TableCell> */}
-            //                  <TableCell align='center' style={{ color: 'navy' }}><b>비밀번호변경</b></TableCell>
-            //                  <TableCell align='center' style={{ color: 'navy' }}><b>계좌해지</b></TableCell>
-            //              </TableRow>
-            //          </TableHead>
-            //          <TableBody>
-            //              {this.state.accounts.map(account =>
-            //                  <TableRow key={account.accountNum}>
-            //                      <TableCell component="th" scope="account">{name(account.accountType)}</TableCell>
-            //                      <TableCell align='center'>{account.accountNum}</TableCell>
-            //                      <TableCell align='center'>{Unix_timestamp(account.madeDate)}</TableCell>
-            //                      <TableCell align='center'>{account.balance}</TableCell>
-            //                      {/* <TableCell align='center'>{state(account.accountState)}</TableCell> */}
-            //                      <TableCell align='center' onClick={() => this.passwordModify(account.accountNum)}>
-            //                          <Create />
-            //                      </TableCell>
-            //                      <TableCell align='center' onClick={() => this.deleteAccount(account.accountNum)}>
-            //                          <Delete />
-            //                      </TableCell>
-            //                  </TableRow>
-            //              )}
-            //          </TableBody>
-            //      </Table>
-            //      </Container>
-            //      <br/><br/>
-            //      <Typography variant="h5" style={style}> <b>예금</b> </Typography>
-            //     <Table md={{ minWidth: 900 }}>
-            //         <TableHead>
-            //             <TableRow>
-            //                 <TableCell align='center' style={{ color: 'navy' }}><b>예금명</b></TableCell>
-            //                 <TableCell align='center' style={{ color: 'navy' }}><b>계좌번호</b></TableCell>
-            //                 <TableCell align='center' style={{ color: 'navy' }}><b>계좌생성일</b></TableCell>
-            //                 <TableCell align='center' style={{ color: 'navy' }}><b>잔액</b></TableCell>
-            //                 <TableCell align='center' style={{ color: 'navy' }}><b>계좌상태</b></TableCell>
-            //                 <TableCell align='center' style={{ color: 'navy' }}><b>비밀번호변경</b></TableCell>
-            //                 <TableCell align='center' style={{ color: 'navy' }}><b>계좌해지</b></TableCell>
-            //             </TableRow>
-            //         </TableHead>
-            //         <TableBody>
-            //             {this.state.accounts2.map(account =>
-            //                 <TableRow key={account.accountNum}>
-            //                     <TableCell component="th" scope="account">{name(account.accountType)}</TableCell>
-            //                     <TableCell align='center'>{account.accountNum}</TableCell>
-            //                     <TableCell align='center'>{Unix_timestamp(account.madeDate)}</TableCell>
-            //                     <TableCell align='center'>{account.balance}</TableCell>
-            //                     <TableCell align='center'>{state(account.accountState)}</TableCell>
-            //                     <TableCell align='center' onClick={() => this.passwordModify(account.accountNum)}>
-            //                         <Create />
-            //                     </TableCell>
-            //                     <TableCell align='center' onClick={() => this.deleteAccount(account.accountNum)}>
-            //                         <Delete />
-            //                     </TableCell>
-            //                 </TableRow>
-            //             )}
-            //         </TableBody>
-            //     </Table>  
-            //  </Container>
 
         );
     }

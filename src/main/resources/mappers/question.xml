@@ -6,7 +6,7 @@
 <mapper namespace="com.example.project_team.mappers.QuestionMapper">
 
 <select id="questionList" parameterType="String" resultType="com.example.project_team.dto.QuestionDTO">
-	select * from team_question q where q.id=#{id}
+	select * from team_question q where q.id=#{id} ORDER BY num desc
 </select>
 
 <insert id="questionAdd" parameterType="com.example.project_team.dto.QuestionDTO">
@@ -14,7 +14,7 @@
 </insert>
 
 <select id="allList" resultType="com.example.project_team.dto.QuestionDTO">
-	select * from team_question
+	select * from team_question ORDER BY answerChk
 </select>
 
 <select id="fetchAnswer" parameterType="int" resultType="com.example.project_team.dto.QuestionDTO">

@@ -6,29 +6,41 @@
 <mapper namespace="com.example.project_team.mappers.AccountMapper">
 
 <insert id="insertAccount" parameterType="com.example.project_team.dto.AccountDTO">
-	insert into team_account(accountnum,id,accountpw,accountlimit)
-	values((SELECT NVL(MAX(accountNum)+1,1002000000000) FROM team_account),#{id},#{accountPW},#{accountLimit})
+	insert into team_account(accountNum,id,accountPw,accountLimit)
+	values(TO_CHAR(1002451 || TRUNC(DBMS_RANDOM.VALUE(1, 999999), 0)),#{id},#{accountPW},#{accountLimit})
 </insert>
 
 <select id="accountList" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
-	SELECT * FROM team_account where show = 'y' and id=#{id} order by accountType,accountnum
+	SELECT * FROM team_account where show = 'y' and id=#{id} order by accountType,accountNum
 </select>
-
 <select id="accountListE" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
-	SELECT * FROM team_account where show = 'y' and id=#{id} and accountType='e' order by accountnum
+	SELECT * FROM team_account where show = 'y' and id=#{id} and accountType='e' order by accountNum
+</select>
+<select id="accountListY" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
+	SELECT * FROM team_account where show = 'y' and id=#{id} and accountType='y' order by accountNum
+</select>
+<select id="accountListJ" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
+	SELECT * FROM team_account where show = 'y' and id=#{id} and accountType='j' order by accountNum
+</select>
+<select id="accountListD" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
+	SELECT * FROM team_account where id=#{id} and accountType='d' order by accountNum
 </select>
 
-<select id="accountListY" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
-	SELECT * FROM team_account where show = 'y' and id=#{id} and accountType='y' order by accountnum
-</select>
 
 <select id="fetchAccountByNum" parameterType="long" resultType="com.example.project_team.dto.AccountDTO">
-	SELECT * FROM team_account WHERE accountnum=#{accountnum} 
+	SELECT * FROM team_account WHERE accountNum=#{accountNum} 
 </select>
+
 <update id="passwordModify" parameterType="com.example.project_team.dto.AccountDTO">
 	UPDATE team_account SET accountPW = #{accountPW} WHERE id=#{id}
 </update>
+
 <update id="deleteAccount" parameterType="long">
-	UPDATE team_account SET show = 'n' WHERE accountnum=#{accountnum}
+	UPDATE team_account SET show = 'n' WHERE accountNum=#{accountNum}
 </update>
+
+<select id="openAccountData" resultType="com.example.project_team.dto.AccountDTO">
+	select COUNT(*) as accountLimit, accountType from team_account group by accountType
+</select>
+
 </mapper>

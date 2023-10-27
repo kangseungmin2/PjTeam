@@ -5,8 +5,40 @@
 	  
 <mapper namespace="com.example.project_team.mappers.UtilityMapper">
 
-<select id="utilityList" parameterType="String" resultType="com.example.project_team.dto.UtilityDTO">
-	SELECT utilityType,accountNum,utilityId,notificationDate,transactionDate,amount FROM team_utilities WHERE id=#{id} ORDER BY utilityType
+<select id="utilityList" parameterType="String" resultType="com.example.project_team.dto.UtilTransactionDTO">
+	SELECT * FROM team_util_transaction WHERE id=#{id} ORDER BY utilityType
 </select>
 
+<select id="utilityCheck" parameterType="Map" resultType="com.example.project_team.dto.UtilityDTO">
+	select * from team_utilities where utilityType = #{utilityType} and utilityId = #{utilityId} and show='y'
+</select>
+
+<select id="utilityInfo" parameterType="String" resultType="com.example.project_team.dto.UtilityDTO">
+	select * from team_utilities where  utilityId = #{utilityId} and show='y'
+</select>
+
+<!-- 납부완료체크 -->
+<update id="transferChk" parameterType="com.example.project_team.dto.UtilityDTO">
+	update team_utilities set show='n' where utilityId = #{utilityId}
+</update>
+
+<!-- 이체시 계좌 금액확인 -->
+<select id="fetchAccountByNum" parameterType="long" resultType="com.example.project_team.dto.AccountDTO">
+	SELECT * FROM team_account WHERE accountNum=#{accountNum} 
+</select>
+<update id="updateBalance" parameterType="Map">
+	update team_account set balance = #{result} where accountNum = #{accountNum}
+</update>
+
+<insert id="insertBalance" parameterType="com.example.project_team.dto.UtilTransactionDTO">
+	insert into team_util_transaction (accountNum, result) values (#{accountNum},#{utAmount})
+</insert>
+<insert id="utilTransfer" parameterType="com.example.project_team.dto.UtilTransactionDTO">
+	insert into team_util_transaction(utNum, accountNum, utilityId, utilityType,utAmount,id) 
+	values(TO_CHAR(104 || TRUNC(DBMS_RANDOM.VALUE(1, 999999), 0)), #{accountNum}, #{utilityId}, #{utilityType}, #{utAmount},#{id})
+</insert>
+<!-- 회원 결산 -->
+<select id="openAccountData2" resultType="com.example.project_team.dto.UtilTransactionDTO">
+	select SUM(utAmount) as utAmount , utilityType from team_util_transaction group by utilityType order by utilityType
+</select>
 </mapper>

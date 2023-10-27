@@ -6,17 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-
-import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +30,7 @@ public class AccountController {
 	@Autowired
 	private AccountService service;
 	
-	//계좌추가
+	//계좌생성
 	@PostMapping
 	public Map<String,Object> accountOpening(@RequestBody AccountDTO dto) {
 		System.out.println("<<<AccountController - accountOpening>>>");
@@ -69,7 +65,7 @@ public class AccountController {
 	@GetMapping("/e/{id}")
 	public List<AccountDTO> accountListE(@PathVariable("id") String id) 
 		throws ServletException, IOException{
-		System.out.println("AccountController - accountList");
+		System.out.println("AccountController - accountListE");
 		return service.accountListE(id);
 	}
 	
@@ -77,9 +73,26 @@ public class AccountController {
 	@GetMapping("/y/{id}")
 	public List<AccountDTO> accountListY(@PathVariable("id") String id) 
 		throws ServletException, IOException{
-		System.out.println("AccountController - accountList");
+		System.out.println("AccountController - accountListY");
 		return service.accountListY(id);
 	}
+	
+	//전체 리스트- 적금
+	@GetMapping("/j/{id}")
+	public List<AccountDTO> accountListJ(@PathVariable("id") String id) 
+		throws ServletException, IOException{
+		System.out.println("AccountController - accountListJ");
+		return service.accountListJ(id);
+	}
+	
+	//전체 리스트- 대출
+	@GetMapping("/d/{id}")
+	public List<AccountDTO> accountListD(@PathVariable("id") String id) 
+		throws ServletException, IOException{
+		System.out.println("AccountController - accountListD");
+		return service.accountListD(id);
+	}
+	
 	
 	//비밀번호 변경
 	@PutMapping("/{accountNum}")
@@ -122,4 +135,11 @@ public class AccountController {
 		return service.deleteAccount(accountNum);
 	}
 	
+	//관리자 결산
+	@GetMapping("/adminAccount")
+	public List<AccountDTO> openAccountData() 
+		throws ServletException, IOException{
+		System.out.println("AccountController - openAccountData");
+		return service.openAccountData();
+	}
 }
