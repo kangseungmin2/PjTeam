@@ -62,7 +62,7 @@ public class UtilityService {
 		System.out.println("dto"+dto);
 		// 통장잔액
 		AccountDTO accountDTO = mapper.fetchAccountByNum(dto.getAccountNum());
-		int balance = accountDTO.getBalance();
+		int balance = (int)accountDTO.getBalance();
 		System.out.println("getBalance" + accountDTO.getBalance());
 		Map<String, Object> map = new HashMap<String, Object>(); 
 		map.put("accountNum", dto.getAccountNum());

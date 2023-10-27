@@ -103,7 +103,7 @@ export default class myFund extends Component {
                                                         {list.fpName}
                                                     </TableCell>
                                                     <TableCell>
-                                                        {list.trMarketPrice}
+                                                        {Math.round(list.trMarketPrice * 100) / 100}
                                                     </TableCell>
                                                     <TableCell>
                                                         {list.trCnt}
