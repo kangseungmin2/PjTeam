@@ -17,8 +17,6 @@ public class TransferDTO {
 	@Id
 	private int transferNum; 	// 이체거래번호 PRIMARY KEY
 	private String id; 			// 회원아이디 FK
-	private String name; 		// 고객명
-	private String transType;   // 이체 타입
 	private long accountNum; 	// 출금계좌번호
 	private int balance;        // 잔액
 	private int accountLimit;	// 일일이체한도

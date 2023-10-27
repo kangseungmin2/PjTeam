@@ -44,6 +44,7 @@ function log(){
           <NavDropdown.Item href="/adminAccount">관리자 결산</NavDropdown.Item>
           <NavDropdown.Item href="/boardList">고객센터</NavDropdown.Item>
           <NavDropdown.Item href="/answerList">1:1문의 답변</NavDropdown.Item>
+          <NavDropdown.Item href="/transferLimit">한도상향요청</NavDropdown.Item>
         </NavDropdown>
         <Nav.Link eventKey={2} href="/chat" style={style}>
           채팅
@@ -84,11 +85,10 @@ function BasicExample() {
 
             <NavDropdown title="이체" id="basic-nav-dropdown">
               <NavDropdown.Item href="/transAccount">1건이체</NavDropdown.Item>
-              <NavDropdown.Item href="/multipleTransfer">다건이체</NavDropdown.Item>
-              <NavDropdown.Item href="/transAccount">이체한도변경</NavDropdown.Item>
+              <NavDropdown.Item href="/limitAccount">이체한도변경</NavDropdown.Item>
               <NavDropdown.Item href="/transferList">이체목록</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/autoWithdrawal">자동이체</NavDropdown.Item>
+              <NavDropdown.Item href="/autoAccount">자동이체</NavDropdown.Item>
               <NavDropdown.Item href="/changeAuto">자동이체 변경/해지</NavDropdown.Item>
               <NavDropdown.Item href="/autoList">자동이체 목록</NavDropdown.Item>
             </NavDropdown>

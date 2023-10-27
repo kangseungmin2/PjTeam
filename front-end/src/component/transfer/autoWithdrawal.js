@@ -1,62 +1,133 @@
 import { TextField, Typography, Button } from "@mui/material";
-import ApiService from '../../ApiService';
 import React, { Component } from "react";
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import API from '../../api/transferAuto';
 
-class oneTransfer extends Component {
+class autoWithdrawal extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            accountNum: '',
+            id: '',
+            accountNum: 0,
+            balance: 0,
+            accountLimit: 0,
             autoTitle: '',
             autoCompany: '', 
+            autoAccount: 0,
             autoAmount: '',
             autoDate: '',
-            accountPW: ''
+            accountPW: 0
         }
     }
+
+    componentDidMount() {
+        this.autoWithdrawalData();
+    }
+
+    autoWithdrawalData = () => {
+        this.setState ({
+            id: window.localStorage.getItem('id'),
+            accountNum: window.localStorage.getItem('accountNum'),
+            balance: window.localStorage.getItem('balance'),
+            accountLimit: window.localStorage.getItem('accountLimit'),
+            accountPW: window.localStorage.getItem('accountPW')
+        })
+    }
+
 
     onChange = (e) => {
         this.setState({
-            [e.target.accountNum] : e.target.value
+            [e.target.name] : e.target.value
         });
     }
 
-    saveSample = (e) =>{
+    autoList = (e) =>{
         e.preventDefault();
 
         let inputData = {
-          accountNum: this.state.accountNum,
-          autoTitle: this.state.autoTitle,
-          autoCompany: this.state.autoCompany,
-          autoAmount: this.state.autoAmount,
-          autoDate: this.state.autoDate,
-          accountPW: this.state.accountPW
+            accountNum: parseInt(this.state.accountNum),
+            accountLimit: parseInt(this.state.accountLimit),
+            id: this.state.id,
+            accountPW: parseInt(this.state.accountPW),
+            autoTitle : this.state.autoTitle,
+            autoCompany : this.state.autoCompany,
+            autoAccount: parseInt(this.state.autoAccount),
+            autoAmount : parseInt(this.state.autoAmount),
+            autoDate : this.state.autoDate,
+            balance: parseInt(this.state.balance)
         }
-        ApiService.autowithdrawal(inputData)
-            .then(res => {
-                console.log('autowithdrawal() 성공 : ', res.data);
-                this.props.history.push('/samples');       
-            })
-            .catch(err =>{
-                console.log('autowithdrawal() 에러 : ', err);
-            })
+
+        console.log(inputData)
+        API.autoWithdrawal(inputData)
+        .then(response => {
+            console.log(response);
+            if (response.data.success) {
+                // 성공적인 응답 처리
+                console.log(response);
+                alert(response.data.message);
+                this.props.history.push("/main");
+              } else {
+                // 오류 메시지 처리
+                alert(response.data.message);
+                window.location.reload();
+              }
+        });
     }
 
     render(){
         return(
             <div align="center"><br/><br/>
-             <CurrencyExchangeIcon fontSize='large' color='primary' />
+            <CurrencyExchangeIcon fontSize='large' color='primary' />
                 <Typography variant="h4"> 자동이체 </Typography>
-                  <TextField
+                     <TextField
                         required
                         id="sandard-required"
                         variant="standard"
-                        label="입금명"
+                        label="아이디"
                         type="text"
-                        name="autoTitle"
+                        name="id"
+                        value={this.state.id}
+                        placeholder="input sample id" /><br/>
+
+                    <TextField
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        label="출금 계좌번호"
+                        type="number"
+                        name="accountNum"
+                        value={this.state.accountNum}
+                        placeholder="input sample accountNum"/><br/>
+
+                    <TextField
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        label="출금한도"
+                        type="number"
+                        name="accountLimit"
+                        value={this.state.accountLimit}
+                        placeholder="input sample accountLimit"/><br/>
+
+                    <TextField
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        label="계좌 잔액"
+                        type="number"
+                        name="balance"
+                        value={this.state.balance}
+                        placeholder="input sample balance"/><br/>
+
+                    <TextField
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        label="자동이체명"
+                        type="text"
+                        name="autoTitle" // 컬럼명
                         value={this.state.autoTitle}
                         placeholder="input sample autoTitle"
                         onChange={this.onChange} /><br/>
@@ -65,30 +136,30 @@ class oneTransfer extends Component {
                         required
                         id="sandard-required"
                         variant="standard"
-                        label="입금처"
+                        label="기업명"
                         type="text"
                         name="autoCompany"
                         value={this.state.autoCompany}
                         placeholder="input sample autoCompany"
+                        onChange={this.onChange} /><br/>
+                    
+                    <TextField
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        label="입금 계좌번호"
+                        type="number"
+                        name="autoAccount"
+                        value={this.state.autoAccount}
+                        placeholder="input sample autoAccount"
                         onChange={this.onChange} /><br/>
 
                     <TextField
                         required
                         id="sandard-required"
                         variant="standard"
-                        label="출금계좌번호"
-                        type="text"
-                        name="accountNum"
-                        value={this.state.accountNum}
-                        placeholder="input sample accountNum"
-                        onChange={this.onChange} /><br/>
-
-                      <TextField
-                        required
-                        id="sandard-required"
-                        variant="standard"
                         label="출금금액"
-                        type="text"
+                        type="number"
                         name="autoAmount"
                         value={this.state.autoAmount}
                         placeholder="input sample autoAmount"
@@ -98,28 +169,26 @@ class oneTransfer extends Component {
                         required
                         id="sandard-required"
                         variant="standard"
-                        label="결제일"
-                        type="text"
+                        label="출금일"
+                        type="date"
                         name="autoDate"
                         value={this.state.autoDate}
-                        placeholder="input sample autoDate"
                         onChange={this.onChange} /><br/>
-
+                        
                       <TextField
                         required
                         id="sandard-required"
                         variant="standard"
                         label="비밀번호를 입력하세요"
-                        type="text"
+                        type="password"
                         name="accountPW"
                         value={this.state.accountPW}
-                        placeholder="input sample accountPW"
-                        onChange={this.onChange} /><br/><br/>
+                        placeholder="input sample accountPW" /><br/><br/>
 
-                    <Button variant="contained" color="primary" onClick={this.saveSample}>이체신청</Button>
+                    <Button variant="contained" color="primary" onClick={this.autoList}>자동이체</Button>
                     <br/>
             </div>
         );
     }
 }
-export default oneTransfer;
+export default autoWithdrawal;

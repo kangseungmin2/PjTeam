@@ -3,33 +3,34 @@ import { Table, TableHead, TableBody, TableRow, TableCell, Typography, TableFoot
 import API from '../../api/transferAuto';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 
-export default class transAccount extends Component {
+// 자동이체 전 계좌선택
+export default class autoAccount extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            transAccount: [],
+            autoAccount: [],
             passwords : {}
         }
     }
 
     // 라이프사이클 중 컴포넌트가 생성된 후 사용자에게 보여지기까지의 전체 과정을 렌더링
     componentDidMount() {
-        this.transAccount();
+        this.autoAccount();
     }
 
-    transAccount = () => {
+    autoAccount = () => {
         const id = window.localStorage.getItem("id")
         
-        API.transAccount(id)
+        API.autoAccount(id)
             .then(res => {
                 console.log("여기이이잉!!",res.data)
                 this.setState({
-                    transAccount: res.data // 이걸루 list에 값을 담을 수 있음!
+                    autoAccount: res.data // 이걸루 list에 값을 담을 수 있음!
                 })
             })
             .catch(err => {
-                console.log('transAccount() Error!!', err);
+                console.log('autoAccount() Error!!', err);
             })
     }
 
@@ -67,12 +68,12 @@ export default class transAccount extends Component {
 
         if (enteredPassword == accountPW) {
             window.localStorage.removeItem("accountNum");
-            window.localStorage.setItem('accountNum', accountNum);
             window.localStorage.setItem('accountLimit', accountLimit);
+            window.localStorage.setItem('accountNum', accountNum);
             window.localStorage.setItem('id', id);
             window.localStorage.setItem('accountPW', accountPW);
             window.localStorage.setItem('balance', balance);
-            this.props.history.push('/oneTransfer');
+            this.props.history.push('/autoWithdrawal');
         } else {
             alert('비밀번호가 일치하지 않습니다.');
 
@@ -96,7 +97,7 @@ export default class transAccount extends Component {
                     이체 계좌 선택
                 </Typography>
                 <form>
-                    {this.state.transAccount.map(list => (
+                    {this.state.autoAccount.map(list => (
                         <Table style={box} key={list.accountNum}>
                             <TableHead style={style}  >
                                 <TableRow>

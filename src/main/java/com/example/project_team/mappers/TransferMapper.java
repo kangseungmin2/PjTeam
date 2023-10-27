@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.http.ResponseEntity;
 
 import com.example.project_team.dto.AccountDTO;
+import com.example.project_team.dto.LimitDTO;
 import com.example.project_team.dto.TransferDTO;
 import com.example.project_team.exceptionHandler.ErrorResponse;
 
@@ -17,9 +18,12 @@ public interface TransferMapper {
 	public List<TransferDTO> transferList();
 
 	// transferDetail
-	public TransferDTO transferDetail();
+	public TransferDTO transferDetail(int transferNum);
 
-	// oneTransfer 1건이체 보낼시
+	// transAccount
+	public List<AccountDTO> transAccount(String id);
+	
+	// outTransfer 1건이체 보낼시
 	public void outTransfer(Map<String, Object> map);
 
 	// balanceChk 해당 계좌 기존 잔액 가져오기
@@ -28,15 +32,16 @@ public interface TransferMapper {
 	// insertTransfer 
 	public void insertTransfer(Map<String, Object> map);
 
-	// transAccount
-	public List<AccountDTO> transAccount(String id);
-	
 	// addTransList
-	public List<AccountDTO> addTransList(Map<String, Object> map);
+	public int addTransList(TransferDTO dto);
 	
 	// limitAccount
 	public List<AccountDTO> limitAccount(String id);
 	
-	// changeLimit
-	public AccountDTO changeLimit(int accountNum);
+	// changeLimit 
+	public int changeLimit(LimitDTO dto);
+	
+	// transferLimit (관리자) 고객 한도 요청 승인/반려
+//	public LimitDTO transferLimit(int limitNum);
+
 }

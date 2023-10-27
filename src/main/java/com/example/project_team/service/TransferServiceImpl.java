@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.example.project_team.dto.AccountDTO;
+import com.example.project_team.dto.LimitDTO;
 import com.example.project_team.dto.TransferDTO;
 import com.example.project_team.exceptionHandler.CustomException;
 import com.example.project_team.exceptionHandler.ErrorResponse;
@@ -38,7 +39,7 @@ public class TransferServiceImpl implements TransferService{
 	@Override
 	public TransferDTO transferDetail(int transferNum) throws ServletException, IOException {
 		System.out.println("TransferServiceImpl - transferDetail");
-		return mapper.transferDetail();
+		return mapper.transferDetail(transferNum);
 	}
 
 	// transAccount
@@ -65,7 +66,7 @@ public class TransferServiceImpl implements TransferService{
 		// 해당 계좌 잔액
 		int balance = mapper.balanceChk(map);
 		// 계좌잔액 >= 이체금액
-		if (balance >= dto.getTrAmount()) {
+		if (dto.getBalance() >= dto.getTrAmount()) {
 			// 일일이체한도 초과여부 체크 부분
 			
 			
@@ -95,14 +96,17 @@ public class TransferServiceImpl implements TransferService{
 		mapper.insertTransfer(map);
 		
 		// 이체 목록에 추가
-		mapper.addTransList(map);
+		int insertCnt = mapper.addTransList(dto);
+		if (insertCnt == 0) {
+		throw new CustomException("서버오류 - 거래진행 중단");
+		}
 		
 	}
 
 	// limitAccount => 한도 변경 신청 전 계좌 선택
 	@Override
 	public List<AccountDTO> limitAccount(String id)
-			throws ServletException, IOException{
+		throws ServletException, IOException{
 		System.out.println("TransferServiceImpl - limitAccount");
 		
 		return mapper.limitAccount(id);
@@ -110,13 +114,23 @@ public class TransferServiceImpl implements TransferService{
 		
 	// changeLimit
 	@Override
-	public AccountDTO changeLimit(int accountNum) 
-			throws ServletException, IOException {
+	public int changeLimit(LimitDTO dto) 
+		throws ServletException, IOException {
+		System.out.println("TransferServiceImpl - changeLimit");
 		
-		return mapper.changeLimit(accountNum);
+		Map<String, Object> map = new HashMap<String, Object>();
 		
+		return mapper.changeLimit(dto);
 	}
 
+	// transferLimit
+//	@Override
+//	public LimitDTO transferLimit(int limitNum) 
+//			throws ServletException, IOException {
+//		System.out.println("TransferServiceImpl - transferLimit");
+//		
+//		return mapper.transferLimit(limitNum);
+//	}
 
 
 }

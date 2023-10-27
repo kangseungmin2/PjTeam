@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography, TableFooter } from "@mui/material";
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import API from '../../api/transferAuto';
 
+// (고객) 한도 변경 요청 전 계좌선택화면 
 export default class limitAccount extends Component {
     constructor(props) {
         super(props);
@@ -18,9 +20,9 @@ export default class limitAccount extends Component {
     }
 
     limitAccount = () => {
-        // const id = window.localStorage.getItem("id")
-        const id = 'iu';
-        API.transAccount(id)
+        const id = window.localStorage.getItem("id")
+
+        API.limitAccount(id)
             .then(res => {
                 console.log("여기이이잉!!",res.data)
                 this.setState({
@@ -90,6 +92,7 @@ export default class limitAccount extends Component {
         return (
 
             <div align='center'>
+                <CurrencyExchangeIcon fontSize='large' color='primary' />
                 <Typography variant="h4">
                     한도변경 계좌 선택
                 </Typography>

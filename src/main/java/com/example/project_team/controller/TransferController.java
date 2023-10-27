@@ -1,7 +1,9 @@
 package com.example.project_team.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +17,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project_team.dto.AccountDTO;
+import com.example.project_team.dto.LimitDTO;
 import com.example.project_team.dto.TransferDTO;
 import com.example.project_team.exceptionHandler.CustomException;
 import com.example.project_team.exceptionHandler.ErrorResponse;
@@ -45,8 +49,8 @@ public class TransferController {
 	}
 	
 	// TransDetail => 한건이체 상세
-	@GetMapping("/{transferNum}")
-	public TransferDTO transferDetail(@PathVariable("transferNum") int transferNum) 
+	@GetMapping("/transDetail/{transferNum}")
+	public TransferDTO transferDetail(@PathVariable int transferNum) 
 			throws ServletException, IOException {
 		logger.info("<<<TransferController - transDetail>>>");
 		
@@ -60,7 +64,6 @@ public class TransferController {
 		logger.info("<<<TransferController - transAccount>>>");
 		
 		return service.transAccount(id);
-		
 	}
 	
 	// OneTransfer => 한건이체
@@ -90,12 +93,21 @@ public class TransferController {
 	}
 		
 	//changeLimit => 한도변경(하향, 상향)
-	@PostMapping("/changeLimit")
-	public AccountDTO changeLimit(@PathVariable("accountNum") int accountNum)
+	@PostMapping("/changeLimit/")
+	public int changeLimit(@RequestBody LimitDTO dto) 
 			throws ServletException, IOException {
 		logger.info("<<<TransferController - changeLimit>>>");
-	
-		return service.changeLimit(accountNum);
+		
+		return service.changeLimit(dto);
 	}
+	
+	//transferLimit => (관리자)고객 한도 변경 요청 승인/반려
+//	@PostMapping("/transferLimit/{limitNum}")
+//	public LimitDTO transferLimit(@PathVariable int limitNum)
+//			throws ServletException, IOException {
+//		logger.info("<<<TransferController - transferLimit>>>");
+//	
+//		return service.transferLimit(limitNum);
+//	}
 	
 }

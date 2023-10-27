@@ -11,7 +11,7 @@
 </select>
 
 <!-- 한건이체 상세목록  -->
-<select id="transferDetail" resultType="com.example.project_team.dto.TransferDTO">
+<select id="transferDetail" parameterType="int" resultType="com.example.project_team.dto.TransferDTO">
 	SELECT * FROM team_transfer WHERE transferNum=#{transferNum} 
 </select>
 
@@ -27,7 +27,7 @@
 	WHERE accountNum = #{accountNum}
 </update>
 	
-<!-- balanceChk 해당 계좌 기존 잔액 가져오기  -->
+<!-- 수취인(입금) 계좌 기존 잔액 가져오기  -->
 <select id="balanceChk" parameterType="Map" resultType="int">
 	SELECT balance FROM team_account WHERE accountNum = #{trAccountNum} 
 </select>
@@ -40,20 +40,32 @@
 </update>
 
 <!-- 한건이체 거래목록에 추가 -->
-<insert id="addTransList" parameterType="int">
-	INSERT into team_transfer(accountNum, accountType, accountLimit ,accountPW)
-	values(#{accountNum},#{accountType},#{accountLimit},#{accountPW}) WHERE accountNum = #{accountNum}
+<insert id="addTransList" parameterType="com.example.project_team.dto.TransferDTO">
+	INSERT INTO team_transfer(transferNum, id, accountNum, balance, accountLimit ,accountPW, trName, trbank, trAccountNum, trAmount, trDate)
+		VALUES((SELECT NVL(MAX(transferNum)+1, 1)FROM team_transfer),#{id},#{accountNum},#{balance},#{accountLimit},#{accountPW},#{trName},#{trbank},#{trAccountNum},#{trAmount}, SYSDATE) 
 </insert>
 
 <!-- 한도변경요청 전 계좌조회  -->
 <select id="limitAccount" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
-	SELECT * FROM team_account WHERE id = #{id} AND accountType = 'e' 
+	SELECT * FROM team_account WHERE id = #{id} AND accountType = 'e' AND show = 'y'
 </select>
 
-<!-- 일일이체 한도 상향 -> 관리자 승인시 변경됨 -->
-<insert id="changeLimit" parameterType="int">
-	INSERT into team_account(accountNum, accountType, accountLimit ,accountPW)
-	values(#{accountNum},#{accountType},#{accountLimit},#{accountPW})
+<!-- 한도변경 심사요청 -->
+<insert id="changeLimit" parameterType="com.example.project_team.dto.LimitDTO">
+	INSERT INTO team_limit (limitNum, id, name, accountNum, accountPW, accountLimit, wantLimit, limitDate, limitShow)
+ 	 VALUES (#{limitNum}, #{id}, #{name}, #{accountNum}, #{accountPW}, #{accountLimit}, #{wantLimit}, #{limitDate}, 'n');
 </insert>
+
+<!-- (관리자) 고객 한도상향 요청 리스트  -->
+<!-- <select id="transferLimit" parameterType="String" resultType="com.example.project_team.dto.LimitDTO">
+	SELECT * FROM team_limit WHERE id = #{id} AND limitShow = 'n'
+</select> -->
+
+<!-- (관리자) 고객 한도상향 요청 심사 -->
+<!-- <update id="transferLimit" parameterType="int">
+	UPDATE team_limit
+	SET accountLimit = #{wantLimit}, limitShow= 'y'
+	WHERE limitShow = 'n'
+</update> -->
 
 </mapper>

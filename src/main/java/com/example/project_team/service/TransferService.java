@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 
 import com.example.project_team.dto.AccountDTO;
+import com.example.project_team.dto.LimitDTO;
 import com.example.project_team.dto.TransferDTO;
 import com.example.project_team.exceptionHandler.ErrorResponse;
 
@@ -37,7 +38,13 @@ public interface TransferService {
 			throws ServletException, IOException;
 		
 	// changeLimit
-	public AccountDTO changeLimit(int accountNum)
+	public int changeLimit(LimitDTO dto)
 			throws ServletException, IOException;
+	
+	// transferLimit
+//	public LimitDTO transferLimit(int limitNum)
+//			throws ServletException, IOException;
+//	
+	
 	
 }

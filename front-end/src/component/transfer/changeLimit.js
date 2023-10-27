@@ -1,79 +1,109 @@
-import { Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, Button } from '@mui/material';
+import { TextField, Typography, Button } from "@mui/material";
 import React, { Component } from "react";
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import API from '../../api/transferAuto';
 
-class ChangeLimit extends Component {
-  constructor(props) {
-    super(props);
+class changeLimit extends Component {
 
-    this.state = {
-      transferNum: '',
-      transType: '',
-      accountLimit: ''
-    };
-  }
+    constructor(props) {
+        super(props);
 
-  componentDidMount() {
-    this.loadTransList();
-  }
+        this.state = {
+            accountNum: 0,
+            accountLimit: 0,
+            wantLimit: 0,
+            accountPW: 0
+        }
+    }
 
-  loadTransList = () => {
-    const transferNum = window.localStorage.getItem("TranNum");
-    API.autoList(transferNum)
-      .then(res => {
-        let tran = res.data;
+    componentDidMount() {
+        this.changeLimitData();
+    }
+
+    changeLimitData = () => {
+        this.setState ({
+            accountNum: window.localStorage.getItem('accountNum'),
+            accountLimit: window.localStorage.getItem('accountLimit'),
+            accountPW: window.localStorage.getItem('accountPW')
+        })
+    }
+
+
+    onChange = (e) => {
         this.setState({
-          transferNum: tran.transferNum,
-          transType: tran.transType,
-          accountLimit: tran.accountLimit
+            [e.target.name] : e.target.value
         });
-      })
-      .catch(err => {
-        console.log('loadTransList() Error!!', err);
-      });
-  }
+    }
 
-  allAccount = (transferNum) => {
-    window.localStorage.setItem("TranNum", transferNum);
-    this.props.history.push("/allAccount");
-  }
+    transferList = (e) =>{
+        e.preventDefault();
 
-  render() {
-    return (
-      <Container component="main" maxWidth="md">
-        <CurrencyExchangeIcon fontSize='large' color='primary' />
-        <Typography variant="h4" style={style}> 일일이체한도 변경 </Typography>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell align="center" width="50">No.</TableCell>
-              <TableCell align="center" width="50">{this.state.transferNum}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell align="center" width="50">이체계좌명</TableCell>
-              <TableCell align="center" width="50">{this.state.transType}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell align="center" width="50">일일한도</TableCell>
-              <TableCell align="center" width="50">
-                <div style={{ maxHeight: '100px', overflow: 'auto' }}>
-                  {this.state.accountLimit}
-                </div>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-        </Table>
-        <br />
-        <Button variant="contained" color="primary" onClick={() => this.allAccount(this.state.transferNum)} align="center">심사요청</Button>
-      </Container>
-    );
-  }
+        let inputData = {
+            accountNum: parseInt(this.state.accountNum),
+            accountLimit: parseInt(this.state.accountLimit),
+            accountPW: parseInt(this.state.accountPW),
+            wantLimit: parseInt(this.state.wantLimit)
+        }
+
+        console.log(inputData)
+        API.changeLimit(inputData)
+        .then(response => {
+            console.log(response);
+            if (response.data.success) {
+                // 성공적인 응답 처리
+                console.log(response);
+                alert(response.data.message);
+                this.props.history.push("/main");
+              } else {
+                // 오류 메시지 처리
+                alert(response.data.message);
+                window.location.reload();
+              }
+        });
+    }
+
+    
+    render(){
+        return(
+            <div align="center"><br/><br/>
+            <CurrencyExchangeIcon fontSize='large' color='primary' />
+                <Typography variant="h4"> 한도변경 신청 </Typography>
+                    <TextField
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        label="계좌번호"
+                        type="number"
+                        name="accountNum"
+                        value={this.state.accountNum}
+                        placeholder="input sample accountNum"/><br/>
+                            
+                    <TextField
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        label="기존한도"
+                        type="number"
+                        name="accountLimit"
+                        value={this.state.accountLimit}
+                        placeholder="input sample accountLimit"/><br/>
+
+                    <TextField
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        label="희망한도"
+                        type="number"
+                        name="wantLimit"
+                        value={this.state.wantLimit}
+                        placeholder="input sample wantLimit"
+                        onChange={this.onChange} /><br/>
+
+                    <br/><br/>
+                    <Button variant="contained" color="primary" onClick={this.transferLimit}>심사요청</Button>
+                    <br/>
+            </div>
+        );
+    }
 }
-
-const style = {
-  display: 'flex',
-  justifyContent: 'center',
-};
-
-export default ChangeLimit;
+export default changeLimit;
