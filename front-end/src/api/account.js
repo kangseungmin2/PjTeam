@@ -23,10 +23,22 @@ class account {
         return axios.get(ACCOUNT_API_BASE_URL+"/e/"+id,id);
     }
 
-    // 예적금 계좌조회
+    // 예금 계좌조회
     accountList2(id){
         console.log('accountList 호출~');
         return axios.get(ACCOUNT_API_BASE_URL+"/y/"+id,id);
+    }
+
+    // 적금 계좌조회
+    accountList3(id){
+        console.log('accountList 호출~');
+        return axios.get(ACCOUNT_API_BASE_URL+"/j/"+id,id);
+    }
+
+    // 대출 계좌조회
+    accountList4(id){
+        console.log('accountList 호출~');
+        return axios.get(ACCOUNT_API_BASE_URL+"/d/"+id,id);
     }
 
     // 1건 select
@@ -47,6 +59,12 @@ class account {
         console.log('deleteAccount() 호출', accountNum);
         return axios.put(ACCOUNT_API_BASE_URL + "/deleteAccount/" + accountNum, accountNum);
     }
+
+    // 관리자 결산
+    openAccountData(){
+        console.log('accountList 호출~');
+        return axios.get(ACCOUNT_API_BASE_URL+"/adminAccount");
+    }   
 
 
 }

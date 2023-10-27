@@ -4,7 +4,6 @@ import main from "../main/main";
 
 import openAccount from '../account/openAccount';
 import allAccount from "../account/allAccount";
-import balanceList from "../account/balanceList";
 import passwordModify from "../account/passwordModify";
 import deleteAccount from "../account/deleteAccount";
 import adminAccount from "../mypage/admin/adminAccount";
@@ -22,11 +21,16 @@ import utilityList from "../utility/utilityList";
 import giroPay from "../utility/giroPay";
 import localtaxPay from "../utility/localtaxPay";
 import dutyPay from "../utility/dutyPay";
+import payChk from "../utility/payChk";
 import pensionPay from "../utility/pensionPay";
+import paySuccess from "../utility/paySuccess";
+import delAccountSuccess from "../account/delAccountSuccess";
+import pwModifySuccess from "../account/pwModifySuccess";
 
 import login from "../customer/login";
 import join from "../customer/join";
 import chat from "../customer/chat";
+// import PhoneVerification from "../customer/sms"
 
 import transAccount from "../transfer/transAccount";
 import oneTransfer from "../transfer/oneTransfer";
@@ -92,7 +96,6 @@ const AppRouter = () => {
                 <Route path="/main" component={main}></Route>
                     <Route path="/openAccount" component={openAccount}/>    {/* 서윤-계좌개설 */}
                     <Route path="/allAccount" component={allAccount}/>       {/* 서윤-전체계좌조회 */}
-                    <Route path="/balanceList" component={balanceList}/>       {/* 서윤-잔액조회 */}
                     <Route path="/passwordModify" component={passwordModify}/>       {/* 서윤-비밀번호 변경 */}
                     <Route path="/deleteAccount" component={deleteAccount}/>       {/* 서윤-계좌해지 */}
                     <Route path="/adminAccount" component={adminAccount}/>       {/* 서윤-관리자-결산 */}
@@ -110,12 +113,17 @@ const AppRouter = () => {
                     <Route path="/giroPay" component={giroPay}/>       {/* 서윤-공과금-지로,생활요금 납부 */}
                     <Route path="/localtaxPay" component={localtaxPay}/>       {/* 서윤-공과금-지방세,등록금 납부 */}
                     <Route path="/dutyPay" component={dutyPay}/>       {/* 서윤-공과금-국고,관세 납부 */}
+                    <Route path="/payChk" component={payChk}/>  {/* 서윤-공과금-납부 */}
                     <Route path="/pensionPay" component={pensionPay}/>       {/* 서윤-공과금-연금,보험료 납부 */}
+                    <Route path="/delAccountSuccess" component={delAccountSuccess}/>  {/* 서윤-계좌-해지확인화면 */}
+                    <Route path="/pwModifySuccess" component={pwModifySuccess}/>  {/* 서윤-계좌-비번변경확인화면 */}
+                    <Route path="/paySuccess" component={paySuccess}/>  {/* 서윤-공과금-납부완료 */}
                     
                     <Route path="/login" component={login}/>       {/* 승민-로그인 */}
                     <Route path="/join" component={join}/>          {/* 승민 -회원가입-로그인 */}
                     <Route path="/chat" component={chat}/>          {/* 승민 -채팅 */}
-
+                    {/* <Route path="/PhoneVerification" component={PhoneVerification}/>          승민 -채팅 */}
+                    
                     <Route path="/boardList" component={BoardList}/>    {/* 상아-게시판목록 */}
                     <Route path="/boardAdd" component={BoardAdd}/>       {/* 상아-게시판추가 */}
                     <Route path="/boardEdit" component={BoardEdit}/>       {/* 상아-게시판수정 */}

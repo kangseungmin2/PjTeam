@@ -28,6 +28,9 @@ function log(){
           <NavDropdown.Item href="/memAccount">회원 결산</NavDropdown.Item>
           <NavDropdown.Item href="/questionList">1:1문의</NavDropdown.Item>
         </NavDropdown>
+        <Nav.Link eventKey={2} href="/PhoneVerification" style={style}>
+          본인인증
+        </Nav.Link>
         <Nav.Link eventKey={2} href="/chat" style={style}>
           채팅
         </Nav.Link>
@@ -76,7 +79,6 @@ function BasicExample() {
               <NavDropdown.Item href="/allAccount">
                 전체계좌조회
               </NavDropdown.Item>
-              <NavDropdown.Item href="/balanceList">잔액조회</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/passwordModify">비밀번호변경</NavDropdown.Item>
               <NavDropdown.Item href="/deleteAccount">계좌해지</NavDropdown.Item>
@@ -96,17 +98,8 @@ function BasicExample() {
             <NavDropdown title="공과금" id="basic-nav-dropdown">
               <NavDropdown.Item href="/utilityList">납부내역조회</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/giroPay">
-                지로/생활요금/기타
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/localtaxPay">
-                지방세/등록금
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/dutyPay">
-                국고/관세
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/pensionPay">
-                연금/보험료
+              <NavDropdown.Item href="/payChk">
+                 공과금 납부
               </NavDropdown.Item>
             </NavDropdown>
 
