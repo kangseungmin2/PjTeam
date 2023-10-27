@@ -1,8 +1,8 @@
 import axios from 'axios'; // npm install -f axios@^1.3.5
 
 
-const TRANSFERLIST_API_CUSTOMER = "http://localhost:8083/trans"; // 이체 transfer
-const AUTOLIST_API_CUSTOMER = "http://localhost:8083/auto";      // 자동이체 auto
+const TRANSFERLIST_API_CUSTOMER = "http://15.165.6.111:8083/trans"; // 이체 transfer
+const AUTOLIST_API_CUSTOMER = "http://15.165.6.111:8083/auto";      // 자동이체 auto
 
 class transferAuto {
 

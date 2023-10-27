@@ -11,10 +11,6 @@ const BOARD_API_ADMIN = "http://localhost:8083/boardList";
 const LOANPRODUCT_API_ADMIN = "http://localhost:8083/loanProductList";
 const LOANLIST_API_MEMBER = "http://localhost:8083/loanList";
 const ACCOUNT_API_BASE_URL = "http://localhost:8083/allAccount";
-const DEPOSITLIST_API_CUSTOMER = "http://localhost:8083/depositList";
-const SAVINGSLIST_API_CUSTOMER = "http://localhost:8083/savingsList";
-const DEPOSITPRODUCT_API_ADMIN = "http://localhost:8083/depositProductList";
-const SAVINGSPRODUCT_API_ADMIN = "http://localhost:8083/savingsProductList";
 
 const apiUrl = 'http://localhost:8083';
 
