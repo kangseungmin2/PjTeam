@@ -6,7 +6,7 @@ import axios from 'axios'; // npm install -f axios@^1.3.5
 // - 리엑트에서 이를 구현하기 위해서 렉소르를 사용한다. 기존 HTML이나 JSP에서 사용한 AJAX 역할을 한다고 보면 된다.
 // - npm install -f axios@^1.3.5
 
-const FUND_API_BASE_URL = "http://localhost:8083/fund";
+const FUND_API_BASE_URL = "http://15.165.6.111:8083/fund";
 const BOARD_API_ADMIN = "http://localhost:8083/boardList";
 const LOANPRODUCT_API_ADMIN = "http://localhost:8083/loanProductList";
 const LOANLIST_API_MEMBER = "http://localhost:8083/loanList";

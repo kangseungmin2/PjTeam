@@ -4,13 +4,12 @@ import pandas as pd
 import time
 
 import time
-# while True:
+
 
 url = "https://finance.naver.com/marketindex/?tabSel=exchange#tab_section"
 
 res = req.urlopen(url)
 soup = BeautifulSoup(res, "html.parser",from_encoding="euc-kr")
-
 name_nation = soup.select("h3.h_lst > span.blind")
 name_price = soup.select('span.value')
 name_nation2 = soup.select("div#sView > select.selectbox-source > option")
@@ -28,10 +27,6 @@ index = 0
 df = df.drop(index)
 
 print(df2)
-
-    # time.sleep(10)  # 1시간(초 단위)마다 실행
-
-
 
 import cx_Oracle
 import sqlalchemy
@@ -58,9 +53,14 @@ for index, row in df.iterrows():
 
     insert_query = ("INSERT INTO team_exchange (exchangeNum, nation, price) "
                     "VALUES ((SELECT NVL(MAX(exchangeNum)+1,1) FROM team_exchange), :nation, :price)")
-    update_query = ("update team_exchange set price = :price where nation = :nation")
-    cursor.execute(update_query, nation=nation, price=price)
+    # update_query = ("update team_exchange set price = :price where nation = :nation")
+    cursor.execute(insert_query, nation=nation, price=price)
 connection.commit()
 
 # 연결 종료
 connection.close()
+
+# 실시간 업데이트 1,2,3 추가
+# 1.while True: => # 주석 해제 아래문장은 tab키를 주어야한다.
+# 2.update_query = ("update team_exchange set price = :price where nation = :nation")
+# 3.time.sleep(10)  =>  10초 # 1시간(초 단위)마다 실행

@@ -32,9 +32,7 @@ public class WebConfig {
 		
 		System.out.println("<<<WebConfig-1>>>");
 		config.setAllowCredentials(true);
-		config.addAllowedOrigin("http://localhost:3000");
-		config.addAllowedOrigin("http://creambank.kro.kr:3000");
-		config.addAllowedOrigin("http://192.168.0.86:3000");
+		config.addAllowedOriginPattern("*");
 		config.setAllowedHeaders(Arrays.asList(
 				HttpHeaders.AUTHORIZATION,
 				HttpHeaders.CONTENT_TYPE,

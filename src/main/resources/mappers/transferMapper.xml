@@ -53,7 +53,7 @@
 <!-- 한도변경 심사요청 -->
 <insert id="changeLimit" parameterType="com.example.project_team.dto.LimitDTO">
 	INSERT INTO team_limit (limitNum, id, name, accountNum, accountPW, accountLimit, wantLimit, limitDate, limitShow)
- 	 VALUES (#{limitNum}, #{id}, #{name}, #{accountNum}, #{accountPW}, #{accountLimit}, #{wantLimit}, #{limitDate}, 'n');
+ 	 VALUES (#{limitNum}, #{id}, #{name}, #{accountNum}, #{accountPW}, #{accountLimit}, #{wantLimit}, #{limitDate}, 'n')
 </insert>
 
 <!-- (관리자) 고객 한도상향 요청 리스트  -->
