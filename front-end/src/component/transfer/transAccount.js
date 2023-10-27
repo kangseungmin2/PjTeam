@@ -1,34 +1,35 @@
 import React, { Component } from "react";
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography, TableFooter } from "@mui/material";
 import API from '../../api/transferAuto';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 
 export default class transAccount extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            trAccountList: [],
+            transAccount: [],
             passwords : {}
         }
     }
 
     // 라이프사이클 중 컴포넌트가 생성된 후 사용자에게 보여지기까지의 전체 과정을 렌더링
     componentDidMount() {
-        this.trAccountList();
+        this.transAccount();
     }
 
-    trAccountList = () => {
-        // const id = window.localStorage.getItem("id")
-        const id = 'iu';
-        API.trAccountList(id)
+    transAccount = () => {
+        const id = window.localStorage.getItem("id")
+        
+        API.transAccount(id)
             .then(res => {
                 console.log("여기이이잉!!",res.data)
                 this.setState({
-                    trAccountList: res.data // 이걸루 list에 값을 담을 수 있음!
+                    transAccount: res.data // 이걸루 list에 값을 담을 수 있음!
                 })
             })
             .catch(err => {
-                console.log('tRAccountList() Error!!', err);
+                console.log('transAccount() Error!!', err);
             })
     }
 
@@ -90,11 +91,12 @@ export default class transAccount extends Component {
         return (
 
             <div align='center'>
+                <CurrencyExchangeIcon fontSize='large' color='primary' />
                 <Typography variant="h4">
-                    계좌 선택
+                    이체 계좌 선택
                 </Typography>
                 <form>
-                    {this.state.trAccountList.map(list => (
+                    {this.state.transAccount.map(list => (
                         <Table style={box} key={list.accountNum}>
                             <TableHead style={style}  >
                                 <TableRow>
@@ -123,11 +125,11 @@ export default class transAccount extends Component {
                                 <TableRow style={style}>
                                     <span style={boxText}>
                                         <TableCell style={style3}>계좌잔액 : </TableCell>
-                                        <TableCell style={style4}>{parseInt(list.balance).toLocaleString()}원</TableCell>
+                                        <TableCell style={style4}>{parseInt(list.balance).toLocaleString()}원</TableCell> 
                                     </span>
                                     <span style={boxText}>
                                         <TableCell style={style3}>이체한도 :  </TableCell>
-                                        <TableCell style={style4}>{list.accountLimit}</TableCell>
+                                        <TableCell style={style4}>{parseInt(list.accountLimit).toLocaleString()}</TableCell>
                                     </span>
                                 </TableRow>
                             </TableBody>

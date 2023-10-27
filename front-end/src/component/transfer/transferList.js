@@ -23,8 +23,7 @@ class transferList extends Component {
         super(props);
 
         this.state = {
-            trans: [
-            ],
+            trans: [],
             message: null,
             page: 0,
             rPage: 5
@@ -50,12 +49,6 @@ class transferList extends Component {
                 console.log('loadtransList() Error!!', err);
             })
         console.log(this.state.trans)
-    }
-
-    // 1건 selects
-    selectTransfer = (transferNum) => {
-        window.localStorage.setItem("TranNum", transferNum);
-        this.props.history.push("/transferDetail")
     }
 
     // detail

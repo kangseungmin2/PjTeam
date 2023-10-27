@@ -3,7 +3,7 @@ import { Typography, Container, Table, TableContainer, TableHead, TableRow, Tabl
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
-import API from '../../api/transferAuto';
+import API from '../../../api/transferAuto';
 
 function Unix_timestamp(t){
     const date = new Date(t); //date객체는 UTC로부터 지난시간을 밀리초로 나타내는 UNIX 타임스탬프를 담는다.(밀리초를 초로 변환하려면 *1000)
@@ -17,15 +17,14 @@ function Unix_timestamp(t){
     return year + "-" + month.substr(-2) + "-" + day.substr(-2);
 }
 
-// 관리자 한도변경 승인 화면
+// (관리자) 고객 한도변경 신청 리스트
 class transferLimit extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            trans: [
-            ],
+            limits: [],
             message: null,
             page: 0,
             rPage: 5
@@ -40,23 +39,17 @@ class transferLimit extends Component {
     // list 정보
     loadtransList = () => {
         console.log("T.T", this.state)
-        API.transferList()
+        API.transferLimit()
             .then(res => {
                 this.setState({
-                    trans: res.data
+                    limits: res.data
                 })
             })
             .catch(err => {
 
                 console.log('loadtransList() Error!!', err);
             })
-        console.log(this.state.trans)
-    }
-
-    // 1건 selects
-    selectTransfer = (transferNum) => {
-        window.localStorage.setItem("TranNum", transferNum);
-        this.props.history.push("/transferDetail")
+        console.log(this.state.limits)
     }
 
     // detail
@@ -87,30 +80,31 @@ class transferLimit extends Component {
             <Container component="main" maxWidth="md">
 
                 <CurrencyExchangeIcon fontSize='large' color='primary' />
-                <Typography variant="h4" style={style}> 이체목록 </Typography>
+                <Typography variant="h4" style={style}> 고객 한도변경 신청목록 </Typography>
 
                 <TableContainer >
                     <Table md={{ minWidth: 900 }}>
                         <TableHead>
                             <TableRow>
                                 <TableCell align="center" width="50">No.</TableCell>
-                                <TableCell align="center" width="200">수취인</TableCell>
-                                <TableCell align="center" width="150">금액</TableCell>
-                                <TableCell align="center" width="100">이체일자</TableCell>
-                                <TableCell align="center" width="50">상세</TableCell>
+                                <TableCell align="center" width="200">고객아이디</TableCell>
+                                <TableCell align="center" width="150">기존한도</TableCell>
+                                <TableCell align="center" width="100">희망한도</TableCell>
+                                <TableCell align="center" width="50">요청날짜</TableCell>
                             </TableRow>
                         </TableHead>
 
                         <TableBody>
-                            {this.state.trans.slice(page * rPage, page * 
-                            rPage + rPage).map((tran) => (
-                                <TableRow hover key={tran.transferNum}>
-                                    <TableCell align='center'>{tran.transferNum}</TableCell> 
-                                    <TableCell align='center'>{tran.trName}</TableCell>
-                                    <TableCell align='center'>{tran.trAmount}원</TableCell>
-                                    <TableCell align='center'>{Unix_timestamp(tran.trDate)}</TableCell>
+                            {this.state.limits.slice(page * rPage, page * 
+                            rPage + rPage).map((limit) => (
+                                <TableRow hover key={limit.limitNum}>
+                                    <TableCell align='center'>{limit.limitNum}</TableCell> 
+                                    <TableCell align='center'>{limit.id}</TableCell>
+                                    <TableCell align='center'>{limit.accountLimit}원</TableCell>
+                                    <TableCell align='center'>{limit.wantLimit}원</TableCell>
+                                    <TableCell align='center'>{Unix_timestamp(limit.limitDate)}</TableCell>
                                     <TableCell align='center'>
-                                        <EditNoteOutlinedIcon fontSize='large' onClick={() => this.transDetail(tran.transferNum)}/>
+                                        <EditNoteOutlinedIcon fontSize='large' onClick={() => this.transDetail(limit.transferNum)}/>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -121,7 +115,7 @@ class transferLimit extends Component {
                 <TablePagination 
                 rowsPerPageOptions={[5, 10, 25]} 
                 component="div"
-                count={this.state.trans.length} 
+                count={this.state.limits.length} 
                 rowsPerPage={rPage} 
                 page={page} 
                 onPageChange={this.handleChangePage} 

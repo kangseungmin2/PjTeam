@@ -25,9 +25,7 @@ class changeAuto extends Component {
         super(props);
 
         this.state = {
-            autos: [
-              
-            ],
+            autos: [],
             message: null,
             page: 0,
             rPage: 5
@@ -42,7 +40,7 @@ class changeAuto extends Component {
     // list 정보
     loadautosList = () => {
         console.log("T.T", this.state)
-        API.changeAuto()
+        API.autoList()
             .then(res => {
                 this.setState({
                     autos: res.data
@@ -55,24 +53,12 @@ class changeAuto extends Component {
         console.log(this.state.autos)
     }
 
-    // 1건 selects
-    selectAutosfer = (autoNum) => {
-        window.localStorage.setItem("AutoNum", autoNum);
-        this.props.history.push("/autoDetail")
+    // changeAutoButton
+    changeAutoButton = (autoNum) => {
+    window.localStorage.setItem("AutoNum", autoNum);
+    this.props.history.push("/changeAutoButton")
     }
 
-    // alter
-    alterAuto = (autoNum) => {
-        window.localStorage.setItem("AutoNum", autoNum);
-        this.props.history.push("/alterAuto")
-    }
-
-    // cancle
-    cancleAuto = (autoNum) => {
-        window.localStorage.setItem("AutoNum", autoNum);
-        this.props.history.push("/cancleAuto")
-    }
-    
     // page
     handleChangePage = (event,newpage) => { 
         this.setState({ page: newpage });
@@ -116,9 +102,13 @@ class changeAuto extends Component {
                                     <TableCell align='center'>{auto.autoNum}</TableCell> 
                                     <TableCell align='center'>{auto.autoTitle}</TableCell>
                                     <TableCell align='center'>{auto.autoAmount}원</TableCell>
-                                    <TableCell align='center'>{Unix_timestamp(auto.autoDate)}</TableCell>
+                                    <TableCell align='center'>{new Date(auto.autoDate).toLocaleString('ko-KR', {
+                                                                year: 'numeric',
+                                                                month: '2-digit',
+                                                                day: '2-digit',
+                                                                })}</TableCell>
                                     <TableCell align='center'>
-                                        <ChangeCircleIcon fontSize='large' onClick={() => this.alterAuto(auto.autoNum)}/>
+                                        <ChangeCircleIcon fontSize='large' onClick={() => this.changeAutoButton(auto.autoNum)}/>
                                     </TableCell>
                                     <TableCell align='center'>
                                         <RemoveCircleIcon fontSize='large' onClick={() => this.cancleAuto(auto.autoNum)}/>

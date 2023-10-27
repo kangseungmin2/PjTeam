@@ -53,18 +53,25 @@ class oneTransfer extends Component {
             trbank: this.state.trbank,
             trName: this.state.trName,
             trAccountNum: parseInt(this.state.trAccountNum),
-            trAmount: parseInt(this.state.trAmount)
+            trAmount: parseInt(this.state.trAmount),
+            balance: parseInt(this.state.balance)
         }
 
         console.log(inputData)
         API.oneTransfer(inputData)
-            .then(res => {
-                console.log('onetransfer() 성공 : ', res.data);
-                this.props.history.push('/oneTransfer');        // RouterComponent.js - ListSampleComponent 호출
-            })
-            .catch(err =>{
-                console.log('onetransfer() 에러 : ', err);
-            })
+        .then(response => {
+            console.log(response);
+            if (response.data.success) {
+                // 성공적인 응답 처리
+                console.log(response);
+                alert(response.data.message);
+                this.props.history.push("/main");
+              } else {
+                // 오류 메시지 처리
+                alert(response.data.message);
+                window.location.reload();
+              }
+        });
     }
 
     render(){
@@ -101,6 +108,16 @@ class oneTransfer extends Component {
                         name="accountLimit"
                         value={this.state.accountLimit}
                         placeholder="input sample accountLimit"/><br/>
+
+                    <TextField
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        label="계좌 잔액"
+                        type="number"
+                        name="balance"
+                        value={this.state.balance}
+                        placeholder="input sample balance"/><br/>
 
                     <TextField
                         required
