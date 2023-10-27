@@ -1,10 +1,12 @@
 import React,{Component} from "react";
-import { Chart } from 'react-google-charts';
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography } from "@mui/material";
 import classNames from 'classnames';  // npm i classnames --save   대소문자 주의 
 import './fund.css';
 import ApiService from "../../ApiService";
 import SelectTransactionList from "./selectTransactionList";
+import FundChart from "./fundChart";
+
+
 
 export default class fundDtail extends Component {
     constructor(props) {
@@ -21,6 +23,7 @@ export default class fundDtail extends Component {
                 trMarketPrice : '',	        // 거래시가
                 trStatus : '',               // 거래상태 (매수 : b, 매도 : s)
             },
+            transactionList: [],
             errorMessage : ''
         };
     }; 
@@ -34,13 +37,22 @@ export default class fundDtail extends Component {
         const  fpName = window.localStorage.getItem('fpName');
         ApiService.fProductDetail(fpName)
         .then(res => {
-            this.setState({
+            this.setState({ 
                 fProduct : res.data
             })
             ApiService.getFaccount(faccount)
             .then(accountRes => {
                 this.setState({
-                    fAccount : accountRes.data
+                    fAccount : accountRes.data,
+                })
+                ApiService.oneTransactionList(faccount,fpName)
+                .then(res => { 
+                    this.setState({
+                        transactionList : res.data,
+                    })
+                })
+                .catch(err => {
+                    console.log('transactionList() Error!!', err);   
                 })
             })
             .catch(accountErr => {
@@ -59,9 +71,15 @@ export default class fundDtail extends Component {
     onChangeHandler = (event) => {
         console.log(parseInt(event.target.value))
         const tCnt = parseInt(event.target.value);
-        const tPrice = tCnt * parseInt(this.state.fProduct.marketPrice.replace(",",""));
+
+        let tPrice = tCnt * parseInt(this.state.fProduct.marketPrice);
+        if (this.state.active == 's') {
+            const orPrice = tCnt * parseInt(this.state.fProduct.marketPrice);
+            const etcPrice = orPrice * (this.state.fProduct.etc/100);
+            tPrice = orPrice-etcPrice; 
+        }
         console.log("tcne11",tCnt)
-        console.log("tprice11",tPrice)
+        console.log("최종",tPrice)
         this.setState({
           fdTransactionDTO: {
                 fdAccount : parseInt(this.state.fAccount.fdAccount),            // 펀드 계좌번호 fk
@@ -102,26 +120,6 @@ export default class fundDtail extends Component {
     
     
     render() {
-
-        const data = [
-            ['Day', 'Data', 'Open', 'Close', 'High', { role: 'style' }],
-            ['Mon', 20, 28, 38, 45, 'blue'],  // 시가 < 종가 (이익), 파란색
-            ['Tue', 31, 38, 55, 66, 'blue'],  // 시가 < 종가 (이익), 파란색
-            ['Wed', 50, 55, 77, 80, 'blue'],  // 시가 < 종가 (이익), 파란색
-            ['Thu', 77, 77, 66, 50, 'red'],   // 시가 > 종가 (손실), 빨간색
-            ['Fri', 68, 66, 22, 15, 'red']    // 시가 > 종가 (손실), 빨간색
-          ];
-    
-        const options = {
-        legend: 'none',
-        hAxis: { title: 'Day' },
-        vAxis: { title: 'Price' },
-        title: 'Data : 저가-고가, 시가-종가' // 작은 타이틀 추가
-        };
-
-      
-
-
         return (
             
             <div>
@@ -138,7 +136,7 @@ export default class fundDtail extends Component {
                                                 종목코드
                                             </TableCell>
                                             <TableCell>
-                                                대비
+                                                국제인증 고유번호
                                             </TableCell>
                                             <TableCell>
                                                 등락률
@@ -160,19 +158,19 @@ export default class fundDtail extends Component {
                                             {this.state.fProduct.fpNum}
                                             </TableCell>
                                             <TableCell>
-                                            {this.state.fProduct.prepare}
+                                            {this.state.fProduct.isincd}
                                             </TableCell>
-                                            <TableCell>
+                                            <TableCell style={this.state.fProduct.fluctuationRate < 0 ? {color : 'blue'} : {color : 'red'}}>
                                             {this.state.fProduct.fluctuationRate}
                                             </TableCell>
                                             <TableCell>
                                             {this.state.fProduct.netAssetValue}
                                             </TableCell>
                                             <TableCell>
-                                            {this.state.fProduct.tradingVolume}
+                                            {parseInt(this.state.fProduct.tradingVolume).toLocaleString()}
                                             </TableCell>
                                             <TableCell>
-                                            {this.state.fProduct.transactionAmount}
+                                            {parseInt(this.state.fProduct.transactionAmount).toLocaleString()}
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
@@ -191,17 +189,17 @@ export default class fundDtail extends Component {
                                                 기초지수_종가
                                             </TableCell>
                                             <TableCell>
-                                                기초지수_대비
+                                                기초지수_등락률
                                             </TableCell>
                                             <TableCell>
-                                                기초지수_등락률
+                                                수수료율
                                             </TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
                                         <TableRow>
                                             <TableCell>
-                                            {this.state.fProduct.marketCapitalization}
+                                            {parseInt(this.state.fProduct.marketCapitalization).toLocaleString()}
                                             </TableCell>
                                             <TableCell>
                                             {this.state.fProduct.listingsNum}
@@ -212,25 +210,19 @@ export default class fundDtail extends Component {
                                             <TableCell>
                                             {this.state.fProduct.bclosingPrice}
                                             </TableCell>
-                                            <TableCell>
-                                            {this.state.fProduct.bprepare}
+                                            <TableCell style={parseInt(this.state.fProduct.bfluctuationRate) < 0 ? {color : 'blue'} : {color : 'red'}}>
+                                            {this.state.fProduct.bfluctuationRate}
                                             </TableCell>
                                             <TableCell>
-                                            {this.state.fProduct.bfluctuationRate}
+                                            {this.state.fProduct.etc}%
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
                                 </Table>
                             </TableCell>
+                            {/* 차트영역 */}
                             <TableCell>
-                                <Chart
-                                    width={'600px'}
-                                    height={'400px'}
-                                    chartType="CandlestickChart"
-                                    loader={<div>Loading Chart</div>}
-                                    data={data}
-                                    options={options}
-                                />
+                                <FundChart/>
                             </TableCell>
                         </TableRow>
                     </TableHead>
@@ -263,11 +255,12 @@ export default class fundDtail extends Component {
                     {/* Buy 폼, (name="login" -> name="id"),  input type="login" -> input type="text", label : ID */}
                     <form >
                         <div style={{textAlign : "end"}}>
-                            <small style={{ color : 'gray' }}>계좌잔액 : {parseInt(this.state.fAccount.balance).toLocaleString()} 원</small>
+                            <small style={{ color : 'gray' }}>계좌잔액 : {parseInt(this.state.fAccount.balance).toLocaleString()} 원</small><br/>
+                            <small style={{ color : 'gray' }}>매수 수량 : {parseInt(this.state.transactionList.trCnt) === 0 ? '거래내역이 없습니다.' : parseInt(this.state.transactionList.trCnt)+'개'} </small>
                         </div>
                         <div className="form-outline mb-4" style={{textAlign : "end"}}>
                             <label className="form-label" htmlFor="open">시가 </label>
-                            <input type="text" id="open" name= "tMarketPrice" className="form-control" value={ this.state.fProduct.marketPrice }/>
+                            <input type="text" id="open" name= "tMarketPrice" className="form-control" value={parseInt(this.state.fProduct.marketPrice).toLocaleString()}/>
                         </div>
 
                         <div className="form-outline mb-4" style={{textAlign : "end"}}> 
@@ -290,11 +283,12 @@ export default class fundDtail extends Component {
                     id="pills-sell" >
                     <form>
                         <div style={{textAlign : "end"}}>
-                            <small style={{ color : 'gray' }}>계좌잔액 : {parseInt(this.state.fAccount.balance).toLocaleString()} 원</small>
+                            <small style={{ color : 'gray' }}>계좌잔액 : {parseInt(this.state.fAccount.balance).toLocaleString()} 원</small><br/>
+                            <small style={{ color : 'gray' }}>매수 수량 : {parseInt(this.state.transactionList.trCnt) === 0 ? '거래내역이 없습니다.' : parseInt(this.state.transactionList.trCnt)+'개'} </small>
                         </div>
                         <div className="form-outline mb-4" style={{textAlign : "end"}}>
                             <label className="form-label" htmlFor="open">시가</label>
-                            <input type="text" id="open" name= "tMarketPrice" className="form-control" value={this.state.fProduct.marketPrice}/>
+                            <input type="text" id="open" name= "tMarketPrice" className="form-control" value={parseInt(this.state.fProduct.marketPrice).toLocaleString()}/>
                         </div>
 
                         <div className="form-outline mb-4" style={{textAlign : "end"}}> 
@@ -314,8 +308,9 @@ export default class fundDtail extends Component {
                 </div>
                 </div>
                 <div>
-                <SelectTransactionList/>
+                    <SelectTransactionList/>
                 </div>
+                
             </div>
             </div>
         );

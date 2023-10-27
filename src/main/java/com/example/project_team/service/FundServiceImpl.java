@@ -48,7 +48,7 @@ public class FundServiceImpl implements FundService{
 			throws ServletException, IOException{
 		System.out.println("FundServiceImpl - fundList()");
 		
-		return fpRepository.findAll();
+		return fpRepository.fundListSelect();
 	}
 	
 	// accountList
@@ -58,6 +58,15 @@ public class FundServiceImpl implements FundService{
 		System.out.println("FundServiceImpl - accountList()");
 		
 		return acRepository.findFundAccountsById(id);
+	}
+	
+	// fundChart
+	@Override
+	public List<FundProductDTO> fundChart(String fpName)
+			throws ServletException, IOException{
+		System.out.println("FundServiceImpl - fundChart()");
+		
+		return fpRepository.fundChart(fpName);
 	}
 	
 	// fundDetail 1건 조회
@@ -76,6 +85,21 @@ public class FundServiceImpl implements FundService{
 		System.out.println("FundServiceImpl - fundAccount()");
 		
 		return faRepository.findFundAccountsByAc(fdAccount);
+	}
+	
+	// oneTransactionList 수량체크
+	@Override
+	public int oneTransactionList(long fdAccount, String fpName)
+			throws ServletException, IOException{
+		System.out.println("FundServiceImpl - transactionList()");
+		
+		Map<String, Object> buy = new HashMap<String, Object>();
+		buy.put("fpName", fpName);
+		buy.put("fdAccount", fdAccount);
+		int buyCnt = ftRepository.findFundTransactionsbuyCnt(buy);
+		int sellCnt = ftRepository.findFundTransactionssellCnt(buy);
+		int cnt = buyCnt - sellCnt;
+		return cnt;
 	}
 	
 	// fundAccountSelect 계좌 다건 조회
@@ -105,10 +129,10 @@ public class FundServiceImpl implements FundService{
 		
 		ftRepository.saveFundTransaction(dto);
 		
-		// 통장잔액
+		// 해당 통장 가져오기
 		FundAccountDTO accountDTO = faRepository.findFundAccountsByAc(dto.getFdAccount());
 		
-		// 매수,매도 금액
+		// 통장잔액
 		int balance = accountDTO.getBalance(); 
 		
 		// 매수 된 수량 가져오기
@@ -116,13 +140,13 @@ public class FundServiceImpl implements FundService{
 		Map<String, Object> buy = new HashMap<String, Object>();
 		buy.put("fpName", dto.getFpName());
 		buy.put("fdAccount", fdAccount);
+		
 		// 매수 수량 구하기
 		int buyCnt = ftRepository.findFundTransactionsbuyCnt(buy);
-		System.out.println("buyCnt여기이!!" +buyCnt);
-		System.out.println("dto.getTrCnt()여기이!!" +dto.getTrCnt());
 		
 		int result = 0;
 		if (dto.getTrStatus().equals("b")) {
+			
 			// 매수시 차감금액 계산
 			result = balance - dto.getTrPrice();
 		}
@@ -136,7 +160,6 @@ public class FundServiceImpl implements FundService{
 				throw new CustomException("매도 수량이 매수된 수량보다 많습니다.");
 			}
 		}
-		
 		if (result < 0) {
 			throw new CustomException("잔액 부족"); // 잔액이 부족한 경우 롤백	
         }
@@ -184,6 +207,18 @@ public class FundServiceImpl implements FundService{
 			throws ServletException, IOException{
 		System.out.println("FundServiceImpl - insertAccount()");
 		
-		return ftRepository.findMyFund(fdAccount);
+		List<FundTransactionDTO> buy = mapper.buyFundData(fdAccount);
+		List<FundTransactionDTO> sell = mapper.sellFundData(fdAccount);
+		
+		for (FundTransactionDTO trBuy : buy) {
+			for (FundTransactionDTO trSell : sell) {
+				if (trBuy.getFpName().equals(trSell.getFpName())) {
+                    // 키가 일치하는 경우 로직 수행
+					trBuy.setTrCnt(trBuy.getTrCnt() - trSell.getTrCnt());
+                }
+			}
+		}
+		
+		return buy;
 	}
 }

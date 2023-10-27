@@ -34,6 +34,8 @@ public interface FundMapper {
 	public List<FundTransactionDTO> selectTransactionList(Map<String, Object> map);
 	// insertAccount 개좌개설
 	public void insertAccount(FundAccountDTO dto);
-	// myFundData 내 펀드조회
-	public List<FundTransactionDTO> myFundData(long fdAccount);
+	// buyFundData 내 펀드조회
+	public List<FundTransactionDTO> buyFundData(long fdAccount);
+	// sellFundData 내 펀드조회
+	public List<FundTransactionDTO> sellFundData(long fdAccount);
 } 

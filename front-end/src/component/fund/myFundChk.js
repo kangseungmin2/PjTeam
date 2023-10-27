@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography, TableFooter } from "@mui/material";
 import ApiService from "../../ApiService";
 
-export default class fundTransaction extends Component {
+export default class myFundChk extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             accountList: [],
             message: null,
             passwords: {},
             date: '',
+            formattedDate: '',
             fPw: ''
         }
     }
@@ -28,12 +30,13 @@ export default class fundTransaction extends Component {
                 })
             })
             .catch(err => {
-                console.log('fAccountList() Error!!', err);
+                console.log('fundAccountSelect() Error!!', err);
             })
     }
 
+
     // 계좌 비밀번호 4자리 맞는지 확인 
-    handleChange = (e, faccount) => {
+    handleChange = (e, fdAccount) => {
         const inputValue = e.target.value;
 
         // input box에 password 4자리 숫자제한 걸기
@@ -42,7 +45,7 @@ export default class fundTransaction extends Component {
             this.setState(prevState => ({
                 passwords: {
                     ...prevState.passwords,
-                    [faccount]: inputValue,
+                    [fdAccount]: inputValue,
                 }
             }));
         } else {
@@ -51,7 +54,7 @@ export default class fundTransaction extends Component {
             this.setState(prevState => ({
                 passwords: {
                     ...prevState.passwords,
-                    [faccount]: '',
+                    [fdAccount]: '',
                 }
             }));
         }
@@ -66,7 +69,7 @@ export default class fundTransaction extends Component {
         if (enteredPassword == fdPw) {
             window.localStorage.removeItem("faccount");
             window.localStorage.setItem('faccount', fdAccount);
-            this.props.history.push('/transactionList');
+            this.props.history.push('/myFund');
         } else {
             alert('비밀번호가 일치하지 않습니다.');
 

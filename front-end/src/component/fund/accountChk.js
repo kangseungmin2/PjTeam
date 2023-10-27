@@ -110,7 +110,7 @@ export default class accountChk extends Component {
                                     <span style={boxText}>
                                         <TableCell style={style3}>계좌 개설일 : </TableCell>
                                         <TableCell style={style4}>{new Date(list.madeDate).toLocaleDateString(
-                                            'en-US', {
+                                            'ko-KR', {
                                             year: 'numeric',
                                             month: '2-digit',
                                             day: '2-digit'
