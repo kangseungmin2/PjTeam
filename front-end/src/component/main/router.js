@@ -92,10 +92,13 @@ import depositList from "../deposit/depositList";
 import savingsList from "../savings/savingsList";
 import depositDetail from "../deposit/depositDetail";
 import savingsDetail from "../savings/savingsDetail";
-import depositSign from "../deposit/depositSign";
-import savingsSign from "../savings/savingsSign";
-import depositDelete from "../deposit/depositDelete";
+// import depositSign from "../deposit/depositSign";
+import SavingsSign from "../savings/savingsSign";
+
 import depositCheck from "../deposit/depositCheck";
+import DepositSign from "../deposit/depositSign";
+import DepositSignList from '../deposit/depositSignList';
+import KakaoMap from "../kakao/kakaoMap";
 
 
 
@@ -168,10 +171,12 @@ const AppRouter = () => {
                     <Route path="/savingsList" component={savingsList}/>        {/* 석준-적금 조회 */}
                     <Route path="/depositDetail" component={depositDetail}/>        {/* 석준-예금 상세페이지조회 */}
                     <Route path="/savingsDetail" component={savingsDetail}/>        {/* 석준-적금 상세페이지조회 */}
-                    <Route path="/depositSign" component={depositSign}/>        {/* 석준-예금 신규가입 */}
-                    <Route path="/savingsSign" component={savingsSign}/>        {/* 석준-적금 신규가입 */}
-                    <Route path="/depositDelete" component={depositDelete}/>        {/* 석준-예/적금 해지 */}
+                    <Route path="/depositSign" component={DepositSign}/>        {/* 석준-예금 신규가입 */}
+                    <Route path="/savingsSign" component={SavingsSign}/>        {/* 석준-적금 신규가입 */}
+                    <Route path="/depositSignList" component={DepositSignList}/>        {/* 석준-예/적금 해지 */}
                     <Route path="/depositCheck" component={depositCheck}/>        {/* 석준-예/적금 해지 */}
+
+                    <Route path="/kakaoMap" component={KakaoMap}/>        {/* map연습 */}
                     
                     <Route path="/transAccount" component={transAccount}/>    {/* 정현-한건이체시 계좌선택 */}
                     <Route path="/oneTransfer" component={oneTransfer}/>    {/* 정현-한건이체 */}

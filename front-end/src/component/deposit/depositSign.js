@@ -10,13 +10,13 @@ import Typography from '@mui/material/Typography';
 import Identity from './identity';
 import Agree from './agree';
 import SignDetail, { send } from './signDetail';
-import DepositSign from "../../api/depositSign";
+import DepositSignApi from "../../api/depositSign";
 
 const steps = ['본인인증', '약관동의', '가입내용'];
 
 
 
-class Checkout extends Component {
+class DepositSign extends Component {
   constructor(props) {
     super(props);
 
@@ -34,7 +34,7 @@ class Checkout extends Component {
   };
 
   // sign insert하기위함
-  handleloanSignDetailData = (data) => {
+  handleDepositDetailData = (data) => {
     this.setState({
       data : data
     });
@@ -50,7 +50,8 @@ class Checkout extends Component {
     this.setState({ activeStep: this.state.activeStep + 1 });
     if (this.state.activeStep === 2){
       const data = this.state.data;
-      DepositSign.addDepositSign(data)
+        console.log('data', data);
+      DepositSignApi.addDepositSign(data)
       .then(res => {
         console.log('addSign 성공', res.data);
     })
@@ -81,7 +82,7 @@ class Checkout extends Component {
               />
             );
         case 2:
-          return <SignDetail onDataHandle = {this.handleloanSignDetailData}/>;
+          return <SignDetail onDataHandle = {this.handleDepositDetailData}/>;
         default:
           throw new Error('Unknown step');
       }
@@ -109,7 +110,7 @@ class Checkout extends Component {
                 </Typography>
                 <Typography variant="subtitle1">
                   <br /><br />
-                  관리자 승인이 남았습니다.
+                  얄리얄리얄라셩.
                   <br /><br />
                 </Typography>
               </React.Fragment>
@@ -141,4 +142,4 @@ class Checkout extends Component {
   }
 }
 
-export default Checkout;
+export default DepositSign;

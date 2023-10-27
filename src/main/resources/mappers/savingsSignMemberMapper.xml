@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="com.example.project_team.mappers.savingsSignMemberMapper">
+	
+	<!-- findByNum / 1건 조회 -->
+	<select id="findByNum" parameterType="int" resultType="com.example.project_team.dto.SavingsDTO">
+		SELECT * FROM TEAM_SAVINGS_PRODUCT WHERE juckNo = #{juckNo}
+	</select>
+	
+	<!-- accountList -->
+	<select id="accountList" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
+		SELECT * FROM team_account WHERE show = 'y' AND id=#{id} AND accountType = 'e' ORDER BY accountNum
+	</select>
+	
+	<!-- pwCheck -->
+	<select id="pwCheck" parameterType="com.example.project_team.dto.AccountDTO" resultType="int">
+		SELECT accountPW FROM team_account WHERE accountNum = #{accountNum} AND id=#{id}
+	</select>
+	
+	<!-- insertSign -->
+	<insert id="insertSign" parameterType="com.example.project_team.dto.SavingsSignDTO">
+		INSERT INTO TEAM_SAVINGS_SIGN(juckSignNo, id,juckName, juckState, savingsAccountNum, accountType, accountNum, accountPW
+									, juckNo, juckAmount, juckMethod, juckJoinDate, juckEndDate
+									, juckAutoDate, rate, interestRate)
+			VALUES ((SELECT NVL(MAX(juckSignNo)+1,1) FROM TEAM_SAVINGS_SIGN), #{id},#{juckName},'정상', TO_CHAR(1002454 || TRUNC(DBMS_RANDOM.VALUE(1, 999999), 0)), #{accountType}
+					, #{accountNum}, #{accountPW}, #{juckNo}, #{juckAmount}, #{juckMethod}, #{juckJoinDate}
+					, #{juckEndDate}, #{juckAutoDate}, #{rate}, #{interestRate})
+	</insert>
+	
+	
+	
+</mapper>

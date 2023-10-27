@@ -105,12 +105,13 @@ function BasicExample() {
             <NavDropdown title="예/적금" id="basic-nav-dropdown">
               <NavDropdown.Item href="/depositList">예금 상품</NavDropdown.Item>
               <NavDropdown.Item href="/savingsList">적금 상품</NavDropdown.Item>
-              <NavDropdown.Item href="/depositnew">가입상품 조회</NavDropdown.Item>                           
+              <NavDropdown.Item href="/depositSignList">가입상품 조회</NavDropdown.Item>                           
               <NavDropdown.Divider />
               <NavDropdown.Item href="/depositProductAdd">예금상품 등록</NavDropdown.Item>  
               <NavDropdown.Item href="/savingsProductAdd">적금상품 등록</NavDropdown.Item>            
               <NavDropdown.Item href="/depositProductList">예금상품 목록</NavDropdown.Item>
               <NavDropdown.Item href="/savingsProductList">적금상품 목록</NavDropdown.Item>
+              <NavDropdown.Item href="/kakaoMap"> map연습</NavDropdown.Item>
             </NavDropdown>
 
             <NavDropdown title="대출" id="basic-nav-dropdown">

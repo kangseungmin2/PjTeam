@@ -7,45 +7,38 @@ import axios from 'axios'; // npm install -f axios@^1.3.5
 // - npm install -f axios@^1.3.5
 
 
-const DEPOSITSIGN_API_MEMBER = "http://localhost:8083/depositSign";
+const SAVINGSSIGN_API_MEMBER = "http://localhost:8083/savingsSign";
 
 
 
-class DepositSignApi {
-
-   
+class SavingsSignApi {
 
     // Sign테이블에 insert
-    addDepositSign(inputData){
-        console.log('addDepositSign 호출!!', inputData);
-        return axios.post(DEPOSITSIGN_API_MEMBER, inputData);
+    addSavingsSign(inputData){
+        console.log('addSavingsSign 호출!!', inputData);
+        return axios.post(SAVINGSSIGN_API_MEMBER, inputData);
     }
 
     // 대출상품 상세페이지 select
-    fetchDetailByNum(yeNO){
-        console.log('fetchDepositByNum 호출!!', yeNO);
-        return axios.get(DEPOSITSIGN_API_MEMBER + "/"+yeNO);
+    fetchDetailByNum(juckNO){
+        console.log('fetchSavingsByNum 호출!!', juckNO);
+        return axios.get(SAVINGSSIGN_API_MEMBER + "/"+juckNO);
     }
 
     // 계좌 리스트 조회
     fetchAllAccounts(id){
         console.log('fetchAllAccounts 호출!!',id);
-        return axios.get(DEPOSITSIGN_API_MEMBER+"/e/"+id,id);
+        return axios.get(SAVINGSSIGN_API_MEMBER+"/e/"+id,id);
     }
 
     // 계좌랑 비밀번호 체크
     pwCheck(inputData){
         console.log('pwCheck 호출!!', inputData);
-        return axios.get(DEPOSITSIGN_API_MEMBER+"/f/"+inputData.accountNum+"/"+inputData.id)
+        return axios.get(SAVINGSSIGN_API_MEMBER+"/f/"+inputData.accountNum+"/"+inputData.id)
     }
 
-     // list
-     fetchSignConfirms(id){
-        console.log('fetchSignConfirms() 호출',id);
-        return axios.get(DEPOSITSIGN_API_MEMBER+"/depositSignList/"+id,id);
-    }
-
+    
 
 }
 
-export default new DepositSignApi();
+export default new SavingsSignApi();
