@@ -55,9 +55,11 @@ cursor = connection.cursor()
 for index, row in df.iterrows():
     nation = row['nation']
     price = row['price']
+
     insert_query = ("INSERT INTO team_exchange (exchangeNum, nation, price) "
                     "VALUES ((SELECT NVL(MAX(exchangeNum)+1,1) FROM team_exchange), :nation, :price)")
-    cursor.execute(insert_query, nation=nation, price=price)
+    update_query = ("update team_exchange set price = :price where nation = :nation")
+    cursor.execute(update_query, nation=nation, price=price)
 connection.commit()
 
 # 연결 종료
