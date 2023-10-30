@@ -174,7 +174,7 @@ public class LoanSignAdminServiceImpl implements LoanSignAdminService {
 					amountBalance = 0;
 				}
 				// 스케줄에 추가
-				map.put("paymentRound", i+1);
+				map.put("paymentRound", i);
 				map.put("repaymentMonth", repaymentMonth);
 				map.put("interest", interest);
 				map.put("repaymentAmount", repaymentAmount);
@@ -194,102 +194,102 @@ public class LoanSignAdminServiceImpl implements LoanSignAdminService {
 		return list;
 	}
 
-	// repayment테이블 insert
-	@Override
-	public int insertRepayment(CalRepaymentDTO dto) throws ServletException, IOException {
-		System.out.println("처음dto"+dto);
-		System.out.println("LoanSignAdminServiceImpl - insertRepayment");
+	 // repayment테이블 insert
+	   @Override
+	   public int insertRepayment(CalRepaymentDTO dto) throws ServletException, IOException {
+	      System.out.println("처음dto"+dto);
+	      System.out.println("LoanSignAdminServiceImpl - insertRepayment");
 
-		// 월 금리
-		double monthlyInterestRate = (double)dto.getInterestRate() / 12 / 100;
-		// 상환회차
-		int paymentRound = 0;				
-		// 총 상환 회차
-		int totalPaymentRounds = dto.getLoanPeriod() * 12;
-		System.out.println("총기간 : "+ totalPaymentRounds);
-		// 월 상환금
-		double repaymentMonth = 0;
-		// 이자
-		double interest = 0;
-		// 납입원금
-		double repaymentAmount = 0;
+	      // 월 금리
+	      double monthlyInterestRate = (double)dto.getInterestRate() / 12 / 100;
+	      // 상환회차
+	      int paymentRound = 0;            
+	      // 총 상환 회차
+	      int totalPaymentRounds = dto.getLoanPeriod() * 12;
+	      System.out.println("총기간 : "+ totalPaymentRounds);
+	      // 월 상환금
+	      double repaymentMonth = 0;
+	      // 이자
+	      double interest = 0;
+	      // 납입원금
+	      double repaymentAmount = 0;
 
-		if("만기일시상환".equals(dto.getRepayment())) {
-			System.out.println("만기일시상환");
-			// 최초 잔액 : 대출원금
-			int amountBalance = dto.getLoanAmount();
-			// 이자
-			interest = dto.getLoanAmount() * monthlyInterestRate;
-			// 납입원금
-			repaymentAmount = 0;
-			// 월 상환금
-			repaymentMonth = interest + repaymentAmount;
-			// 대출 잔액 업데이트(잔액-납입원금)
-			amountBalance -= repaymentAmount;
-			paymentRound += 1;
-			System.out.println("횟수 : " + paymentRound);
-			System.out.println("이자 : " + interest);
-			System.out.println("납입원금 : " + repaymentAmount);
-			System.out.println("월상환금 : " + repaymentMonth);
-			System.out.println("잔액 : " + amountBalance);
-			dto.setRepaymentAmount(repaymentAmount);
-			dto.setInterest(interest);
-			dto.setRepaymentMonth(repaymentMonth);
-			dto.setAmountBalance(amountBalance);
-			dto.setPaymentRound(paymentRound);
-		}
-		else if("원리금균등상환".equals(dto.getRepayment())) {
-			System.out.println("원리금균등상환");
-			// 최초 잔액 : 대출원금
-			int amountBalance = dto.getLoanAmount();;
-			// 이자 = 남은 원금 * 월 이자율
-			interest = amountBalance * monthlyInterestRate;
-			// 월 상환금 (월 이자 + 월 납입원금)
-			repaymentMonth = (dto.getLoanAmount() * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -totalPaymentRounds));
-			// 납입원금
-			repaymentAmount = repaymentMonth - interest;
-			// 대출 잔액 업데이트(잔액-납입원금)
-			amountBalance -= repaymentAmount;
-			paymentRound += 1;
-			System.out.println("횟수 : " + paymentRound);
-			System.out.println("이자 : " + interest);
-			System.out.println("납입원금 : " + repaymentAmount);
-			System.out.println("월상환금 : " + repaymentMonth);
-			System.out.println("잔액 : " + amountBalance);
-			dto.setRepaymentAmount(repaymentAmount);
-			dto.setInterest(interest);
-			dto.setRepaymentMonth(repaymentMonth);
-			dto.setAmountBalance(amountBalance);
-			dto.setPaymentRound(paymentRound);
-		}
-		else{
-			System.out.println("원금균등상환");
-			int amountBalance = dto.getLoanAmount();
-			System.out.println("1차 처음잔액 : " + amountBalance);
-			// 월 납입원금
-			repaymentAmount = dto.getLoanAmount() / totalPaymentRounds;
+	      if("만기일시상환".equals(dto.getRepayment())) {
+	         System.out.println("만기일시상환");
+	         // 최초 잔액 : 대출원금
+	         int amountBalance = dto.getLoanAmount();
+	         // 이자
+	         interest = dto.getLoanAmount() * monthlyInterestRate;
+	         // 납입원금
+	         repaymentAmount = 0;
+	         // 월 상환금
+	         repaymentMonth = interest + repaymentAmount;
+	         // 대출 잔액 업데이트(잔액-납입원금)
+	         amountBalance -= repaymentAmount;
+	         paymentRound += 1;
+	         System.out.println("횟수 : " + paymentRound);
+	         System.out.println("이자 : " + interest);
+	         System.out.println("납입원금 : " + repaymentAmount);
+	         System.out.println("월상환금 : " + repaymentMonth);
+	         System.out.println("잔액 : " + amountBalance);
+	         dto.setRepaymentAmount(repaymentAmount);
+	         dto.setInterest(interest);
+	         dto.setRepaymentMonth(repaymentMonth);
+	         dto.setAmountBalance(amountBalance);
+	         dto.setPaymentRound(paymentRound);
+	      }
+	      else if("원리금균등상환".equals(dto.getRepayment())) {
+	         System.out.println("원리금균등상환");
+	         // 최초 잔액 : 대출원금
+	         int amountBalance = dto.getLoanAmount();;
+	         // 이자 = 남은 원금 * 월 이자율
+	         interest = amountBalance * monthlyInterestRate;
+	         // 월 상환금 (월 이자 + 월 납입원금)
+	         repaymentMonth = (dto.getLoanAmount() * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -totalPaymentRounds));
+	         // 납입원금
+	         repaymentAmount = repaymentMonth - interest;
+	         // 대출 잔액 업데이트(잔액-납입원금)
+	         amountBalance -= repaymentAmount;
+	         paymentRound += 1;
+	         System.out.println("횟수 : " + paymentRound);
+	         System.out.println("이자 : " + interest);
+	         System.out.println("납입원금 : " + repaymentAmount);
+	         System.out.println("월상환금 : " + repaymentMonth);
+	         System.out.println("잔액 : " + amountBalance);
+	         dto.setRepaymentAmount(repaymentAmount);
+	         dto.setInterest(interest);
+	         dto.setRepaymentMonth(repaymentMonth);
+	         dto.setAmountBalance(amountBalance);
+	         dto.setPaymentRound(paymentRound);
+	      }
+	      else{
+	         System.out.println("원금균등상환");
+	         int amountBalance = dto.getLoanAmount();
+	         System.out.println("1차 처음잔액 : " + amountBalance);
+	         // 월 납입원금
+	         repaymentAmount = dto.getLoanAmount() / totalPaymentRounds;
 
-			// 이자
-			interest = Math.round(amountBalance * monthlyInterestRate);
-			// 월 상환금(이자+납입원금)
-			repaymentMonth = interest + repaymentAmount;
-			// 대출 잔액 업데이트(잔액-납입원금)
-			amountBalance -= repaymentAmount;
-			paymentRound += 1;
-			System.out.println("횟수 : " + paymentRound);
-			System.out.println("이자 : " + interest);
-			System.out.println("납입원금 : " + repaymentAmount);
-			System.out.println("월상환금 : " + repaymentMonth);
-			System.out.println("잔액 : " + amountBalance);
-			dto.setRepaymentAmount(repaymentAmount);
-			dto.setInterest(interest);
-			dto.setRepaymentMonth(repaymentMonth);
-			dto.setAmountBalance(amountBalance);
-			dto.setPaymentRound(paymentRound);
-		}
-		System.out.println("dto 마지막 "+dto);
-		return dao.insertRepayment(dto);
-	}
+	         // 이자
+	         interest = Math.round(amountBalance * monthlyInterestRate);
+	         // 월 상환금(이자+납입원금)
+	         repaymentMonth = interest + repaymentAmount;
+	         // 대출 잔액 업데이트(잔액-납입원금)
+	         amountBalance -= repaymentAmount;
+	         paymentRound += 1;
+	         System.out.println("횟수 : " + paymentRound);
+	         System.out.println("이자 : " + interest);
+	         System.out.println("납입원금 : " + repaymentAmount);
+	         System.out.println("월상환금 : " + repaymentMonth);
+	         System.out.println("잔액 : " + amountBalance);
+	         dto.setRepaymentAmount(repaymentAmount);
+	         dto.setInterest(interest);
+	         dto.setRepaymentMonth(repaymentMonth);
+	         dto.setAmountBalance(amountBalance);
+	         dto.setPaymentRound(paymentRound);
+	      }
+	      System.out.println("dto 마지막 "+dto);
+	      return dao.insertRepayment(dto);
+	   }
 
 
 
@@ -298,8 +298,6 @@ public class LoanSignAdminServiceImpl implements LoanSignAdminService {
 	public int signFail(LoanSignDTO dto) throws ServletException, IOException {
 		return dao.signFail(dto);
 	}
-
-
 
 
 }

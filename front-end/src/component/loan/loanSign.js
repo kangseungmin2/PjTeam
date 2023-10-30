@@ -20,12 +20,20 @@ class Checkout extends Component {
 
     this.state = {
       activeStep: 0,
-      data:[],
-      checked: false // checkbox 상태를 추가,
+      data: [],
+      identityChecked : false,
+      checked: false, // checkbox 상태를 추가
+      
     };
   }
 
-  
+  // 주민등록 인증이 성공했을 때 호출되는 함수
+  handleIdentitySuccess = () => {
+    // "Next" 버튼을 활성화합니다.
+    this.setState({ identityChecked: true });
+  };
+
+
   // 이 함수를 통해 checked 상태를 변경
   handleCheckboxChange = (e) => {
     this.setState({ checked: e.target.checked });
@@ -34,13 +42,17 @@ class Checkout extends Component {
   // sign insert하기위함
   handleloanSignDetailData = (data) => {
     this.setState({
-      data : data
+      data: data,
+      detailChecked : true
     });
     console.log(data)
   }
 
 
   handleNext = () => {
+    if(this.state.activeStep === 0 && !this.state.identityChecked){
+      return;
+    }
     if (this.state.activeStep === 1 && !this.state.checked) {
       // 약관동의 스텝이고 checkbox가 체크되지 않았을 때는 넘어가지 않음
       return;
@@ -57,14 +69,14 @@ class Checkout extends Component {
         loanPeriod: parseInt(data.loanPeriod) 
       }
       // sign테이블 insert
-    LoanSignApi.addLoanSign(data)
-    .then((res) => {
-      console.log('addSign 성공', res.data);
-    })
-    .catch(err => {
-      console.log('addSign 에러', err);
-    });
-    }
+      LoanSignApi.addLoanSign(data)
+        .then((res) => {
+          console.log('addSign 성공', res.data);
+        })
+        .catch(err => {
+          console.log('addSign 에러', err);
+        });
+      }
   };
 
 
@@ -73,22 +85,22 @@ class Checkout extends Component {
   };
 
 
-  
+
   render() {
     // getStepContent 함수를 클래스 내부로 이동
     const getStepContent = (step) => {
       switch (step) {
         case 0:
-          return <Identity />;
-          case 1:
-            return (
-              <Agree
-                checked={this.state.checked}
-                onCheckboxChange={this.handleCheckboxChange} // 함수 전달
-              />
-            );
+          return <Identity onSuccess={this.handleIdentitySuccess} />;
+        case 1:
+          return (
+            <Agree
+              checked={this.state.checked}
+              onCheckboxChange={this.handleCheckboxChange} // 함수 전달
+            />
+          );
         case 2:
-          return <SignDetail onDataHandle = {this.handleloanSignDetailData}/>;
+          return <SignDetail onDataHandle={this.handleloanSignDetailData} />;
         default:
           throw new Error('Unknown step');
       }
@@ -135,7 +147,7 @@ class Checkout extends Component {
                     onClick={this.handleNext}
                     sx={{ mt: 3, ml: 1 }}
                     // 약관동의 스텝에서만 체크되었을 때만 버튼 활성화
-                    disabled={this.state.activeStep === 1 && !this.state.checked} >
+                    disabled={this.state.activeStep === 0 && !this.state.identityChecked || this.state.activeStep === 1 && !this.state.checked} >
                     {this.state.activeStep === steps.length - 1 ? 'Request to join' : 'Next'}
                   </Button>
                 </Box>

@@ -7,7 +7,7 @@ import axios from 'axios'; // npm install -f axios@^1.3.5
 // - npm install -f axios@^1.3.5
 
 
-const LOANSIGN_API_MEMBER = "http://15.165.6.111:8083/loanSign";
+const LOANSIGN_API_MEMBER = "http://localhost:8083/loanSign";
 
 class LoanSignApi {
 
@@ -21,6 +21,12 @@ class LoanSignApi {
     fetchDetailByNum(LoanNum){
         console.log('fetchDetailByNum 호출!!', LoanNum);
         return axios.get(LOANSIGN_API_MEMBER + "/"+LoanNum);
+    }
+    
+    // 본인인증확인
+    checkIdentity(id){
+        console.log('checkIdentity 호출!!', id);
+        return axios.get(LOANSIGN_API_MEMBER + "/checkIdentity/"+id, id);
     }
 
     // 계좌 리스트 조회
@@ -69,6 +75,17 @@ class LoanSignApi {
     fetchRepaymentList(input){
         console.log('fetchRepaymentList() 호출',input);
         return axios.get(LOANSIGN_API_MEMBER+"/payRepaymentList/"+input.id+"/"+input.loanNum,input);
+    }
+    // 이자 납입(대출통장 update)
+    payment(input){
+        console.log('payment() 호출', input)
+        return axios.put(LOANSIGN_API_MEMBER+"/payment",input);
+    }
+
+    // 대출 중도상환
+    endPayment(input){
+        console.log('payment() 호출', input)
+        return axios.put(LOANSIGN_API_MEMBER+"/endPayment",input);
     }
 }
 

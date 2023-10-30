@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project_team.dto.AccountDTO;
 import com.example.project_team.dto.CalRepaymentDTO;
+import com.example.project_team.dto.FundTransactionDTO;
 import com.example.project_team.dto.LoanDTO;
 import com.example.project_team.dto.LoanSignDTO;
+import com.example.project_team.exceptionHandler.CustomException;
+import com.example.project_team.exceptionHandler.ErrorResponse;
+import com.example.project_team.service.LoanSignAdminService;
 import com.example.project_team.service.LoanSignAdminServiceImpl;
 import com.example.project_team.service.LoanSignMemberService;
 
@@ -35,7 +40,7 @@ public class LoanSignMemberController {
 
 	@Autowired
 	private LoanSignMemberService service;
-
+	
 	// 1건 select
 	@GetMapping("/{num}")
 	public LoanDTO fetchLoanByNum(@PathVariable int num)
@@ -96,6 +101,13 @@ public class LoanSignMemberController {
 		logger.info("<<< LoanSignMemberContorller - loanSignList() >>>");
 		return service.loanSignList(id);
 	}
+	// 본인인증
+	@GetMapping("/checkIdentity/{id}")
+	public long checkIdentity(@PathVariable String id)
+		throws ServletException, IOException {
+		logger.info("<<< LoanSignMemberContorller - checkIdentity() >>>");
+		return service.checkIdentity(id);
+	}
 
 	// 대출 계산 출력
 	@GetMapping("/loanCal/{loanNum}")
@@ -131,7 +143,7 @@ public class LoanSignMemberController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id",id);
 		map.put("loanNum",loanNum);
-		
+
 		return service.paySignList(map);
 	}
 
@@ -144,5 +156,35 @@ public class LoanSignMemberController {
 		map.put("id",id);
 		map.put("loanNum",loanNum);
 		return service.payRepaymentList(map);
+	}
+
+	// 납입하기-처리
+	@PutMapping("/payment")
+	public ResponseEntity<ErrorResponse> payment(@RequestBody CalRepaymentDTO dto)
+			throws ServletException, IOException {
+		logger.info("<<< LoanSignMemberContorller - payment() >>>");
+		System.out.println("dto뜨나"+dto);
+		try {
+			service.updateRepayment(dto);// Service 클래스 호출
+			return ResponseEntity.ok(new ErrorResponse(true, "납부가 성공적으로 완료되었습니다."));
+		} catch (CustomException ex) {
+			// Service에서 발생한 예외 처리
+			return ResponseEntity.ok(new ErrorResponse(false, ex.getMessage()));
+		}
+	}
+	
+	// 대출해지(상환)
+	@PutMapping("/endPayment")
+	public ResponseEntity<ErrorResponse> endPayment(@RequestBody LoanSignDTO dto)
+			throws ServletException, IOException {
+		logger.info("<<< LoanSignMemberContorller - payment() >>>");
+		System.out.println("dto뜨나"+dto);
+		try {
+			service.endRepayment(dto);// Service 클래스 호출
+			return ResponseEntity.ok(new ErrorResponse(true, "납부가 성공적으로 완료되었습니다."));
+		} catch (CustomException ex) {
+			// Service에서 발생한 예외 처리
+			return ResponseEntity.ok(new ErrorResponse(false, ex.getMessage()));
+		}
 	}
 }

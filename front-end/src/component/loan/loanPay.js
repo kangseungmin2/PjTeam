@@ -20,7 +20,8 @@ class LoanPay extends Component {
             accountNum: '',         // 계좌번호
             accountNumList: [],     // 계좌 리스트 받는 배열
             accountPW: '0000',          // 계좌비밀번호
-            payDate: '',
+            accountPWD: '',
+            payDate: '',    // 납입일
             checked: false,
             showPassword: false,
             isButtonDisabled: true
@@ -138,12 +139,36 @@ class LoanPay extends Component {
 
     // 납입요청
     payRequest = () => {
-        const id = window.localStorage.getItem("id")
-        if (!this.state.checked) {
-            window.alert("납입 정보 확인에 동의해야 합니다.");
-        } else {
-            // 이자납입 처리 로직을 추가
+        let input = {
+            id: window.localStorage.getItem("id"),
+            loanNum: window.localStorage.getItem("LoanNum"),
+            repayment : this.state.repayments.repayment,
+            loanPeriod : this.state.repayments.loanPeriod,
+            paymentRound : this.state.repayments.paymentRound,
+            interestRate : this.state.repayments.interestRate,
+            loanAmount : this.state.repayments.loanAmount,
+            repaymentMonth : this.state.repayments.repaymentMonth,
+            interest : this.state.repayments.interest,
+            amountBalance : this.state.repayments.amountBalance,
+            payDate : this.state.payDate,
+            accountNum: this.state.accountNum,
         }
+        console.log('input데이터 있나', input)
+        LoanSignApi.payment(input)
+        .then(response => {
+            console.log(response);
+            if (response.data.success) {
+                // 성공적인 응답 처리
+                console.log(response);
+                alert(response.data.message);
+                this.props.history.push('/repayment');
+              } else {
+                // 오류 메시지 처리
+                alert(response.data.message);
+                window.location.reload();
+              }
+        });
+        
     }
 
     render() {
@@ -291,7 +316,7 @@ class LoanPay extends Component {
                         </TableRow>
                         <TableRow>
                             <TableCell style={tableHead}>
-                                원금
+                                원금상환
                             </TableCell>
                             <TableCell style={{ textAlign: 'center', border: '1px solid rgb(230, 229, 227)' }}>
                                 <Input
@@ -307,7 +332,7 @@ class LoanPay extends Component {
                                 />
                             </TableCell>
                             <TableCell style={tableHead}>
-                                이자
+                                이자상환
                             </TableCell>
                             <TableCell style={{ textAlign: 'center', border: '1px solid rgb(230, 229, 227)' }}>
                                 <Input

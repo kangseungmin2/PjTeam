@@ -15,6 +15,7 @@ class LoanSignConfirm extends Component {
             loanNum: '',
             loanPeriod: '',
             message: null,
+            accountNum:'',
             page: 0,
             rPage: 5
         }
@@ -70,7 +71,8 @@ class LoanSignConfirm extends Component {
                     loanPeriod: res.data.loanPeriod,
                     loanAmount: parseInt(res.data.loanAmount),
                     interestRate: res.data.interestRate,
-                    repayment: res.data.repayment
+                    repayment: res.data.repayment,
+                    accountNum : res.data.accountNum
                 }
 
                 if (window.confirm(confirmMessage)) {

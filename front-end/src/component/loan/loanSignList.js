@@ -88,7 +88,7 @@ class LoanSignList extends Component {
     // 해지 버튼 클릭
     loanEnd = (num,loanNum) => {
         window.localStorage.setItem("num", num);
-        window.localStorage.setItem("loanNum", loanNum);
+        window.localStorage.setItem("LoanNum", loanNum);
         this.props.history.push("/endDetail")
     }
 
@@ -157,7 +157,7 @@ class LoanSignList extends Component {
                                         <TableCell align='center'>
                                             {sign.loanState === '정상' ? (
                                                 <DoDisturbOnIcon onClick={() => this.loanEnd(sign.num, sign.loanNum)} />
-                                            ) : sign.loanState === '해지' ? (
+                                            ) : sign.loanState === '해지' && sign.loanState ==='상환완료' ? (
                                                 new Date(sign.loanTermination).toLocaleDateString('ko-KR', {
                                                     year: 'numeric',
                                                     month: '2-digit',

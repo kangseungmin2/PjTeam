@@ -1,6 +1,6 @@
 import axios from 'axios'; // npm install -f axios@^1.3.5
 
-const ACCOUNT_API_BASE_URL = "http://15.165.6.111:8083/allAccount";
+const ACCOUNT_API_BASE_URL = "http://localhost:8083/allAccount";
 
 class account {
 

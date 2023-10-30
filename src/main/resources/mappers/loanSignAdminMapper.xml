@@ -23,25 +23,19 @@
 		WHERE loanNum = #{loanNum}
 	</update>
 	
-	<!-- 대출 계산 -->
-	<!-- <insert id="repayment" parameterType="com.example.project_team.dto.CalculatorDTO">
-		INSERT INTO team_loan_calculator(loanNum, loanAmount,repayment, interestRate, loanPeriod)
-			VALUES (#{loanNum}, #{loanAmount}, #{repayment}, #{interestRate}, #{loanPeriod})
-	</insert>
-	 -->
 	<!-- insertRepayment -->
 	<insert id="insertRepayment"
 		parameterType="com.example.project_team.dto.CalRepaymentDTO">
 		INSERT INTO team_loan_repayment(repaymentNum, id, num,
 		repayment, paymentRound, loanAmount
 		, interestRate, interest, repaymentAmount, loanPeriod, repaymentMonth,
-		amountBalance, loanNum)
+		amountBalance, loanNum, accountNum)
 		VALUES ((SELECT NVL(MAX(repaymentNum)+1,1) FROM team_loan_repayment), #{id},
 		#{num}
-		, #{repayment}, #{paymentRound}, #{loanAmount}, #{interestRate},
+		, #{repayment}, 1, #{loanAmount}, #{interestRate},
 		#{interest}
 		, #{repaymentAmount}, #{loanPeriod}, #{repaymentMonth},
-		#{amountBalance}, #{loanNum})
+		#{amountBalance}, #{loanNum}, #{accountNum})
 	</insert>
 	
 	<!-- 대출 반려 -->

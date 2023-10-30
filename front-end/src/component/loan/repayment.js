@@ -55,7 +55,7 @@ class Repayment extends Component {
                         res1.data.forEach(sign => {
                             // 해당하는 repayments 찾기 (loanNum을 기준으로)
                             const relatedRepayments = res2.data.filter(repayment => repayment.loanNum === sign.loanNum);
-
+                            console.log('payDate왜 안뜸', relatedRepayments)
                             // 만약 관련된 repayments를 찾았다면, 합쳐서 combinedData에 추가
                             if (relatedRepayments.length > 0) {
                                 combinedData.push({
@@ -68,7 +68,6 @@ class Repayment extends Component {
                                     repaymentMonth: relatedRepayments.map(repayment => repayment.repaymentMonth),
                                     amountBalance: relatedRepayments.map(repayment => repayment.amountBalance),
                                     payDate: relatedRepayments.map(repayment => repayment.payDate)
-
                                 });
                             }
                         });
@@ -76,14 +75,11 @@ class Repayment extends Component {
                             dtoSum: combinedData
                         })
                         console.log('dto값 : ', this.state.dtoSum)
-
                     })
                     .catch(err => {
                         console.log('fetchRepayments() Error!!', err);
                     })
-
             })
-
             .catch(err => {
                 console.log('loadSign() Error!!', err);
             })
@@ -147,7 +143,13 @@ class Repayment extends Component {
                                         <MDBAccordion>
                                             <MDBAccordionItem collapseId={repayment.signData.loanNum} headerTitle={<>{repayment.paymentRound}회</>}>
                                                 <p>최종납부일</p>
-                                                <p>{repayment.payDate}</p>
+                                                <p>{repayment.payDate[0]
+                                                    ? new Date(repayment.payDate[0]).toLocaleDateString('ko-KR', {
+                                                        year: 'numeric',
+                                                        month: '2-digit',
+                                                        day: '2-digit',
+                                                    })
+                                                    : '납부이력 없음'}</p>
                                             </MDBAccordionItem>
                                         </MDBAccordion>
                                     </TableCell>
@@ -156,7 +158,9 @@ class Repayment extends Component {
                                     <TableCell align='center'>{repayment.repaymentMonth}원</TableCell>
                                     <TableCell align='center'>{repayment.amountBalance}원</TableCell>
                                     <TableCell align='center'>
-                                        {repayment.signData.loanState !== '해지' && <PaymentsIcon onClick={() => this.selectLoan(repayment.loanNum)} />}
+                                        {repayment.signData.loanState !== '해지' && repayment.signData.loanState !== '상환완료' && (
+                                            <PaymentsIcon onClick={() => this.selectLoan(repayment.loanNum)} />
+                                        )}
                                     </TableCell>
 
                                 </TableRow>

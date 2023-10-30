@@ -1,6 +1,6 @@
 import axios from 'axios'; // npm install -f axios@^1.3.5
 
-const question_API_BASE_URL = "http://15.165.6.111:8083/question";
+const question_API_BASE_URL = "http://localhost:8083/question";
 
 class question {
     // ---[ 서윤 1:1문의 ]

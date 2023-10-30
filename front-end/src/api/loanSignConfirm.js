@@ -7,7 +7,7 @@ import axios from 'axios'; // npm install -f axios@^1.3.5
 // - npm install -f axios@^1.3.5
 
 
-const LOANSIGN_API_ADMIN = "http://15.165.6.111:8083/loanSignConfirm";
+const LOANSIGN_API_ADMIN = "http://localhost:8083/loanSignConfirm";
 
 
 class LoanSignConfrimApi {

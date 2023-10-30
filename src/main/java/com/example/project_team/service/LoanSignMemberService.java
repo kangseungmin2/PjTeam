@@ -11,6 +11,7 @@ import com.example.project_team.dto.AccountDTO;
 import com.example.project_team.dto.CalRepaymentDTO;
 import com.example.project_team.dto.LoanDTO;
 import com.example.project_team.dto.LoanSignDTO;
+import com.example.project_team.exceptionHandler.CustomException;
 
 public interface LoanSignMemberService {
 
@@ -33,6 +34,10 @@ public interface LoanSignMemberService {
 	// 대출 신청 목록
 	public List<LoanSignDTO> loanSignList(String id)
 			throws ServletException, IOException;
+
+	// 본인인증
+	public long checkIdentity(String id)
+			throws ServletException, IOException;
 	
 	// 이자조회 List
 	public List<LoanSignDTO> signList(String id)
@@ -46,4 +51,12 @@ public interface LoanSignMemberService {
 	// 납입하기-repaymentList
 	public CalRepaymentDTO payRepaymentList(Map<String, Object> map)
 			throws ServletException, IOException;
+
+	// 납입하기-repayment update
+	public int updateRepayment(CalRepaymentDTO dto)
+			throws CustomException;
+
+	// 대출상환
+	public int endRepayment(LoanSignDTO dto)
+			throws CustomException;
 }

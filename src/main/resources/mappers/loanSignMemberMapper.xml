@@ -54,13 +54,17 @@
 		SELECT * FROM team_loan_sign WHERE id =#{id} ORDER BY
 		loanNum
 	</select>
+	
+	<!-- checkIdentity -->
+	<select id="checkIdentity" parameterType="String" resultType="long">
+		SELECT RESIDENTREGISTRATIONNUMBER FROM team_join WHERE id = #{id}
+	</select>
 
 	<!-- 이자조회 List -->
 	<select id="signList" parameterType="String"
 		resultType="com.example.project_team.dto.LoanSignDTO">
 		SELECT *
-		FROM team_loan_sign WHERE id = #{id} AND loanState
-		= '정상' ORDER BY loanNum
+		FROM team_loan_sign WHERE id = #{id} ORDER BY loanNum
 	</select>
 
 	<select id="repaymentList" parameterType="list"
@@ -81,5 +85,47 @@
 		resultType="com.example.project_team.dto.CalRepaymentDTO">
 		SELECT * FROM team_loan_repayment WHERE id =#{id} AND loanNum = #{loanNum} ORDER BY loanNum
 	</select>
-
+	
+	<!-- 납입하기-update repayment -->
+	<update id="updateRepayment" parameterType="com.example.project_team.dto.CalRepaymentDTO">
+		UPDATE team_loan_repayment
+			SET paymentRound=#{paymentRound}, interest=#{interest}, repaymentAmount=#{repaymentAmount}
+				, repaymentMonth=#{repaymentMonth}, amountBalance=#{amountBalance}, payDate=#{payDate}
+		WHERE loanNum=#{loanNum} AND id=#{id}
+	</update>
+	
+	<!-- 납입하기-입출금통장잔액조회 accountBalance -->
+	<select id="accountBalance" parameterType="long" resultType="int">
+		SELECT balance FROM team_account WHERE accountNum=#{accountNum}
+	</select>
+	
+	<!-- 납입하기-입출금통장잔액에서 상환금차감 -->
+	<update id="subRepayment" parameterType="java.util.Map">
+		UPDATE team_account
+			SET balance = #{sub}
+		WHERE accountNum=#{accountNum}
+	</update>
+	
+	<!-- 납입완료-가입상태변경 -->
+	<update id="accountState" parameterType="java.util.Map">
+		UPDATE team_loan_sign
+			SET loanState = '상환완료', loanTermination = #{payDate}
+		WHERE loanNum = #{loanNum}
+	</update>
+	
+	<!-- 중도상환 repaymentDTO update -->
+	<update id="lastUpdateRepayment" parameterType="java.util.Map">
+		UPDATE team_loan_repayment
+			SET amountBalance = #{amountBalance}, payDate = #{payDate}
+		WHERE loanNum = #{loanNum}
+	</update>
+	
+	<!-- 중도상환 -->
+	<update id="endRepayment" parameterType="com.example.project_team.dto.CalRepaymentDTO">
+		UPDATE team_loan_sign
+			SET loanBalance = '0', loanRepayment = #{loanRepayment}, loanTermination = #{loanTermination}
+				, earlyRepayment = #{earlyRepayment}, loanState = '해지'
+		WHERE loanNum = #{loanNum} 
+	</update>
+	
 </mapper>

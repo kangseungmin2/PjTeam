@@ -24,6 +24,7 @@ class EndDetail extends Component {
             accountNumList: [],     // 계좌 리스트 받는 배열
             accountPW: '0000',          // 계좌비밀번호
             totalRepayment: '',
+            accountPWD:'',
             checked: false,
             showPassword: false,
             isButtonDisabled: true
@@ -94,7 +95,6 @@ class EndDetail extends Component {
                 console.log('loadLoanDetail() Error!!', err);
             });
     }
-
 
 
     // 계좌 목록을 불러오는 함수
@@ -198,6 +198,40 @@ class EndDetail extends Component {
             return earlyRepayment;
         }
 
+    }
+
+    // 납입요청
+    payRequest = () => {
+        let input = {
+            id: window.localStorage.getItem("id"),
+            loanNum: window.localStorage.getItem("LoanNum"),
+            repayment : this.state.repayments.repayment,
+            loanPeriod : this.state.repayments.loanPeriod,
+            paymentRound : this.state.repayments.paymentRound,
+            interestRate : this.state.repayments.interestRate,
+            loanAmount : this.state.repayments.loanAmount,
+            repaymentMonth : this.state.repayments.repaymentMonth,
+            interest : this.state.repayments.interest,
+            loanBalance : this.state.repayments.amountBalance,
+            loanTermination : this.state.payDate,
+            accountNum: this.state.accountNum,
+            earlyRepayment : this.state.earlyRepayment
+        }
+        console.log('input데이터 있나', input)
+        LoanSignApi.endPayment(input)
+        .then(response => {
+            console.log(response);
+            if (response.data.success) {
+                // 성공적인 응답 처리
+                console.log(response);
+                alert(response.data.message);
+                this.props.history.push('/loanSignList');
+              } else {
+                // 오류 메시지 처리
+                alert(response.data.message);
+                window.location.reload();
+              }
+        });
     }
 
     render() {

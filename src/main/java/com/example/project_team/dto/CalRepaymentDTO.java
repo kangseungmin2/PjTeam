@@ -28,6 +28,6 @@ public class CalRepaymentDTO {
     private double repaymentMonth;	// 월상환금(납입원금+이자)
     private int amountBalance;		// 잔금(잔금-납입원금)
     private Date payDate;
-    
+    private long accountNum;
 }
 

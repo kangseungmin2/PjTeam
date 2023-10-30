@@ -1,6 +1,6 @@
 import axios from 'axios'; // npm install -f axios@^1.3.5
-const DEPOSITLIST_API_CUSTOMER = "http://15.165.6.111:8083/depositList";
-const DEPOSITPRODUCT_API_ADMIN = "http://15.165.6.111:8083/depositProductList";
+const DEPOSITLIST_API_CUSTOMER = "http://localhost:8083/depositList";
+const DEPOSITPRODUCT_API_ADMIN = "http://localhost:8083/depositProductList";
 
 
 class deposit {

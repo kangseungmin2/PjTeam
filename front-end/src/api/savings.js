@@ -1,7 +1,7 @@
 import axios from 'axios'; // npm install -f axios@^1.3.5
 
-const SAVINGSLIST_API_CUSTOMER = "http://15.165.6.111:8083/savingsList";
-const SAVINGSPRODUCT_API_ADMIN = "http://15.165.6.111:8083/savingsProductList";
+const SAVINGSLIST_API_CUSTOMER = "http://localhost:8083/savingsList";
+const SAVINGSPRODUCT_API_ADMIN = "http://localhost:8083/savingsProductList";
 class savings {
 // ==============================SavingsProduct(관리자)
     // list
