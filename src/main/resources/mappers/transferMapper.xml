@@ -52,13 +52,8 @@
 
 <!-- 한도변경 심사요청 -->
 <insert id="changeLimit" parameterType="com.example.project_team.dto.LimitDTO">
-<<<<<<< Updated upstream
-	INSERT INTO team_limit (limitNum, id, name, accountNum, accountPW, accountLimit, wantLimit, limitDate, limitShow)
- 	 VALUES (#{limitNum}, #{id}, #{name}, #{accountNum}, #{accountPW}, #{accountLimit}, #{wantLimit}, #{limitDate}, 'n')
-=======
    INSERT INTO team_limit (limitNum, id, accountNum, accountPW, accountLimit, wantLimit, limitDate, limitShow)
      VALUES ((SELECT NVL(MAX(limitNum)+1, 1000)FROM team_limit), #{id}, #{accountNum}, #{accountPW}, #{accountLimit}, #{wantLimit}, sysdate, 'n')
->>>>>>> Stashed changes
 </insert>
 
 <!-- (관리자) 고객 한도상향 요청 리스트  -->
