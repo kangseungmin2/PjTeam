@@ -7,8 +7,8 @@ import axios from 'axios'; // npm install -f axios@^1.3.5
 // - npm install -f axios@^1.3.5
 
 
-const LOANPRODUCT_API_ADMIN = "http://localhost:8083/loanProductList";
-const LOANLIST_API_MEMBER = "http://localhost:8083/loanList";
+const LOANPRODUCT_API_ADMIN = "http://15.165.6.111:8083/loanProductList";
+const LOANLIST_API_MEMBER = "http://15.165.6.111:8083/loanList";
 
 
 class LoanApi {

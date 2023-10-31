@@ -1,6 +1,6 @@
 import axios from 'axios'; // npm install -f axios@^1.3.5
 
-const EXCHANGE_API_BASE_URL = "http://localhost:8083/exchange";
+const EXCHANGE_API_BASE_URL = "http://15.165.6.111:8083/exchange";
 
 class exchange {
 
