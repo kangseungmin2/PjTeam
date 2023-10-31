@@ -86,7 +86,7 @@ export default class fundTransaction extends Component {
 
             <div align='center'>
                 <Typography variant="h4">
-                    Account Check
+                    펀드 계좌 목록
                 </Typography>
                 <form>
                     {this.state.accountList.map(list => (

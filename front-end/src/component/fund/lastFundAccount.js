@@ -83,7 +83,7 @@ export default class lastFundAccount extends Component {
         return (
             <div align='center'>
                 <Typography variant="h4">
-                    Fund Account
+                    펀드 계좌개설
                 </Typography>
 
                 <Typography style={typography}>

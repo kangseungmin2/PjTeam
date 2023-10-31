@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography,TablePagination, TableFooter, TableContainer, Paper } from "@mui/material";
 import ApiService from "../../ApiService.js";
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
-
-class fundList extends Component{
+export default class fundList extends Component{
 
     constructor(props) {
         super(props);
@@ -12,7 +12,8 @@ class fundList extends Component{
             fundList:[], 
             message:null,
             page: 0,
-            rPage: 10
+            rPage: 10,
+            searchQuery: '' // 검색어를 저장할 상태 변수
         }
     } 
 
@@ -60,7 +61,19 @@ class fundList extends Component{
             <div align='center' >
             <TableContainer component={Paper} sx={{ minWidth: 700, maxWidth: 1200}}>
                 <Typography variant="h4" style={typography}>
-                    Fund List
+                    ETF 상품 목록
+                    {/* 검색기능 */}
+                    <div style={search}>
+                    <div style={searchIcon}>
+                        <SearchRoundedIcon fontSize='medium' color='action' />
+                    </div>
+                    <input style={searchInput}
+                        type="text"
+                        placeholder="종목 검색"
+                        value={this.state.searchQuery}
+                        onChange={(e) => this.setState({ searchQuery: e.target.value })}
+                    />
+                    </div>
                 </Typography>
                 <Table>
                     <TableHead style={styledTableHead}>
@@ -77,7 +90,9 @@ class fundList extends Component{
                     </TableHead>
 
                     <TableBody>
-                        {this.state.fundList.slice(page * rPage, page * 
+                    {this.state.fundList.filter((fund) =>
+                    fund.fpName.toLowerCase().includes(this.state.searchQuery.toLowerCase()))
+                      .slice(page * rPage, page * 
                             rPage + rPage).map((product) => (
                         <TableRow hover key={product.fpName} onClick={this.accountChk.bind(this,product.fpName)}>
                                 <TableCell component="th" scope='product' style={styledTableCell}>{product.fpName}</TableCell>
@@ -145,4 +160,20 @@ const blueColor = {
 const styledTableHead = {
     backgroundColor: 'rgba(135, 206, 235, 0.2)'
 }
-export default fundList;
+
+const search = {
+    display: 'flex',
+    justifyContent: 'right',
+}
+const searchIcon = {
+    display: 'flex',
+    alignItems: 'center',
+}
+
+const searchInput = {
+    width: '300px',
+    height: '30px',
+    margin: '20px 0 10px 0',
+    border: '1px solid rgba(224, 224, 224, 1)',
+    fontSize: '20px'
+}

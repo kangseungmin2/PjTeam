@@ -12,7 +12,7 @@ export default class myFund extends Component {
             myFund: [],
             chartData: [['fpName', 'cnt']],
             page: 0,
-            rPage: 10
+            rPage: 5
         }
     }
 
@@ -66,7 +66,7 @@ export default class myFund extends Component {
         };
         return (
             <div>
-                <Typography variant="h4">My Fund</Typography>
+                <Typography variant="h4">펀드 보유내역</Typography>
                 <Table style={mainTable}>
                     <TableHead>
                         <TableRow>
@@ -103,7 +103,7 @@ export default class myFund extends Component {
                                                         {list.fpName}
                                                     </TableCell>
                                                     <TableCell>
-                                                        {list.trMarketPrice}
+                                                        {Math.round(list.trMarketPrice * 100) / 100}
                                                     </TableCell>
                                                     <TableCell>
                                                         {list.trCnt}

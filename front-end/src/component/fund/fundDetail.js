@@ -24,7 +24,8 @@ export default class fundDtail extends Component {
                 trStatus : '',               // 거래상태 (매수 : b, 매도 : s)
             },
             transactionList: [],
-            errorMessage : ''
+            errorMessage : '',
+            income: 0
         };
     }; 
 
@@ -77,6 +78,9 @@ export default class fundDtail extends Component {
             const orPrice = tCnt * parseInt(this.state.fProduct.marketPrice);
             const etcPrice = orPrice * (this.state.fProduct.etc/100);
             tPrice = orPrice-etcPrice; 
+            this.setState({
+                income: Math.round(etcPrice)
+            });
         }
         console.log("tcne11",tCnt)
         console.log("최종",tPrice)
@@ -97,7 +101,8 @@ export default class fundDtail extends Component {
     buyOrSell = () => {
         
         // 매수, 매도 메서드 진행
-        ApiService.buyOrSell(this.state.fdTransactionDTO)
+        console.log("dddd", this.state.income)
+        ApiService.buyOrSell(this.state.fdTransactionDTO, this.state.income)
             .then(response => {
                 console.log(response);
                 if (response.data.success) {
@@ -123,7 +128,7 @@ export default class fundDtail extends Component {
         return (
             
             <div>
-                <Typography variant="h4">Fund Detail</Typography>
+                <Typography variant="h4">펀드 상세페이지</Typography>
                 <Table style={mainTable}>
                     <TableHead>
                         <TableRow>
@@ -298,7 +303,7 @@ export default class fundDtail extends Component {
 
                         <div className="form-outline mb-4" style={{textAlign : "end"}}> 
                             <label className="form-label" htmlFor="price">매도금액</label>
-                            <input type="text" id="price" name="tPrice" className="form-control" value={this.state.fdTransactionDTO.trPrice.toLocaleString()} />
+                            <input type="text" id="price" name="tPrice" className="form-control" value={Math.round(this.state.fdTransactionDTO.trPrice).toLocaleString()} />
                         </div>
 
                         <button onClick={this.buyOrSell}  type="button" className="btn btn-primary btn-block mb-4" style={{backgroundColor : "#800000", border : 'none', width : '20vw'}}>

@@ -34,7 +34,7 @@ export default class fundAccount extends Component {
             <div align='center'>
                 <form>
                     <Typography variant="h4">
-                        Fund Account
+                        약관동의
                     </Typography>
                     <Table style={box}>
                         <TableHead style={style}  >

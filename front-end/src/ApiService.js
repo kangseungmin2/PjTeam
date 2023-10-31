@@ -56,9 +56,9 @@ class ApiService {
     }
 
     // buyOrSell
-    buyOrSell(fdTransactionDTO) {
-        console.log('buyOrSell() 호출',fdTransactionDTO);
-        return axios.post(FUND_API_BASE_URL+"/buyOrSell",fdTransactionDTO);
+    buyOrSell(fdTransactionDTO, income) {
+        console.log('buyOrSell() 호출',fdTransactionDTO, income);
+        return axios.post(FUND_API_BASE_URL+"/buyOrSell/"+income,fdTransactionDTO);
     }
 
     // selectTransactionList

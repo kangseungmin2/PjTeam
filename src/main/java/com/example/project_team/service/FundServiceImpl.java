@@ -2,6 +2,7 @@ package com.example.project_team.service;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import com.example.project_team.exceptionHandler.CustomException;
 import com.example.project_team.mappers.FundMapper;
 import com.example.project_team.repository.AccountRepository;
 import com.example.project_team.repository.FundAccountRepository;
+import com.example.project_team.repository.FundIncomeRepository;
 import com.example.project_team.repository.FundProductRepository;
 import com.example.project_team.repository.FundTransactionRepository;
 
@@ -40,7 +42,11 @@ public class FundServiceImpl implements FundService{
 	private FundTransactionRepository ftRepository;
 	
 	@Autowired
+	private FundIncomeRepository fiRepository;
+	
+	@Autowired
 	private AccountRepository acRepository;
+	
 	
 	// fundList
 	@Override
@@ -123,9 +129,10 @@ public class FundServiceImpl implements FundService{
 	// buyOrSell 매수 매도 
 	@Override
 	@Transactional
-	public void buyOrSell(FundTransactionDTO dto) throws CustomException {
+	public void buyOrSell(FundTransactionDTO dto, long income) throws CustomException {
 		System.out.println("FundServiceImpl - buyOrSell()");
-		
+		Map<String,Object> map = new HashMap<String,Object>();
+		Map<String, Object> buy = new HashMap<String, Object>();
 		
 		ftRepository.saveFundTransaction(dto);
 		
@@ -137,13 +144,14 @@ public class FundServiceImpl implements FundService{
 		
 		// 매수 된 수량 가져오기
 		long fdAccount = dto.getFdAccount();
-		Map<String, Object> buy = new HashMap<String, Object>();
+		
+		
 		buy.put("fpName", dto.getFpName());
 		buy.put("fdAccount", fdAccount);
 		
 		// 매수 수량 구하기
 		int buyCnt = ftRepository.findFundTransactionsbuyCnt(buy);
-		
+		 
 		int result = 0;
 		if (dto.getTrStatus().equals("b")) {
 			
@@ -151,10 +159,36 @@ public class FundServiceImpl implements FundService{
 			result = balance - dto.getTrPrice();
 		}
 		else {
+			map.put("fpName",dto.getFpName());
+			// 수익 가져오기
+			Object getIncome = fiRepository.fundIncom(dto.getFpName());
+			
+			int Chk = 0;
+			if (getIncome == null || getIncome == "") {
+				long insertCnt = income;
+				map.put("insertCnt", insertCnt);
+				
+				Chk = fiRepository.fundIncomInsert(map);
+				if (Chk == 0) {
+					throw new CustomException("서버 오류로 인하여 거래가 정상적으로 이루어 지지 않았습니다.");
+				}
+			}
+			else {
+				long updateCnt = income + (long)getIncome;
+				map.put("updateCnt", updateCnt);
+				
+				Chk = fiRepository.fundIncomUpdate(map);
+				if (Chk == 0) {
+					throw new CustomException("서버 오류로 인하여 거래가 정상적으로 이루어 지지 않았습니다.");
+				}
+			}
+			
 			// 매도시 매도수량 보다 매수 수량이 많은지 체크
 			if (buyCnt >= dto.getTrCnt()) {
+				
 				// 매도시 합산금액 계산
 				result = balance + dto.getTrPrice();
+				
 			}
 			else {
 				throw new CustomException("매도 수량이 매수된 수량보다 많습니다.");
@@ -165,9 +199,6 @@ public class FundServiceImpl implements FundService{
         }
 		
 		
-		
-		
-		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("fdAccount",fdAccount);
 		map.put("balance",result);
 		
@@ -178,6 +209,9 @@ public class FundServiceImpl implements FundService{
 		if (updateCnt != 1) {
 			throw new CustomException("계좌 업데이트 실패"); // 업데이트 실패 시 롤백
 	    }
+		
+		
+		
 	}
 	
 	// selectTransactionList 종목명 + 계좌번호가 일치하는 거래내역 조회
@@ -210,13 +244,19 @@ public class FundServiceImpl implements FundService{
 		List<FundTransactionDTO> buy = mapper.buyFundData(fdAccount);
 		List<FundTransactionDTO> sell = mapper.sellFundData(fdAccount);
 		
-		for (FundTransactionDTO trBuy : buy) {
-			for (FundTransactionDTO trSell : sell) {
-				if (trBuy.getFpName().equals(trSell.getFpName())) {
-                    // 키가 일치하는 경우 로직 수행
-					trBuy.setTrCnt(trBuy.getTrCnt() - trSell.getTrCnt());
-                }
-			}
+		for (Iterator<FundTransactionDTO> iterator = buy.iterator(); iterator.hasNext();) {
+		    FundTransactionDTO trBuy = iterator.next();
+		    for (FundTransactionDTO trSell : sell) {
+		        if (trBuy.getFpName().equals(trSell.getFpName())) {
+		            // 키가 일치하는 경우 로직 수행
+		            int totalCnt = trBuy.getTrCnt() - trSell.getTrCnt();
+		            if (totalCnt == 0) {
+		                iterator.remove(); 
+		            } else {
+		                trBuy.setTrCnt(trBuy.getTrCnt() - trSell.getTrCnt());
+		            }
+		        }
+		    }
 		}
 		
 		return buy;

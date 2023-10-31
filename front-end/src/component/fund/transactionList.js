@@ -48,7 +48,7 @@ export default class transactionList extends Component{
             <div align='center' >
                 <TableContainer component={Paper} sx={{ minWidth: 700, maxWidth: 1200}}>
                 <Typography variant="h4" style={typography}>
-                    Fund Account
+                    펀드 거래내역
                 </Typography>
                 <Table >
                     <TableHead style={styledTableHead}>
