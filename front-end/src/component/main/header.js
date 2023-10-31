@@ -59,12 +59,16 @@ function logout(){
   localStorage.clear();
 }
 
+function openNewWindow(e) {
+  window.open('http://43.202.0.250:5601/app/dashboards#/view/3bec5b30-7762-11ee-9b9c-7b25aa16f484?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-15m,to:now))');
+}
+
 function BasicExample() {
 
   return (
     <Navbar expand="lg" style={style}>
       <Container>
-        <Navbar.Brand href="/main" style={style}>우리은행</Navbar.Brand>
+        <Navbar.Brand href="/main" style={style}>Out Bank</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -143,6 +147,9 @@ function BasicExample() {
               <NavDropdown.Divider />
               <NavDropdown.Item href="/myFundChk">
                 보유펀드현황
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={(e)=>openNewWindow(e)}>
+                결산
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="환율" id="basic-nav-dropdown">
