@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextField, Typography, Button, Stack, Grid, Container } from "@mui/material";
 import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
-import board from "../../../api/board";
+import BoardApi from "../../../api/board";
 
 
 class BoardEdit extends Component {
@@ -21,7 +21,7 @@ class BoardEdit extends Component {
 
     // 수정전 상세페이지 호출
     loadBoardList = () =>{
-        board.fetchBoardByNum(window.localStorage.getItem("boardNum"))
+        BoardApi.fetchBoardByNum(window.localStorage.getItem("boardNum"))
             .then(res => {
                 let board = res.data;
                 this.setState({
@@ -55,7 +55,7 @@ class BoardEdit extends Component {
                 content: this.state.content
             }
     
-            board.editBoard(inputData)
+            BoardApi.editBoard(inputData)
                 .then(res => {
                     console.log('editBoard 성공', res.data);
                     this.props.history.push('/boardList');
