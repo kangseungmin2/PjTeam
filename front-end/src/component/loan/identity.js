@@ -105,7 +105,7 @@ function Identity(props) {
         <div>
             <br />
             <div style={style}>
-                <input type="file" accept=".jpg, .jpeg, .png" onChange={handleFileChange} />
+                <input type="file" accept=".jpg, .jpeg, .png" onChange={handleFileChange} style={{border: '1px solid gray'}}/>
                 <Button variant="contained" color="success" onClick={handleUpload}> Upload </Button>
             </div>
             <br /><br />
@@ -134,8 +134,7 @@ function Identity(props) {
                 color="primary"
                 variant="outlined"
                 onClick={checkIdentity}
-            >
-                인증하기                    </Button>
+            >인증하기</Button>
 
         </div>
     );
@@ -159,6 +158,7 @@ const style2 = {
     justifyContent: 'center',
     alignItems: 'center',
     margin: '10px 0',
+    
 }
 
 export default Identity;

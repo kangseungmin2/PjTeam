@@ -4,7 +4,7 @@ import { Create, Delete } from '@mui/icons-material'
 import HelpOutlinedIcon from '@mui/icons-material/HelpOutlined';
 import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
 import { MDBAccordion, MDBAccordionItem, MDBIcon } from 'mdb-react-ui-kit';
-import board from '../../../api/board';
+import BoardApi from '../../../api/board';
 
 class BoardList extends Component {
 
@@ -26,7 +26,7 @@ class BoardList extends Component {
 
     // list 정보
     loadBoardList = () => {
-        board.fetchBoards()
+        BoardApi.fetchBoards()
             .then(res => {
                 this.setState({
                     boards: res.data
@@ -56,7 +56,7 @@ class BoardList extends Component {
 
         // 확인이 클릭된 경우만 삭제 진행
         if (confirmDelete) {
-            board.deleteBoard(num)
+            BoardApi.deleteBoard(num)
                 .then(res => {
                     this.setState({
                         boards: this.state.boards.filter(board => board.num !== num)
@@ -89,7 +89,7 @@ class BoardList extends Component {
             <Container component="main" maxWidth="md">
 
                 <ContentPasteOutlinedIcon fontSize='large' color='primary' />
-                <Typography variant="h4" style={style}> Board List </Typography>
+                <Typography variant="h4" style={style}> 자주 하는 질문 </Typography>
 
                 <Grid container spacing={2}>
 

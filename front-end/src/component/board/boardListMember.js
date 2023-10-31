@@ -55,7 +55,7 @@ class BoardListMember extends Component {
             <Container component="main" maxWidth="md">
 
                 <ContentPasteOutlinedIcon fontSize='large' color='primary' />
-                <Typography variant="h4" style={style}> Board List </Typography>
+                <Typography variant="h4" style={style}> 자주 하는 질문 </Typography>
 
                 <Grid container spacing={2}>
 
