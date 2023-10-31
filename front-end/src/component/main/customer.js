@@ -6,7 +6,8 @@ import '../../resource/css/login.css';
 function logout(){
     window.location.reload();
     localStorage.clear();
-  }
+    this.props.history.push("/main");
+}
 
 function Customer() {
     const id = window.localStorage.getItem("id");
@@ -14,7 +15,7 @@ function Customer() {
     return (
         <Navbar expand="lg" style={style}>
             <Container>
-                <Navbar.Brand href="/main" style={style}>우리은행</Navbar.Brand>
+                <Navbar.Brand href="/main" style={style}>Our Bank</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">

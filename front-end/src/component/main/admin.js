@@ -6,12 +6,13 @@ import '../../resource/css/login.css';
 
 function openNewWindow(e) {
     window.open('http://43.202.0.250:5601/app/dashboards#/view/3bec5b30-7762-11ee-9b9c-7b25aa16f484?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-15m,to:now))');
-  }
+}
 
 function logout(){
     window.location.reload();
     localStorage.clear();
-  }
+    this.props.history.push("/main");
+}
 
 function Admin() {
     const id = window.localStorage.getItem("id");
@@ -20,7 +21,7 @@ function Admin() {
 
         <Navbar expand="lg" style={style}>
             <Container>
-                <Navbar.Brand href="/main" style={style}>우리은행</Navbar.Brand>
+                <Navbar.Brand href="/main" style={style}>Our Bank</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">

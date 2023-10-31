@@ -31,7 +31,7 @@ function log(){
 function BasicExample() {
 
   return (
-          log()
+    log()
   );
 }
 const style={
