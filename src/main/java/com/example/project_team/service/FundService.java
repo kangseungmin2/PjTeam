@@ -48,7 +48,7 @@ public interface FundService {
 			throws ServletException, IOException;
 
 	// buyOrSell 매수 매도 
-	public void buyOrSell(FundTransactionDTO dto)
+	public void buyOrSell(FundTransactionDTO dto, long income)
 			throws CustomException;
 	
 	// selectTransactionList 종목명 + 계좌번호가 일치하는 거래내역 조회

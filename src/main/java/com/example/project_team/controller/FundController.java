@@ -118,12 +118,12 @@ public class FundController {
 	}
 	
 	// buyOrSell 매수 매도 
-	@PostMapping("/buyOrSell")
-	public ResponseEntity<ErrorResponse> buyOrSell(@RequestBody FundTransactionDTO dto)
+	@PostMapping("/buyOrSell/{income}")
+	public ResponseEntity<ErrorResponse> buyOrSell(@RequestBody FundTransactionDTO dto, @PathVariable long income)
 			throws ServletException, IOException {
 		logger.info("<<< fundController - buyOrSell() >>>");
 	  try {
-		  	service.buyOrSell(dto);// Service 클래스 호출
+		  	service.buyOrSell(dto, income);// Service 클래스 호출
             return ResponseEntity.ok(new ErrorResponse(true, "거래가 성공적으로 완료되었습니다."));
         } catch (CustomException ex) {
             // Service에서 발생한 예외 처리
