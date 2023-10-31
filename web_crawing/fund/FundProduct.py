@@ -16,7 +16,7 @@ def run_insert():
         "serviceKey": service_key,
         "pageNo": '1',
         "numOfRows": '15',
-        "basdt": '202310125'
+        "basdt": '202310127'
     })
 
     # 요청이 성공했을 경우

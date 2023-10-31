@@ -7,12 +7,12 @@ import axios from 'axios'; // npm install -f axios@^1.3.5
 // - npm install -f axios@^1.3.5
 
 const FUND_API_BASE_URL = "http://15.165.6.111:8083/fund";
-const BOARD_API_ADMIN = "http://localhost:8083/boardList";
-const LOANPRODUCT_API_ADMIN = "http://localhost:8083/loanProductList";
-const LOANLIST_API_MEMBER = "http://localhost:8083/loanList";
-const ACCOUNT_API_BASE_URL = "http://localhost:8083/allAccount";
+const BOARD_API_ADMIN = "http://15.165.6.111:8083/boardList";
+const LOANPRODUCT_API_ADMIN = "http://15.165.6.111:8083/loanProductList";
+const LOANLIST_API_MEMBER = "http://15.165.6.111:8083/loanList";
+const ACCOUNT_API_BASE_URL = "http://15.165.6.111:8083/allAccount";
 
-const apiUrl = 'http://localhost:8083';
+const apiUrl = 'http://15.165.6.111:8083:8083';
 
 const config = {
   headers: {
