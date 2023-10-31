@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.example.project_team.dto.AccountDTO;
 import com.example.project_team.dto.AutoDTO;
@@ -61,14 +63,7 @@ public class AutoServiceImpl implements AutoService{
 		System.out.println("AutoServiceImpl - autoAccount");
 		return mapper.autoAccount(id);
 	}
-//	
-//	// changeAuto
-//	@Override
-//	public AutoDTO changeAuto(int autoNum) throws ServletException, IOException {
-//		System.out.println("AutoServiceImpl - changeAuto");
-//		return mapper.changeAuto(autoNum);
-//	}
-//
+
 	// autoWithdrawal
 	@Override
 	@Transactional
@@ -103,8 +98,6 @@ public class AutoServiceImpl implements AutoService{
     		int mBalance = mapper.mBalanceChk(map);
     		// 계좌잔액 >= 이체금액
     		if (mBalance >= dto.getAutoAmount()) {
-    			// 일일이체한도 초과여부 체크 부분 => 보류
-    			
     			
     			// 계좌잔액 - 이체금액
     			out = mBalance - dto.getAutoAmount();
@@ -143,29 +136,34 @@ public class AutoServiceImpl implements AutoService{
     		LocalDate nextAutoDate = localdate.plusMonths(1);
             dto.setAutoDate(java.sql.Date.valueOf(nextAutoDate));
             System.out.println("거래 성공(o゜▽゜)o☆(o゜▽゜)o☆");	
-//          System.out.println("dddssssss"+dto.getAutoDate());
             
         }
 		
 	}
-
+	
 	// changeAuto
 	@Override
-	public AutoDTO changeAuto(int autoNum) throws ServletException, IOException {
-		System.out.println("AutoServiceImpl - autoAccount");
-		return mapper.changeAuto(autoNum);
+	public List<AutoDTO> changeAuto(HttpServletRequest req, Model model) 
+			throws ServletException, IOException {
+		System.out.println("AutoServiceImpl - changeAuto");
+		return mapper.changeAuto();
 	}
 
-	
-	// alterAutoDate
+	// cancleAuto
 	@Override
-	public AutoDTO alterAutoDate(int autoNum) throws ServletException, IOException {
-		System.out.println("AutoServiceImpl - alterAutoDate");
+	public int cancleAuto(int autoNum) 
+			throws ServletException, IOException {
+		System.out.println("AutoServiceImpl - cancleAuto");
 		
-		return mapper.alterAutoDateList(autoNum);
+		return mapper.cancleAuto(autoNum);
 	}
 	
-	
-	
+	// adminAuto
+	@Override
+	public List<AutoDTO> adminAuto(HttpServletRequest req, Model model) 
+			throws ServletException, IOException {
+		System.out.println("AutoServiceImpl - adminAuto");
+		return mapper.adminAuto();
+	}
 	
 }

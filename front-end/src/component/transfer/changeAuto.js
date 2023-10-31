@@ -5,6 +5,7 @@ import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
+import { Create, Delete } from '@mui/icons-material';
 import API from '../../api/transferAuto';
 
 function Unix_timestamp(t){
@@ -34,13 +35,12 @@ class changeAuto extends Component {
 
     // 라이프사이클 중 컴포넌트가 생성된 후 사용자에게 보여지기까지의 전체 과정을 렌더링
     componentDidMount() {
-        this.loadautosList();
+        this.changeAuto();
     }
 
     // list 정보
-    loadautosList = () => {
-        console.log("T.T", this.state)
-        API.autoList()
+    changeAuto = () => {
+        API.changeAuto()
             .then(res => {
                 this.setState({
                     autos: res.data
@@ -48,15 +48,29 @@ class changeAuto extends Component {
             })
             .catch(err => {
 
-                console.log('loadautoList() Error!!', err);
+                console.log('changeAuto() Error!!', err);
             })
         console.log(this.state.autos)
     }
 
-    // changeAutoButton
-    changeAutoButton = (autoNum) => {
-    window.localStorage.setItem("AutoNum", autoNum);
-    this.props.history.push("/changeAutoButton")
+    // cancle
+    cancleAuto = (autoNum) => {
+        const confirmCancle = window.confirm("정말로 해지하시겠습니까?");
+
+        if (confirmCancle) {
+            API.cancleAuto(autoNum)
+                .then(res => {
+                    this.setState({
+                        autos: this.state.autos.filter(auto => auto.autoNum !== autoNum)
+                    });
+                    console.log('cancle 성공 : ', res.data);
+                })
+                .catch(err => {
+                    console.log('cancleAuto() Error!!', err);
+                });
+        } else {
+            console.log('해지가 취소되었습니다.');
+        }
     }
 
     // page
@@ -80,7 +94,7 @@ class changeAuto extends Component {
             <Container component="main" maxWidth="md">
 
                 <CurrencyExchangeIcon fontSize='large' color='primary' />
-                <Typography variant="h4" style={style}> 자동이체 변경/해지 </Typography>
+                <Typography variant="h4" style={style}> 자동이체 해지 </Typography>
 
                 <TableContainer >
                     <Table md={{ minWidth: 900 }}>
@@ -89,8 +103,7 @@ class changeAuto extends Component {
                                 <TableCell align="center" width="50">No.</TableCell>
                                 <TableCell align="center" width="200">이체명</TableCell>
                                 <TableCell align="center" width="150">금액</TableCell>
-                                <TableCell align="center" width="120">이체일자</TableCell>
-                                <TableCell align="center" width="50">변경</TableCell>
+                                <TableCell align="center" width="150">이체일자</TableCell>
                                 <TableCell align="center" width="50">해지</TableCell>
                             </TableRow>
                         </TableHead>
@@ -108,10 +121,9 @@ class changeAuto extends Component {
                                                                 day: '2-digit',
                                                                 })}</TableCell>
                                     <TableCell align='center'>
-                                        <ChangeCircleIcon fontSize='large' onClick={() => this.changeAutoButton(auto.autoNum)}/>
-                                    </TableCell>
-                                    <TableCell align='center'>
-                                        <RemoveCircleIcon fontSize='large' onClick={() => this.cancleAuto(auto.autoNum)}/>
+                                        <button className="btn" onClick={() => this.cancleAuto(auto.autoNum)}>
+                                            <Delete color='error' />
+                                        </button>
                                     </TableCell>
                                 </TableRow>
                             ))}

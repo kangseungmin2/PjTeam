@@ -169,7 +169,6 @@ class autoWithdrawal extends Component {
                         required
                         id="sandard-required"
                         variant="standard"
-                        label="출금일"
                         type="date"
                         name="autoDate"
                         value={this.state.autoDate}

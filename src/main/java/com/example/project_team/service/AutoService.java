@@ -31,12 +31,16 @@ public interface AutoService {
 			throws ServletException, IOException;
 		
 	// changeAuto
-	public AutoDTO changeAuto(int autoNum)
+	public List<AutoDTO> changeAuto(HttpServletRequest req, Model model)
 			throws ServletException, IOException;
 	
-	// alterAutoDate
-	public AutoDTO alterAutoDate(int autoNum)
+	// cancleAuto
+	public int cancleAuto(int autoNum)
 			throws ServletException, IOException;
-	
+
+	// adminAuto
+	public List<AutoDTO> adminAuto(HttpServletRequest req, Model model)
+			throws ServletException, IOException;
+		
 	
 }

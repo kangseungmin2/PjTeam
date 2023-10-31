@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.example.project_team.dto.AccountDTO;
 import com.example.project_team.dto.LimitDTO;
+import com.example.project_team.dto.LoanDTO;
 import com.example.project_team.dto.TransferDTO;
 import com.example.project_team.exceptionHandler.ErrorResponse;
 
@@ -39,9 +40,27 @@ public interface TransferMapper {
 	public List<AccountDTO> limitAccount(String id);
 	
 	// changeLimit 
-	public int changeLimit(LimitDTO dto);
+	public void changeLimit(LimitDTO dto);
 	
 	// transferLimit (관리자) 고객 한도 요청 승인/반려
-//	public LimitDTO transferLimit(int limitNum);
+	public List<LimitDTO> transferLimit();
+	
+	// afterLimit
+	public List<LimitDTO> afterLimit();
+	
+	// bringLimit
+	public int bringLimit(int limitNum);
+	
+	// updateLimit
+	public int updateLimit(Map<String, Object> map);
+	
+	// newLimit
+	public int newLimit(Map<String, Object> map);
+		
+	// deleteLimit
+	public int deleteLimit(int limitNum);
+	
+    // adminTransfer
+	public List<TransferDTO> adminTransfer();
 
 }

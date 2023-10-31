@@ -16,11 +16,11 @@ public class LimitDTO {
 	@Id
 	private int limitNum; 		// 한도번호 PRIMARY KEY
 	private String id; 			// 회원아이디 FK
-	private String name; 		// 회원명
 	private long accountNum; 	// 계좌번호
 	private int accountPW; 		// 계좌비밀번호
 	private int accountLimit;	// 일일이체한도
 	private int wantLimit;		// 희망한도
-	private Date limitDate; 	// 한도변경일
+	private Date limitDate; 	// 한도변경
+	private String limitShow;   // 한도변경 관리자 확인 여부
 	
 }
