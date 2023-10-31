@@ -42,7 +42,7 @@ public class SmsController {
         message.setFrom("01062683836");
         message.setTo(phoneNumberWithoutQuotes);
 
-        message.setText("한글 45자, 영자 90자 이하 입력되면 자동으로 SMS타입의 메시지가 추가됩니다."+numStr);
+        message.setText("인증번호는 ["+numStr+"] 입니다.");
         
         
         this.messageService.sendOne(new SingleMessageSendingRequest(message));
