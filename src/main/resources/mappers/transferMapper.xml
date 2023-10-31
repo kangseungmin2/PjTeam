@@ -1,71 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	  
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
 <mapper namespace="com.example.project_team.mappers.TransferMapper">
 
 <!-- 한건이체 목록 조회 -->
 <select id="transferList" resultType="com.example.project_team.dto.TransferDTO">
-	SELECT * FROM team_transfer order by transferNum
+   SELECT * FROM team_transfer order by transferNum
 </select>
 
 <!-- 한건이체 상세목록  -->
 <select id="transferDetail" parameterType="int" resultType="com.example.project_team.dto.TransferDTO">
-	SELECT * FROM team_transfer WHERE transferNum=#{transferNum} 
+   SELECT * FROM team_transfer WHERE transferNum=#{transferNum} 
 </select>
 
 <!-- 한건이체 전 입출금 계좌조회  -->
 <select id="transAccount" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
-	SELECT * FROM team_account WHERE id = #{id} AND accountType = 'e' AND show = 'y'
+   SELECT * FROM team_account WHERE id = #{id} AND accountType = 'e' AND show = 'y'
 </select>
 
 <!-- 1건 출금 -->
 <update id="outTransfer" parameterType="Map">
-	UPDATE team_account
-	SET balance = #{out}
-	WHERE accountNum = #{accountNum}
+   UPDATE team_account
+   SET balance = #{out}
+   WHERE accountNum = #{accountNum}
 </update>
-	
+   
 <!-- 수취인(입금) 계좌 기존 잔액 가져오기  -->
 <select id="balanceChk" parameterType="Map" resultType="int">
-	SELECT balance FROM team_account WHERE accountNum = #{trAccountNum} 
+   SELECT balance FROM team_account WHERE accountNum = #{trAccountNum} 
 </select>
 
 <!-- 1건 입금 -->
 <update id="insertTransfer" parameterType="Map">
-	UPDATE team_account
-	SET balance = #{in}
-	WHERE accountNum = #{trAccountNum}
+   UPDATE team_account
+   SET balance = #{in}
+   WHERE accountNum = #{trAccountNum}
 </update>
 
 <!-- 한건이체 거래목록에 추가 -->
 <insert id="addTransList" parameterType="com.example.project_team.dto.TransferDTO">
-	INSERT INTO team_transfer(transferNum, id, accountNum, balance, accountLimit ,accountPW, trName, trbank, trAccountNum, trAmount, trDate)
-		VALUES((SELECT NVL(MAX(transferNum)+1, 1)FROM team_transfer),#{id},#{accountNum},#{balance},#{accountLimit},#{accountPW},#{trName},#{trbank},#{trAccountNum},#{trAmount}, SYSDATE) 
+   INSERT INTO team_transfer(transferNum, id, accountNum, balance, accountLimit ,accountPW, trName, trbank, trAccountNum, trAmount, trDate)
+      VALUES((SELECT NVL(MAX(transferNum)+1, 1)FROM team_transfer),#{id},#{accountNum},#{balance},#{accountLimit},#{accountPW},#{trName},#{trbank},#{trAccountNum},#{trAmount}, SYSDATE) 
 </insert>
 
 <!-- 한도변경요청 전 계좌조회  -->
 <select id="limitAccount" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
-	SELECT * FROM team_account WHERE id = #{id} AND accountType = 'e' AND show = 'y'
+   SELECT * FROM team_account WHERE id = #{id} AND accountType = 'e' AND show = 'y'
 </select>
 
 <!-- 한도변경 심사요청 -->
 <insert id="changeLimit" parameterType="com.example.project_team.dto.LimitDTO">
+<<<<<<< Updated upstream
 	INSERT INTO team_limit (limitNum, id, name, accountNum, accountPW, accountLimit, wantLimit, limitDate, limitShow)
  	 VALUES (#{limitNum}, #{id}, #{name}, #{accountNum}, #{accountPW}, #{accountLimit}, #{wantLimit}, #{limitDate}, 'n')
+=======
+   INSERT INTO team_limit (limitNum, id, accountNum, accountPW, accountLimit, wantLimit, limitDate, limitShow)
+     VALUES ((SELECT NVL(MAX(limitNum)+1, 1000)FROM team_limit), #{id}, #{accountNum}, #{accountPW}, #{accountLimit}, #{wantLimit}, sysdate, 'n')
+>>>>>>> Stashed changes
 </insert>
 
 <!-- (관리자) 고객 한도상향 요청 리스트  -->
-<!-- <select id="transferLimit" parameterType="String" resultType="com.example.project_team.dto.LimitDTO">
-	SELECT * FROM team_limit WHERE id = #{id} AND limitShow = 'n'
-</select> -->
+<select id="transferLimit" resultType="com.example.project_team.dto.LimitDTO">
+   SELECT * FROM team_limit WHERE limitShow = 'n' order by limitNum
+</select>
 
-<!-- (관리자) 고객 한도상향 요청 심사 -->
-<!-- <update id="transferLimit" parameterType="int">
-	UPDATE team_limit
-	SET accountLimit = #{wantLimit}, limitShow= 'y'
-	WHERE limitShow = 'n'
-</update> -->
+<!-- (관리자) 고객 한도상향 심사완료 리스트  -->
+<select id="afterLimit" resultType="com.example.project_team.dto.LimitDTO">
+   SELECT * FROM team_limit WHERE limitShow = 'y' order by limitNum
+</select>
+
+<!-- (관리자) 고객 한도상향 요청 심사 승인시 -->
+<update id="updateLimit" parameterType="Map">
+   UPDATE team_limit
+   SET accountLimit = #{wantLimit}, limitShow= 'y'
+   WHERE limitNum = #{limitNum}
+</update>
+
+<!-- (관리자)승인시 동시에 acocunt_tbl limit도 바뀜 -->
+<update id="newLimit" parameterType="Map">
+   UPDATE team_account
+   SET accountLimit = #{wantLimit}
+   WHERE accountNum = #{accountNum}
+</update>
+
+<!-- deleteLimit 한도상향심사 반려시-->
+<update id="deleteLimit" parameterType="int">
+   UPDATE team_limit
+   SET limitShow= 'y'
+   WHERE limitNum = #{limitNum} 
+</update>
+
+<!-- (관리자)이체 목록 조회 -->
+<select id="adminTransfer" resultType="com.example.project_team.dto.TransferDTO">
+   SELECT * FROM team_transfer order by transferNum
+</select>
 
 </mapper>

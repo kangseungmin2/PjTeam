@@ -114,23 +114,67 @@ public class TransferServiceImpl implements TransferService{
 		
 	// changeLimit
 	@Override
-	public int changeLimit(LimitDTO dto) 
-		throws ServletException, IOException {
+	public void changeLimit(LimitDTO dto) 
+		throws ServletException, IOException{
 		System.out.println("TransferServiceImpl - changeLimit");
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		return mapper.changeLimit(dto);
+		// 한도변경 목록에 추가
+		mapper.changeLimit(dto);
 	}
 
-	// transferLimit
-//	@Override
-//	public LimitDTO transferLimit(int limitNum) 
-//			throws ServletException, IOException {
-//		System.out.println("TransferServiceImpl - transferLimit");
-//		
-//		return mapper.transferLimit(limitNum);
-//	}
+	// transferLimit 한도신청목록 관리자페이지에서 보이게
+	@Override
+	public List<LimitDTO> transferLimit(HttpServletRequest req, Model model) 
+			throws ServletException, IOException {
+		System.out.println("TransferServiceImpl - transferLimit");
+		
+		return mapper.transferLimit();
+	}
+	
+	// afterLimit
+	@Override
+	public List<LimitDTO> afterLimit(HttpServletRequest req, Model model) 
+			throws ServletException, IOException {
+		System.out.println("TransferServiceImpl - afterLimit");
+		
+		return mapper.afterLimit();
+	}
 
+	// updateLimit
+	@Override
+	public void updateLimit(int limitNum, AccountDTO dto) 
+			throws ServletException, IOException {
+		System.out.println("TransferServiceImpl - updateLimit");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("limitNum", limitNum);
+		map.put("wantLimit", dto.getAccountLimit());
+		map.put("accountNum", dto.getAccountNum());
+		
+		// accountLimit = wantLimit => LimitDTO
+		mapper.updateLimit(map);
+		
+		// AccountDTO의 accountLimit = wantLimit
+		mapper.newLimit(map);
+		
+	}
+	
+	// deleteLimit
+	@Override
+	public int deleteLimit(int limitNum) 
+			throws ServletException, IOException {
+		System.out.println("TransferServiceImpl - deleteLimit");
+		
+		return mapper.deleteLimit(limitNum);
+	}
+	
+	// adminTransfer
+	@Override
+	public List<TransferDTO> adminTransfer(HttpServletRequest req, Model model) 
+			throws ServletException, IOException {
+		System.out.println("TransferServiceImpl - adminTransfer");
+		return mapper.adminTransfer();
+	}
+	
 
 }

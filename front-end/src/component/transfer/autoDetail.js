@@ -62,7 +62,14 @@ class autoDetail extends Component {
                                                     year: 'numeric',
                                                     month: '2-digit',
                                                     day: '2-digit'
-                                                    })}</Typography>
+                                                    })}
+                            </Typography>
+                            <Typography variant="body1">자동이체 해지일: {this.state.autos.autoEnd !== null ?  new Date(this.state.autos.autoEnd).toLocaleString('ko-KR', {
+                                                    year: 'numeric',
+                                                    month: '2-digit',
+                                                    day: '2-digit'
+                                                    }) : "해지되지 않은 계좌"}
+                            </Typography>
                             <br/>
                             <div style={btnStyle}>
                                 <Button href="/autoList" variant="contained" color="primary">확인</Button>

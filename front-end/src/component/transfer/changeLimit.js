@@ -9,6 +9,8 @@ class changeLimit extends Component {
         super(props);
 
         this.state = {
+            limitNum: 0,
+            id: '',
             accountNum: 0,
             accountLimit: 0,
             wantLimit: 0,
@@ -22,12 +24,18 @@ class changeLimit extends Component {
 
     changeLimitData = () => {
         this.setState ({
+            id: window.localStorage.getItem("id"),
             accountNum: window.localStorage.getItem('accountNum'),
             accountLimit: window.localStorage.getItem('accountLimit'),
             accountPW: window.localStorage.getItem('accountPW')
         })
     }
 
+    // update
+    transferLimit = (limitNum) => {
+        window.localStorage.setItem("LimitNum", limitNum);
+        this.props.history.push("/transferLimit")
+    }
 
     onChange = (e) => {
         this.setState({
@@ -35,10 +43,12 @@ class changeLimit extends Component {
         });
     }
 
-    transferList = (e) =>{
+    transferLimit = (e) =>{
         e.preventDefault();
 
         let inputData = {
+            limitNum:  parseInt(this.state.limitNum),
+            id: this.state.id,
             accountNum: parseInt(this.state.accountNum),
             accountLimit: parseInt(this.state.accountLimit),
             accountPW: parseInt(this.state.accountPW),
@@ -72,11 +82,28 @@ class changeLimit extends Component {
                         required
                         id="sandard-required"
                         variant="standard"
+                        label="No."
+                        type="text"
+                        name="limitNum"
+                        value={this.state.limitNum}/><br/>
+
+                     <TextField
+                        required
+                        id="sandard-required"
+                        variant="standard"
+                        label="아이디"
+                        type="text"
+                        name="id"
+                        value={this.state.id}/><br/>
+
+                    <TextField
+                        required
+                        id="sandard-required"
+                        variant="standard"
                         label="계좌번호"
                         type="number"
                         name="accountNum"
-                        value={this.state.accountNum}
-                        placeholder="input sample accountNum"/><br/>
+                        value={this.state.accountNum}/><br/>
                             
                     <TextField
                         required
@@ -85,8 +112,7 @@ class changeLimit extends Component {
                         label="기존한도"
                         type="number"
                         name="accountLimit"
-                        value={this.state.accountLimit}
-                        placeholder="input sample accountLimit"/><br/>
+                        value={this.state.accountLimit}/><br/>
 
                     <TextField
                         required
@@ -96,7 +122,7 @@ class changeLimit extends Component {
                         type="number"
                         name="wantLimit"
                         value={this.state.wantLimit}
-                        placeholder="input sample wantLimit"
+                        placeholder="희망 한도액을 입력하세요."
                         onChange={this.onChange} /><br/>
 
                     <br/><br/>

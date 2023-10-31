@@ -50,18 +50,21 @@
 		VALUES((SELECT NVL(MAX(autoNum)+1, 100)FROM team_auto),#{id},#{accountNum}, #{accountPW}, #{balance}, #{accountLimit}, #{autoCompany}, #{autoAccount}, #{autoDate},#{autoAmount},#{autoTitle}, #{autoResult}, SYSDATE) 
 </insert>
 
-<!-- 자동이체 변경/해지 메인  -->
-<select id="changeAuto" parameterType="int" resultType="com.example.project_team.dto.AutoDTO">
+<!-- 자동이체 해지 메인  -->
+<select id="changeAuto" resultType="com.example.project_team.dto.AutoDTO">
+	SELECT * FROM team_auto WHERE autoEnd IS NULL order by autoNum
+</select>
+
+<!-- cancleAuto 자동이체 해지-->
+<update id="cancleAuto" parameterType="int">
+   UPDATE team_auto
+   SET autoEnd= SYSDATE
+   WHERE autoNum = #{autoNum} 
+</update>
+
+<!-- (관리자)자동이체 목록 조회 -->
+<select id="adminAuto" resultType="com.example.project_team.dto.AutoDTO">
 	SELECT * FROM team_auto order by autoNum
 </select>
-
-<!-- 자동이체 결제일 변경전 계좌 정보 가져오기 -->
-<select id="alterAutoDateList" parameterType="int" resultType="com.example.project_team.dto.AutoDTO">
-	SELECT * FROM team_auto WHERE autoNum=#{autoNum} 
-</select>
-
-<!-- 자동이체 결제일 변경 -->
-<!-- 자동이체 출금계좌 변경 전 열람 -->
-<!-- 자동이체 출금계좌 변경 -->
 
 </mapper>

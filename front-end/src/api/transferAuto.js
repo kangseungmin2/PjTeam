@@ -6,7 +6,7 @@ const AUTOLIST_API_CUSTOMER = "http://15.165.6.111:8083/auto";      // 자동이
 
 class transferAuto {
 
-    // ------------- [ 1건이체/ 다건이체 transfer ] -------------
+    // ------------- [ 1건이체 transfer ] -------------
     // list
     transferList() {
         console.log("transferList호출");
@@ -31,6 +31,12 @@ class transferAuto {
         return axios.post(TRANSFERLIST_API_CUSTOMER+"/oneTransfer", TranNum);
     }
 
+    // (관리자)deleteLimit => 관리자 한도심사화면에서 열람시
+    adminTransfer(){
+        console.log('deleteLimit 호출!!');
+        return axios.get(TRANSFERLIST_API_CUSTOMER + "/adminTransfer/");
+    }
+
     // ------------- [ 한도 limit ] -------------
     //  limitAccount 한도 변경 요청 전 계좌 선택
     limitAccount(id) {
@@ -39,17 +45,33 @@ class transferAuto {
     }
     
     // changeLimit 한도 변경 요청화면
-    changeLimit(accountNum) {
+    changeLimit(limitNum) {
         console.log("changeLimit");
-        return axios.get(TRANSFERLIST_API_CUSTOMER+ "/changeLimit/"+ accountNum);
+        return axios.post(TRANSFERLIST_API_CUSTOMER+ "/changeLimit" , limitNum);
     }
 
-    // (고객) 한도 심사요청 버튼 눌렀을 시 update 되게 백단까지 추가하기
-
-    // limitList => 관리자 한도심사화면
+    // (관리자)transferLimit => 관리자 한도심사화면
     transferLimit() {
         console.log("transferLimit");
-        return axios.get(TRANSFERLIST_API_CUSTOMER+ "/transferLimit/");
+        return axios.get(TRANSFERLIST_API_CUSTOMER+ "/transferLimit");
+    }
+
+    // (관리자)transferLimit => 관리자 한도심사완료시
+    afterLimit() {
+        console.log("afterLimit");
+        return axios.get(TRANSFERLIST_API_CUSTOMER+ "/afterLimit");
+    }
+
+    // (관리자)updateLimit => 관리자 한도심사화면에서 승인시
+    updateLimit(limitNum, accountDTO) {
+        console.log('updateLimit 호출!!');
+        return axios.put(TRANSFERLIST_API_CUSTOMER + "/updateLimit/" + limitNum, accountDTO);
+    }
+
+    // (관리자)deleteLimit => 관리자 한도심사화면에서 삭제시
+    deleteLimit(limitNum){
+        console.log('deleteLimit 호출!!', limitNum);
+        return axios.put(TRANSFERLIST_API_CUSTOMER + "/deleteLimit/"+ limitNum);
     }
 
     // ------------- [ 자동이체 auto ] -------------
@@ -72,41 +94,28 @@ class transferAuto {
     }
 
     // autoWithdrawal => 자동이체
-    autoWithdrawal(AutoNum) {
-        console.log("autoWithdrawal",AutoNum);
-        return axios.post(AUTOLIST_API_CUSTOMER+"/autoWithdrawal/", AutoNum);
+    autoWithdrawal(inputData) {
+        console.log("autoWithdrawal", inputData);
+        return axios.post(AUTOLIST_API_CUSTOMER+"/autoWithdrawal/", inputData);
     }
 
-     // changeAuto => 변경/해지 페이지
-     changeAuto(AutoNum) {
-        console.log("changeAuto", AutoNum);
-        return axios.get(AUTOLIST_API_CUSTOMER + "/changeAuto/" + AutoNum);
+     // changeAuto => 해지 페이지
+    changeAuto(){
+        console.log('changeAuto 호출!!');
+        return axios.get(AUTOLIST_API_CUSTOMER + "/changeAuto/");
     }
 
-    // changeAutoButton => 변경버튼
-    changeAutoButton(AutoNum) {
-        console.log("changeAutoButton");
-        return axios.get(AUTOLIST_API_CUSTOMER + "/changeAutoButton/" +  AutoNum);
+    // cancleAuto 자동이체 해지버튼
+    cancleAuto(autoNum) {
+        console.log("cancleAuto", autoNum);
+        return axios.put(AUTOLIST_API_CUSTOMER+ "/cancleAuto/" +autoNum);
     }
 
-    // alterAutoAccount => 자동이체 출금계좌 변경
-    alterAutoAccount(AutoNum) {
-        console.log("alterAutoAccount");
-        return axios.get(AUTOLIST_API_CUSTOMER + "/alterAutoAccount/" +  AutoNum);
+     // adminAuto
+     adminAuto() {
+        console.log("adminAuto");
+        return axios.get(AUTOLIST_API_CUSTOMER+ "/adminAuto/");
     }
-
-    // alterAutoDate => 자동일체 출금일 변경
-    alterAutoDate(AutoNum) {
-        console.log("alterAutoDate");
-        return axios.get(AUTOLIST_API_CUSTOMER + "/alterAutoDate/" +  AutoNum);
-    }
-
-    // cancleAuto => 해지
-     cancleAuto(AutoNum) {
-        console.log("cancleAuto");
-        return axios.get(AUTOLIST_API_CUSTOMER, AutoNum);
-    }
-
     
 
 }

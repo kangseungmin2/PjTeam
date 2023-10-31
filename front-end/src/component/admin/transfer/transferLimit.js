@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
+import { Button, Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
+import API from "../../../api/transferAuto";
+import { Create, Delete } from '@mui/icons-material';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
-import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
-import API from '../../../api/transferAuto';
 
 function Unix_timestamp(t){
     const date = new Date(t); //date객체는 UTC로부터 지난시간을 밀리초로 나타내는 UNIX 타임스탬프를 담는다.(밀리초를 초로 변환하려면 *1000)
@@ -17,113 +16,161 @@ function Unix_timestamp(t){
     return year + "-" + month.substr(-2) + "-" + day.substr(-2);
 }
 
-// (관리자) 고객 한도변경 신청 리스트
 class transferLimit extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            limits: [],
-            message: null,
+            limits: [], // limits 상태를 배열로 변경
             page: 0,
             rPage: 5
         }
     }
 
-    // 라이프사이클 중 컴포넌트가 생성된 후 사용자에게 보여지기까지의 전체 과정을 렌더링
     componentDidMount() {
-        this.loadtransList(); // 바로 실행 도와주는 componentDidMount 메서드
+        this.transferLimit();
     }
 
-    // list 정보
-    loadtransList = () => {
-        console.log("T.T", this.state)
+    transferLimit = () => {
         API.transferLimit()
             .then(res => {
                 this.setState({
                     limits: res.data
-                })
+                });
             })
             .catch(err => {
-
-                console.log('loadtransList() Error!!', err);
-            })
-        console.log(this.state.limits)
+                console.log('transferLimit() Error!!', err);
+            });
     }
 
-    // detail
-    transDetail = (transferNum) => {
-        window.localStorage.setItem("TranNum", transferNum);
-        this.props.history.push("/transDetail")
+    // 완료 list
+    afterLimit = () => {
+        //window.localStorage.removeItem("afterLimit");
+        this.props.history.push("/afterLimit");
+    }
+
+    updateLimit = (limitNum) => {
+        const confirmUpdate = window.confirm("정말로 승인하시겠습니까?");
+    
+        if (confirmUpdate) {
+            // 해당 limitNum에 해당하는 데이터 가져오기
+            const limitToUpdate = this.state.limits.find(limit => limit.limitNum === limitNum);
+    
+            // LimitDTO를 AccountDTO로 변환
+            const accountDTO = {
+                id: limitToUpdate.id,
+                accountNum: limitToUpdate.accountNum,
+                accountLimit: limitToUpdate.wantLimit,
+            };
+            console.log('accountDTO' , accountDTO);
+    
+            API.updateLimit(limitNum, accountDTO)
+                .then(res => {
+                    // 업데이트 성공 시 처리
+                    console.log('update 성공 : ', res.data);
+    
+                    // 업데이트 후 데이터 다시 불러오기 (선택적)
+                    this.transferLimit();
+                })
+                .catch(err => {
+                    // 업데이트 실패 시 처리
+                    console.log('updateLimit() Error!!', err);
+                });
+        } else {
+            console.log('한도승인이 취소되었습니다.');
+        }
     }
     
 
-    // page
-    handleChangePage = (event,newpage) => { 
-        this.setState({ page: newpage });
-    } 
-   
-    // rowPage
-    handleChangeRowsPerPage = (event) => { 
-        this.setState({ rPage: parseInt(event.target.value, 10) });
-        this.setState({ page: 0 }); // 페이지를 첫 페이지로 리셋
-    } 
+    // delete
+    deleteLimit = (limitNum) => {
+        const confirmDelete = window.confirm("정말로 삭제하시겠습니까?");
 
+        if (confirmDelete) {
+            API.deleteLimit(limitNum)
+                .then(res => {
+                    this.setState({
+                        limits: this.state.limits.filter(limit => limit.limitNum !== limitNum)
+                    });
+                    console.log('delete 성공 : ', res.data);
+                })
+                .catch(err => {
+                    console.log('deleteLimit() Error!!', err);
+                });
+        } else {
+            console.log('삭제가 취소되었습니다.');
+        }
+    }
+
+    handleChangePage = (event, newpage) => {
+        this.setState({ page: newpage });
+    }
+
+    handleChangeRowsPerPage = (event) => {
+        this.setState({ rPage: parseInt(event.target.value, 10) });
+        this.setState({ page: 0 });
+    }
 
     render() {
         const { page } = this.state;
         const { rPage } = this.state;
-        
 
         return (
             <Container component="main" maxWidth="md">
-
-                <CurrencyExchangeIcon fontSize='large' color='primary' />
-                <Typography variant="h4" style={style}> 고객 한도변경 신청목록 </Typography>
-
-                <TableContainer >
+                <PaidOutlinedIcon fontSize='large' color='primary' />
+                <Typography variant="h4" style={style}> 고객한도변경 요청 </Typography>
+                <br />
+                <TableContainer>
+                    <div>
+                        <Button variant="contained" style={btn} color="primary" onClick={this.afterLimit}> 심사완료 목록 </Button>
+                    </div>
+                    <br />
                     <Table md={{ minWidth: 900 }}>
                         <TableHead>
                             <TableRow>
                                 <TableCell align="center" width="50">No.</TableCell>
-                                <TableCell align="center" width="200">고객아이디</TableCell>
-                                <TableCell align="center" width="150">기존한도</TableCell>
-                                <TableCell align="center" width="100">희망한도</TableCell>
-                                <TableCell align="center" width="50">요청날짜</TableCell>
+                                <TableCell align="center" width="100">고객아이디</TableCell>
+                                <TableCell align="center" width="120">기존한도</TableCell>
+                                <TableCell align="center" width="120">희망한도</TableCell>
+                                <TableCell align="center" width="100">승인</TableCell>
+                                <TableCell align="center" width="100">반려</TableCell>
+                                <TableCell align="center" width="100">요청날짜</TableCell>
                             </TableRow>
                         </TableHead>
-
                         <TableBody>
-                            {this.state.limits.slice(page * rPage, page * 
-                            rPage + rPage).map((limit) => (
+                            {this.state.limits.slice(page * rPage, page * rPage + rPage).map((limit) => (
                                 <TableRow hover key={limit.limitNum}>
-                                    <TableCell align='center'>{limit.limitNum}</TableCell> 
+                                    <TableCell align='center'>{limit.limitNum}</TableCell>
                                     <TableCell align='center'>{limit.id}</TableCell>
                                     <TableCell align='center'>{limit.accountLimit}원</TableCell>
                                     <TableCell align='center'>{limit.wantLimit}원</TableCell>
-                                    <TableCell align='center'>{Unix_timestamp(limit.limitDate)}</TableCell>
                                     <TableCell align='center'>
-                                        <EditNoteOutlinedIcon fontSize='large' onClick={() => this.transDetail(limit.transferNum)}/>
+                                        <button className="btn" onClick={() => this.updateLimit(limit.limitNum)}>
+                                            <Create />
+                                        </button>
                                     </TableCell>
+                                    <TableCell align='center'>
+                                        <button className="btn" onClick={() => this.deleteLimit(limit.limitNum)}>
+                                            <Delete color='error' />
+                                        </button>
+                                    </TableCell>
+                                    <TableCell align='center'>{Unix_timestamp(limit.limitDate)}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
-                    </TableContainer>
-
-                <TablePagination 
-                rowsPerPageOptions={[5, 10, 25]} 
-                component="div"
-                count={this.state.limits.length} 
-                rowsPerPage={rPage} 
-                page={page} 
-                onPageChange={this.handleChangePage} 
-                onRowsPerPageChange={this.handleChangeRowsPerPage} 
-                /> 
-
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={this.state.limits.length}
+                    rowsPerPage={rPage}
+                    page={page}
+                    onPageChange={this.handleChangePage}
+                    onRowsPerPageChange={this.handleChangeRowsPerPage}
+                />
             </Container>
-
         );
     }
 }
@@ -133,6 +180,9 @@ const style = {
     justifyContent: 'center'
 }
 
-
+const btn = {
+    display: 'flex',
+    justifyContent: 'left'
+}
 
 export default transferLimit;

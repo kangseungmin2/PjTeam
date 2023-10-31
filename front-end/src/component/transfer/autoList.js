@@ -60,9 +60,7 @@ class autoList extends Component {
             start: Unix_timestamp(auto.autoDate), // 이벤트 날짜를 FullCalendar에서 사용 가능한 형식으로 변환
         }))}
         />
-
         <br/><br/>
-
         <TableContainer>
           <Table sx={{ minWidth: 800 }}>
             <TableHead>

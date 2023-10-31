@@ -37,9 +37,12 @@ public interface AutoMapper {
 	public int addAutoList(AutoDTO dto);
 	
 	// changeAuto
-	public AutoDTO changeAuto(int autoNum);
+	public List<AutoDTO> changeAuto();
 	
-	// alterAutoDateList
-	public AutoDTO alterAutoDateList(int autoNum);
+	// cancleAuto
+	public int cancleAuto(int autoNum);
+
+	// adminAuto
+	public List<AutoDTO> adminAuto();
 	
 }

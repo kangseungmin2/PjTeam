@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import com.example.project_team.dto.AccountDTO;
 import com.example.project_team.dto.LimitDTO;
 import com.example.project_team.dto.TransferDTO;
+import com.example.project_team.exceptionHandler.CustomException;
 import com.example.project_team.exceptionHandler.ErrorResponse;
 
 
@@ -31,20 +32,34 @@ public interface TransferService {
 		
 	// oneTransfer
 	public void oneTransfer(TransferDTO dto)
-			throws ServletException, IOException;
+			throws CustomException;
 	
 	// limitAccount
 	public List<AccountDTO> limitAccount(String id)
 			throws ServletException, IOException;
 		
 	// changeLimit
-	public int changeLimit(LimitDTO dto)
+	public void changeLimit(LimitDTO dto)
 			throws ServletException, IOException;
 	
 	// transferLimit
-//	public LimitDTO transferLimit(int limitNum)
-//			throws ServletException, IOException;
-//	
+	public List<LimitDTO> transferLimit(HttpServletRequest req, Model model)
+			throws ServletException, IOException;
 	
+	// afterLimit
+	public List<LimitDTO> afterLimit(HttpServletRequest req, Model model)
+			throws ServletException, IOException;
+	
+	// updateLimit
+	public void updateLimit(int limitNum, AccountDTO dto)
+			throws ServletException, IOException;
+		
+	// deleteLimit
+	public int deleteLimit(int limitNum)
+			throws ServletException, IOException;
+	
+	// adminTransfer
+	public List<TransferDTO> adminTransfer(HttpServletRequest req, Model model)
+			throws ServletException, IOException;
 	
 }

@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project_team.dto.AccountDTO;
 import com.example.project_team.dto.LimitDTO;
+import com.example.project_team.dto.LoanDTO;
 import com.example.project_team.dto.TransferDTO;
 import com.example.project_team.exceptionHandler.CustomException;
 import com.example.project_team.exceptionHandler.ErrorResponse;
@@ -92,22 +95,84 @@ public class TransferController {
 		
 	}
 		
-	//changeLimit => 한도변경(하향, 상향)
-	@PostMapping("/changeLimit/")
-	public int changeLimit(@RequestBody LimitDTO dto) 
-			throws ServletException, IOException {
-		logger.info("<<<TransferController - changeLimit>>>");
+	// changeLimit => 한건이체
+	@PostMapping("/changeLimit")
+   public ResponseEntity<ErrorResponse> changeLimit(@RequestBody LimitDTO dto)
+         throws ServletException, IOException {
+	   logger.info("<<<TransferController - changeLimit>>>");
+     try {
+           service.changeLimit(dto);// Service 클래스 호출
+            return ResponseEntity.ok(new ErrorResponse(true, "한도 변경 신청이 완료되었습니다."));
+        } catch (CustomException ex) {
+            // Service에서 발생한 예외 처리
+            return ResponseEntity.ok(new ErrorResponse(false, ex.getMessage()));
+        }
+     
+   }
 		
-		return service.changeLimit(dto);
+	// transferLimit => (관리자)고객 한도 변경 요청 승인/반려 리스트
+	@GetMapping("/transferLimit")
+	public List<LimitDTO> transferLimit(HttpServletRequest req, Model model) 
+			throws ServletException, IOException {
+		logger.info("<<<TransferController - transferLimit>>>");
+	
+		return service.transferLimit(req, model);
 	}
 	
-	//transferLimit => (관리자)고객 한도 변경 요청 승인/반려
-//	@PostMapping("/transferLimit/{limitNum}")
-//	public LimitDTO transferLimit(@PathVariable int limitNum)
-//			throws ServletException, IOException {
-//		logger.info("<<<TransferController - transferLimit>>>");
-//	
-//		return service.transferLimit(limitNum);
-//	}
+	// afterLimit => (관리자)고객 한도 변경 요청 심사완료 목록
+	@GetMapping("/afterLimit{limitNum}")
+	public List<LimitDTO> afterLimit(HttpServletRequest req, Model model) 
+			throws ServletException, IOException {
+		logger.info("<<<TransferController - afterLimit>>>");
 	
+		return service.afterLimit(req, model);
+	}
+		
+	// updateLimit
+	@PutMapping("/updateLimit/{limitNum}")
+	public void updateLimit(@PathVariable int limitNum, @RequestBody AccountDTO dto) 
+			throws ServletException, IOException {
+	    logger.info("<<< TransferController - updateLimit() >>>");
+
+    	 service.updateLimit(limitNum, dto);
+	}
+
+	// deleteLimit
+	@PutMapping("/deleteLimit/{limitNum}")
+	public Map<String, Object> deleteLimit(@PathVariable int limitNum)
+		throws ServletException, IOException {
+		logger.info("<<< TransferController - deleteLimit() >>>");
+		
+		int deleteCnt=0;
+		String resultCode="";
+		String resultMsg="";
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			deleteCnt=service.deleteLimit(limitNum);
+			if(deleteCnt==1) {
+				resultCode="333";
+				resultMsg="deleteLimit 성공";
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			resultCode="444";
+			resultMsg=e.getMessage();
+		}
+		map.put("resultCode", resultCode);
+		map.put("resultMsg", resultMsg);
+		
+		System.out.println("[deleteLimit 성공!]");
+		return map;
+	}
+	
+	// adminTransfer
+	@GetMapping("/adminTransfer/")
+	public List<TransferDTO> adminTransfer(HttpServletRequest req, Model model) 
+			throws ServletException, IOException {
+		logger.info("<<<TransferController - adminTransfer>>>");
+		
+		return service.adminTransfer(req, model); 
+	}
+
 }
