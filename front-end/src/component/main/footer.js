@@ -11,66 +11,23 @@ export default function footer() {
   return (
     <MDBFooter style={{ backgroundColor: 'rgb(230, 229, 227)' }} className='text-white text-center text-lg-left'>
       <MDBContainer className='p-4'>
-        <MDBRow>
+        <MDBRow style={{ display: 'flex', justifyContent: 'space-between'}}>
           <MDBCol lg='6' md='12' className='mb-4 mb-md-0' style={{ color: 'rgb(0, 0, 0)' }}>
-            <h5 className='text-uppercase'>Footer Content</h5>
+            <h5 className='text-uppercase'>Our Bank</h5>
 
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis molestias.
-              Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam voluptatem veniam, est
-              atque cumque eum delectus sint!
+            고객 중심의 디지털 은행 서비스를 제공합니다.
+            안전하고 사용자 친화적인 디자인으로 계좌관리, 이체, 대출 신청, 펀드 거래 등 다양한 금융 서비스를 제공 합니다.
             </p>
           </MDBCol>
 
           <MDBCol lg='3' md='6' className='mb-4 mb-md-0' style={{ color: 'rgb(0, 0, 0)' }}>
-            <h5 className='text-uppercase'>Links</h5>
+            <h5 className='text-uppercase'>Bank Map</h5>
 
             <ul className='list-unstyled mb-0' >
               <li>
                 <a href='#!' style={{ color: 'rgb(0, 0, 0)' }}>
-                  Link 1
-                </a>
-              </li>
-              <li>
-                <a href='#!'style={{ color: 'rgb(0, 0, 0)' }}>
-                  Link 2
-                </a>
-              </li>
-              <li>
-                <a href='#!'style={{ color: 'rgb(0, 0, 0)' }}>
-                  Link 3
-                </a>
-              </li>
-              <li>
-                <a href='#!'style={{ color: 'rgb(0, 0, 0)' }}>
-                  Link 4
-                </a>
-              </li>
-            </ul>
-          </MDBCol>
-
-          <MDBCol lg='3' md='6' className='mb-4 mb-md-0'style={{ color: 'rgb(0, 0, 0)' }}>
-            <h5 className='text-uppercase mb-0'>Links</h5>
-
-            <ul className='list-unstyled'>
-              <li>
-                <a href='#!' style={{ color: 'rgb(0, 0, 0)' }}>
-                  Link 1
-                </a>
-              </li>
-              <li>
-                <a href='#!' style={{ color: 'rgb(0, 0, 0)' }}>
-                  Link 2
-                </a>
-              </li>
-              <li>
-                <a href='#!' style={{ color: 'rgb(0, 0, 0)' }}>
-                  Link 3
-                </a>
-              </li>
-              <li>
-                <a href='#!' style={{ color: 'rgb(0, 0, 0)' }}>
-                  Link 4
+                  은행지도
                 </a>
               </li>
             </ul>
