@@ -28,7 +28,7 @@ public class User {
 	private String name;
 	
 	@Column(name="residentRegistrationNumber")
-	private int residentRegistrationNumber;
+	private long residentRegistrationNumber;
 	
 	@Column(name="address")
 	private String address;

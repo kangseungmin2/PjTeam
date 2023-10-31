@@ -14,7 +14,7 @@ public class UserDTO {
 	private String id;
 	private String password;
 	private String name;
-	private int residentRegistrationNumber;
+	private long residentRegistrationNumber;
 	private String address;
 	private int hp;
 	private String job;
