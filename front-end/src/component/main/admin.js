@@ -11,7 +11,7 @@ function openNewWindow(e) {
 function logout(){
     window.location.reload();
     localStorage.clear();
-    window.location.href = "https://15.165.6.111:3000/main"
+    window.location.href = "http://15.165.6.111:3000/main"
 }
 
 function Admin() {
