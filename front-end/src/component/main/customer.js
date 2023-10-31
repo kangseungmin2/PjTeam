@@ -6,7 +6,7 @@ import '../../resource/css/login.css';
 function logout(){
     window.location.reload();
     localStorage.clear();
-    this.props.history.push("/main");
+    window.location.href = "https://15.165.6.111:8083/main"
 }
 
 function Customer() {

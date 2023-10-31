@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import '../../resource/css/login.css';
-
+import Main from './main';
 function openNewWindow(e) {
     window.open('http://43.202.0.250:5601/app/dashboards#/view/3bec5b30-7762-11ee-9b9c-7b25aa16f484?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-15m,to:now))');
 }
@@ -11,7 +11,7 @@ function openNewWindow(e) {
 function logout(){
     window.location.reload();
     localStorage.clear();
-    this.props.history.push("/main");
+    window.location.href = "https://15.165.6.111:8083/main"
 }
 
 function Admin() {
