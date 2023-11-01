@@ -14,7 +14,7 @@ public class SignUpDTO {
 	private String id;
 	private char[] password;
 	private String name;
-	private int residentRegistrationNumber;
+	private long residentRegistrationNumber;
 	private String address;
 	private int hp;
 	private String job;

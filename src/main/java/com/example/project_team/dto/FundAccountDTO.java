@@ -26,4 +26,3 @@ public class FundAccountDTO {
     private String show;					// 계좌상태
     private String agree;					// 약관동의 여부
 }
-
