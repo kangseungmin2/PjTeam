@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import { Typography , Table, TableCell, TableBody, TableRow, TableHead } from '@mui/material';
 import Container from '@mui/material/Container';
 
-const SMS_API_BASE_URL = "http://localhost:8083/sms"
+const SMS_API_BASE_URL = "http://15.165.6.111:8083/sms"
 class accountSms extends Component {
   constructor(props) {
     super(props);
