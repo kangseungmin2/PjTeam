@@ -21,7 +21,8 @@ class adminAccount extends Component{
             chartData : [['date', 'cnt']],
             chartData2 : [['date', 'cnt']],
             chartData3 : [['date', 'cnt']],
-
+            chartData4 : [['date', 'cnt']],
+            chartData5 : [['date', 'cnt']],
             loading: true // 데이터 로딩 상태 추가
         }
     }
@@ -30,6 +31,8 @@ class adminAccount extends Component{
         this.openAccountData();
         this.openAccountData2();
         this.openAccountData3();
+        this.openAccountData4();
+        this.openAccountData5();
     }
 
     openAccountData = () => {
@@ -83,6 +86,40 @@ class adminAccount extends Component{
         })
     }
 
+    openAccountData4 = () => {
+        Account.openAccountData4()
+        .then(res => {
+            console.log('AccountData4() res!!', res);
+           // 데이터를 Google Charts 형식으로 변환
+           const chartData4 = res.data.map(item => [Unix_timestamp(item.yeJoinDate),  parseInt(item.yeSignNo, 10)]);
+
+           this.setState({
+                chartData4: [['date', 'cnt'], ...chartData4],
+                loading: false // 로딩 상태 해제
+           })
+        })   
+        .catch(err => {
+            console.log('openAccountData() Error!!', err);
+        })
+    }
+
+    openAccountData5 = () => {
+        Account.openAccountData5()
+        .then(res => {
+            console.log('AccountData5() res!!', res);
+           // 데이터를 Google Charts 형식으로 변환
+           const chartData5 = res.data.map(item => [Unix_timestamp(item.juckJoinDate),  parseInt(item.juckSignNo, 10)]);
+
+           this.setState({
+                chartData5: [['date', 'cnt'], ...chartData5],
+                loading: false // 로딩 상태 해제
+           })
+        })   
+        .catch(err => {
+            console.log('openAccountData() Error!!', err);
+        })
+    }
+
 
     render() {
     const options = {
@@ -105,8 +142,21 @@ class adminAccount extends Component{
         vAxis: { title: '' },
         title: 'Data : 계좌별 총 판매량 (펀드)', // 작은 타이틀 추가
         orientation: 'horizontal',
-        };        
-
+        }; 
+    const options4 = {
+        legend: 'none',
+        hAxis: { title: '예금' },
+        vAxis: { title: '' },
+        title: 'Data : 계좌별 총 판매량 (예금)', // 작은 타이틀 추가
+        orientation: 'horizontal',
+        };              
+    const options5 = {
+        legend: 'none',
+        hAxis: { title: '적금' },
+        vAxis: { title: '' },
+        title: 'Data : 계좌별 총 판매량 (적금)', // 작은 타이틀 추가
+        orientation: 'horizontal',
+        };   
 
     return (
         <div>
@@ -114,7 +164,6 @@ class adminAccount extends Component{
             <Table style={mainTable}>
                 <TableHead>
                     <TableRow>
-                        
                         <TableCell>
                             <Chart
                                 width={'600px'}
@@ -143,6 +192,28 @@ class adminAccount extends Component{
                                 loader={<div>Loading Chart</div>}
                                 data={this.state.chartData3}
                                 options={options3}
+                            />
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>
+                            <Chart
+                                width={'600px'}
+                                height={'400px'}
+                                chartType="BarChart"
+                                loader={<div>Loading Chart</div>}
+                                data={this.state.chartData4}
+                                options={options4}
+                            />
+                        </TableCell>
+                        <TableCell>
+                            <Chart
+                                width={'600px'}
+                                height={'400px'}
+                                chartType="BarChart"
+                                loader={<div>Loading Chart</div>}
+                                data={this.state.chartData5}
+                                options={options5}
                             />
                         </TableCell>
                     </TableRow>

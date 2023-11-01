@@ -1,7 +1,7 @@
 import axios from 'axios'; // npm install -f axios@^1.3.5
 
-const ACCOUNT_API_BASE_URL = "http://15.165.6.111:8083/allAccount";
-
+// const ACCOUNT_API_BASE_URL = "http://15.165.6.111:8083/allAccount";
+const ACCOUNT_API_BASE_URL = "http://localhost:8083/allAccount";
 class account {
 
     // ---[ 서윤 계좌 ]
@@ -63,6 +63,18 @@ class account {
     openAccountData3(){
         console.log('openAccountData3 호출~');
         return axios.get(ACCOUNT_API_BASE_URL+"/f/adminAccount3");
+    }  
+
+    // 관리자 결산 - 예금
+    openAccountData4(){
+        console.log('openAccountData3 호출~');
+        return axios.get(ACCOUNT_API_BASE_URL+"/y/adminAccount4");
+    }  
+
+    // 관리자 결산 - 적금
+    openAccountData5(){
+        console.log('openAccountData3 호출~');
+        return axios.get(ACCOUNT_API_BASE_URL+"/j/adminAccount5");
     }  
 
 }

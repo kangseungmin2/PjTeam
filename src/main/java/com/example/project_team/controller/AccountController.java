@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project_team.dto.AccountDTO;
+import com.example.project_team.dto.DepositSignDTO;
 import com.example.project_team.dto.FundAccountDTO;
 import com.example.project_team.dto.LoanSignDTO;
+import com.example.project_team.dto.SavingsSignDTO;
 import com.example.project_team.service.AccountService;
 
 
@@ -78,22 +80,6 @@ public class AccountController {
 		throws ServletException, IOException{
 		System.out.println("AccountController - accountListE");
 		return service.accountListE(id);
-	}
-	
-	//전체 리스트- 예금
-	@GetMapping("/y/{id}")
-	public List<AccountDTO> accountListY(@PathVariable("id") String id) 
-		throws ServletException, IOException{
-		System.out.println("AccountController - accountListY");
-		return service.accountListY(id);
-	}
-	
-	//전체 리스트- 적금
-	@GetMapping("/j/{id}")
-	public List<AccountDTO> accountListJ(@PathVariable("id") String id) 
-		throws ServletException, IOException{
-		System.out.println("AccountController - accountListJ");
-		return service.accountListJ(id);
 	}
 	
 	//비밀번호 변경
@@ -159,5 +145,21 @@ public class AccountController {
 		throws ServletException, IOException{
 		System.out.println("AccountController - openAccountData3");
 		return service.openAccountData3();
+	}
+	
+	//관리자 결산 - 예금
+	@GetMapping("/y/adminAccount4")
+	public List<DepositSignDTO> openAccountData4() 
+		throws ServletException, IOException{
+		System.out.println("AccountController - openAccountData4");
+		return service.openAccountData4();
+	}
+	
+	//관리자 결산 - 적금
+	@GetMapping("/j/adminAccount5")
+	public List<SavingsSignDTO> openAccountData5() 
+		throws ServletException, IOException{
+		System.out.println("AccountController - openAccountData5");
+		return service.openAccountData5();
 	}
 }

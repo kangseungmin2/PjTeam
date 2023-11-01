@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.project_team.dto.AccountDTO;
+import com.example.project_team.dto.DepositSignDTO;
 import com.example.project_team.dto.FundAccountDTO;
 import com.example.project_team.dto.LoanSignDTO;
+import com.example.project_team.dto.SavingsSignDTO;
 import com.example.project_team.mappers.AccountMapper;
 
 @Service
@@ -40,16 +42,6 @@ public class AccountService {
 	public List<AccountDTO> accountListE(String id) throws ServletException, IOException {
 		System.out.println("서비스 - 전제조회");
 		return mapper.accountListE(id);
-	}
-	// 전체 리스트- 예금
-	public List<AccountDTO> accountListY(String id) throws ServletException, IOException {
-		System.out.println("서비스 - 전제조회");
-		return mapper.accountListY(id);
-	}
-	// 전체 리스트- 적금
-	public List<AccountDTO> accountListJ(String id) throws ServletException, IOException {
-		System.out.println("서비스 - 전제조회");
-		return mapper.accountListJ(id);
 	}
 
 	// 비밀번호 변경
@@ -87,5 +79,15 @@ public class AccountService {
 		return mapper.openAccountData3();
 	}
 	
+	// 관리자 결산 - 예금
+	public List<DepositSignDTO> openAccountData4() throws ServletException, IOException {
+		System.out.println("서비스 - 관리자결산4");
+		return mapper.openAccountData4();
+	}
+	// 관리자 결산 - 적금
+	public List<SavingsSignDTO> openAccountData5() throws ServletException, IOException {
+		System.out.println("서비스 - 관리자결산5");
+		return mapper.openAccountData5();
+	}	
 	
 }

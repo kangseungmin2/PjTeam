@@ -3,8 +3,8 @@ import { Table, TableHead, TableBody, TableRow, TableCell, Typography, Container
 import Account from "../../api/account";
 import LoanSignApi from "../../api/loanSign";
 import ApiService from "../../ApiService";
-import Saving from "../../api/savings";
-import Deposit from "../../api/deposit";
+import Saving from "../../api/savingSign";
+import Deposit from "../../api/depositSign";
 
 function Unix_timestamp(t) {
     const date = new Date(t); //date객체는 UTC로부터 지난시간을 밀리초로 나타내는 UNIX 타임스탬프를 담는다.(밀리초를 초로 변환하려면 *1000)
@@ -54,8 +54,8 @@ class eAccount extends React.Component {
         super(props);
         this.state = {
             accounts: [],
-            sign: [],
-            fetchsavingssPL: [],
+            signY: [],
+            signJ: [],
             signs: [],
             accountList: [],
             message: null
@@ -74,43 +74,41 @@ class eAccount extends React.Component {
         //입출금
         Account.accountList(id)
             .then(res => {
-                console.log('data', res.data);
+                console.log('입출금', res.data);
                 this.setState({
                     accounts: res.data,
                 })
-
             })
             .catch(err => {
                 console.log('accountList Errror', err)
             });
-        // //예금
-        // Deposit.fetchSignConfirms(id)
-        //     .then(res => {
-        //         console.log('data', res.data);
-        //         this.setState({
-        //             sign: res.data,
-        //         })
+        //예금
+        Deposit.fetchSignConfirms(id)
+            .then(res => {
+                console.log('예금', res.data);
+                this.setState({
+                    signY: res.data,
+                })
+            })
+            .catch(err => {
+                console.log('fetchSignConfirms Errror', err)
+            });
+        //적금
+        Saving.fetchSignConfirms(id)
+        .then(res => {
+            console.log('적금', res.data);
+            this.setState({
+                signJ: res.data,
+            })
 
-        //     })
-        //     .catch(err => {
-        //         console.log('fetchSignConfirms Errror', err)
-        //     });
-        // //적금
-        // Saving.fetchsavingssPL(id)
-        // .then(res => {
-        //     console.log('data', res.data);
-        //     this.setState({
-        //         savings: res.data,
-        //     })
-
-        // })
-        // .catch(err => {
-        //     console.log('fetchsavingssPL Errror', err)
-        // });
+        })
+        .catch(err => {
+            console.log('fetchsavingssPL Errror', err)
+        });
         //대출
         LoanSignApi.fetchSignConfirms(id)
         .then(res => {
-            console.log('data', res.data);
+            console.log('대출', res.data);
             this.setState({
                 signs: res.data,
             })
@@ -121,7 +119,7 @@ class eAccount extends React.Component {
         //펀드
         ApiService.fundAccountSelect(id)
         .then(res => {
-            console.log('data', res.data);
+            console.log('펀드', res.data);
             this.setState({
                 accountList: res.data
             })
@@ -162,7 +160,7 @@ class eAccount extends React.Component {
                     </TableBody>
                 </Table>
                 <br/><br/>
-                {/* <Typography variant="h5" style={style}> <b>예금</b> </Typography>
+                <Typography variant="h5" style={style}> <b>예금</b> </Typography>
                 <Table md={{ minWidth: 900 }}>
                     <TableHead>
                         <TableRow>
@@ -174,12 +172,12 @@ class eAccount extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.state.deposits.map(sign =>
-                            <TableRow key={sign.yeSignNo}>
+                        {this.state.signY.map(deposits =>
+                            <TableRow key={deposits.yeSignNo}>
                                 <TableCell component="th" scope="account">{name('y')}</TableCell>
-                                <TableCell align='center'>{sign.depositAccountNum}</TableCell>
-                                <TableCell align='center'>{Unix_timestamp(sign.YEJOINDATE)}</TableCell>
-                                <TableCell align='center'>{sign.yeAmount}</TableCell>
+                                <TableCell align='center'>{deposits.depositAccountNum}</TableCell>
+                                <TableCell align='center'>{Unix_timestamp(deposits.yeJoinDate)}</TableCell>
+                                <TableCell align='center'>{deposits.yeAmount}</TableCell>
                                 <TableCell align='center'>정상</TableCell>
                             </TableRow>
                         )}
@@ -199,17 +197,17 @@ class eAccount extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.state.savings.map(savings =>
+                        {this.state.signJ.map(savings =>
                             <TableRow key={savings.juckSignNo}>
                                 <TableCell component="th" scope="account">{name('j')}</TableCell>
-                                <TableCell align='center'>{savings.accountNum}</TableCell>
-                                <TableCell align='center'>{Unix_timestamp(savings.JUCKJOINDATE)}</TableCell>
+                                <TableCell align='center'>{savings.savingsAccountNum}</TableCell>
+                                <TableCell align='center'>{Unix_timestamp(savings.juckJoinDate)}</TableCell>
                                 <TableCell align='center'>{savings.juckBalance}</TableCell>
                                 <TableCell align='center'>정상</TableCell>
                             </TableRow>
                         )}
                     </TableBody>
-                </Table> */}
+                </Table>
 
                 <br/><br/>
                 <Typography variant="h5" style={style}> <b>대출</b> </Typography>
