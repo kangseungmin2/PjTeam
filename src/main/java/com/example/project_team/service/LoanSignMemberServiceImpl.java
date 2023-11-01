@@ -356,6 +356,7 @@ public class LoanSignMemberServiceImpl implements LoanSignMemberService {
 			// repaymentDTO에 update
 			int amountBalance = 0;
 			Date payDate = dto.getLoanTermination();
+			System.out.println("납부일=해지일" + dto.getLoanTermination());
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("amountBalance", amountBalance);
 			map.put("payDate", payDate);

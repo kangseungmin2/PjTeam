@@ -82,7 +82,7 @@ public class LoanSignAdminServiceImpl implements LoanSignAdminService {
 				// 맵 생성
 				Map<String, Object> map = new HashMap<String, Object>();
 				// 이자
-				interest = dto.getLoanAmount() * monthlyInterestRate;
+				interest = (double) Math.round(dto.getLoanAmount() * monthlyInterestRate);
 				System.out.println("월금리"+monthlyInterestRate);
 				System.out.println("원금"+dto.getLoanAmount() );
 				// 납입원금

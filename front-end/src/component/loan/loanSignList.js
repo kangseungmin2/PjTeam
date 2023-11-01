@@ -41,6 +41,7 @@ class LoanSignList extends Component {
                 this.setState({
                     signs: res.data
                 })
+                console.log('signs',res.data)
             })
             .catch(err => {
                 console.log('loadLoanSignConfirmList() Error!!', err);
