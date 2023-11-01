@@ -1,8 +1,8 @@
 import axios from 'axios'; // npm install axios 부터
 
 
-// axios.defaults.baseURL = 'http://15.165.6.111:8083';
-axios.defaults.baseURL = 'http://localhost:8083';
+axios.defaults.baseURL = 'http://15.165.6.111:8083';
+//axios.defaults.baseURL = 'http://localhost:8083';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // 로그인 완료시 JWT 저장
