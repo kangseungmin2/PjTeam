@@ -13,6 +13,9 @@ select * from team_join where id= #{id}
 	update team_join 
 	set name= #{name}, residentRegistrationNumber=#{residentRegistrationNumber} 
 	,address=#{address},hp=#{hp}, job=#{job},email=#{email} where id=#{id}
-	
 </update>
+
+<select id="management" resultType="com.example.project_team.entities.User">
+select name,id,hp,email,address from team_join where show = 'y'
+</select>
 </mapper>

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.project_team.dto.AccountDTO;
+import com.example.project_team.dto.FundAccountDTO;
+import com.example.project_team.dto.LoanSignDTO;
 import com.example.project_team.mappers.AccountMapper;
 
 @Service
@@ -21,6 +23,12 @@ public class AccountService {
 	public int insertAccount(AccountDTO dto) throws ServletException, IOException{
 		System.out.println("서비스 - insert");
 		return mapper.insertAccount(dto);
+	}
+	
+	//생성완료된 계좌
+	public AccountDTO successAccount(String id) throws ServletException, IOException{
+		System.out.println("서비스 - successAccount");
+		return mapper.successAccount(id);
 	}
 	
 	// 전체 리스트
@@ -43,13 +51,7 @@ public class AccountService {
 		System.out.println("서비스 - 전제조회");
 		return mapper.accountListJ(id);
 	}
-	// 전체 리스트- 대출
-	public List<AccountDTO> accountListD(String id) throws ServletException, IOException {
-		System.out.println("서비스 - 전제조회");
-		return mapper.accountListD(id);
-	}
 
-	
 	// 비밀번호 변경
 	public int passwordModify(AccountDTO dto)throws ServletException, IOException{
 		System.out.println("서비스 - passwordModify");
@@ -65,9 +67,25 @@ public class AccountService {
 		System.out.println("서비스 - deleteAccount");
 		return mapper.deleteAccount(accountNum);
 	}
-	// 관리자 결산
+	// 관리자 결산 - 입출금
 	public List<AccountDTO> openAccountData() throws ServletException, IOException {
-		System.out.println("서비스 - 관리자결산");
-		return mapper.openAccountData();
+		System.out.println("서비스 - 관리자결산 입출금");
+		List<AccountDTO> dto = mapper.openAccountData();
+		System.out.println("dto"+dto);
+		return dto;
 	}
+	
+	// 관리자 결산 - 대출
+	public List<LoanSignDTO> openAccountData2() throws ServletException, IOException {
+		System.out.println("서비스 - 관리자결산2");
+		return mapper.openAccountData2();
+	}
+	
+	// 관리자 결산 - 펀드
+	public List<FundAccountDTO> openAccountData3() throws ServletException, IOException {
+		System.out.println("서비스 - 관리자결산3");
+		return mapper.openAccountData3();
+	}
+	
+	
 }

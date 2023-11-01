@@ -113,17 +113,17 @@ class dutyPay extends Component{
         loanSign.pwCheck(inputData)
             .then((res) => {
                 const accountPwD = res.data;
-                this.setState({ accountPWD: accountPwD });
-
-                if (this.state.accountPW == this.state.accountPWD) {
-                    // 비밀번호가 일치하는 경우 알림 창 표시
-                    this.setState({ isButtonDisabled: false });
-                    window.alert('비밀번호가 일치. 계속 진행하세요.');
-                }
-                else {
-                    // 비밀번호가 불일치
-                    window.alert('비밀번호가 불일치. 확인하세요.');
-                }
+                this.setState({ accountPWD: accountPwD },()=>{
+                    if (this.state.accountPW == this.state.accountPWD) {
+                        // 비밀번호가 일치하는 경우 알림 창 표시
+                        this.setState({ isButtonDisabled: false });
+                        window.alert('비밀번호가 일치. 계속 진행하세요.');
+                    }
+                    else {
+                        // 비밀번호가 불일치
+                        window.alert('비밀번호가 불일치. 확인하세요.');
+                    }
+                });
             })
             .catch(err => {
                 console.log('pwCheck 에러', err);

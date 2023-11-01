@@ -10,6 +10,10 @@
 	values(TO_CHAR(1002451 || TRUNC(DBMS_RANDOM.VALUE(1, 999999), 0)),#{id},#{accountPW},#{accountLimit})
 </insert>
 
+<select id="successAccount" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
+	select * from (select * from team_account order by madedate desc)  where id = #{id} and ROWNUM = 1
+</select>
+
 <select id="accountList" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
 	SELECT * FROM team_account where show = 'y' and id=#{id} order by accountType,accountNum
 </select>
@@ -40,7 +44,13 @@
 </update>
 
 <select id="openAccountData" resultType="com.example.project_team.dto.AccountDTO">
-	select COUNT(*) as accountLimit, accountType from team_account group by accountType
+	select COUNT(*) as accountLimit, madedate from team_account group by madedate order by madedate
+</select>
+<select id="openAccountData2" resultType="com.example.project_team.dto.LoanSignDTO">
+	select COUNT(*) as loanNum, loanExecution from team_loan_sign group by loanExecution order by loanExecution
+</select>
+<select id="openAccountData3" resultType="com.example.project_team.dto.FundAccountDTO">
+	select COUNT(*) as FDACCOUNT, madedate from team_fund_account group by madedate order by madedate
 </select>
 
 </mapper>

@@ -11,5 +11,9 @@ class member {
         console.log("memberEdit호출",inputData)
         return axios.put(MEMBER_API_BASE_URL,inputData);
     }
+    memberList(){
+        console.log('memberList 호출~');
+        return axios.get(MEMBER_API_BASE_URL+"/management");
+    }
 }
 export default new member();

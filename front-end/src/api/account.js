@@ -11,6 +11,11 @@ class account {
         return axios.post(ACCOUNT_API_BASE_URL, inputData);
     }
 
+    //생성 완료된 계좌
+    successAccount(id){
+        console.log('successList 호출!!', );
+        return axios.get(ACCOUNT_API_BASE_URL+"/su/"+id,id)
+    }
     // 찐 전체 계좌조회
     account(id){
         console.log('accountList 호출~');
@@ -21,24 +26,6 @@ class account {
     accountList(id){
         console.log('accountList 호출~');
         return axios.get(ACCOUNT_API_BASE_URL+"/e/"+id,id);
-    }
-
-    // 예금 계좌조회
-    accountList2(id){
-        console.log('accountList 호출~');
-        return axios.get(ACCOUNT_API_BASE_URL+"/y/"+id,id);
-    }
-
-    // 적금 계좌조회
-    accountList3(id){
-        console.log('accountList 호출~');
-        return axios.get(ACCOUNT_API_BASE_URL+"/j/"+id,id);
-    }
-
-    // 대출 계좌조회
-    accountList4(id){
-        console.log('accountList 호출~');
-        return axios.get(ACCOUNT_API_BASE_URL+"/d/"+id,id);
     }
 
     // 1건 select
@@ -62,10 +49,21 @@ class account {
 
     // 관리자 결산
     openAccountData(){
-        console.log('accountList 호출~');
+        console.log('openAccountData 호출~');
         return axios.get(ACCOUNT_API_BASE_URL+"/adminAccount");
     }   
 
+    // 관리자 결산 - 대출
+    openAccountData2(){
+        console.log('openAccountData2 호출~');
+        return axios.get(ACCOUNT_API_BASE_URL+"/d/adminAccount2");
+    } 
+
+    // 관리자 결산 - 펀드
+    openAccountData3(){
+        console.log('openAccountData3 호출~');
+        return axios.get(ACCOUNT_API_BASE_URL+"/f/adminAccount3");
+    }  
 
 }
 export default new account();

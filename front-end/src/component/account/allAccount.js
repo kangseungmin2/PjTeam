@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Table, TableHead, TableBody, TableRow, TableCell, Typography, Container } from '@mui/material';
 import Account from "../../api/account";
-// import LoanSign from "../../api/LoanSign";
+import LoanSignApi from "../../api/loanSign";
 import ApiService from "../../ApiService";
+import Saving from "../../api/savings";
+import Deposit from "../../api/deposit";
 
 function Unix_timestamp(t) {
     const date = new Date(t); //date객체는 UTC로부터 지난시간을 밀리초로 나타내는 UNIX 타임스탬프를 담는다.(밀리초를 초로 변환하려면 *1000)
@@ -52,10 +54,10 @@ class eAccount extends React.Component {
         super(props);
         this.state = {
             accounts: [],
-            accounts2: [],
-            accounts3: [],
-            accounts4: [],
-            myFund : [],
+            sign: [],
+            fetchsavingssPL: [],
+            signs: [],
+            accountList: [],
             message: null
             // page: 0,
             // rPage:5
@@ -68,7 +70,6 @@ class eAccount extends React.Component {
     }
 
     accountList = () => {
-        console.log("여기요12")
         let id = window.localStorage.getItem("id");
         //입출금
         Account.accountList(id)
@@ -82,54 +83,52 @@ class eAccount extends React.Component {
             .catch(err => {
                 console.log('accountList Errror', err)
             });
-        //예금
-        Account.accountList2(id)
-            .then(res => {
-                console.log('data', res.data);
-                this.setState({
-                    accounts2: res.data,
-                })
+        // //예금
+        // Deposit.fetchSignConfirms(id)
+        //     .then(res => {
+        //         console.log('data', res.data);
+        //         this.setState({
+        //             sign: res.data,
+        //         })
 
-            })
-            .catch(err => {
-                console.log('accountList2 Errror', err)
-            });
-        //적금
-        Account.accountList3(id)
-        .then(res => {
-            console.log('data', res.data);
-            this.setState({
-                accounts3: res.data,
-            })
+        //     })
+        //     .catch(err => {
+        //         console.log('fetchSignConfirms Errror', err)
+        //     });
+        // //적금
+        // Saving.fetchsavingssPL(id)
+        // .then(res => {
+        //     console.log('data', res.data);
+        //     this.setState({
+        //         savings: res.data,
+        //     })
 
-        })
-        .catch(err => {
-            console.log('accountList3 Errror', err)
-        });
+        // })
+        // .catch(err => {
+        //     console.log('fetchsavingssPL Errror', err)
+        // });
         //대출
-        Account.accountList4(id)
+        LoanSignApi.fetchSignConfirms(id)
         .then(res => {
             console.log('data', res.data);
             this.setState({
-                accounts4: res.data,
+                signs: res.data,
             })
-
         })
         .catch(err => {
-            console.log('accountList4 Errror', err)
+            console.log('fetchSignConfirms Errror', err)
         });
         //펀드
-        const fdAccount = window.localStorage.getItem('faccount')
-        ApiService.myFundData(fdAccount)
+        ApiService.fundAccountSelect(id)
         .then(res => {
             console.log('data', res.data);
             this.setState({
-                myFund : res.data,
+                accountList: res.data
             })
 
         })
         .catch(err => {
-            console.log('fdAccount Errror', err)
+            console.log('fundAccountSelect() Error!!', err);
         });
 
     }
@@ -163,7 +162,7 @@ class eAccount extends React.Component {
                     </TableBody>
                 </Table>
                 <br/><br/>
-                <Typography variant="h5" style={style}> <b>예금</b> </Typography>
+                {/* <Typography variant="h5" style={style}> <b>예금</b> </Typography>
                 <Table md={{ minWidth: 900 }}>
                     <TableHead>
                         <TableRow>
@@ -175,13 +174,13 @@ class eAccount extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.state.accounts2.map(account =>
-                            <TableRow key={account.accountNum}>
-                                <TableCell component="th" scope="account">{name(account.accountType)}</TableCell>
-                                <TableCell align='center'>{account.accountNum}</TableCell>
-                                <TableCell align='center'>{Unix_timestamp(account.madeDate)}</TableCell>
-                                <TableCell align='center'>{account.balance}</TableCell>
-                                <TableCell align='center'>{state(account.accountState)}</TableCell>
+                        {this.state.deposits.map(sign =>
+                            <TableRow key={sign.yeSignNo}>
+                                <TableCell component="th" scope="account">{name('y')}</TableCell>
+                                <TableCell align='center'>{sign.depositAccountNum}</TableCell>
+                                <TableCell align='center'>{Unix_timestamp(sign.YEJOINDATE)}</TableCell>
+                                <TableCell align='center'>{sign.yeAmount}</TableCell>
+                                <TableCell align='center'>정상</TableCell>
                             </TableRow>
                         )}
                     </TableBody>
@@ -200,17 +199,17 @@ class eAccount extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.state.accounts3.map(account =>
-                            <TableRow key={account.accountNum}>
-                                <TableCell component="th" scope="account">{name(account.accountType)}</TableCell>
-                                <TableCell align='center'>{account.accountNum}</TableCell>
-                                <TableCell align='center'>{Unix_timestamp(account.madeDate)}</TableCell>
-                                <TableCell align='center'>{account.balance}</TableCell>
-                                <TableCell align='center'>{state(account.accountState)}</TableCell>
+                        {this.state.savings.map(savings =>
+                            <TableRow key={savings.juckSignNo}>
+                                <TableCell component="th" scope="account">{name('j')}</TableCell>
+                                <TableCell align='center'>{savings.accountNum}</TableCell>
+                                <TableCell align='center'>{Unix_timestamp(savings.JUCKJOINDATE)}</TableCell>
+                                <TableCell align='center'>{savings.juckBalance}</TableCell>
+                                <TableCell align='center'>정상</TableCell>
                             </TableRow>
                         )}
                     </TableBody>
-                </Table>
+                </Table> */}
 
                 <br/><br/>
                 <Typography variant="h5" style={style}> <b>대출</b> </Typography>
@@ -225,13 +224,13 @@ class eAccount extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.state.accounts4.map(account =>
-                            <TableRow key={account.accountNum}>
-                                <TableCell component="th" scope="account">{name(account.accountType)}</TableCell>
-                                <TableCell align='center'>{account.accountNum}</TableCell>
-                                <TableCell align='center'>{Unix_timestamp(account.madeDate)}</TableCell>
-                                <TableCell align='center'>{account.balance}</TableCell>
-                                <TableCell align='center'>{state(account.accountState)}</TableCell>
+                        {this.state.signs.map(sign =>
+                            <TableRow key={sign.loanNum}>
+                                <TableCell component="th" scope="sign">{name('d')}</TableCell>
+                                <TableCell align='center'>{sign.loanAccountNum}</TableCell>
+                                <TableCell align='center'>{Unix_timestamp(sign.loanExecution)}</TableCell>
+                                <TableCell align='center'>{sign.loanAmount}</TableCell>
+                                <TableCell align='center'>{sign.loanState}</TableCell>
                             </TableRow>
                         )}
                     </TableBody>
@@ -242,23 +241,21 @@ class eAccount extends React.Component {
                 <Table md={{ minWidth: 900 }}>
                     <TableHead>
                         <TableRow>
-                            <TableCell align='center' style={{ color: 'navy' }}><b>거래번호</b></TableCell>
-                            <TableCell align='center' style={{ color: 'navy' }}><b>종목명</b></TableCell>
-                            <TableCell align='center' style={{ color: 'navy' }}><b>거래금액</b></TableCell>
-                            <TableCell align='center' style={{ color: 'navy' }}><b>거래량</b></TableCell>
-                            <TableCell align='center' style={{ color: 'navy' }}><b>거래일시</b></TableCell>
-                            <TableCell align='center' style={{ color: 'navy' }}><b>수익률</b></TableCell>
+                            <TableCell align='center' style={{ color: 'navy' }}><b>예금명</b></TableCell>
+                            <TableCell align='center' style={{ color: 'navy' }}><b>계좌번호</b></TableCell>
+                            <TableCell align='center' style={{ color: 'navy' }}><b>계좌생성일</b></TableCell>
+                            <TableCell align='center' style={{ color: 'navy' }}><b>잔액</b></TableCell>
+                            <TableCell align='center' style={{ color: 'navy' }}><b>계좌상태</b></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.state.myFund.map(list =>
+                        {this.state.accountList.map(list =>
                             <TableRow key={list.fdAccount}>
-                                <TableCell component="th" scope="account">{list.trNum}</TableCell>
-                                <TableCell align='center'>{list.fpName}</TableCell>
-                                <TableCell align='center'>{list.trPrice}</TableCell>
-                                <TableCell align='center'>{list.trCnt}</TableCell>
-                                <TableCell align='center'>{Unix_timestamp(list.trDate)}</TableCell>
-                                <TableCell align='center'>{list.trNum}</TableCell>                                            
+                                <TableCell component="th" scope="account">{name('f')}</TableCell>
+                                <TableCell align='center'>{list.fdAccount}</TableCell>
+                                <TableCell align='center'>{Unix_timestamp(list.madeDate)}</TableCell>
+                                <TableCell align='center'>{list.balance}</TableCell>
+                                <TableCell align='center'>정상</TableCell>                                        
                             </TableRow>
                         )}
                     </TableBody>

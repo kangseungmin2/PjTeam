@@ -6,6 +6,7 @@ import openAccount from '../account/openAccount';
 import allAccount from "../account/allAccount";
 import passwordModify from "../account/passwordModify";
 import deleteAccount from "../account/deleteAccount";
+import accountSms from "../account/accountSms";
 import adminAccount from "../mypage/admin/adminAccount";
 import answerList from "../mypage/admin/answerList";
 import management from "../mypage/admin/management";
@@ -26,6 +27,8 @@ import pensionPay from "../utility/pensionPay";
 import paySuccess from "../utility/paySuccess";
 import delAccountSuccess from "../account/delAccountSuccess";
 import pwModifySuccess from "../account/pwModifySuccess";
+import openSuccess from "../account/openSuccess";
+
 
 import login from "../customer/login";
 import join from "../customer/join";
@@ -117,6 +120,8 @@ const AppRouter = () => {
                 <div style={style}>
                 <Route path="/main" component={main}></Route>
                     <Route path="/openAccount" component={openAccount}/>    {/* 서윤-계좌개설 */}
+                    <Route path="/accountSms" component={accountSms}/>  {/* 서윤-계좌개설 본인인증 */}
+                    <Route path="/openSuccess" component={openSuccess}/>   {/* 서윤-계좌개설 성공 */}
                     <Route path="/allAccount" component={allAccount}/>       {/* 서윤-전체계좌조회 */}
                     <Route path="/passwordModify" component={passwordModify}/>       {/* 서윤-비밀번호 변경 */}
                     <Route path="/deleteAccount" component={deleteAccount}/>       {/* 서윤-계좌해지 */}
@@ -140,7 +145,7 @@ const AppRouter = () => {
                     <Route path="/delAccountSuccess" component={delAccountSuccess}/>  {/* 서윤-계좌-해지확인화면 */}
                     <Route path="/pwModifySuccess" component={pwModifySuccess}/>  {/* 서윤-계좌-비번변경확인화면 */}
                     <Route path="/paySuccess" component={paySuccess}/>  {/* 서윤-공과금-납부완료 */}
-                    
+
                     <Route path="/login" component={login}/>       {/* 승민-로그인 */}
                     <Route path="/join" component={join}/>          {/* 승민 -회원가입-로그인 */}
                     <Route path="/chat" component={chat}/>          {/* 승민 -채팅 */}

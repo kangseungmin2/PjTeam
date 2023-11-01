@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project_team.dto.AccountDTO;
+import com.example.project_team.dto.FundAccountDTO;
+import com.example.project_team.dto.LoanSignDTO;
 import com.example.project_team.service.AccountService;
 
 
@@ -53,6 +55,15 @@ public class AccountController {
 		map.put("resultMsg", resultMsg);
 		return map;
 	}
+	
+	//생성 완료된 계좌
+	@GetMapping("/su/{id}")
+	public AccountDTO successAccount(@PathVariable("id") String id) 
+		throws ServletException, IOException {
+		System.out.println("AccountController - successAccount");
+		return service.successAccount(id);
+	}
+	
 	//전체 리스트
 	@GetMapping("/{id}")
 	public List<AccountDTO> accountList(@PathVariable("id") String id) 
@@ -84,15 +95,6 @@ public class AccountController {
 		System.out.println("AccountController - accountListJ");
 		return service.accountListJ(id);
 	}
-	
-	//전체 리스트- 대출
-	@GetMapping("/d/{id}")
-	public List<AccountDTO> accountListD(@PathVariable("id") String id) 
-		throws ServletException, IOException{
-		System.out.println("AccountController - accountListD");
-		return service.accountListD(id);
-	}
-	
 	
 	//비밀번호 변경
 	@PutMapping("/{accountNum}")
@@ -135,11 +137,27 @@ public class AccountController {
 		return service.deleteAccount(accountNum);
 	}
 	
-	//관리자 결산
+	//관리자 결산 - 입출금
 	@GetMapping("/adminAccount")
 	public List<AccountDTO> openAccountData() 
 		throws ServletException, IOException{
 		System.out.println("AccountController - openAccountData");
 		return service.openAccountData();
+	}
+	
+	//관리자 결산 - 대출
+	@GetMapping("/d/adminAccount2")
+	public List<LoanSignDTO> openAccountData2() 
+		throws ServletException, IOException{
+		System.out.println("AccountController - openAccountData2");
+		return service.openAccountData2();
+	}
+	
+	//관리자 결산 - 펀드
+	@GetMapping("/f/adminAccount3")
+	public List<FundAccountDTO> openAccountData3() 
+		throws ServletException, IOException{
+		System.out.println("AccountController - openAccountData3");
+		return service.openAccountData3();
 	}
 }
