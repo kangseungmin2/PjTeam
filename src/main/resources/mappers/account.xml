@@ -20,16 +20,6 @@
 <select id="accountListE" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
 	SELECT * FROM team_account where show = 'y' and id=#{id} and accountType='e' order by accountNum
 </select>
-<select id="accountListY" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
-	SELECT * FROM team_account where show = 'y' and id=#{id} and accountType='y' order by accountNum
-</select>
-<select id="accountListJ" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
-	SELECT * FROM team_account where show = 'y' and id=#{id} and accountType='j' order by accountNum
-</select>
-<select id="accountListD" parameterType="String" resultType="com.example.project_team.dto.AccountDTO">
-	SELECT * FROM team_account where id=#{id} and accountType='d' order by accountNum
-</select>
-
 
 <select id="fetchAccountByNum" parameterType="long" resultType="com.example.project_team.dto.AccountDTO">
 	SELECT * FROM team_account WHERE accountNum=#{accountNum} 
@@ -52,5 +42,13 @@
 <select id="openAccountData3" resultType="com.example.project_team.dto.FundAccountDTO">
 	select COUNT(*) as FDACCOUNT, madedate from team_fund_account group by madedate order by madedate
 </select>
+
+<select id="openAccountData4" resultType="com.example.project_team.dto.DepositSignDTO">
+	select COUNT(*) as yeSignNo, yeJoinDate from team_deposit_sign group by yeJoinDate order by yeJoinDate
+</select>
+<select id="openAccountData5" resultType="com.example.project_team.dto.SavingsSignDTO">
+	select COUNT(*) as juckSignNo, juckJoinDate from team_savings_sign group by juckJoinDate order by juckJoinDate
+</select>
+
 
 </mapper>

@@ -5,8 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.project_team.dto.AccountDTO;
+import com.example.project_team.dto.DepositSignDTO;
 import com.example.project_team.dto.FundAccountDTO;
 import com.example.project_team.dto.LoanSignDTO;
+import com.example.project_team.dto.SavingsSignDTO;
 
  
 @Mapper
@@ -21,10 +23,6 @@ public interface AccountMapper {
 	public List<AccountDTO> accountList(String id);
 	// 전체 리스트- 입출금
 	public List<AccountDTO> accountListE(String id);
-	// 전체 리스트- 예금
-	public List<AccountDTO> accountListY(String id);
-	// 전체 리스트- 적금
-	public List<AccountDTO> accountListJ(String id);
 
 	// 비밀번호 변경
 	public int passwordModify(AccountDTO dto);
@@ -38,4 +36,9 @@ public interface AccountMapper {
 		public List<LoanSignDTO> openAccountData2();
 	// 관리자 결산 - 펀드
 	public List<FundAccountDTO> openAccountData3();
+	// 관리자 결산 - 예금
+	public List<DepositSignDTO> openAccountData4();
+	// 관리자 결산 - 적금
+	public List<SavingsSignDTO> openAccountData5();
+	
 }
