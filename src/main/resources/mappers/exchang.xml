@@ -19,7 +19,7 @@
 	select * from team_exchange_list where id =#{id}
 </select>
 
-<select id="myList" resultType="com.example.project_team.dto.ExchangeListDTO">
+<select id="allList" resultType="com.example.project_team.dto.ExchangeListDTO">
 	select * from team_exchange_list 
 </select>
 
