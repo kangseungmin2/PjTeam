@@ -9,6 +9,10 @@ function logout(){
     window.location.href = "http://15.165.6.111:3000/main"
 }
 
+function openMemberAccount(e) {
+    window.open("http://43.202.0.250:5601/app/dashboards#/view/abb9cd00-77c4-11ee-831d-81a7372e981f?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-1m,to:now))");
+  }
+
 function Customer() {
     const id = window.localStorage.getItem("id");
     const admin = window.localStorage.getItem("admin");
@@ -21,7 +25,7 @@ function Customer() {
                     <Nav className="me-auto">
                         <Nav.Link href="/main" style={style}>Home</Nav.Link>
                         <NavDropdown title="계좌" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="/openAccount">계좌개설</NavDropdown.Item>
+                            <NavDropdown.Item href="/accountSms">계좌개설</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="/allAccount">
                                 전체계좌조회
@@ -75,7 +79,7 @@ function Customer() {
                             <NavDropdown.Item href="/memberInfo">내정보</NavDropdown.Item>
                             <NavDropdown.Item href="/modifyMember">회원수정</NavDropdown.Item>
                             <NavDropdown.Item href="/deleteMember">회원탈퇴</NavDropdown.Item>
-                            <NavDropdown.Item href="/memAccount">회원 결산</NavDropdown.Item>
+                            <NavDropdown.Item onClick={(e)=>openMemberAccount(e)}>회원 결산</NavDropdown.Item>
                             <NavDropdown.Item href="/questionList">1:1문의</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link eventKey={2} href="/chat" style={style}>
