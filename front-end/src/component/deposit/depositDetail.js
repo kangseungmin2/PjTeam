@@ -17,7 +17,7 @@ class depositDetail extends Component {
             yeMinPrice: '',
             yeMaxPrice: '', 
             yeMinDate: '',         
-            yeMaxDate: '',       
+            yeMaxDate: '',                  
             message: ''
         }
     }
@@ -41,7 +41,7 @@ class depositDetail extends Component {
                     yeMinPrice: deposit.yeMinPrice,
                     yeMaxPrice: deposit.yeMaxPrice,
                     yeMinDate: deposit.yeMinDate,
-                    yeMaxDate: deposit.yeMaxDate,                   
+                    yeMaxDate: deposit.yeMaxDate,                                      
                 })
             })
             .catch(err =>{
@@ -98,7 +98,7 @@ class depositDetail extends Component {
                             multiline
                             fullWidth
                             rows={4}
-                            label="content"
+                            label="Summary"
                             // helperText="please enter content"
                             type="text"
                             name="yeSummary"
@@ -141,7 +141,7 @@ class depositDetail extends Component {
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
-                            endAdornment={<InputAdornment position="end">개월</InputAdornment>}
+                            endAdornment={<InputAdornment position="end">년</InputAdornment>}
                             aria-describedby="standard-yeMinDate-helper-text"
                             inputProps={{
                                 'aria-label': 'yeMinDate',
@@ -157,7 +157,7 @@ class depositDetail extends Component {
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
-                            endAdornment={<InputAdornment position="end">개월</InputAdornment>}
+                            endAdornment={<InputAdornment position="end">년</InputAdornment>}
                             aria-describedby="standard-yeMaxDate-helper-text"
                             inputProps={{
                                 'aria-label': 'yeMaxDate',
@@ -166,8 +166,8 @@ class depositDetail extends Component {
                             disabled
                         />
                         <FormHelperText >MaxDate</FormHelperText>
-                    </FormControl>               
-                   
+                    </FormControl>  
+                    
                 </Grid>
 
                 <Stack spacing={1} direction="row" justifyContent="center" marginTop={1}>

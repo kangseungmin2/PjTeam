@@ -22,14 +22,53 @@
 	
 	<!-- insertSign -->
 	<insert id="insertSign" parameterType="com.example.project_team.dto.SavingsSignDTO">
-		INSERT INTO TEAM_SAVINGS_SIGN(juckSignNo, id,juckName, juckState, savingsAccountNum, accountType, accountNum, accountPW
-									, juckNo, juckAmount, juckMethod, juckJoinDate, juckEndDate
-									, juckAutoDate, rate, interestRate)
-			VALUES ((SELECT NVL(MAX(juckSignNo)+1,1) FROM TEAM_SAVINGS_SIGN), #{id},#{juckName},'정상', TO_CHAR(1002454 || TRUNC(DBMS_RANDOM.VALUE(1, 999999), 0)), #{accountType}
-					, #{accountNum}, #{accountPW}, #{juckNo}, #{juckAmount}, #{juckMethod}, #{juckJoinDate}
-					, #{juckEndDate}, #{juckAutoDate}, #{rate}, #{interestRate})
+		INSERT INTO TEAM_SAVINGS_SIGN(juckSignNo, id,juckNo,juckName, juckState, savingsAccountNum, accountType, accountNum, accountPW
+									,  juckAmount, juckMethod, juckJoinDate, juckEndDate
+									, juckAutoDate, rate, interestRate, interestTerm, juckRound, juckBalance)
+			VALUES ((SELECT NVL(MAX(juckSignNo)+1,1) FROM TEAM_SAVINGS_SIGN), #{id},#{juckNo}, #{juckName},'정상', TO_CHAR(1002454 || TRUNC(DBMS_RANDOM.VALUE(1, 999999), 0)), #{accountType}
+					, #{accountNum}, #{accountPW}, #{juckAmount}, #{juckMethod}, #{juckJoinDate}
+					, #{juckEndDate}, #{juckAutoDate}, #{rate}, #{interestRate}, #{interestTerm}, '1', '0')
 	</insert>
 	
+	<!-- savingsSignList -->
+   <select id="savingsSignList" parameterType="String"
+      resultType="com.example.project_team.dto.SavingsSignDTO">
+      SELECT * FROM TEAM_SAVINGS_SIGN WHERE id =#{id} ORDER BY
+      juckSignNo
+   </select>
+   
+   <update id="cancelSavings" parameterType="com.example.project_team.dto.SavingsSignDTO">
+    UPDATE TEAM_SAVINGS_SIGN
+    SET juckAmount='0', interestTerm = #{interestTerm}, juckState='해지', juckCancelDate=#{juckCancelDate}
+    WHERE id=#{id} AND juckSignNo=#{juckSignNo}
+    </update>
+    
+    <select id="accountBalance" parameterType="long" resultType="int">
+    SELECT balance FROM team_account WHERE accountNum = #{accountNum}
+    </select>
+    
+	<update id="inputMoney" parameterType="Map">
+    	UPDATE team_account
+		SET balance = #{sumBalance}
+		WHERE accountNum = #{accountNum}
+    </update>
+    
+    <!-- signList / 1건 조회 -->
+	<select id="signList" parameterType="int" resultType="com.example.project_team.dto.SavingsSignDTO">
+		SELECT * FROM TEAM_SAVINGS_SIGN WHERE juckSignNo = #{juckSignNo}
+	</select>
 	
+	<!-- 입출금통장에 마이너스(적금추가납입) -->
+	<update id="subMoney" parameterType="Map">
+	UPDATE team_account
+		SET balance = #{sub}
+		WHERE accountNum = #{accountNum}
+	</update>
 	
+	<!-- 적금계좌 잔액에 추가 -->
+	<update id="plusMoney" parameterType="int">
+	UPDATE TEAM_SAVINGS_SIGN
+	SET juckBalance = #{sumBalance}, juckRound = #{plusRound}
+	WHERE juckSignNo = #{juckSignNo}
+	</update>
 </mapper>

@@ -34,6 +34,7 @@ class SignDetail extends Component {
       yeEndDate: "",
       rate: "", 
       interestRate: "", 
+      interestTerm: "",
       message: "",
       accountNumList: [],
       accountPWD: "",
@@ -149,7 +150,13 @@ class SignDetail extends Component {
         this.setState({ totalRepayment, totalInterest });
         this.sendDataToParent()
     }
-}
+};
+ // handleTogglePassword 함수 추가
+ handleTogglePassword = () => {
+  this.setState((prevState) => ({
+    showPassword: !prevState.showPassword,
+  }));
+};
 
   sendDataToParent = () => {
     const data = {
@@ -233,7 +240,7 @@ class SignDetail extends Component {
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={this.handleClickShowPassword}
+                    onClick={this.handleTogglePassword}
                     onMouseDown={this.handleMouseDownPassword}
                   >
                     {this.state.showPassword ? (

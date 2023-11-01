@@ -28,4 +28,6 @@ public class DepositSignDTO {
     private Date yeEndDate;			// 예금만기일
     private int rate;			// 기간(년)
     private int interestRate;		// 금리(년)
+    private int interestTerm; //이자수수료
+    private Date yeCancelDate;
 }

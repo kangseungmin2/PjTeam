@@ -11,7 +11,7 @@ import lombok.Data;
 @Entity
 @Table(name="TEAM_SAVINGS_SIGN")
 @Data
-public class SavingsSignDTO {
+public class AutoSignDTO {
 
 	@Id
 	private int juckSignNo;			// 적금번호 PK
@@ -30,7 +30,7 @@ public class SavingsSignDTO {
     private Date juckAutoDate;		// 자동납부일(sysdate)
     private int rate;				// 기간(년)
     private int interestRate;		// 금리(년)
-    private int interestTerm;		// 이자
+    private int interestTerm;		//이자
     private Date juckCancelDate;
     private int juckRound;
     private int juckBalance;

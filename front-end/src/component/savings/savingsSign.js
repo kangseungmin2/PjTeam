@@ -7,7 +7,7 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Identity from './identity';
+import Identity from '../deposit/identity';
 import Agree from './agree';
 import SignDetail, { send } from './signDetail';
 import SavingsSignApi from "../../api/savingSign";
@@ -23,7 +23,8 @@ class SavingsSign extends Component {
     this.state = {
       activeStep: 0,
       data:[],
-      checked: false // checkbox 상태를 추가,
+      checked: false, // checkbox 상태를 추가,
+      isButtonDisabled:false
     };
   }
 
@@ -66,13 +67,19 @@ class SavingsSign extends Component {
   };
 
 
+  handle = (data) =>{
+    this.setState({
+      isButtonDisabled : data.isButtonDisabled
+    })
+    console.log(data)
+  }
   
   render() {
     // getStepContent 함수를 클래스 내부로 이동
     const getStepContent = (step) => {
       switch (step) {
         case 0:
-          return <Identity />;
+          return <Identity onDataHandle={this.handle}/>;
           case 1:
             return (
               <Agree
@@ -123,14 +130,21 @@ class SavingsSign extends Component {
                     </Button>
                   )}
 
-                  <Button
-                    variant="contained"
-                    onClick={this.handleNext}
-                    sx={{ mt: 3, ml: 1 }}
-                    // 약관동의 스텝에서만 체크되었을 때만 버튼 활성화
-                    disabled={this.state.activeStep === 1 && !this.state.checked} >
-                    {this.state.activeStep === steps.length - 1 ? 'Request to join' : 'Next'}
-                  </Button>
+              <Button
+                variant="contained"
+                onClick={this.handleNext}
+                sx={{ mt: 3, ml: 1 }}
+                // 약관동의 스텝에서만 체크되었을 때만 버튼 활성화
+                disabled={
+                  this.state.activeStep === 0
+                    ? this.state.isButtonDisabled
+                    : this.state.activeStep === 1
+                    ? !this.state.checked
+                    : false  // 기본적으로는 항상 활성화
+                }
+              >
+                {this.state.activeStep === steps.length - 1 ? 'Request to join' : 'Next'}
+              </Button>
                 </Box>
               </React.Fragment>
             )}

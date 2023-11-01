@@ -33,14 +33,14 @@ class SignDetail extends Component {
       juckMethod: "",
       juckJoinDate: "",
       juckEndDate: "",
-      juckAutoDate: "선택없음",
+      juckAutoDate: "0",
       rate: "",
       interestRate: "",
+      interestTerm: "",
       message: "",
       accountNumList: [],
       accountPWD: "",
-      totalPaymentRound: "",
-      totalRepayment: "",
+      totalPaymentRound: "",  
       totalInterest: "",
       monthlyInterestRate: "",
       showPassword: false,
@@ -66,27 +66,14 @@ class SignDetail extends Component {
     this.calculateMaturityDate(this.state.juckJoinDate, rate);
   };
 
-  handleJuckMethodChange = (e) => {
-    this.setState({
-      juckMethod: e.target.value,
-    });
-  };
-
-  handleAutoDateChange = (e) => {
-    this.setState({
-      juckAutoDate: e.target.value,
-    });
-  };
-
   calculateMaturityDate = (juckJoinDate, rate) => {
     if (juckJoinDate && rate) {
       const startDate = new Date(juckJoinDate);
       const maturityDate = new Date(startDate);
-      maturityDate.setFullYear(startDate.getFullYear() + parseInt(rate, 10)); // 수정 필요한 부분
+      maturityDate.setFullYear(startDate.getFullYear() + parseInt(rate, 10));
       this.setState({ juckEndDate: maturityDate.toISOString().split("T")[0] });
     }
   };
-  
 
   componentDidMount() {
     this.loadSavingsDetail();
@@ -145,67 +132,39 @@ class SignDetail extends Component {
       });
   };
 
+  
+  
   calRepayment = (e) => {
     e.preventDefault();
-    console.log("Button clicked");
-  
-    const juckMethod = this.state.juckMethod;
-    console.log("juckMethod:", juckMethod);
-  
+    
     const juckAmount = parseFloat(this.state.juckAmount);
-    console.log("juckAmount:", juckAmount);
-  
     const rate = parseInt(this.state.rate);
-    console.log("rate:", rate);
-  
     const interestRate = parseFloat(this.state.interestRate) / 100;
-    console.log("interestRate:", interestRate);
-  
-    if (juckAmount > 0 && rate > 0 && interestRate > 0) {
-      let totalInterest = 0;
-      let totalDeposits = 0;
-  
-      if (juckMethod === "정기납부") {
-        console.log("juckMethod is 정기납부");
-  
-        // 정기납부에 대한 처리를 구현
-        // 총입금액 계산 (juckAmount * rate)
-        // 총이자 계산 (juckAmount * interestRate * rate)
-        totalDeposits = juckAmount * rate;
-        totalInterest = juckAmount * interestRate * rate;
-        // 정기납부인 경우, 월별 납부일을 선택해서 납부할 수 있도록 구현
-        // 사용자가 선택한 월별 납부일을 this.state.juckAutoDate에 저장
-        // 여기에서 사용자가 월별 납부일을 선택하도록 UI를 구성해야 합니다.
-        // this.state.juckAutoDate를 이용해 월별 납부를 구현할 수 있습니다.
-      } else if (juckMethod === "자유납부") {
-        console.log("juckMethod is 자유납부");
-  
-        // 자유납부에 대한 처리를 구현
-        // 여기에 자유납부에 따른 계산식 추가
-        // 사용자가 자유롭게 납부하는 방식에 따라 계산식이 달라질 수 있습니다.
-        // 아래는 간단한 예시입니다.
-        const monthlyPayments = this.calculateMonthlyPayments(juckAmount, rate, interestRate);
-        totalDeposits = monthlyPayments.reduce((sum, payment) => sum + payment, 0);
-        totalInterest = totalDeposits - juckAmount;
-      }
-  
-      const totalRepayment = totalDeposits + totalInterest;
-      this.setState({ totalRepayment, totalInterest });
-  
-      const juckJoinDate = this.state.juckJoinDate;
-      const maturityDate = new Date(juckJoinDate);
-      maturityDate.setFullYear(maturityDate.getFullYear() + rate);
-      this.setState({ juckEndDate: maturityDate.toISOString().split("T")[0] });
+    const juckJoinDate = new Date(this.state.juckJoinDate);
+    const juckEndDate = new Date(this.state.juckEndDate);
+ 
+    if (juckAmount > 0 && rate > 0 && interestRate > 0 && juckJoinDate && juckEndDate) {
+        // 계산식 추가
+        const months = (juckEndDate.getFullYear() - juckJoinDate.getFullYear()) * 12 + (juckEndDate.getMonth() - juckJoinDate.getMonth());
+        const monthlyInterestRate = interestRate / 12;
+        const totalInterest = (juckAmount * monthlyInterestRate * months) / 2;
+        const totalRepayment = juckAmount + totalInterest;
+
+        this.setState({ totalRepayment, totalInterest });
+        this.sendDataToParent()
     }
+
+
   };
   
   
-  
-  
-  
-
-  
-
+  // handleTogglePassword 함수 추가
+  handleTogglePassword = () => {
+    this.setState((prevState) => ({
+      showPassword: !prevState.showPassword,
+    }));
+  };
+ 
   sendDataToParent = () => {
     const data = {
       id: window.localStorage.getItem("id"),
@@ -222,7 +181,7 @@ class SignDetail extends Component {
       interestRate: this.state.interestRate,
       rate: parseInt(this.state.rate),
     };
-
+    console.log("data타냐:", data);
     this.props.onDataHandle(data);
   };
 
@@ -285,13 +244,13 @@ class SignDetail extends Component {
           <FormControl variant="standard" sx={{ m: 2, mt: 2, width: "23ch" }}>
             <Input
               id="accountPWInput"
-              type={this.state.showPassword ? "text" : "password"}
+              type={this.state.showPassword ? "text" : "password"} // 변경된 부분
               name="accountPW"
               endAdornment={
                 <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={this.handleClickShowPassword}
+                  onClick={this.handleTogglePassword} // 변경된 부분
                   onMouseDown={this.handleMouseDownPassword}
                 >
                   {this.state.showPassword ? (
@@ -323,7 +282,7 @@ class SignDetail extends Component {
               type="date"
               name="juckJoinDate"
               value={this.state.juckJoinDate}
-              onChange={(e) => this.setState({ juckJoinDate: e.target.value })}
+              onChange={(e) => this.handleJoinDateChange(e)}
             />
             <FormHelperText>적금실행일</FormHelperText>
           </FormControl>
@@ -344,8 +303,8 @@ class SignDetail extends Component {
               value={this.state.juckMethod}
               onChange={this.onChange}
             >
-              <MenuItem value="일시납">정기납부</MenuItem>
-              <MenuItem value="월납">자유납부</MenuItem>
+              <MenuItem value="정기납부">정기납부</MenuItem>
+              <MenuItem value="자유납부">자유납부</MenuItem>
             </Select>
             <FormHelperText>적금방법</FormHelperText>
           </FormControl>
@@ -355,8 +314,9 @@ class SignDetail extends Component {
               labelId="juckAutoDate-label"
               id="juckAutoDate"
               name="juckAutoDate"
-              value={this.state.juckAutoDate}
+              value={this.state.juckMethod === "자유납부" ? "0" : this.state.juckAutoDate}
               onChange={this.onChange}
+              disabled={this.state.juckMethod === "자유납부"} // "자유납부" 선택 시 비활성화
               MenuProps={{
                 PaperProps: {
                   style: {
@@ -365,7 +325,7 @@ class SignDetail extends Component {
                 },
               }}
             >
-              <MenuItem value={"선택없음"}>선택하세요</MenuItem>
+              <MenuItem value={"0"}>선택하세요</MenuItem>
               <MenuItem value={"1"}>1일</MenuItem>
               <MenuItem value={"2"}>2일</MenuItem>
               <MenuItem value={"3"}>3일</MenuItem>
@@ -425,7 +385,7 @@ class SignDetail extends Component {
                 "aria-label": "rate",
               }}
               name="rate"
-              onChange={this.onChange}
+              onChange={(e) => this.handleRateChange(e)}
             />
             <FormHelperText>기간</FormHelperText>
           </FormControl>

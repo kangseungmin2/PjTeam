@@ -13,7 +13,7 @@
 	<insert id="insertSavings" parameterType="com.example.project_team.dto.SavingsDTO">
 		INSERT INTO TEAM_SAVINGS_PRODUCT
 			VALUES((SELECT NVL(MAX(juckNo)+1,1) FROM TEAM_SAVINGS_PRODUCT), #{juckName}, sysdate
-					, #{interestRate}, #{juckSummary}, #{juckType}, #{juckMinPrice}, #{juckMaxPrice}, #{juckMinDate}, #{juckMaxDate})
+					, #{interestRate}, #{juckSummary},  #{juckMinPrice}, #{juckMaxPrice}, #{juckMinDate}, #{juckMaxDate})
 	</insert>
 	
 	<!-- findByNum / 1건 조회 -->
@@ -25,7 +25,7 @@
 	<update id="updateSavings" parameterType="com.example.project_team.dto.SavingsDTO">
 		UPDATE TEAM_SAVINGS_PRODUCT
 			SET juckName=#{juckName}, interestRate=#{interestRate}, juckSummary=#{juckSummary}
-				,juckType=#{juckType}, juckMinPrice=#{juckMinPrice}, juckMaxPrice =#{juckMaxPrice}, juckMinDate=#{juckMinDate}, juckMaxDate=#{juckMaxDate}
+				, juckMinPrice=#{juckMinPrice}, juckMaxPrice =#{juckMaxPrice}, juckMinDate=#{juckMinDate}, juckMaxDate=#{juckMaxDate}
 			WHERE juckNo=#{juckNo}
 	</update>
 	

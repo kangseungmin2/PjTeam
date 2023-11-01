@@ -24,10 +24,10 @@
 	<insert id="insertSign" parameterType="com.example.project_team.dto.DepositSignDTO">
 		INSERT INTO TEAM_DEPOSIT_SIGN(yeSignNo, id,yeName, yeState, depositAccountNum, accountType, accountNum, accountPW
 									, yeNo, yeAmount, yeJoinDate, yeEndDate
-									, rate, interestRate)
+									, rate, interestRate,interestTerm)
 			VALUES ((SELECT NVL(MAX(yeSignNo)+1,1) FROM TEAM_DEPOSIT_SIGN), #{id}, #{yeName}, '정상', TO_CHAR(1002453 || TRUNC(DBMS_RANDOM.VALUE(1, 999999), 0)), #{accountType}
 					, #{accountNum}, #{accountPW}, #{yeNo}, #{yeAmount}, #{yeJoinDate}
-					, #{yeEndDate}, #{rate}, #{interestRate})
+					, #{yeEndDate}, #{rate}, #{interestRate}, #{interestTerm})
 	</insert>
 	
 	<!-- depositSignList -->
@@ -36,5 +36,26 @@
       SELECT * FROM TEAM_DEPOSIT_SIGN WHERE id =#{id} ORDER BY
       yeSignNo
    </select>
+   
+    <update id="cancelDeposit" parameterType="com.example.project_team.dto.DepositSignDTO">
+    UPDATE TEAM_DEPOSIT_SIGN
+    SET yeAmount='0', interestTerm = #{interestTerm}, yeState='해지', yeCancelDate=#{yeCancelDate}
+    WHERE id=#{id} AND yeSignNo=#{yeSignNo}
+    </update>
+    
+    <select id="accountBalance" parameterType="long" resultType="int">
+    SELECT balance FROM team_account WHERE accountNum = #{accountNum}
+    </select>
+    
+	<update id="inputMoney" parameterType="Map">
+    	UPDATE team_account
+			SET balance = #{sumBalance}
+			WHERE accountNum = #{accountNum}
+    </update>
+    
+    <!-- signList / 1건 조회 -->
+	<select id="signList" parameterType="int" resultType="com.example.project_team.dto.DepositSignDTO">
+		SELECT * FROM TEAM_DEPOSIT_SIGN WHERE yeSignNo = #{yeSignNo}
+	</select>
 	
 </mapper>

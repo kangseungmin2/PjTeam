@@ -2,6 +2,7 @@ package com.example.project_team.service;
 
 import java.io.IOException;
 
+
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import com.example.project_team.dto.AccountDTO;
 import com.example.project_team.dto.DepositDTO;
 import com.example.project_team.dto.DepositSignDTO;
+import com.example.project_team.exceptionHandler.CustomException;
 
 public interface depositSignMemberService {
 
@@ -33,4 +35,10 @@ public interface depositSignMemberService {
 	
 	 public List<DepositSignDTO> depositSignList(String id)
 	         throws ServletException, IOException;
+	 
+	 public void cancelDeposit(DepositSignDTO dto)
+			 throws CustomException;
+	 public DepositSignDTO signList(int yeSignNo)  
+				throws ServletException, IOException;
+	 
 }

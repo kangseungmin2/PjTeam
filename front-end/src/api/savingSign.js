@@ -37,7 +37,33 @@ class SavingsSignApi {
         return axios.get(SAVINGSSIGN_API_MEMBER+"/f/"+inputData.accountNum+"/"+inputData.id)
     }
 
+    // list
+    fetchSignConfirms(id){
+        console.log('fetchSignConfirms() 호출',id);
+        return axios.get(SAVINGSSIGN_API_MEMBER+"/savingsSignList/"+id,id);
+    }
     
+    // 이자조회 리스트
+    // list(DepositSignDTO)
+    fetchSigns(id){
+        console.log('fetchSigns() 호출');
+        return axios.get(SAVINGSSIGN_API_MEMBER+"/savingsList/"+id,id);
+    }
+
+    // 납입하기-signList
+    fetchSignList(input){
+        console.log('fetchSignList() 호출',input);
+        return axios.get(SAVINGSSIGN_API_MEMBER+"/signList/"+input.juckSignNo,input);
+    }
+    // 해지
+    payRequest(input){
+        console.log('payRequest() 호출',input);
+        return axios.post(SAVINGSSIGN_API_MEMBER+"/payRequest",input);
+    }
+    payment(input){
+        console.log('payment() 호출',input);
+        return axios.put(SAVINGSSIGN_API_MEMBER+"/payment",input);
+    }
 
 }
 

@@ -1,53 +1,57 @@
 import React, { Component } from 'react';
 import { Typography, Container, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination } from '@mui/material';
-import DepositSignApi from "../../api/depositSign";
-import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+import SavingsSignApi from "../../api/savingSign";
 import { MDBAccordion, MDBAccordionItem } from 'mdb-react-ui-kit';
-import LaunchIcon from '@mui/icons-material/Launch';
 import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
+import PaymentsIcon from '@mui/icons-material/Payments';
 
 
-class depositSignList extends Component {
+
+class savingsSignList extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            signs: [],
-            repayments: [],
+            signs: [],       
             id: window.localStorage.getItem("id"),
-            yeSignNo: '',
+            juckSignNo: '',
             rate: '',
             message: null,
             page: 0,
             rPage: 5,
             isModalOpen: false,
             selectedLoan: null,
-            yeCancelDate: ''
+            juckState: '',
+            
         }
     }
 
     // 라이프사이클 중 컴포넌트가 생성된 후 사용자에게 보여지기까지의 전체 과정을 렌더링
     componentDidMount() {
-        this.loadDepositSignConfirmList();
+        this.loadSavingsSignConfirmList();
     }
 
     // list 정보
-    loadDepositSignConfirmList = () => {
+    loadSavingsSignConfirmList = () => {
         const id = window.localStorage.getItem("id")
-        DepositSignApi.fetchSignConfirms(id)
+        SavingsSignApi.fetchSignConfirms(id)
             .then((res) => {
                 this.setState({
                     signs: res.data
                 })
             })
             .catch(err => {
-                console.log('loadDepositSignConfirmList() Error!!', err);
+                console.log('loadSavingsSignConfirmList() Error!!', err);
             })
     }
    
 
-    
+     // 1건 select
+     selectSavings = (juckSignNo) => {
+        window.localStorage.setItem("juckSignNo", juckSignNo);
+        this.props.history.push("/savingsPay")
+    } 
 
 
     // page
@@ -62,10 +66,10 @@ class depositSignList extends Component {
     }
 
     // 해지 버튼 클릭
-    depositEnd = (num,yeSignNo) => {
+    savingsEnd = (num,juckSignNo) => {
         window.localStorage.setItem("num", num);
-        window.localStorage.setItem("yeSignNo", yeSignNo);
-        this.props.history.push("/depositendDetail")
+        window.localStorage.setItem("juckSignNo", juckSignNo);
+        this.props.history.push("/savingsendDetail")
     }
 
 
@@ -75,12 +79,11 @@ class depositSignList extends Component {
 
 
         return (
-          <div>
+
             <Container component="main" maxWidth="md">
-                <PaidOutlinedIcon fontSize='large' color='primary' />
-                <Typography variant="h4" style={style}> Sign Confirm </Typography>
-                <br/><br/>
-                <Typography variant="h5" style={style}> Deposit </Typography>
+              
+                <Typography variant="h5" style={style}> Savings </Typography>
+
                 <TableContainer >
 
                     <Table md={{ minWidth: 900 }}>
@@ -88,32 +91,32 @@ class depositSignList extends Component {
                             <TableRow>
                                 <TableCell align="center" width="30">No.</TableCell>
                                 <TableCell align="center" width="240">상품명</TableCell>
-                                <TableCell align="center" width="140">원금</TableCell>
+                                <TableCell align="center" width="140">잔액</TableCell>
                                 <TableCell align="center" width="120">계좌번호</TableCell>
                                 <TableCell align="center" width="140">실행일</TableCell>
                                 <TableCell align="center" width="140">만기일</TableCell>
                                 <TableCell align="center" width="80">상태</TableCell>
                                 <TableCell align="center" width="120">해지</TableCell>
+                                <TableCell align="center" width="100">납부</TableCell>
                             </TableRow>
                         </TableHead>
 
                         <TableBody>
                             {this.state.signs.slice(page * rPage, page *
                                 rPage + rPage).map((sign) => (
-                                    <TableRow hover key={sign.yeSignNo}>
-                                        <TableCell align='center'>{sign.yeSignNo}</TableCell>
+                                    <TableRow hover key={sign.juckSignNo}>
+                                        <TableCell align='center'>{sign.juckSignNo}</TableCell>
                                         <TableCell align='center'>
                                             <MDBAccordion>
-                                                <MDBAccordionItem collapseId={sign.yeSignNo} headerTitle={<>{sign.yeName}</>}>
-                                                    <p>금리 : {sign.interestRate}%</p>
-                                                   
+                                                <MDBAccordionItem collapseId={sign.juckSignNo} headerTitle={<>{sign.juckName}</>}>
+                                                    <p>금리 : {sign.interestRate}%</p>                 
                                                 </MDBAccordionItem>
                                             </MDBAccordion>
                                         </TableCell>
-                                        <TableCell align='center'>{sign.yeAmount}원</TableCell>
-                                        <TableCell align='center'>{sign.depositAccountNum}</TableCell>
+                                        <TableCell align='center'>{sign.juckBalance}원</TableCell>
+                                        <TableCell align='center'>{sign.savingsAccountNum}</TableCell>
                                         <TableCell align='center'>
-                                            {new Date(sign.yeJoinDate).toLocaleDateString(
+                                            {new Date(sign.juckJoinDate).toLocaleDateString(
                                                 'ko-KR', {
                                                 year: 'numeric',
                                                 month: '2-digit',
@@ -121,26 +124,30 @@ class depositSignList extends Component {
                                             })}
                                         </TableCell>
                                         <TableCell align='center'>
-                                            {new Date(sign.yeEndDate).toLocaleDateString(
+                                            {new Date(sign.juckEndDate).toLocaleDateString(
                                                 'ko-KR', {
                                                 year: 'numeric',
                                                 month: '2-digit',
                                                 day: '2-digit'
                                             })}
                                         </TableCell>
-                                        <TableCell align='center' style={{ color: sign.yeState === '신청' ? 'blue' : sign.yeState === '해지' || sign.yeState === '반려' ? 'red' : 'black' }}>
-                                            {sign.yeState}
+                                        <TableCell align='center' style={{ color: sign.juckState === '신청' ? 'blue' : sign.juckState === '해지' || sign.juckState === '반려' ? 'red' : 'black' }}>
+                                            {sign.juckState}
                                         </TableCell>
                                         <TableCell align='center'>
-                                            {sign.yeState === '정상' ? (
-                                                <DoDisturbOnIcon onClick={() => this.depositEnd(sign.num, sign.yeSignNo)} />
-                                            ) : sign.yeState === '해지' ? (
-                                                new Date(sign.yeCancelDate).toLocaleDateString('ko-KR', {
+                                            {sign.juckState === '정상' ? (
+                                                <DoDisturbOnIcon onClick={() => this.savingsEnd(sign.num, sign.juckSignNo)} />
+                                            ) : sign.juckState === '해지' ? (
+                                                new Date(sign.juckCancelDate).toLocaleDateString('ko-KR', {
                                                     year: 'numeric',
                                                     month: '2-digit',
                                                     day: '2-digit'
                                                 })
                                             ) : null}
+                                        </TableCell>
+
+                                        <TableCell align='center'>
+                                        {this.state.juckState !== '해지' && <PaymentsIcon onClick={() => this.selectSavings(sign.juckSignNo)} />}
                                         </TableCell>
                                     </TableRow>
                                 ))}
@@ -159,8 +166,7 @@ class depositSignList extends Component {
                 />
               
             </Container>
-           
-          </div>
+
         );
     }
 }
@@ -170,4 +176,4 @@ const style = {
     justifyContent: 'center'
 }
 
-export default depositSignList;
+export default savingsSignList;

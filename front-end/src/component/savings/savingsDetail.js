@@ -13,12 +13,11 @@ class savingsDetail extends Component {
             juckName: '',
             juckRegistrationDate: '',
             interestRate: '',          
-            juckSummary: '', 
-            juckType: '',          
+            juckSummary: '',                   
             juckMinPrice: '',
             juckMaxPrice: '', 
             juckMinDate: '',         
-            juckMaxDate: '',       
+            juckMaxDate: '',             
             message: ''
         }
     }
@@ -38,12 +37,11 @@ class savingsDetail extends Component {
                     juckName: savings.juckName,
                     juckRegistrationDate: savings.juckRegistrationDate,
                     interestRate: savings.interestRate,
-                    juckSummary: savings.juckSummary,  
-                    juckType: savings.juckType,              
+                    juckSummary: savings.juckSummary,                              
                     juckMinPrice: savings.juckMinPrice,
                     juckMaxPrice: savings.juckMaxPrice,
                     juckMinDate: savings.juckMinDate,
-                    juckMaxDate: savings.juckMaxDate,                   
+                    juckMaxDate: savings.juckMaxDate,                                    
                 })
             })
             .catch(err =>{
@@ -100,7 +98,7 @@ class savingsDetail extends Component {
                             multiline
                             fullWidth
                             rows={4}
-                            label="juckSummary"
+                            label="Summary"
                             // helperText="please enter juckSummary"
                             type="text"
                             name="juckSummary"
@@ -145,7 +143,7 @@ class savingsDetail extends Component {
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
-                            endAdornment={<InputAdornment position="end">개월</InputAdornment>}
+                            endAdornment={<InputAdornment position="end">년</InputAdornment>}
                             aria-describedby="standard-juckMinDate-helper-text"
                             inputProps={{
                                 'aria-label': 'juckMinDate',
@@ -161,7 +159,7 @@ class savingsDetail extends Component {
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
-                            endAdornment={<InputAdornment position="end">개월</InputAdornment>}
+                            endAdornment={<InputAdornment position="end">년</InputAdornment>}
                             aria-describedby="standard-juckMaxDate-helper-text"
                             inputProps={{
                                 'aria-label': 'juckMaxDate',
@@ -171,20 +169,8 @@ class savingsDetail extends Component {
                         />
                         <FormHelperText >MaxDate</FormHelperText>
                     </FormControl>  
-
-                    <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
-                        <Input
-                            id="standard-required"
-                            endAdornment={<InputAdornment position="end"></InputAdornment>}
-                            aria-describedby="standard-juckType-helper-text"
-                            inputProps={{
-                                'aria-label': 'juckType',
-                            }}                         
-                            value={this.state.juckType}
-                            disabled
-                        />
-                        <FormHelperText >type</FormHelperText>
-                    </FormControl>                  
+                  
+                                         
                    
                 </Grid>
 

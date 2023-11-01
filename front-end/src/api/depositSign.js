@@ -44,7 +44,22 @@ class DepositSignApi {
         console.log('fetchSignConfirms() 호출',id);
         return axios.get(DEPOSITSIGN_API_MEMBER+"/depositSignList/"+id,id);
     }
-
+     // 이자조회 리스트
+    // list(DepositSignDTO)
+    fetchSigns(id){
+        console.log('fetchSigns() 호출');
+        return axios.get(DEPOSITSIGN_API_MEMBER+"/depositList/"+id,id);
+    }
+  // 납입하기-signList
+  fetchSignList(input){
+    console.log('fetchSignList() 호출',input);
+    return axios.get(DEPOSITSIGN_API_MEMBER+"/signList/"+input.yeSignNo,input);
+}
+// 해지
+payRequest(input){
+    console.log('payRequest() 호출',input);
+    return axios.post(DEPOSITSIGN_API_MEMBER+"/payRequest",input);
+}
 
 }
 

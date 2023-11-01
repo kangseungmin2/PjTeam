@@ -25,4 +25,12 @@ public interface depositSignMemberMapper {
 	public int insertSign(DepositSignDTO dto);
 	// 대출 신청 목록
    public List<DepositSignDTO> depositSignList(String id);
+   
+   public DepositSignDTO signList(int yeSignNo);
+   
+   public void cancelDeposit(DepositSignDTO dto);
+   
+   public int accountBalance(long accountNum);
+   
+   public int inputMoney(Map<String, Object> map);
 }

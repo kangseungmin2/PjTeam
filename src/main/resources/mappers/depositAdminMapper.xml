@@ -13,7 +13,7 @@
 	<insert id="insertDeposit" parameterType="com.example.project_team.dto.DepositDTO">
 		INSERT INTO TEAM_DEPOSIT_PRODUCT
 			VALUES((SELECT NVL(MAX(yeNo)+1,1) FROM TEAM_DEPOSIT_PRODUCT), #{yeName}, sysdate
-					, #{interestRate}, #{yeSummary}, #{yeMinPrice}, #{yeMaxPrice}, #{yeMinDate}, #{yeMaxDate}					)
+					, #{interestRate}, #{yeSummary}, #{yeMinPrice}, #{yeMaxPrice}, #{yeMinDate}, #{yeMaxDate} )
 	</insert>
 	
 	<!-- findByNum / 1건 조회 -->
@@ -25,7 +25,7 @@
 	<update id="updateDeposit" parameterType="com.example.project_team.dto.DepositDTO">
 		UPDATE TEAM_DEPOSIT_PRODUCT
 			SET yeName=#{yeName}, interestRate=#{interestRate}, yeSummary=#{yeSummary}
-				, yeMinPrice=#{yeMinPrice}, yeMaxPrice =#{yeMaxPrice}, yeMinDate=#{yeMinDate}, yeMaxDate=#{yeMaxDate}
+				, yeMinPrice=#{yeMinPrice}, yeMaxPrice =#{yeMaxPrice}, yeMinDate=#{yeMinDate}, yeMaxDate=#{yeMaxDate} 
 			WHERE yeNo=#{yeNo}
 	</update>
 	

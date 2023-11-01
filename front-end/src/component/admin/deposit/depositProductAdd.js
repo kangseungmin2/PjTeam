@@ -40,7 +40,7 @@ class depositProductAdd extends Component {
             yeMinPrice: this.state.yeMinPrice,
             yeMaxPrice: this.state.yeMaxPrice,
             yeMinDate: this.state.yeMinDate,
-            yeMaxDate: this.state.yeMaxDate         
+            yeMaxDate: this.state.yeMaxDate,                  
         }
 
         deposit.addDeposit(inputData)
@@ -96,7 +96,7 @@ class depositProductAdd extends Component {
                             multiline
                             fullWidth
                             rows={4}
-                            label="yeSummary"
+                            label="Summary"
                             // helperText="please enter yeSummary"
                             type="text"
                             name="yeSummary"
@@ -139,7 +139,7 @@ class depositProductAdd extends Component {
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
-                            endAdornment={<InputAdornment position="end">개월</InputAdornment>}
+                            endAdornment={<InputAdornment position="end">년</InputAdornment>}
                             aria-describedby="standard-yeMinDate-helper-text"
                             inputProps={{
                                 'aria-label': 'yeMinDate',
@@ -155,7 +155,7 @@ class depositProductAdd extends Component {
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
-                            endAdornment={<InputAdornment position="end">개월</InputAdornment>}
+                            endAdornment={<InputAdornment position="end">년</InputAdornment>}
                             aria-describedby="standard-yeMaxDate-helper-text"
                             inputProps={{
                                 'aria-label': 'yeMaxDate',
@@ -164,7 +164,8 @@ class depositProductAdd extends Component {
                             onChange={this.onChange}
                         />
                         <FormHelperText >MaxDate</FormHelperText>
-                    </FormControl> 
+                    </FormControl>
+                  
 
                 </Grid>
 

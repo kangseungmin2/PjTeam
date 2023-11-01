@@ -47,4 +47,6 @@ public class depositAdminServiceImpl implements depositAdminService{
 		return dao.findByNum(yeNo);
 	}
 
+	
+
 }

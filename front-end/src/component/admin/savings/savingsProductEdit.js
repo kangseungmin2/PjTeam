@@ -13,8 +13,7 @@ class savingsProductEdit extends Component {
             juckName: '',
             juckRegistrationDate: '',
             interestRate: '',
-            juckSummary: '',
-            juckType: '',   
+            juckSummary: '',        
             juckMinPrice: '',
             juckMaxPrice: '',
             juckMinDate: '',
@@ -36,8 +35,7 @@ class savingsProductEdit extends Component {
                     juckName: savings.juckName,
                     juckRegistrationDate: savings.juckRegistrationDate,
                     interestRate: savings.interestRate,
-                    juckSummary: savings.juckSummary,
-                    juckType: savings.juckType,     
+                    juckSummary: savings.juckSummary,                   
                     juckMinPrice: savings.juckMinPrice,
                     juckMaxPrice: savings.juckMaxPrice,
                     juckMinDate: savings.juckMinDate,
@@ -68,8 +66,7 @@ class savingsProductEdit extends Component {
             juckName: this.state.juckName,
             juckRegistrationDate: this.state.juckRegistrationDate,
             interestRate: this.state.interestRate,
-            juckSummary: this.state.juckSummary,
-            juckType: this.state.juckType,
+            juckSummary: this.state.juckSummary,         
             juckMinPrice: this.state.juckMinPrice,
             juckMaxPrice: this.state.juckMaxPrice,
             juckMinDate: this.state.juckMinDate,
@@ -179,7 +176,7 @@ class savingsProductEdit extends Component {
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
-                            endAdornment={<InputAdornment position="end">개월</InputAdornment>}
+                            endAdornment={<InputAdornment position="end">년</InputAdornment>}
                             aria-describedby="standard-juckMinDate-helper-text"
                             inputProps={{
                                 'aria-label': 'juckMinDate',
@@ -196,7 +193,7 @@ class savingsProductEdit extends Component {
                     <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
                         <Input
                             id="standard-required"
-                            endAdornment={<InputAdornment position="end">개월</InputAdornment>}
+                            endAdornment={<InputAdornment position="end">년</InputAdornment>}
                             aria-describedby="standard-juckMaxDate-helper-text"
                             inputProps={{
                                 'aria-label': 'juckMaxDate',
@@ -208,20 +205,7 @@ class savingsProductEdit extends Component {
                         <FormHelperText >MaxDate</FormHelperText>
                     </FormControl>
 
-                    <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
-                        <Input
-                            id="standard-required"
-                            endAdornment={<InputAdornment position="end"></InputAdornment>}
-                            aria-describedby="standard-juckType-helper-text"
-                            inputProps={{
-                                'aria-label': 'juckType',
-                            }}
-                            name="juckType"
-                            value={this.state.juckType}
-                            onChange={this.onChange}
-                        />
-                        <FormHelperText >type</FormHelperText>
-                    </FormControl>   
+                    
                    
                 </Grid>
 

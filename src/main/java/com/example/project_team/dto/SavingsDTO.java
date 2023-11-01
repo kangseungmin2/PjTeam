@@ -16,11 +16,10 @@ public class SavingsDTO {
 	private String juckName;                   
 	private Date juckRegistrationDate;           
 	private int interestRate;               
-	private String juckSummary;             
-	private String juckType;                    
+	private String juckSummary;                             
 	private int juckMinPrice;             
 	private int juckMaxPrice;                      
 	private int juckMinDate;                         
 	private int juckMaxDate;                            
-
+	
 }

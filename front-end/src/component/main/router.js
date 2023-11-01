@@ -97,7 +97,13 @@ import SavingsSign from "../savings/savingsSign";
 import depositCheck from "../deposit/depositCheck";
 import DepositSign from "../deposit/depositSign";
 import DepositSignList from '../deposit/depositSignList';
+import SavingsSignList from '../savings/savingsSignList';
+
+
 import KakaoMap from "../kakao/kakaoMap";
+import yeEndDetail from "../deposit/endDetail";
+import juckEndDetail from "../savings/endDetail";
+import SavngsPay from "../savings/savingsPay";
 
 
 
@@ -173,7 +179,12 @@ const AppRouter = () => {
                     <Route path="/depositSign" component={DepositSign}/>        {/* 석준-예금 신규가입 */}
                     <Route path="/savingsSign" component={SavingsSign}/>        {/* 석준-적금 신규가입 */}
                     <Route path="/depositSignList" component={DepositSignList}/>        {/* 석준-예/적금 해지 */}
+                    <Route path="/savingsSignList" component={SavingsSignList}/>        {/* 석준-예/적금 해지 */}
                     <Route path="/depositCheck" component={depositCheck}/>        {/* 석준-예/적금 해지 */}
+                    <Route path="/depositendDetail" component={yeEndDetail}/>        {/* 석준-예금 해지 */}
+                    <Route path="/savingsendDetail" component={juckEndDetail}/>        {/* 석준-적금 해지 */}
+                    <Route path="/savingsPay" component={SavngsPay}/>        {/* 석준-적금 납부 */}
+
 
                     <Route path="/kakaoMap" component={KakaoMap}/>        {/* map연습 */}
                     
