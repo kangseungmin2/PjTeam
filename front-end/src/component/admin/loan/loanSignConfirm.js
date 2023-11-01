@@ -64,8 +64,9 @@ class LoanSignConfirm extends Component {
                     loanAmount: res.data.loanAmount,
                     num: res.data.num
                 })
+                
                 let inputData = {
-                    id: window.localStorage.getItem("id"),
+                    id: res.data.id,
                     num: res.data.num,
                     loanNum: res.data.loanNum,
                     loanPeriod: res.data.loanPeriod,

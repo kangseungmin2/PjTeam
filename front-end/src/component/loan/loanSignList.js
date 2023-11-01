@@ -158,7 +158,7 @@ class LoanSignList extends Component {
                                         <TableCell align='center'>
                                             {sign.loanState === '정상' ? (
                                                 <DoDisturbOnIcon onClick={() => this.loanEnd(sign.num, sign.loanNum)} />
-                                            ) : sign.loanState === '해지' && sign.loanState ==='상환완료' ? (
+                                            ) : sign.loanState === '해지' || sign.loanState ==='상환완료' ? (
                                                 new Date(sign.loanTermination).toLocaleDateString('ko-KR', {
                                                     year: 'numeric',
                                                     month: '2-digit',
