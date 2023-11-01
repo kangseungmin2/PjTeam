@@ -49,7 +49,8 @@ function Customer() {
                         <NavDropdown title="예/적금" id="basic-nav-dropdown">
                             <NavDropdown.Item href="/depositList">예금 상품</NavDropdown.Item>
                             <NavDropdown.Item href="/savingsList">적금 상품</NavDropdown.Item>
-                            <NavDropdown.Item href="/depositSignList">가입상품 조회</NavDropdown.Item>
+                            <NavDropdown.Item href="/depositSignList">예금 가입상품 조회</NavDropdown.Item>
+                            <NavDropdown.Item href="/savingsSignList">적금 가입상품 조회</NavDropdown.Item>
                         </NavDropdown>
                         <NavDropdown title="대출" id="basic-nav-dropdown">
                             <NavDropdown.Item href="/loanList">대출상품</NavDropdown.Item>
