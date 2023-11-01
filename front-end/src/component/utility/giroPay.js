@@ -136,14 +136,18 @@ class giroPay extends Component{
 
     onChange = (e) => {
         this.setState({
+            [e.target.name]: e.target.value
+       },()=>{
+        this.setState({
             UtilTransactionDTO : {
                 [e.target.name]: e.target.value,
                 utilityId: this.state.utilityId,
                 utAmount: this.state.amount,
                 utilityType : 'a',
+                accountNum : this.state.accountNum,
                 id : window.localStorage.getItem('id')
-            },
-            [e.target.name]: e.target.value
+            }
+        })
        })
     }
 
@@ -171,6 +175,7 @@ class giroPay extends Component{
     // 즉시이체 메서드
     utilTransfer = () => {
         // 이체 메서드 진행
+
         utility.utilTransfer(this.state.UtilTransactionDTO)
             .then(response => {
                 console.log(response);
@@ -194,7 +199,6 @@ class giroPay extends Component{
 
     saveUtil = (e) => {
         e.preventDefault();
-        
         utility.utilTransfer(this.state.UtilTransactionDTO)
             .then(res => {
                 console.log('성공 :' , res.data);

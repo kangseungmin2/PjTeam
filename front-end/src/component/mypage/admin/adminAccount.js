@@ -18,11 +18,11 @@ class adminAccount extends Component{
         super(props);
 
         this.state = {
-            chartData : [['date', 'cnt']],
-            chartData2 : [['date', 'cnt']],
-            chartData3 : [['date', 'cnt']],
-            chartData4 : [['date', 'cnt']],
-            chartData5 : [['date', 'cnt']],
+            chartData : [['id', 'cnt']],
+            chartData2 : [['id', 'cnt']],
+            chartData3 : [['id', 'cnt']],
+            chartData4 : [['id', 'cnt']],
+            chartData5 : [['id', 'cnt']],
             loading: true // 데이터 로딩 상태 추가
         }
     }
@@ -40,10 +40,10 @@ class adminAccount extends Component{
         .then(res => {
             console.log('AccountData() res!!', res);
            // 데이터를 Google Charts 형식으로 변환
-           const chartData = res.data.map(item => [Unix_timestamp(item.madeDate),  parseInt(item.accountLimit, 10)]);
+           const chartData = res.data.map(item => [item.id,  parseInt(item.accountLimit, 10)]);
 
            this.setState({
-                chartData: [['date', 'cnt'], ...chartData],
+                chartData: [['id', 'cnt'], ...chartData],
                 loading: false // 로딩 상태 해제
            })
         })   
@@ -57,10 +57,10 @@ class adminAccount extends Component{
         .then(res => {
             console.log('AccountData2() res!!', res);
            // 데이터를 Google Charts 형식으로 변환
-           const chartData2 = res.data.map(item => [Unix_timestamp(item.loanExecution),  parseInt(item.loanNum, 10)]);
+           const chartData2 = res.data.map(item => [item.id,  parseInt(item.loanNum, 10)]);
 
            this.setState({
-                chartData2: [['date', 'cnt'], ...chartData2],
+                chartData2: [['id', 'cnt'], ...chartData2],
                 loading: false // 로딩 상태 해제
            })
         })   
@@ -74,10 +74,10 @@ class adminAccount extends Component{
         .then(res => {
             console.log('AccountData3() res!!', res);
            // 데이터를 Google Charts 형식으로 변환
-           const chartData3 = res.data.map(item => [Unix_timestamp(item.madeDate),  parseInt(item.fdAccount, 10)]);
+           const chartData3 = res.data.map(item => [item.id,  parseInt(item.fdAccount, 10)]);
 
            this.setState({
-                chartData3: [['date', 'cnt'], ...chartData3],
+                chartData3: [['id', 'cnt'], ...chartData3],
                 loading: false // 로딩 상태 해제
            })
         })   
@@ -91,10 +91,10 @@ class adminAccount extends Component{
         .then(res => {
             console.log('AccountData4() res!!', res);
            // 데이터를 Google Charts 형식으로 변환
-           const chartData4 = res.data.map(item => [Unix_timestamp(item.yeJoinDate),  parseInt(item.yeSignNo, 10)]);
+           const chartData4 = res.data.map(item => [item.id,  parseInt(item.yeSignNo, 10)]);
 
            this.setState({
-                chartData4: [['date', 'cnt'], ...chartData4],
+                chartData4: [['id', 'cnt'], ...chartData4],
                 loading: false // 로딩 상태 해제
            })
         })   
@@ -102,16 +102,16 @@ class adminAccount extends Component{
             console.log('openAccountData() Error!!', err);
         })
     }
-
+    
     openAccountData5 = () => {
         Account.openAccountData5()
         .then(res => {
             console.log('AccountData5() res!!', res);
            // 데이터를 Google Charts 형식으로 변환
-           const chartData5 = res.data.map(item => [Unix_timestamp(item.juckJoinDate),  parseInt(item.juckSignNo, 10)]);
+           const chartData5 = res.data.map(item => [item.id,  parseInt(item.juckSignNo, 10)]);
 
            this.setState({
-                chartData5: [['date', 'cnt'], ...chartData5],
+                chartData5: [['id', 'cnt'], ...chartData5],
                 loading: false // 로딩 상태 해제
            })
         })   
@@ -126,35 +126,35 @@ class adminAccount extends Component{
         legend: 'none',
         hAxis: { title: '입출금' },
         vAxis: { title: '' },
-        title: 'Data : 계좌별 총 판매량 (입출금)', // 작은 타이틀 추가
+        title: 'Data : 계좌별 총 판매량 (입출금)',
         orientation: 'horizontal',
         };
     const options2 = {
         legend: 'none',
         hAxis: { title: '대출' },
         vAxis: { title: '' },
-        title: 'Data : 계좌별 총 판매량 (대출)', // 작은 타이틀 추가
+        title: 'Data : 계좌별 총 판매량 (대출)',
         orientation: 'horizontal',
         };    
     const options3 = {
         legend: 'none',
         hAxis: { title: '펀드' },
         vAxis: { title: '' },
-        title: 'Data : 계좌별 총 판매량 (펀드)', // 작은 타이틀 추가
+        title: 'Data : 계좌별 총 판매량 (펀드)', 
         orientation: 'horizontal',
         }; 
     const options4 = {
         legend: 'none',
         hAxis: { title: '예금' },
         vAxis: { title: '' },
-        title: 'Data : 계좌별 총 판매량 (예금)', // 작은 타이틀 추가
+        title: 'Data : 계좌별 총 판매량 (예금)',
         orientation: 'horizontal',
         };              
     const options5 = {
         legend: 'none',
         hAxis: { title: '적금' },
         vAxis: { title: '' },
-        title: 'Data : 계좌별 총 판매량 (적금)', // 작은 타이틀 추가
+        title: 'Data : 계좌별 총 판매량 (적금)', 
         orientation: 'horizontal',
         };   
 

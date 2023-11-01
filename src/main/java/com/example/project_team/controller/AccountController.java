@@ -84,9 +84,10 @@ public class AccountController {
 	
 	//비밀번호 변경
 	@PutMapping("/{accountNum}")
-	public Map<String,Object> passwordModify(@PathVariable("accountNum") long accountNum, @RequestBody AccountDTO dto)
+	public Map<String,Object> passwordModify(@RequestBody AccountDTO dto)
 			throws ServletException, IOException {
 		System.out.println("AccountController - passwordModify");
+		System.out.println("dto"+dto);
 		String resultCode="";
 		String resultMsg="";
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -109,7 +110,7 @@ public class AccountController {
 	}
 	
 	//1 select
-	@GetMapping("/{accountNum}")
+	@GetMapping("/y/{accountNum}")
 	public AccountDTO fetchAccountByNum(@PathVariable("accountNum") long accountNum)
 			throws ServletException, IOException {
 		return service.fetchAccountByNum(accountNum);

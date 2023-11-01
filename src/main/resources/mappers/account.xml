@@ -26,7 +26,7 @@
 </select>
 
 <update id="passwordModify" parameterType="com.example.project_team.dto.AccountDTO">
-	UPDATE team_account SET accountPW = #{accountPW} WHERE id=#{id}
+	UPDATE team_account SET accountPW = #{accountPW} WHERE accountNum=#{accountNum}
 </update>
 
 <update id="deleteAccount" parameterType="long">
@@ -34,20 +34,20 @@
 </update>
 
 <select id="openAccountData" resultType="com.example.project_team.dto.AccountDTO">
-	select COUNT(*) as accountLimit, madedate from team_account group by madedate order by madedate
+	select COUNT(*) as accountLimit, id from team_account group by id order by id
 </select>
 <select id="openAccountData2" resultType="com.example.project_team.dto.LoanSignDTO">
-	select COUNT(*) as loanNum, loanExecution from team_loan_sign group by loanExecution order by loanExecution
+	select COUNT(*) as loanNum, id from team_loan_sign group by id order by id
 </select>
 <select id="openAccountData3" resultType="com.example.project_team.dto.FundAccountDTO">
-	select COUNT(*) as FDACCOUNT, madedate from team_fund_account group by madedate order by madedate
+	select COUNT(*) as FDACCOUNT, id from team_fund_account group by id order by id
 </select>
 
 <select id="openAccountData4" resultType="com.example.project_team.dto.DepositSignDTO">
-	select COUNT(*) as yeSignNo, yeJoinDate from team_deposit_sign group by yeJoinDate order by yeJoinDate
+	select COUNT(*) as yeSignNo, id from team_deposit_sign group by id order by id
 </select>
 <select id="openAccountData5" resultType="com.example.project_team.dto.SavingsSignDTO">
-	select COUNT(*) as juckSignNo, juckJoinDate from team_savings_sign group by juckJoinDate order by juckJoinDate
+	select COUNT(*) as juckSignNo, id from team_savings_sign group by id order by id
 </select>
 
 

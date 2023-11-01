@@ -38,7 +38,7 @@ class agree extends Component {
             accountNum:'',
             accountPW: '불일치',
             accountPWD: '',         // 계좌 비번  
-
+            isButtonDisabled: true
 
         }
     }
@@ -109,7 +109,7 @@ class agree extends Component {
 
     nextButton = () => {
         if (this.state.checked) {
-            console.log("여기")
+            Account.deleteAccount(this.state.accountNum);
             this.props.history.push("/delAccountSuccess");
         }
         else {
@@ -218,30 +218,6 @@ class agree extends Component {
                     </Grid>
                     <br /><br/>
 
-                    {/* <Table style={tableStyle}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell style={tableHead}>
-                                    해지구분
-                                </TableCell>
-                                <TableCell style={{ textAlign: 'left', border: '1px solid rgb(230, 229, 227)' }}>
-                                    해지불가
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            <TableRow>
-                                <TableCell style={tableHead}>
-                                    해지불가사유
-                                </TableCell>
-                                <TableCell style={{ textAlign: 'left', border: '1px solid rgb(230, 229, 227)' }}>
-                                    휴일거래는 불가능합니다.
-                                </TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table> */}
-
-
                     <Typography style={typography}>
                         알아두세요!
                     </Typography>
@@ -276,7 +252,7 @@ class agree extends Component {
                         <TableHead>
                             <TableRow style={style}>
                                 <TableCell style={{ border: 'none' }}>
-                                    <button type="button" className="btn btn-primary btn-block md-3" style={button} onClick={this.nextButton}>확인</button>
+                                    <button type="button" className="btn btn-primary btn-block md-3" style={button} disabled = {this.state.isButtonDisabled} onClick={this.nextButton}>확인</button>
                                 </TableCell>
                             </TableRow>
                         </TableHead>

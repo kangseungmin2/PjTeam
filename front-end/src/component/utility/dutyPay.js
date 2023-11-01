@@ -135,15 +135,19 @@ class dutyPay extends Component{
     }
 
     onChange = (e) => {
+        this.setState({    
+            [e.target.name]: e.target.value
+       },()=>{
         this.setState({
             UtilTransactionDTO : {
                 [e.target.name]: e.target.value,
                 utilityId: this.state.utilityId,
                 utAmount: this.state.amount,
                 utilityType : 'c',
+                accountNum : this.state.accountNum,
                 id : window.localStorage.getItem('id')
-            },
-            [e.target.name]: e.target.value
+            }
+        })
        })
     };
     

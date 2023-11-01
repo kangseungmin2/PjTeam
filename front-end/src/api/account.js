@@ -31,7 +31,7 @@ class account {
     // 1건 select
     fetchAccountByNum(accountNum){
         console.log('fetchSampleByNum() 호출!', accountNum);
-        return axios.get(ACCOUNT_API_BASE_URL + "/" + accountNum,accountNum);
+        return axios.get(ACCOUNT_API_BASE_URL + "/y/" + accountNum,accountNum);
     }
 
     // 계좌 비밀번호 변경

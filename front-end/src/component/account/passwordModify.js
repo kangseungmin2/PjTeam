@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { TextField , Container, Button, IconButton,Table, TableHead, TableRow, TableCell, Typography, Select, MenuItem, FormControl, Input,InputAdornment, Grid } from "@mui/material";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Checkbox from '@mui/material/Checkbox';
 import Account from "../../api/account";
 import loan from "../../api/loanSign.js";
 
@@ -23,7 +24,6 @@ function name(t) {
     }
 }
 
-
 class passwordModify extends Component{
     constructor(props){
         super(props);
@@ -34,6 +34,9 @@ class passwordModify extends Component{
             accountNum:'',
             accountPW: '불일치',
             accountPWD: '',         // 계좌 비번  
+            accountLimit :0,
+            id:'',
+            isButtonDisabled: true
         }
     }
 
@@ -101,12 +104,39 @@ class passwordModify extends Component{
     });
     }
 
-    nextButton = () => {
-        this.props.history.push("/pwModifySuccess");
-
+    onChangeAccount = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        },()=>{
+            Account.fetchAccountByNum(this.state.accountNum)
+            .then((res) =>{
+                console.log('data',res.data)
+                let account = res.data
+                this.setState({ id: account.id, accountLimit: account.accountLimit})
+            })
+        console.log(this.state.accountNum)
+    });
     }
 
-
+    nextButton = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        },()=>{
+        if (this.state.checked) {
+            let inputData = {
+                accountNum : this.state.accountNum,
+                accountPW : this.state.accountPW
+            }
+            Account.passwordModify(inputData)
+            .then((res)=>{
+            this.props.history.push("/pwModifySuccess");
+            })
+        }
+        else {
+            alert("약관에 동의하세요.");
+        }
+    });
+    }
     
     render() {
         const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -143,7 +173,7 @@ class passwordModify extends Component{
                                         id="accountNumInput"
                                         name="accountNum"
                                         value={this.state.accountNum}
-                                        onChange={this.onChange}
+                                        onChange={(e)=>this.onChangeAccount(e)}
                                     >
                                         {this.state.data.map((account) => (
                                             <MenuItem key={account.accountNum} value={account.accountNum}>
@@ -269,8 +299,17 @@ class passwordModify extends Component{
                             </TableCell>
                         </TableRow>
                 </Table>
+                <div>
+                    <span style={{ color: "red", fontSize: '14px' }}>※ 필수</span> <span style={{ color: "black", fontSize: '13px' }}>비밀번호 변경 전 확인 체크</span>
+                    <Checkbox
+                        {...label}
+                        sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
+                        checked={this.state.checked}
+                        onChange={this.chkChange}
+                    />
+                </div>
                 <Container component="main" maxWidth="md">            
-                    <Button color="primary" variant="outlined" onClick={this.nextButton}>edit</Button>
+                    <Button color="primary" variant="outlined" disabled = {this.state.isButtonDisabled} onClick={this.nextButton}>edit</Button>
                     <Button href="/allAccount" variant="contained" color="primary">back</Button>
             </Container> 
                 <br /><br />
