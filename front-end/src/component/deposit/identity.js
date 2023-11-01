@@ -6,7 +6,7 @@ import Avatar from '@mui/material/Avatar';
 import { Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 
-const SMS_API_BASE_URL = "http://localhost:8083/sms"
+const SMS_API_BASE_URL = "http://15.165.6.111:8083/sms"
 class identity extends Component{
     constructor(props) {
         super(props);

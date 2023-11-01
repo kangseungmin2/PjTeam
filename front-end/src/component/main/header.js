@@ -7,10 +7,6 @@ import NoCustomer from './notMember';
 import Customer from './customer';
 import Admin from './admin';
 
-function openMemberAccount(e) {
-  window.open("http://43.202.0.250:5601/app/dashboards#/view/abb9cd00-77c4-11ee-831d-81a7372e981f?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-1m,to:now))");
-}
-
 function log(){
   const id = window.localStorage.getItem("id");
   const admin = window.localStorage.getItem("admin");

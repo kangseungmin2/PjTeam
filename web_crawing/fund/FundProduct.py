@@ -15,7 +15,6 @@ def run_insert():
     response = requests.get(url, params={
         "serviceKey": service_key,
         "pageNo": '1',
-
         "numOfRows": '50',
         "basDt": '20231030'
 
@@ -109,7 +108,7 @@ def run_insert():
         print("요청 실패. 상태 코드:", response.status_code)
 
 # 스케줄링 설정: 매일 오후 5시에 실행
-schedule.every().day.at("11:02").do(run_insert)
+schedule.every().day.at("13:25").do(run_insert)
 
 while True:
     schedule.run_pending()
