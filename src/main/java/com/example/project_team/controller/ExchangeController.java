@@ -73,6 +73,12 @@ public class ExchangeController {
 		return dto;
 	}
 	
+	@GetMapping("/all")
+	public List<ExchangeListDTO> allList()
+			throws ServletException, IOException{
+		System.out.println("controller - allList");
+		return service.allList();
+	}
 	@GetMapping("/num/{changeNum}")
 	public ExchangeListDTO detailNum(@PathVariable int changeNum) 
 			throws ServletException, IOException{

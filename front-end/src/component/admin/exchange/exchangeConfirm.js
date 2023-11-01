@@ -81,9 +81,8 @@ class exchangeConfirm extends Component{
             this.setState({ page: 0 }); // 페이지를 첫 페이지로 리셋
         }
     myExchange =() =>{
-        let id = window.localStorage.getItem('id')
 
-        exApi.myList(id)
+        exApi.allList()
             .then(res =>{
                 this.setState({
                     list : res.data

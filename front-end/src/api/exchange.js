@@ -19,6 +19,10 @@ class exchange {
         return axios.get(EXCHANGE_API_BASE_URL+"/my/"+id,id);
     }
 
+    allList(){
+        console.log('allList 호출!!')
+        return axios.get(EXCHANGE_API_BASE_URL+"/all");
+    }
     detailNum(changeNum){
         console.log('detailNum 호출!!',changeNum);
         return axios.get(EXCHANGE_API_BASE_URL+"/num/"+changeNum,changeNum);

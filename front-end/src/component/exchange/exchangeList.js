@@ -302,7 +302,7 @@ export default class exchangeList extends Component {
                             <Button style={{ margin: '0 auto' }} color="primary" variant="outlined" onClick={this.pwCheck}>계좌확인</Button>
                         </Grid>
                         <div>
-                            <span style={{ color: "red", fontSize: '13px' }}>※ 필수</span> <span style={{ color: "red", fontSize: '13px' }}>모든 이용약관을 확인 하였으며, 이의 동의합니다.</span>
+                            <span style={{ color: "red", fontSize: '13px' }}>※ 필수</span> <span style={{ color: "red", fontSize: '13px' }}>환전 신청에 동의하십니까.</span>
                             <Checkbox
                                 {...label}
                                 sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}

@@ -13,6 +13,8 @@ public interface ExchangeService {
 	
 	public List<ExchangeListDTO> myList(String id);
 	
+	public List<ExchangeListDTO> allList();
+	
 	public ExchangeListDTO detailNum(int changeNum);
 	
 	public int changeSuccess(int changeNum);

@@ -69,6 +69,12 @@ public class ExchangeServiceImpl implements ExchangeService{
 	}
 
 	@Override
+	public List<ExchangeListDTO> allList() {
+		System.out.println("service - allList");
+		return mapper.allList();
+	}
+	
+	@Override
 	public ExchangeListDTO detailNum(int changeNum) {
 		System.out.println("service - detailNum");
 		
@@ -88,6 +94,8 @@ public class ExchangeServiceImpl implements ExchangeService{
 		
 		return mapper.changeFail(changeNum);
 	}
+
+
 
 	
 	
