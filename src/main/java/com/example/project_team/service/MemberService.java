@@ -19,4 +19,7 @@ public interface MemberService {
 	// 관리자 회원관리
 	public List<UserDTO> management() 
 			throws ServletException, IOException;
+	
+	public int memberDelete(String id) 
+			throws ServletException, IOException;
 }

@@ -36,4 +36,9 @@ public class MemberServiceImpl implements MemberService{
 		System.out.println("서비스 - 회원관리");
 		return mapper.management();
 	}
+	@Override
+	public int memberDelete(String id) throws ServletException, IOException {
+		System.out.println("서비스 - 탈퇴");
+		return mapper.memberDelete(id);
+	}
 }

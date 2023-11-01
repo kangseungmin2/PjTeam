@@ -15,5 +15,9 @@ class member {
         console.log('memberList 호출~');
         return axios.get(MEMBER_API_BASE_URL+"/management");
     }
+    memberdelete(){
+        console.log('memberdelete 호출~');
+        return axios.delete(MEMBER_API_BASE_URL);
+    }
 }
 export default new member();

@@ -144,18 +144,6 @@ class memberInfo extends Component{
                     />
                     <FormHelperText >주소</FormHelperText>
                 </FormControl>
-                <FormControl variant="standard" sx={{ m: 2, mt: 2, width: '45ch' }}>
-                        <Select
-                            labelId="repayment-label"
-                            id="repayment"
-                            name="repayment"
-                        >
-                            <option>안녕</option>
-                            <option>하이</option>
-                            <option>바보</option>
-                        </Select>
-                        <FormHelperText>계좌정보</FormHelperText>
-                </FormControl>
             </Grid>
             <Stack spacing={1} direction="row" justifyContent="center" marginTop={1}>
                     <Button color="primary" variant="contained" onClick={this.memberEdit}>edit</Button>

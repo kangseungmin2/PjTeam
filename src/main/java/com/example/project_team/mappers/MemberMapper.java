@@ -15,4 +15,6 @@ public interface MemberMapper{
 	public int memberEdit(User dto);
 	
 	public List<UserDTO> management();
+	
+	public int memberDelete(String id);
 }
