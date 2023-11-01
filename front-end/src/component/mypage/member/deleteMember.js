@@ -19,6 +19,8 @@ class deleteMember extends Component{
         if (this.state.checked) {
             member.memberdelete(window.localStorage.getItem("id"))
             .then(res => {
+                window.location.reload();
+                localStorage.clear();
                 this.props.history.push("/main");
             })    
         }
