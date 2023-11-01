@@ -117,6 +117,7 @@ class modifyMember extends Component{
                         value={this.state.residentRegistrationNumber}
                         type="password"
                         onChange={this.onChange}
+                        disabled
                     />
                     <FormHelperText >주민번호</FormHelperText>
                 </FormControl>

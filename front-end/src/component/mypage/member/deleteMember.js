@@ -17,8 +17,10 @@ class deleteMember extends Component{
 
     nextButton = () => {
         if (this.state.checked) {
-            member.memberdelete();
-            this.props.history.push("/main");
+            member.memberdelete(window.localStorage.getItem("id"))
+            .then(res => {
+                this.props.history.push("/main");
+            })    
         }
         else {
             alert("약관에 동의하세요.");
