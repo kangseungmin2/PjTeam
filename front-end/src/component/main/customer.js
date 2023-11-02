@@ -10,7 +10,7 @@ function logout(){
 }
 
 function openMemberAccount(e) {
-    window.open("http://43.202.0.250:5601/app/dashboards#/view/abb9cd00-77c4-11ee-831d-81a7372e981f?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-1m,to:now))");
+    window.open("http://3.37.9.44:5601/app/dashboards#/view/abb9cd00-77c4-11ee-831d-81a7372e981f?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-1m,to:now))");
   }
 
 function Customer() {
