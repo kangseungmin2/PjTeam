@@ -1,7 +1,7 @@
 import axios from 'axios'; // npm install -f axios@^1.3.5
 
 const UTIL_API_BASE_URL = "http://15.165.6.111:8083/utilityList";
-
+// const UTIL_API_BASE_URL = "http://localhost:8083/utilityList";
 
 class utility {
     // ---[ 서윤 공과금 ]
@@ -21,6 +21,7 @@ class utility {
         return axios.post(UTIL_API_BASE_URL, UtilTransactionDTO);
     }
     
+    // 공과금 냈는지 show 체크
     utilityCheck(utilityType,utilityId){
         console.log('utilityCheck 호출~',utilityType,utilityId);
         return axios.get(UTIL_API_BASE_URL+"/chk/"+utilityType+"/"+utilityId);

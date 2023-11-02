@@ -21,7 +21,6 @@ class accountSms extends Component {
   sendSMS = () => {
     const { phoneNumber } = this.state;
 
-
     // 요청에 보낼 데이터 객체
     const data = {
       phoneNumber: phoneNumber,
@@ -44,6 +43,7 @@ class accountSms extends Component {
       });
   };
 
+  //인증번호 인증
   verifyCode = () => {
     console.log('code2', this.state.code2)
     console.log('verificationCode', this.state.verificationCode)

@@ -1,9 +1,7 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { Button, IconButton,Table, TableHead, TableBody, TableRow, TableCell, Typography, Select, MenuItem, FormControl, Input,InputAdornment,TableFooter, Grid, Container, Tab, label } from "@mui/material";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
-import PersonPinIcon from '@mui/icons-material/PersonPin';
 import Checkbox from '@mui/material/Checkbox';
 import Account from "../../api/account.js";
 import loan from "../../api/loanSign.js"
@@ -26,7 +24,6 @@ function name(t) {
     }
 }
 
-
 class agree extends Component {
 
     constructor(props) {
@@ -47,6 +44,7 @@ class agree extends Component {
         this.useInsertionEffect();
     }
 
+    // 로그인한 회원의 입출금 계좌정보를 list로 불러온다.
     useInsertionEffect = () => {
         let id = window.localStorage.getItem("id");
         Account.accountList(id)
@@ -68,6 +66,7 @@ class agree extends Component {
         event.preventDefault();
     }
 
+    // 계좌번호와 id를 넘겨 비밀번호를 받아오고 비밀번호가 일치하면 버튼 활성화
     pwCheck = (e) => {
         e.preventDefault();
         const id = window.localStorage.getItem("id")
@@ -95,6 +94,8 @@ class agree extends Component {
                 console.log('pwCheck 에러', err);
             })
     }
+
+    // 약관동의 체크박스 체크확인
     chkChange = (e) => {
         this.setState({ checked: e.target.checked })
     }

@@ -17,11 +17,6 @@ class openAccount extends Component{
         }
     }
     componentDidMount() {
-        this.setState({
-            id : window.localStorage.getItem("id"),
-            hp : window.localStorage.getItem("hp"),
-            address : window.localStorage.getItem("address"),
-        });
         this.memberInfo();
     }
 
@@ -33,10 +28,8 @@ class openAccount extends Component{
                 this.setState({
                     id : member.id,
                     name : member.name,
-                    residentRegistrationNumber : member.residentRegistrationNumber,
                     address: member.address,
                     hp : member.hp,
-                    job : member.job,
                     email : member.email
                 })
             })

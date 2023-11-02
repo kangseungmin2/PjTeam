@@ -44,6 +44,7 @@ class passwordModify extends Component{
         this.useInsertionEffect();
     }
 
+    // 로그인한 회원의 입출금 계좌정보를 list로 불러온다.
     useInsertionEffect = () => {
         let id = window.localStorage.getItem("id");
         Account.accountList(id)
@@ -65,6 +66,7 @@ class passwordModify extends Component{
         event.preventDefault();
     }
 
+    // 계좌번호와 id를 넘겨 비밀번호를 받아오고 비밀번호가 일치하면 버튼 활성화
     pwCheck = (e) => {
         e.preventDefault();
         const id = window.localStorage.getItem("id")
@@ -92,6 +94,8 @@ class passwordModify extends Component{
                 console.log('pwCheck 에러', err);
             })
     }
+    
+    // 약관동의 체크박스 체크확인
     chkChange = (e) => {
         this.setState({ checked: e.target.checked })
     }
@@ -104,6 +108,7 @@ class passwordModify extends Component{
     });
     }
 
+    // 계좌번호를 넘겨 axios에 get으로 1건 select
     onChangeAccount = (e) => {
         this.setState({
             [e.target.name]: e.target.value

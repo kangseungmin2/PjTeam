@@ -29,6 +29,7 @@ class question extends Component {
         });
     }
 
+    //관리자와 공유하는 상세페이지
     answer = () => {
         mypage.fetchAnswer(window.localStorage.getItem("num"))
             .then(res => {
@@ -43,6 +44,7 @@ class question extends Component {
             .catch(err => {
                 console.log('answer() Error !', err);
             });
+            //관리자가 답변을 했는지 체크
         mypage.commentConfirm(window.localStorage.getItem("num"))
             .then(res => {
                 let comment = res.data;

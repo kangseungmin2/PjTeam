@@ -52,8 +52,8 @@ class questionList extends Component {
         this.props.history.push("/questionAdd");
     }
 
+    //상세페이지
     question(num) {
-
         window.localStorage.setItem("num", num);
         this.props.history.push("/question");
     }

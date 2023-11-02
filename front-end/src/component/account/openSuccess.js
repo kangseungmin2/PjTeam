@@ -27,6 +27,7 @@ class openSuccess extends Component {
         }
     }
 
+    //개좌개설한 id 회원이름 불러오는 메서드
     componentDidMount() {
         this.accountInfo();
         member.memberInfo(window.localStorage.getItem("id"))
@@ -43,8 +44,7 @@ class openSuccess extends Component {
         
     }
 
-
-
+    //전 화면에서 개설한 계좌정보
     accountInfo = (e) =>{
         Account.successAccount(window.localStorage.getItem("id"))
         .then(res=>{
