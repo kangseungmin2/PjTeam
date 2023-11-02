@@ -82,6 +82,7 @@ class giroPay extends Component{
         
     }
 
+    // 로그인한 회원의 입출금 계좌정보를 list로 불러온다.
     useInsertionEffect = () => {
         let id = window.localStorage.getItem("id");
         Account.accountList(id)
@@ -102,7 +103,8 @@ class giroPay extends Component{
     handleMouseDownPassword = (event) => {
         event.preventDefault();
     }
-    //계좌 비밀번호 확인
+
+    // 계좌번호와 id를 넘겨 비밀번호를 받아오고 비밀번호가 일치하면 버튼 활성화
     pwCheck = (e) => {
         e.preventDefault();
         const id = window.localStorage.getItem("id")
@@ -129,7 +131,7 @@ class giroPay extends Component{
                 console.log('pwCheck 에러', err);
             })
     }
-    // 체크
+    // 약관동의 체크박스 체크확인
     onCheckboxChange = () => {
         this.setState({ checked: !this.state.checked });
     }
@@ -172,7 +174,7 @@ class giroPay extends Component{
             })
     }
 
-    // 즉시이체 메서드
+    // x
     utilTransfer = () => {
         // 이체 메서드 진행
 
@@ -197,6 +199,7 @@ class giroPay extends Component{
             // });
     };
 
+    //즉시 이체
     saveUtil = (e) => {
         e.preventDefault();
         utility.utilTransfer(this.state.UtilTransactionDTO)

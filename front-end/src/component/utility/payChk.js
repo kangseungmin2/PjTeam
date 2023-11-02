@@ -7,7 +7,6 @@ import utility from "../../api/utility";
 const type = ['지로/생활요금/기타', '지방세/등록금', '국고/관세', '연금/보험료'];
 
 
-
 class payChk extends Component{
     constructor(props){
         super(props);

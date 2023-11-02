@@ -19,7 +19,6 @@ function name(t) {
     }
 }
 
-
 function color(t) {
     if (t === "a") {
         return "red";
@@ -60,6 +59,7 @@ class memAccount extends Component{
         this.openAccountData();
     }
 
+    //공과금 납부내역
     openAccountData2 = () => {
         utility.openAccountData2()
         .then(res => {
@@ -76,6 +76,7 @@ class memAccount extends Component{
         })
     }
 
+    //이체 내역
     openAccountData = () => {
         transfer.transferList()
         .then(res => {

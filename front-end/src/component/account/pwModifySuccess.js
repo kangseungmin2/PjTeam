@@ -14,7 +14,6 @@ class pwModifySuccess extends Component {
         }
     }
 
-
     nextButton = () => {
         this.props.history.push("/allAccount");
     }

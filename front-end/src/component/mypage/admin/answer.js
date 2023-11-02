@@ -31,6 +31,7 @@ class answer extends Component {
         });
     }
 
+    //답변저장
     answerSave = (e) => {
         e.preventDefault();
         let inputData = {
@@ -44,6 +45,7 @@ class answer extends Component {
         )
     }
 
+    //상세페이지
     answer = () => {
         mypage.fetchAnswer(window.localStorage.getItem("num"))
             .then(res => {
@@ -58,6 +60,7 @@ class answer extends Component {
             .catch(err => {
                 console.log('answer() Error !', err);
             });
+            //답변있는지 확인
         mypage.commentConfirm(window.localStorage.getItem("num"))
             .then(res => {
                 let comment = res.data;

@@ -46,8 +46,8 @@ class answerList extends Component {
             })
     }
 
+    //상세페이지
     answer(num) {
-
         window.localStorage.setItem("num", num);
         this.props.history.push("/answer");
     }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, IconButton,Table, TableHead, TableBody, TableRow, TableCell, Typography} from "@mui/material";
+import { Table, TableHead, TableRow, TableCell, Typography} from "@mui/material";
 
 
 class delAccountSuccess extends Component {
@@ -13,20 +13,6 @@ class delAccountSuccess extends Component {
 
         }
     }
-
-    // componentDidMount() {
-    //     this.useInsertionEffect();
-    // }
-
-    // useInsertionEffect = () => {
-    //     let id = window.localStorage.getItem("id");
-    //     Account.accountList(id)
-    //         .then(res => {
-    //             this.setState({
-    //                 data: res.data
-    //             })
-    //         })
-    // }
 
     nextButton = () => {
         this.props.history.push("/allAccount");
