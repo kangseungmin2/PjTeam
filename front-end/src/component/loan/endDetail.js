@@ -160,18 +160,20 @@ class EndDetail extends Component {
         // 입력한 납입일 값을 상태에 업데이트
         this.setState({
             payDate: e.target.value,
+        },()=>{
+            const earlyRepayment = this.calculatePrepaymentFee();
+            this.setState({
+                earlyRepayment: earlyRepayment,
+            });
+            // 변경된 부분: 총 상환금액 계산 및 업데이트
+            const totalRepayment = earlyRepayment + parseFloat(this.state.repayments.amountBalance);
+            this.setState({
+                earlyRepayment: earlyRepayment,
+                totalRepayment: totalRepayment,
+            });
         });
         // 납입일이 변경될 때 수수료 계산 함수 호출
-        const earlyRepayment = this.calculatePrepaymentFee();
-        this.setState({
-            earlyRepayment: earlyRepayment,
-        });
-        // 변경된 부분: 총 상환금액 계산 및 업데이트
-        const totalRepayment = earlyRepayment + parseFloat(this.state.repayments.amountBalance);
-        this.setState({
-            earlyRepayment: earlyRepayment,
-            totalRepayment: totalRepayment,
-        });
+       
     }
 
 
