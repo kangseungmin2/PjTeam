@@ -125,9 +125,9 @@ class exchangeConfirm extends Component{
                                     <TableCell align='center'>{list.changeNum}</TableCell>
                                     <TableCell align='center'>{list.id}</TableCell>
                                     <TableCell align='center'>{list.accountNum} </TableCell>
-                                    <TableCell align='center'>{list.tprice}</TableCell>
+                                    <TableCell align='center'>{parseInt(list.tprice).toLocaleString()}</TableCell>
                                     <TableCell align='center'>{list.nation}</TableCell>
-                                    <TableCell align='center'>{list.rprice}</TableCell>
+                                    <TableCell align='center'>{parseInt(list.rprice).toLocaleString()}</TableCell>
                                     <TableCell align='center'>{Unix_timestamp(list.changeDate)}</TableCell>
                                     <TableCell align='center'>
                                             {list.nonState !== '신청' ? (
