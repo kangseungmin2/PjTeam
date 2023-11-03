@@ -40,7 +40,7 @@ function Customer() {
                             <NavDropdown.Item href="/transferList">이체목록</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="/autoAccount">자동이체</NavDropdown.Item>
-                            <NavDropdown.Item href="/changeAuto">자동이체 변경/해지</NavDropdown.Item>
+                            <NavDropdown.Item href="/changeAuto">자동이체 해지</NavDropdown.Item>
                             <NavDropdown.Item href="/autoList">자동이체 목록</NavDropdown.Item>
                         </NavDropdown>
                         <NavDropdown title="공과금" id="basic-nav-dropdown">
