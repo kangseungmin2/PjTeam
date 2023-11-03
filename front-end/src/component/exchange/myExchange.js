@@ -85,8 +85,8 @@ class myExchange extends Component{
                                 <TableRow hover key={list.changeNum}>
                                     <TableCell align='center'>{list.changeNum}</TableCell>
                                     <TableCell align='center'>{list.id}</TableCell>
-                                    <TableCell align='center'>{parseInt(list.accountNum).toLocaleString()} </TableCell>
-                                    <TableCell align='center'>{list.tprice}</TableCell>
+                                    <TableCell align='center'>{list.accountNum} </TableCell>
+                                    <TableCell align='center'>{parseInt(list.tprice).toLocaleString()}</TableCell>
                                     <TableCell align='center'>{list.nation}</TableCell>
                                     <TableCell align='center'>{parseInt(list.rprice).toLocaleString()}</TableCell>
                                     <TableCell align='center'>{Unix_timestamp(list.changeDate)}</TableCell>
