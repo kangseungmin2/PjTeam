@@ -117,7 +117,7 @@ class DepositSign extends Component {
                 </Typography>
                 <Typography variant="subtitle1">
                   <br /><br />
-                  얄리얄리얄라셩.
+                  확인.
                   <br /><br />
                 </Typography>
               </React.Fragment>

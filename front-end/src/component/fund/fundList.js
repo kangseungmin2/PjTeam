@@ -97,10 +97,10 @@ export default class fundList extends Component{
                         <TableRow hover key={product.fpName} onClick={this.accountChk.bind(this,product.fpName)}>
                                 <TableCell component="th" scope='product' style={styledTableCell}>{product.fpName}</TableCell>
                                 <TableCell style={styledTableCell}>{product.fpNum}</TableCell>
-                                <TableCell style={styledTableCell}>{product.marketPrice}</TableCell>
-                                <TableCell style={styledTableCell}>{product.closingPrice}</TableCell>
-                                <TableCell style={styledTableCell}>{product.highPrice}</TableCell>
-                                <TableCell style={styledTableCell}>{product.lowPrice}</TableCell>
+                                <TableCell style={styledTableCell}>{parseInt(product.marketPrice).toLocaleString()}</TableCell>
+                                <TableCell style={styledTableCell}>{parseInt(product.closingPrice).toLocaleString()}</TableCell>
+                                <TableCell style={styledTableCell}>{parseInt(product.highPrice).toLocaleString()}</TableCell>
+                                <TableCell style={styledTableCell}>{parseInt(product.lowPrice).toLocaleString()}</TableCell>
                                 <TableCell style={product.fluctuationRate < 0 ? blueColor : redColor}>{product.fluctuationRate}</TableCell>
                                 <TableCell style={styledTableCell}>{new Date(product.eventDate).toLocaleDateString(
                                                                     'ko-KR', {

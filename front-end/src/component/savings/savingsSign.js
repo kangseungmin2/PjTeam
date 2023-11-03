@@ -116,7 +116,7 @@ class SavingsSign extends Component {
                 </Typography>
                 <Typography variant="subtitle1">
                   <br /><br />
-                  dd
+                  확인
                   <br /><br />
                 </Typography>
               </React.Fragment>

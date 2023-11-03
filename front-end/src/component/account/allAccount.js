@@ -153,7 +153,7 @@ class eAccount extends React.Component {
                                 <TableCell component="th" scope="account">{name(account.accountType)}</TableCell>
                                 <TableCell align='center'>{account.accountNum}</TableCell>
                                 <TableCell align='center'>{Unix_timestamp(account.madeDate)}</TableCell>
-                                <TableCell align='center'>{account.balance}</TableCell>
+                                <TableCell align='center'>{parseInt(account.balance).toLocaleString()}</TableCell>
                                 <TableCell align='center'>{state(account.accountState)}</TableCell>
                             </TableRow>
                         )}
@@ -177,7 +177,7 @@ class eAccount extends React.Component {
                                 <TableCell component="th" scope="account">{name('y')}</TableCell>
                                 <TableCell align='center'>{deposits.depositAccountNum}</TableCell>
                                 <TableCell align='center'>{Unix_timestamp(deposits.yeJoinDate)}</TableCell>
-                                <TableCell align='center'>{deposits.yeAmount}</TableCell>
+                                <TableCell align='center'>{parseInt(deposits.yeAmount).toLocaleString()}</TableCell>
                                 <TableCell align='center'>정상</TableCell>
                             </TableRow>
                         )}
@@ -202,7 +202,7 @@ class eAccount extends React.Component {
                                 <TableCell component="th" scope="account">{name('j')}</TableCell>
                                 <TableCell align='center'>{savings.savingsAccountNum}</TableCell>
                                 <TableCell align='center'>{Unix_timestamp(savings.juckJoinDate)}</TableCell>
-                                <TableCell align='center'>{savings.juckBalance}</TableCell>
+                                <TableCell align='center'>{parseInt(savings.juckBalance).toLocaleString()}</TableCell>
                                 <TableCell align='center'>정상</TableCell>
                             </TableRow>
                         )}
@@ -227,7 +227,7 @@ class eAccount extends React.Component {
                                 <TableCell component="th" scope="sign">{name('d')}</TableCell>
                                 <TableCell align='center'>{sign.loanAccountNum}</TableCell>
                                 <TableCell align='center'>{Unix_timestamp(sign.loanExecution)}</TableCell>
-                                <TableCell align='center'>{sign.loanAmount}</TableCell>
+                                <TableCell align='center'>{parseInt(sign.loanAmount).toLocaleString}</TableCell>
                                 <TableCell align='center'>{sign.loanState}</TableCell>
                             </TableRow>
                         )}
@@ -252,7 +252,7 @@ class eAccount extends React.Component {
                                 <TableCell component="th" scope="account">{name('f')}</TableCell>
                                 <TableCell align='center'>{list.fdAccount}</TableCell>
                                 <TableCell align='center'>{Unix_timestamp(list.madeDate)}</TableCell>
-                                <TableCell align='center'>{list.balance}</TableCell>
+                                <TableCell align='center'>{parseInt(list.balance).toLocaleString()}</TableCell>
                                 <TableCell align='center'>정상</TableCell>                                        
                             </TableRow>
                         )}
