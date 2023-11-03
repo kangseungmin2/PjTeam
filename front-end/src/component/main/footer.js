@@ -26,7 +26,7 @@ export default function footer() {
 
             <ul className='list-unstyled mb-0' >
               <li>
-                <a href='#!' style={{ color: 'rgb(0, 0, 0)' }}>
+                <a href='/kakaoMap' style={{ color: 'rgb(0, 0, 0)' }}>
                   은행지도
                 </a>
               </li>
