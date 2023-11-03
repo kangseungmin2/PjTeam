@@ -151,7 +151,10 @@ public class FundServiceImpl implements FundService{
 		
 		// 매수 수량 구하기
 		int buyCnt = ftRepository.findFundTransactionsbuyCnt(buy);
-		 
+		int sellCnt = ftRepository.findFundTransactionssellCnt(buy);
+		
+		int total = buyCnt-sellCnt;
+		
 		int result = 0;
 		if (dto.getTrStatus().equals("b")) {
 			
@@ -184,7 +187,7 @@ public class FundServiceImpl implements FundService{
 			}
 			
 			// 매도시 매도수량 보다 매수 수량이 많은지 체크
-			if (buyCnt >= dto.getTrCnt()) {
+			if (total >= dto.getTrCnt()) {
 				
 				// 매도시 합산금액 계산
 				result = balance + dto.getTrPrice();
