@@ -13,5 +13,4 @@ public class CredentialsDTO {
 
 	private String id;
 	private char[] password;
-	private String password2;
 }

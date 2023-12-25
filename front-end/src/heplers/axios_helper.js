@@ -15,8 +15,7 @@ export const setAuthToken = (token ,id) => {
     window.localStorage.setItem("id", id);
 }
 export const data = (id) =>{
-        console("id",id);
-        return window.localStorage.setItem("id",id);
+    window.localStorage.setItem("admin",id);
 }
 
 export const request = (method, url, data) => {

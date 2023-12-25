@@ -13,4 +13,12 @@ public interface AccountMapper {
 	public int insertAccount(AccountDTO dto);
 	
 	public List<AccountDTO> accountList();
+	
+	public List<AccountDTO> accountList2();
+	
+	public int passwordModify(AccountDTO dto);
+	
+	public AccountDTO fetchAccountByNum(long accountNum);
+	
+	public int deleteAccount(long accountNum);
 }

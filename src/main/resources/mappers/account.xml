@@ -6,10 +6,25 @@
 <mapper namespace="com.example.project_team.mappers.AccountMapper">
 
 <insert id="insertAccount" parameterType="com.example.project_team.dto.AccountDTO">
-	insert into team_account(accountid,accountnum,id,accountpw,accountlimit)
-	values((select Nvl(Max(accountid)+1,1) from team_account),#{accountNum},#{id},#{accountPW},#{accountLimit})
+	insert into team_account(accountnum,id,accountpw,accountlimit)
+	values((SELECT NVL(MAX(accountNum)+1,1002000000000) FROM team_account),#{id},#{accountPW},#{accountLimit})
 </insert>
+
 <select id="accountList" resultType="com.example.project_team.dto.AccountDTO">
-	SELECT * FROM team_account order by accountid
+	SELECT * FROM team_account where show = 'y' and accountType='e' order by accountnum
 </select>
+
+<select id="accountList2" resultType="com.example.project_team.dto.AccountDTO">
+	SELECT * FROM team_account where show = 'y' and accountType='y' order by accountnum
+</select>
+
+<select id="fetchAccountByNum" parameterType="long" resultType="com.example.project_team.dto.AccountDTO">
+	SELECT * FROM team_account WHERE accountnum=#{accountnum} 
+</select>
+<update id="passwordModify" parameterType="com.example.project_team.dto.AccountDTO">
+	UPDATE team_account SET accountPW = #{accountPW} WHERE id=#{id}
+</update>
+<update id="deleteAccount" parameterType="long">
+	UPDATE team_account SET show = 'n' WHERE accountnum=#{accountnum}
+</update>
 </mapper>
